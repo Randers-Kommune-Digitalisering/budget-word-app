@@ -69,15 +69,15 @@ export async function run() {
       if (organisation.hasOwnProperty(key)) {
         for (var key2 in organisation[key].bevillingsomr) {
           if (organisation[key].bevillingsomr.hasOwnProperty(key2)) {
-
             const tekst=organisation[key].udvalg + " - " + organisation[key].bevillingsomr[key2]
             context.document.body.insertParagraph(tekst, Word.InsertLocation.end); 
           }
         }
       }
     }
-
-      //const paragraph2 = context.document.body.insertParagraph(organisation[1].udvalg, Word.InsertLocation.end);
+    //await context.sync()
+    //context.document.save();
+    //const paragraph2 = context.document.body.insertParagraph(organisation[1].udvalg, Word.InsertLocation.end);
 
     // change the paragraph color to blue.
     // paragraph.font.color = "blue";
