@@ -10,8 +10,31 @@ Office.onReady((info) => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
+    document.getElementById("insertTable").onclick = insertTable;
   }
 });
+
+export async function insertTable() {
+  return Word.run(async (context) => {
+    // https://www.youtube.com/watch?v=9u6MGqf1J_I
+    const currentYear = new Date(Date.now()).getFullYear();
+    const budgetperiode=[currentYear+1,currentYear+2,currentYear+3,currentYear+4];
+    const overskrift=[""].concat(budgetperiode);
+  
+    const data = [
+      overskrift,
+      ["Indtægt", "-3,2", "-", "-", "-"],
+      ["Budget", "3,1","0,1","0,1","0,1"],
+      ["Nettoresultat", "-0,1","0,1","0,1","0,1"],
+    ];
+    const table = context.document.body.insertTable(5, 5, "Start", data);
+
+    // context.document.body.insertParagraph("test", Word.InsertLocation.end);
+
+    await context.sync();
+  });
+ 
+}
 
 export async function run() {
   return Word.run(async (context) => {
@@ -63,6 +86,10 @@ export async function run() {
         }
     ]
 
+    fetch('organisation.json')
+    .then((response) => response.json())
+    .then((json) => console.log(json));
+
     // insert a paragraph at the end of the document.
 
     for (var key in organisation) {
@@ -81,6 +108,9 @@ export async function run() {
 
     // change the paragraph color to blue.
     // paragraph.font.color = "blue";
+
+    // Ind
+
 
     await context.sync();
   });
