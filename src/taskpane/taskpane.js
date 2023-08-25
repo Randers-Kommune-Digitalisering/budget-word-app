@@ -42,6 +42,13 @@ export async function run() {
      * Insert your Word code here
      */
 
+    //Kan ikke finde ud af at indlæse json-filen
+
+//    fetch('./organisation.json')
+//    .then((response) => response.json())
+//    .then((json) => console.log(json));
+
+
     const organisation =
     [
         {
@@ -86,9 +93,6 @@ export async function run() {
         }
     ]
 
-    fetch('organisation.json')
-    .then((response) => response.json())
-    .then((json) => console.log(json));
 
     // insert a paragraph at the end of the document.
 
