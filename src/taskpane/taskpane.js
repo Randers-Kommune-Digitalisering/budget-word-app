@@ -42,60 +42,10 @@ export async function run() {
      * Insert your Word code here
      */
 
-    //Kan ikke finde ud af at indlæse json-filen
-
-//    fetch('./organisation.json')
-//    .then((response) => response.json())
-//    .then((json) => console.log(json));
-
-
-    const organisation =
-    [
-        {
-            "udvalg":"Økonomiudvalget",
-            "bevillingsomr":["Administration","Politisk organisation"]
-        },
-        {
-            "udvalg":"Børne- og familieudvalget",
-            "bevillingsomr":["Børn","Familie"]
-        },
-        {
-            "udvalg":"Beskæftigelsesudvalget",
-            "bevillingsomr":["Beskæftigelse, integration og ydelser"]
-        },
-        {
-            "udvalg":"Socialudvalget",
-            "bevillingsomr":["Tilbud til børn, unge og voksne med særlige behov"]
-        },
-        {
-            "udvalg":"Miljø- og teknikudvalget",
-            "bevillingsomr":["Miljø og teknik, skattefinansieret","Miljø og teknik, takstfinansieret"]
-        },
-        {
-            "udvalg":"Sundheds-, idræts- og kulturudvalget",
-            "bevillingsomr":["Kultur og fritid","Sundhed"]
-        },
-        {
-            "udvalg":"Omsorgsudvalget",
-            "bevillingsomr":["Tilbud til ældre"]
-        },
-        {
-            "udvalg":"Landdistriktsudvalget",
-            "bevillingsomr":["Landdistrikt"]
-        },
-        {
-            "udvalg":"Skole- og uddannelsesudvalget",
-            "bevillingsomr":["Skole","Pædagogisk Psykologisk Rådgivning"]
-        },
-        {
-            "udvalg":"Erhvervs- og planudvalget",
-            "bevillingsomr":["Erhverv og plan"]
-        }
-    ]
-
+    const response = await fetch('./assets/organisation.json');
+    const organisation = await response.json();
 
     // insert a paragraph at the end of the document.
-
     for (var key in organisation) {
       if (organisation.hasOwnProperty(key)) {
         for (var key2 in organisation[key].bevillingsomr) {
