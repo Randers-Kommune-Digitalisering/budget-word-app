@@ -31,23 +31,24 @@
     </section>
     <main id="app-body" class="ms-welcome__main" style="display: none;">
 
-        
-        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-            <span class="ms-Button-label">Udvalg og bevillingsområder</span>
-        </div>
-        </select>
-        <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-            <span class="ms-Button-label">Indsæt tabel</span>
-        </div>
-
+        <h2>1. Vælg udvalg m.m.</h2>
         <select id="udvalgDropdown" class="dropdown"></select>
         <select id="bevillingsomrDropdown" class="dropdown" style="visibility:hidden;">Vælg bevillingsområde</select>
-
-        <div id="valgtBevillingsomr"></div>
-
+        
+        <h2>2. Værktøjer</h2>
         <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
             <span class="ms-Button-label">Indsæt sidehoved</span>
         </div>
+
+        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+            <span class="ms-Button-label">Alle udvalg og bevillingsområder</span>
+        </div>
+        </select>
+        <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+            <span class="ms-Button-label">Indsæt test-tabel</span>
+        </div>
+
+
     </main>
 </body>
 
@@ -96,16 +97,12 @@
 </script>
 
 <script>
-
-
     const valgtBevillingsomr = document.getElementById("valgtBevillingsomr");
     
     udvalgDropdown.addEventListener("change", e => {
 
     dropdownBevillingsomr = document.getElementById('bevillingsomrDropdown');
-
     dropdownBevillingsomr.style.visibility = "visible";
-
     dropdownBevillingsomr.length = 0;
     
     let defaultOption = document.createElement('option');

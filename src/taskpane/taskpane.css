@@ -38,17 +38,18 @@
     align-items: left;
     -webkit-flex: 1 0 0;
     flex: 1 0 0;
-    padding: 10px 20px;
+    padding: 10px 10px;
  }
  
  .ms-welcome__main > h2 {
      width: 100%;
-     text-align: center;
+     text-align: left;
+     margin-bottom: 5px;
  }
  
  .ms-welcome__features {
      list-style-type: none;
-     margin-top: 20px;
+     margin-top: 10px;
  }
  
  .ms-welcome__features.ms-List .ms-ListItem {
@@ -62,7 +63,7 @@
  }
  
  .ms-welcome__action.ms-Button--hero {
-     margin-top: 30px;
+     margin-top: 10px;
  }
  
 .ms-Button.ms-Button--hero .ms-Button-label {
@@ -82,6 +83,6 @@ b {
 .dropdown {
     padding:5px;
     font-size: 16px;
-    margin-top:10px;
-    margin-bottom:10px;
+    margin-top:5px;
+    margin-bottom:5px;
 }
