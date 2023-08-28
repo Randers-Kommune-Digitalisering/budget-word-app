@@ -12,13 +12,15 @@ async function getHttpsOptions() {
   return { ca: httpsOptions.ca, key: httpsOptions.key, cert: httpsOptions.cert };
 }
 
+
+
 module.exports = async (env, options) => {
   const dev = options.mode === "development";
   const config = {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      taskpane: ["./src/taskpane/taskpane.js", "./src/taskpane/taskpane.html", "./src/taskpane/organisation.json"],
+      taskpane: ["./src/taskpane/taskpane.js", "./src/taskpane/taskpane.html"],
       commands: "./src/commands/commands.js",
     },
     output: {
@@ -45,12 +47,18 @@ module.exports = async (env, options) => {
           use: "html-loader",
         },
         {
-          test: /\.(png|jpg|jpeg|gif|ico)$/,
+          test: /\.(png|jpg|jpeg|gif|ico|json)$/,
           type: "asset/resource",
           generator: {
             filename: "assets/[name][ext][query]",
           },
         },
+//        {
+//          test: /\.json$/,
+//          exclude: /node_modules/,
+//          use: 'json-loader',
+//          type: 'javascript/auto',
+//        },       
       ],
     },
     plugins: [
