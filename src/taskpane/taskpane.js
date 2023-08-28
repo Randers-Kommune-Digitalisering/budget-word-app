@@ -11,6 +11,7 @@ Office.onReady((info) => {
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
     document.getElementById("insertTable").onclick = insertTable;
+    document.getElementById("addHeader").onclick = addHeader;
   }
 });
 
@@ -28,12 +29,37 @@ export async function insertTable() {
       ["Nettoresultat", "-0,1","0,1","0,1","0,1"],
     ];
     const table = context.document.body.insertTable(5, 5, "Start", data);
+   
+    const tablerows=table.rows;
 
+    const row_1=tablerows.getFirst();
+
+    /*
+      row_1.horizontalAlignment="Centered";
+
+    row_1.font.bold=true;
+*/
     // context.document.body.insertParagraph("test", Word.InsertLocation.end);
 
     await context.sync();
   });
  
+}
+
+export async function addHeader() {
+  return Word.run(async (context) => {
+    const header1=document.getElementById("udvalgDropdown").value;
+    const header2=document.getElementById("bevillingsomrDropdown").value;
+
+    const header=context.document.sections
+      .getFirst()
+      .getHeader(Word.HeaderFooterType.primary)
+      .insertParagraph(header1.concat(" - ", header2), "End");
+
+    header.alignment="Centered";
+
+    await context.sync();
+  });
 }
 
 export async function run() {
@@ -63,9 +89,57 @@ export async function run() {
     // change the paragraph color to blue.
     // paragraph.font.color = "blue";
 
-    // Ind
-
 
     await context.sync();
   });
 }
+/* 
+// Function to format table as specified
+export async function formatTable() {
+  return Word.run(async (context) => {
+    // Load the current selection
+    var selection = context.document.getSelection();
+
+    // Load the tables in the selection
+    var tables = selection.tables;
+    context.load(tables);
+
+    // Execute the queued commands
+    return context.sync()
+      .then(function () {
+        // Loop through each table
+        for (var i = 0; i < tables.items.length; i++) {
+          var table = tables.items[i];
+          
+          // Set table properties
+          table.style.borders.load("items");
+          for (var j = 0; j < table.style.borders.items.length; j++) {
+            table.style.borders.items[j].color = "#000000"; // Black color
+            if (j === 0) {
+              // First border is the outer border, set thickness to 2 points
+              table.style.borders.items[j].weight = "2pt";
+            } else {
+              // Inner borders (between cells), set thickness to 0 points to remove them
+              table.style.borders.items[j].weight = "0pt";
+            }
+          }
+          
+          // Set table header properties
+          var tableRows = table.rows;
+          context.load(tableRows);
+          tableRows.load("items");
+
+          tableRows.items[0].font.bold = true; // Set header rows to bold
+          tableRows.items[0].font.color = "#0000FF"; // Blue color for header text
+          
+          // Set table body properties
+          for (var k = 1; k < tableRows.items.length; k++) {
+            tableRows.items[k].font.color = "#FFFFFF"; // White color for body text
+          }
+        }
+        
+        // Execute the queued commands to update the table formatting
+        context.sync();
+      });
+  });
+} */

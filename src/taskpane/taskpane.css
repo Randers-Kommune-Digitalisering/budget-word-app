@@ -34,8 +34,8 @@
     flex-direction: column;
     -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
+    -webkit-align-items: left;
+    align-items: left;
     -webkit-flex: 1 0 0;
     flex: 1 0 0;
     padding: 10px 20px;
@@ -77,4 +77,11 @@
 
 b {
     font-weight: bold;
+}
+
+.dropdown {
+    padding:5px;
+    font-size: 16px;
+    margin-top:10px;
+    margin-bottom:10px;
 }

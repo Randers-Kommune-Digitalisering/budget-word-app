@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -21,8 +22,8 @@
 </head>
 
 <body class="ms-font-m ms-welcome ms-Fabric">
-    <header class="ms-welcome__header ms-bgColor-neutralLighter">
-        <img width="150" height="150" src="../../assets/logo-filled.png" alt="Contoso" title="Randers Kommunes budgetværktøjer" />
+    <header class="ms-welcome__header">
+        <img width="150" height="150" src="../../assets/logo-filled.png" alt="Randers Kommunes budgetværktøjer" title="Randers Kommunes budgetværktøjer" />
        
     </header>
     <section id="sideload-msg" class="ms-welcome__main">
@@ -34,10 +35,124 @@
         <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
             <span class="ms-Button-label">Udvalg og bevillingsområder</span>
         </div>
+        </select>
         <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
             <span class="ms-Button-label">Indsæt tabel</span>
+        </div>
+
+        <select id="udvalgDropdown" class="dropdown"></select>
+        <select id="bevillingsomrDropdown" class="dropdown" style="visibility:hidden;">Vælg bevillingsområde</select>
+
+        <div id="valgtBevillingsomr"></div>
+
+        <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+            <span class="ms-Button-label">Indsæt sidehoved</span>
         </div>
     </main>
 </body>
 
+<script>
+    let dropdown = document.getElementById('udvalgDropdown');
+    dropdown.length = 0;
+    
+    let defaultOption = document.createElement('option');
+    defaultOption.text = 'Vælg udvalg';
+    
+    dropdown.add(defaultOption);
+    dropdown.selectedIndex = 0;
+
+
+
+
+    
+    const url = './assets/organisation.json';
+    
+   fetch(url)  
+      .then(  
+        function(response) {  
+          if (response.status !== 200) {  
+            console.warn('Fejl: ' + 
+              response.status);  
+            return;  
+          }
+    
+          // Løber gennem alle svar
+          responseJSON=response.json();
+          responseJSON.then(function(data) {  
+            let option;
+        
+            for (let i = 0; i < data.length; i++) {
+              option = document.createElement('option');
+                option.text = data[i].udvalg;
+                //option.value = data[i].forkortelse;
+                dropdown.add(option); 
+            }    
+          });  
+        }  
+      )  
+      .catch(function(err) {  
+        console.error('Fetch Error -', err);  
+      });
+</script>
+
+<script>
+
+
+    const valgtBevillingsomr = document.getElementById("valgtBevillingsomr");
+    
+    udvalgDropdown.addEventListener("change", e => {
+
+    dropdownBevillingsomr = document.getElementById('bevillingsomrDropdown');
+
+    dropdownBevillingsomr.style.visibility = "visible";
+
+    dropdownBevillingsomr.length = 0;
+    
+    let defaultOption = document.createElement('option');
+    defaultOption.text = 'Vælg bevillingsområde';
+    
+    dropdownBevillingsomr.add(defaultOption);
+    dropdownBevillingsomrselectedIndex = 0;
+
+    fetch(url)  
+      .then(  
+        function(response) {  
+            if (response.status !== 200) {  
+                console.warn('Fejl: ' + 
+                response.status);  
+                return;  
+            }
+            responseJSON=response.json();
+            responseJSON.then(function(data) {  
+                valgtIndex=document.getElementById("udvalgDropdown").selectedIndex-1; 
+                bevillingsomrAfgr=data[valgtIndex].bevillingsomr
+                //valgtBevillingsomr.innerHTML = bevillingsomrAfgr
+
+                let option;
+        
+                for (let i = 0; i < bevillingsomrAfgr.length; i++) {
+                option = document.createElement('option');
+                    option.text =  bevillingsomrAfgr[i];
+                    dropdownBevillingsomr.add(option); 
+                }    
+            });  
+        } 
+    )  
+
+        
+       /*
+        responsJSON.then(function(data) {
+            
+        }
+        
+        
+        );
+        */
+        //valgtBevillingsomr.innerHTML = document.getElementById("udvalgDropdown").selectedIndex; 
+        //valgtBevillingsomr.innerHTML =
+    })
+</script>
+
+
 </html>
+
