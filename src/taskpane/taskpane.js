@@ -57,6 +57,15 @@ export async function addHeader() {
       .insertParagraph(header1.concat(" - ", header2), "End");
 
     header.alignment="Centered";
+    header.font.set({
+      bold: false,
+      italic: false,
+      name: "Calibri",
+      color: "black",
+      size: 18
+    });
+    
+    //header.style.font.size=18;
 
     await context.sync();
   });
