@@ -3,8 +3,6 @@
 
 <!DOCTYPE html>
 <html>
-
-
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -31,21 +29,24 @@
     </section>
     <main id="app-body" class="ms-welcome__main" style="display: none;">
 
-        <h2>1. Vælg udvalg m.m.</h2>
-        <select id="udvalgDropdown" class="dropdown"></select>
-        <select id="bevillingsomrDropdown" class="dropdown" style="visibility:hidden;">Vælg bevillingsområde</select>
-        
-        <h2>2. Værktøjer</h2>
-        <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-            <span class="ms-Button-label">Indsæt sidehoved</span>
-        </div>
+      <h2>1. Vælg dokumenttype</h2>
+      <select id="dokumentDropdown" class="dropdown"></select>
 
-        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-            <span class="ms-Button-label">Alle udvalg og bevillingsområder</span>
-        </div>
-        </select>
-        <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-            <span class="ms-Button-label">Indsæt test-tabel</span>
+      <h2>2. Vælg udvalg m.m.</h2>
+      <select id="udvalgDropdown" class="dropdown"></select>
+      <select id="bevillingsomrDropdown" class="dropdown" style="visibility:hidden;">Vælg bevillingsområde</select>
+      
+      <h2>3. Værktøjer</h2>
+      <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+          <span class="ms-Button-label">Indsæt sidehoved</span>
+      </div>
+
+      <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+          <span class="ms-Button-label">Alle udvalg og bevillingsområder</span>
+      </div>
+      </select>
+      <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+          <span class="ms-Button-label">Indsæt test-tabel</span>
         </div>
 
 
@@ -53,22 +54,58 @@
 </body>
 
 <script>
-    let dropdown = document.getElementById('udvalgDropdown');
-    dropdown.length = 0;
-    
-    let defaultOption = document.createElement('option');
-    defaultOption.text = 'Vælg udvalg';
-    
-    dropdown.add(defaultOption);
-    dropdown.selectedIndex = 0;
+let dropdownDokument = document.getElementById('dokumentDropdown');
+dropdownDokument.length = 0;
 
+let defaultOptionDokument = document.createElement('option');
+defaultOptionDokument.text = 'Vælg dokument';
 
+dropdownDokument.add(defaultOptionDokument);
+dropdownDokument.selectedIndex = 0;
 
+const dokumentURL = './assets/dokumenttype.json';
+  
+ fetch(dokumentURL)  
+    .then(  
+      function(response) {  
+        if (response.status !== 200) {  
+          console.warn('Fejl: ' + 
+            response.status);  
+          return;  
+        }
+  
+        // Løber gennem alle svar
+        responseJSON=response.json();
+        responseJSON.then(function(data) {  
+          let option;
+      
+          for (let i = 0; i < data.length; i++) {
+            option = document.createElement('option');
+              option.text = data[i].type;
+             dropdownDokument.add(option); 
+          }    
+        });  
+      }  
+    )  
+    .catch(function(err) {  
+      console.error('Fetch Error -', err);  
+    });
+</script>
 
+<script>
+    let dropdownUdvalg = document.getElementById('udvalgDropdown');
+    console.log(dropdownUdvalg)
+    dropdownUdvalg.length = 0;
     
-    const url = './assets/organisation.json';
+    let defaultOptionUdvalg = document.createElement('option');
+    defaultOptionUdvalg.text = 'Vælg udvalg';
     
-   fetch(url)  
+    dropdownUdvalg.add(defaultOptionUdvalg);
+    dropdownUdvalg.selectedIndex = 0;
+    
+    const organisationURL = './assets/organisation.json';
+    
+   fetch(organisationURL)  
       .then(  
         function(response) {  
           if (response.status !== 200) {  
@@ -86,7 +123,7 @@
               option = document.createElement('option');
                 option.text = data[i].udvalg;
                 //option.value = data[i].forkortelse;
-                dropdown.add(option); 
+                dropdownUdvalg.add(option); 
             }    
           });  
         }  
@@ -109,27 +146,21 @@
     defaultOption.text = 'Vælg bevillingsområde';
     
     dropdownBevillingsomr.add(defaultOption);
-    dropdownBevillingsomrselectedIndex = 0;
+    dropdownBevillingsomr.selectedIndex = 0;
 
-    fetch(url)  
+    fetch(organisationURL)  
       .then(  
         function(response) {  
-            if (response.status !== 200) {  
-                console.warn('Fejl: ' + 
-                response.status);  
-                return;  
-            }
             responseJSON=response.json();
             responseJSON.then(function(data) {  
                 valgtIndex=document.getElementById("udvalgDropdown").selectedIndex-1; 
                 bevillingsomrAfgr=data[valgtIndex].bevillingsomr
-                //valgtBevillingsomr.innerHTML = bevillingsomrAfgr
 
                 let option;
         
                 for (let i = 0; i < bevillingsomrAfgr.length; i++) {
                 option = document.createElement('option');
-                    option.text =  bevillingsomrAfgr[i];
+                    option.text =  bevillingsomrAfgr[i].navn;
                     dropdownBevillingsomr.add(option); 
                 }    
             });  

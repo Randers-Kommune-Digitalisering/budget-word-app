@@ -2,42 +2,93 @@
     {
         "udvalg":"Økonomiudvalget",
         "forkortelse":"ØU",
-        "bevillingsomr":["Administration","Politisk organisation"]
+        "bevillingsomr":[   
+            {
+                "navn":"Administration",
+                "delområde":[
+                    "Udvikling, Miljø og Teknik",
+                    "Børn og Skole",
+                    "Social og Arbejdsmarked",
+                    "Sundhed, Kultur og Omsorg",
+                    "Stabe og tværgående konti",
+                    "Redningsberedskab",
+                    "Løn- og barselspuljer",
+                    "Udbetaling Danmark",
+                    "Tjenestemandspensioner og -præmier",
+                    "Forsikringer",
+                    "Servicebuffer, lovændringer og reserver"
+                ]
+            },
+            {
+                "navn":"Politisk organisation"
+            }
+            
+        ]
     },
     {
         "udvalg":"Børne- og familieudvalget",
-        "bevillingsomr":["Børn","Familie"]
+        "bevillingsomr": [   
+            {
+                "navn":"Børn"
+            },
+            {
+                "navn":"Familie"
+            }
+        ]
     },
     {
         "udvalg":"Beskæftigelsesudvalget",
-        "bevillingsomr":["Beskæftigelse, integration og ydelser"]
+        "bevillingsomr": [   
+            {
+                "navn":"Beskæftigelse, integration og ydelser"
+            } 
+        ]
     },
     {
         "udvalg":"Socialudvalget",
-        "bevillingsomr":["Tilbud til børn, unge og voksne med særlige behov"]
+        "bevillingsomr": [   
+            {
+                "navn":"Tilbud til børn, unge og voksne med særlige behov"
+            }
+        ]
     },
     {
         "udvalg":"Miljø- og teknikudvalget",
-        "bevillingsomr":["Miljø og teknik, skattefinansieret","Miljø og teknik, takstfinansieret"]
+        "bevillingsomr":[
+            {"navn":"Miljø og teknik, skattefinansieret"},
+            {"navn":"Miljø og teknik, takstfinansieret"}
+        ]
     },
     {
         "udvalg":"Sundheds-, idræts- og kulturudvalget",
-        "bevillingsomr":["Kultur og fritid","Sundhed"]
+        "bevillingsomr":[
+            {"navn":"Kultur og fritid"},
+            {"navn":"Sundhed"}
+        ]
     },
     {
         "udvalg":"Omsorgsudvalget",
-        "bevillingsomr":["Tilbud til ældre"]
+        "bevillingsomr":[
+            {"navn":"Tilbud til ældre"}
+        ]
     },
     {
         "udvalg":"Landdistriktsudvalget",
-        "bevillingsomr":["Landdistrikt"]
+        "bevillingsomr":[
+            {"navn":"Landdistrikt"}
+        ]
     },
     {
         "udvalg":"Skole- og uddannelsesudvalget",
-        "bevillingsomr":["Skole","Pædagogisk Psykologisk Rådgivning"]
+        "bevillingsomr":[
+            {"navn":"Skole"},
+            {"navn":"Pædagogisk Psykologisk Rådgivning"}
+        ]
     },
     {
         "udvalg":"Erhvervs- og planudvalget",
-        "bevillingsomr":["Erhverv og plan"]
+        "bevillingsomr":[
+            {"navn":"Erhverv og plan"}
+        ]
     }
 ]

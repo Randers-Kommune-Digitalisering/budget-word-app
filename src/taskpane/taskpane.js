@@ -18,27 +18,74 @@ Office.onReady((info) => {
 export async function insertTable() {
   return Word.run(async (context) => {
     // https://www.youtube.com/watch?v=9u6MGqf1J_I
-    const currentYear = new Date(Date.now()).getFullYear();
-    const budgetperiode=[currentYear+1,currentYear+2,currentYear+3,currentYear+4];
-    const overskrift=[""].concat(budgetperiode);
+    
+    // Indlæser dokumenttype fra UI
+    const dokumenttypeUI=document.getElementById("dokumentDropdown").selectedIndex;
+    //console.log(dokumenttypeUI);
+
+    // Indlæser dokumenttype parametre fra json
+    const response = await fetch('./assets/dokumenttype.json');
+    const dokumenttypeJSON = await response.json();
+    //console.log(dokumenttypeJSON);
+
+    // Henter kolonneoverskrifter for tabel 1
+    const valgtIndex=dokumenttypeUI-1; 
+    const dokumenttypeAfgr=dokumenttypeJSON[valgtIndex].tabelindhold;
+    //console.log(dokumenttypeAfgr);
+
+    //Udtrækker kolonnenavne for tabel 1
+    //for (var key in dokumenttypeAfgr[0].kolonnenavneTabel1) {
+    //  context.document.body.insertParagraph(dokumenttypeAfgr[0].kolonnenavneTabel1[key], Word.InsertLocation.end); 
+    //}
+    const antalKolonner=dokumenttypeAfgr[0].kolonnenavneTabel1.length;
+    const kolonneNavne=dokumenttypeAfgr[0].kolonnenavneTabel1;
+    //console.log(dokumenttypeAfgr[0].kolonnenavneTabel1.length);
+
+    //Udtrækker delområder
+    const udvalgUI=document.getElementById("udvalgDropdown").selectedIndex;
+    const bevillingsområdeUI=document.getElementById("bevillingsomrDropdown").selectedIndex;
+    
+    const responseOrganisation = await fetch('./assets/organisation.json');
+    const organisationJSON = await responseOrganisation.json();
+
+    const udvalgIndex=udvalgUI-1;
+    const bevillingsområdeIndex=bevillingsområdeUI-1;
+
+    const organisationAfgr= organisationJSON[udvalgIndex].bevillingsomr[bevillingsområdeIndex];
+    const delområder=organisationAfgr.delområde;
+    const antalRækker=organisationAfgr.delområde.length+1;
+    console.log(delområder, antalRækker)
+
+    //const currentYear = new Date(Date.now()).getFullYear();
+    //const budgetperiode=[currentYear+1,currentYear+2,currentYear+3,currentYear+4];
+    //const overskrift=[""].concat(budgetperiode);
+
   
     const data = [
-      overskrift,
-      ["Indtægt", "-3,2", "-", "-", "-"],
-      ["Budget", "3,1","0,1","0,1","0,1"],
-      ["Nettoresultat", "-0,1","0,1","0,1","0,1"],
+      kolonneNavne,
     ];
-    const table = context.document.body.insertTable(5, 5, "Start", data);
+    const table = context.document.body.insertTable(antalRækker, antalKolonner, "Start", data);
    
-    const tablerows=table.rows;
+    const tabelRækker=table.rows;
+    tabelRækker.load('items');
 
-    const row_1=tablerows.getFirst();
+    await context.sync();
+
+    for (var i = 1;i<=tabelRækker.items.length;i++){
+      console.log(tabelRækker.items[i].values);
+      const test=tabelRækker.items[i].values=[[1,2,3,4,5,6,7,8,9]];
+      await context.sync();
+    }
+
+
+    // TODO: Loop gennem rækker og indsæt rækkenavne
+
 
     /*
       row_1.horizontalAlignment="Centered";
 
     row_1.font.bold=true;
-*/
+    */
     // context.document.body.insertParagraph("test", Word.InsertLocation.end);
 
     await context.sync();
