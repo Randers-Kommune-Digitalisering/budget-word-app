@@ -1,6 +1,19 @@
 [
     {
         "type":"Budgetopfølgning",
+        "Sektioner":[
+            "Resumé",
+            {"Bevilling":[
+                    "Servicerammen",
+                    "Indkomstoverførsler",
+                    "Refusion af særligt dyre enkeltsager",
+                    "Ældreboliger",
+                    "Brugerfinansieret område"
+                ]
+            },
+            "Anlæg",
+            "Bevillingsansøgninger"
+        ],
         "tabelindhold": [
             {
                 "kolonnenavneTabel1":[
@@ -29,9 +42,6 @@
                 ]
             }
         ] 
-    },
-    {
-        "type":"Budgetbemærkninger Del 1"
     },
     {
         "type":"Budgetbemærkninger Del 1"

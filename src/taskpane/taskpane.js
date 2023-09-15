@@ -15,6 +15,33 @@ Office.onReady((info) => {
   }
 });
 
+
+
+export async function addHeader() {
+  return Word.run(async (context) => {
+    const header1=document.getElementById("udvalgDropdown").value;
+    const header2=document.getElementById("bevillingsomrDropdown").value;
+
+    const header=context.document.sections
+      .getFirst()
+      .getHeader(Word.HeaderFooterType.primary)
+      .insertParagraph(header1.concat(" - ", header2), "End");
+
+    header.alignment="Centered";
+    header.font.set({
+      bold: false,
+      italic: false,
+      name: "Calibri",
+      color: "black",
+      size: 18
+    });
+    
+    //header.style.font.size=18;
+
+    await context.sync();
+  });
+}
+
 export async function insertTable() {
   return Word.run(async (context) => {
     // https://www.youtube.com/watch?v=9u6MGqf1J_I
@@ -26,7 +53,7 @@ export async function insertTable() {
     // Indlæser dokumenttype parametre fra json
     const response = await fetch('./assets/dokumenttype.json');
     const dokumenttypeJSON = await response.json();
-    //console.log(dokumenttypeJSON);
+    console.log(dokumenttypeJSON);
 
     // Henter kolonneoverskrifter for tabel 1
     const valgtIndex=dokumenttypeUI-1; 
@@ -60,7 +87,6 @@ export async function insertTable() {
     //const budgetperiode=[currentYear+1,currentYear+2,currentYear+3,currentYear+4];
     //const overskrift=[""].concat(budgetperiode);
 
-  
     const data = [
       kolonneNavne,
     ];
@@ -73,49 +99,13 @@ export async function insertTable() {
 
     for (var i = 1;i<=tabelRækker.items.length;i++){
       console.log(tabelRækker.items[i].values);
-      const test=tabelRækker.items[i].values=[[1,2,3,4,5,6,7,8,9]];
+      const rk=tabelRækker.items[i].values=[[1,2,3,4,5,6,7,8,9]];
       await context.sync();
     }
-
-
-    // TODO: Loop gennem rækker og indsæt rækkenavne
-
-
-    /*
-      row_1.horizontalAlignment="Centered";
-
-    row_1.font.bold=true;
-    */
-    // context.document.body.insertParagraph("test", Word.InsertLocation.end);
 
     await context.sync();
   });
  
-}
-
-export async function addHeader() {
-  return Word.run(async (context) => {
-    const header1=document.getElementById("udvalgDropdown").value;
-    const header2=document.getElementById("bevillingsomrDropdown").value;
-
-    const header=context.document.sections
-      .getFirst()
-      .getHeader(Word.HeaderFooterType.primary)
-      .insertParagraph(header1.concat(" - ", header2), "End");
-
-    header.alignment="Centered";
-    header.font.set({
-      bold: false,
-      italic: false,
-      name: "Calibri",
-      color: "black",
-      size: 18
-    });
-    
-    //header.style.font.size=18;
-
-    await context.sync();
-  });
 }
 
 export async function run() {

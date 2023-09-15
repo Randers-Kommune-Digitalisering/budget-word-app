@@ -22,7 +22,15 @@
             {
                 "navn":"Politisk organisation"
             }
-            
+            ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0],
+                    [0]
+                ]
+            }
         ]
     },
     {
