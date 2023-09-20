@@ -1,18 +1,27 @@
 [
     {
         "type":"Budgetopfølgning",
-        "Sektioner":[
+        "sektioner":[
             "Resumé",
-            {"Bevilling":[
+            "Bevilling",
+            "Anlæg",
+            "Bevillingsansøgninger"
+        ],
+        "undersektioner":[
+            {
+                "bevilling":[
                     "Servicerammen",
                     "Indkomstoverførsler",
                     "Refusion af særligt dyre enkeltsager",
                     "Ældreboliger",
-                    "Brugerfinansieret område"
+                    "Brugerfinansieret område",
+                    "Centrale refusionsordninger mv."
+                ],
+                "anlæg":[
+                    "Slotte",
+                    "Veje"
                 ]
-            },
-            "Anlæg",
-            "Bevillingsansøgninger"
+            }
         ],
         "tabelindhold": [
             {
@@ -21,7 +30,7 @@
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsa,ns",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
                     "Forventet forbrug",	
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",

@@ -34,9 +34,13 @@
 
       <h2>2. Vælg udvalg m.m.</h2>
       <select id="udvalgDropdown" class="dropdown"></select>
-      <select id="bevillingsomrDropdown" class="dropdown" style="visibility:hidden;">Vælg bevillingsområde</select>
+      <select id="bevillingsområdeDropdown" class="dropdown" style="visibility:hidden;">Vælg bevillingsområde</select>
       
       <h2>3. Værktøjer</h2>
+      <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+        <span class="ms-Button-label">Skabelon: Budgetopfølgning</span>
+    </div>
+
       <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
           <span class="ms-Button-label">Indsæt sidehoved</span>
       </div>
@@ -48,6 +52,15 @@
       <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
           <span class="ms-Button-label">Indsæt test-tabel</span>
         </div>
+      <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
+        <span class="ms-Button-label">Console log content controls</span>
+      </div>
+      <div role="button" id="indsætTest" class="ms-welcome__action ms-Button ms-Button--hero">
+        <span class="ms-Button-label">Indsæt i content controls nr. 13</span>
+      </div>
+      <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero">
+        <span class="ms-Button-label">Ryd alt</span>
+      </div>
 
 
     </main>
@@ -134,19 +147,19 @@ const dokumentURL = './assets/dokumenttype.json';
 </script>
 
 <script>
-    const valgtBevillingsomr = document.getElementById("valgtBevillingsomr");
+    const valgtBevillingsområde = document.getElementById("valgtBevillingsområde");
     
     udvalgDropdown.addEventListener("change", e => {
 
-    dropdownBevillingsomr = document.getElementById('bevillingsomrDropdown');
-    dropdownBevillingsomr.style.visibility = "visible";
-    dropdownBevillingsomr.length = 0;
+    dropdownBevillingsområde = document.getElementById('bevillingsområdeDropdown');
+    dropdownBevillingsområde.style.visibility = "visible";
+    dropdownBevillingsområde.length = 0;
     
     let defaultOption = document.createElement('option');
     defaultOption.text = 'Vælg bevillingsområde';
     
-    dropdownBevillingsomr.add(defaultOption);
-    dropdownBevillingsomr.selectedIndex = 0;
+    dropdownBevillingsområde.add(defaultOption);
+    dropdownBevillingsområde.selectedIndex = 0;
 
     fetch(organisationURL)  
       .then(  
@@ -154,14 +167,14 @@ const dokumentURL = './assets/dokumenttype.json';
             responseJSON=response.json();
             responseJSON.then(function(data) {  
                 valgtIndex=document.getElementById("udvalgDropdown").selectedIndex-1; 
-                bevillingsomrAfgr=data[valgtIndex].bevillingsomr
+                bevillingsområdeAfgr=data[valgtIndex].bevillingsområde
 
                 let option;
         
-                for (let i = 0; i < bevillingsomrAfgr.length; i++) {
+                for (let i = 0; i < bevillingsområdeAfgr.length; i++) {
                 option = document.createElement('option');
-                    option.text =  bevillingsomrAfgr[i].navn;
-                    dropdownBevillingsomr.add(option); 
+                    option.text =  bevillingsområdeAfgr[i].navn;
+                    dropdownBevillingsområde.add(option); 
                 }    
             });  
         } 

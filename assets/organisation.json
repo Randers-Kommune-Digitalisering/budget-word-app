@@ -2,7 +2,7 @@
     {
         "udvalg":"Økonomiudvalget",
         "forkortelse":"ØU",
-        "bevillingsomr":[   
+        "bevillingsområde":[   
             {
                 "navn":"Administration",
                 "delområde":[
@@ -20,7 +20,13 @@
                 ]
             },
             {
-                "navn":"Politisk organisation"
+                "navn":"Politisk organisation",
+                "delområde":[
+                    "Fælles formål - Politisk organisation",
+                    "Kommunalbestyrelses-medlemmer",
+                    "Kommissioner, råd og nævn",
+                    "Valg"
+                ]
             }
             ],
         "dokumenter":[
