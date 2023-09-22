@@ -17,42 +17,87 @@
                     "Tjenestemandspensioner og -præmier",
                     "Forsikringer",
                     "Servicebuffer, lovændringer og reserver"
-                ]
+                ],
+                "projekter":0
             },
             {
                 "navn":"Politisk organisation",
                 "delområde":[
                     "Fælles formål - Politisk organisation",
-                    "Kommunalbestyrelses-medlemmer",
+                    "Kommunalbestyrelsesmedlemmer",
                     "Kommissioner, råd og nævn",
                     "Valg"
-                ]
+                ],
+                "projekter":0
             }
             ],
         "dokumenter":[
             {
                 "navn":"Budgetopfølgning",
                 "sektioner":[
-                    [0],
-                    [0]
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,3],
+                            [0]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ]
+                    }
                 ]
             }
         ]
     },
     {
         "udvalg":"Børne- og familieudvalget",
-        "bevillingsomr": [   
+        "bevillingsområde": [   
             {
-                "navn":"Børn"
+                "navn":"Børn",
+                "delområde":[
+                    "Fælles formål - Børn",
+                    "Dagpleje",
+                    "Dagtilbud",
+                    "Fritidstilbud og klubber",
+                    "Tilskud til private institutioner",
+                    "Særlige dagtilbud"
+                ],
+                "projekter":1
             },
             {
-                "navn":"Familie"
+                "navn":"Familie",
+                "delområde":[
+                    "Plejefamilier",
+                    "Opholdssteder, sikrede samt døgninst.",
+                    "Forebyggende foranstaltninger og indsats",
+                    "Kvindekrisecentre",
+                    "Myndighedscentret (adm.)"
+                ],
+                "projekter":1
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0],
+                            [0,1,4]
+                        ]
+                    }
+                ]
             }
         ]
     },
     {
         "udvalg":"Beskæftigelsesudvalget",
-        "bevillingsomr": [   
+        "bevillingsområde": [   
             {
                 "navn":"Beskæftigelse, integration og ydelser"
             } 
@@ -60,7 +105,7 @@
     },
     {
         "udvalg":"Socialudvalget",
-        "bevillingsomr": [   
+        "bevillingsområde": [   
             {
                 "navn":"Tilbud til børn, unge og voksne med særlige behov"
             }
@@ -68,40 +113,40 @@
     },
     {
         "udvalg":"Miljø- og teknikudvalget",
-        "bevillingsomr":[
+        "bevillingsområde":[
             {"navn":"Miljø og teknik, skattefinansieret"},
             {"navn":"Miljø og teknik, takstfinansieret"}
         ]
     },
     {
         "udvalg":"Sundheds-, idræts- og kulturudvalget",
-        "bevillingsomr":[
+        "bevillingsområde":[
             {"navn":"Kultur og fritid"},
             {"navn":"Sundhed"}
         ]
     },
     {
         "udvalg":"Omsorgsudvalget",
-        "bevillingsomr":[
+        "bevillingsområde":[
             {"navn":"Tilbud til ældre"}
         ]
     },
     {
         "udvalg":"Landdistriktsudvalget",
-        "bevillingsomr":[
+        "bevillingsområde":[
             {"navn":"Landdistrikt"}
         ]
     },
     {
         "udvalg":"Skole- og uddannelsesudvalget",
-        "bevillingsomr":[
+        "bevillingsområde":[
             {"navn":"Skole"},
             {"navn":"Pædagogisk Psykologisk Rådgivning"}
         ]
     },
     {
         "udvalg":"Erhvervs- og planudvalget",
-        "bevillingsomr":[
+        "bevillingsområde":[
             {"navn":"Erhverv og plan"}
         ]
     }

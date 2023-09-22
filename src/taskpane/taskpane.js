@@ -3,13 +3,6 @@
  * See LICENSE in the project root for license information.
  */
 
-import { writeFileAsync } from "xlsx";
-
-console.log(Office.context.contentLanguage);
-
-var genContentControls=[]
-
-
 /* global document, Office, Word */
 
 Office.onReady((info) => {
@@ -23,20 +16,12 @@ Office.onReady((info) => {
     document.getElementById("loadContentControls").onclick = loadContentControls;
     document.getElementById("indsætTest").onclick = indsætTest;
     document.getElementById("rydAlt").onclick = rydAlt;
-    
   }
 });
-  
-export async function test() {
-  return Word.run(async (context) => {
-    var titel=context.document.body.insertParagraph("test", Word.InsertLocation.start)
-  });
-}
 
 export async function rydAlt() {
   return Word.run(async (context) => {
     context.document.body.clear(); 
-
     await context.sync();
   });
 }
@@ -47,21 +32,21 @@ export async function indsætConcentControl(name) {
     var selection = context.document.getSelection()
     const cc=selection.insertContentControl("RichText");
     cc.title=name
+    
 
     genContentControls.push(name)
     await context.sync();
   })
 }
 
-export async function indsætOverskrift(tekst) {
+export async function indsætSektion(tekst) {
   return Word.run(async (context) => {
     context.document.body.paragraphs.getLast().select("End")
     var selection = context.document.getSelection()
 
     
     const overskrift=selection.insertParagraph(tekst);
-    overskrift.font.bold=true;
-    overskrift.font.size=14;
+    overskrift.styleBuiltIn="Heading2"
 
     await context.sync();
     await indsætConcentControl(tekst)
@@ -71,7 +56,7 @@ export async function indsætOverskrift(tekst) {
   })
 }
 
-export async function indsætUndersektioner(sektion, undersektioner, bevillingsområde) {
+export async function indsætUndersektionerOld(sektion, undersektioner, ekstraTekst, heading) {
   return Word.run(async (context) => {
     context.document.body.paragraphs.getLast().select("End")
     var selection = context.document.getSelection()
@@ -83,12 +68,12 @@ export async function indsætUndersektioner(sektion, undersektioner, bevillingso
           for (var key3 in undersektion) {
             if (undersektion.hasOwnProperty(key3)) {
               const tekstUndersektion=undersektion[key3]
-              console.log(tekstUndersektion)
+              //console.log(tekstUndersektion)
                 var underoverskrift=selection.insertParagraph(tekstUndersektion)
-                underoverskrift.font.italic=true
+                underoverskrift.styleBuiltIn=heading
                 context.document.body.paragraphs.getLast().select("End")
                 await context.sync();
-                await indsætConcentControl(sektion+" "+ bevillingsområde+" "+tekstUndersektion)
+                await indsætConcentControl(sektion+" "+ ekstraTekst +" "+ tekstUndersektion)
                 selection.insertParagraph('', "After")
             }
           }
@@ -99,11 +84,80 @@ export async function indsætUndersektioner(sektion, undersektioner, bevillingso
   });
 }
 
+export async function indsætUndersektioner(sektion, undersektioner, ekstraTekst, heading) {
+  return Word.run(async (context) => {
+    context.document.body.paragraphs.getLast().select("End")
+    var selection = context.document.getSelection()
+    for (var key in undersektioner) {
+      const tekstUndersektion=undersektioner[key]
+      var underoverskrift=selection.insertParagraph(tekstUndersektion)
+      underoverskrift.styleBuiltIn=heading
+      context.document.body.paragraphs.getLast().select("End")
+      await context.sync();
+      await indsætConcentControl(sektion+" "+ ekstraTekst +" "+ tekstUndersektion)
+      selection.insertParagraph('', "After")
+    }  
+    await context.sync()
+  });
+}
+
+export async function indsætSektionerICC(cc, undersektioner, heading) {
+  return Word.run(async (context) => {
+    const contentControls = context.document.contentControls;
+    contentControls.load('id');
+
+    await context.sync()
+
+    const targetCC=genContentControls.indexOf(cc)
+    //const selection=contentControls.items[targetCC].select("End")
+    const last=contentControls.items[targetCC]
+    const undersektionerRev=undersektioner.slice().reverse()
+    for(var undersektion in undersektioner) {
+      last.insertParagraph(undersektioner[undersektion],"End")  
+      .styleBuiltIn=heading;
+      last.insertParagraph('',"End")
+      .styleBuiltIn="Normal"
+    }
+
+    await context.sync()
+  });
+}
+
+export async function formaterTabel(tabel, placering, projekter=0) {
+  return Word.run(async (context) => {
+    tabel.font.bold=false
+    tabel.font.size=8
+    tabel.headerRowCount=1
+    if (projekter==1) {
+      tabel.addRows("end",2,[["I alt ekskl. projekter"],["Projekter"]])
+    }
+    tabel.addRows("end",1,[["I alt"]])
+
+
+    const rækker=tabel.rows
+    const række1=rækker.getFirst()
+    række1.shadingColor="#DDEBF7"
+    række1.verticalAlignment="Center"
+    række1.preferredHeight=40
+    række1.font.bold=true
+
+    const fodnote=placering.insertText("Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.","End")
+    fodnote.font.size=8
+    fodnote.font.italic=true
+    
+    // const test=rækker.load(['items','values'])
+    // await context.sync();
+    // console.log(test.items[1].values) 
+  })
+}
 
 export async function skabelon() {
   return Word.run(async (context) => {
+
+    globalThis.genContentControls=[]
+
     const valgtDokument = document.getElementById("dokumentDropdown").value;
-    const valgtUdvalg = document.getElementById("udvalgDropdown").value;
+    var valgtUdvalg = document.getElementById("udvalgDropdown").value;
     
     const responseDokumenttype = await fetch("./assets/dokumenttype.json");
     const dokumenttypeJSON = await responseDokumenttype.json();
@@ -115,7 +169,6 @@ export async function skabelon() {
     const sektioner=dokumentdata[0].sektioner;
     const undersektioner=dokumentdata[0].undersektioner;
     const tabelindhold=dokumentdata[0].tabelindhold;
-    console.log(tabelindhold)
 
     const organisationdata=organisationJSON.filter(obj=>obj.udvalg==valgtUdvalg);
     //console.log(organisationdata)
@@ -124,51 +177,77 @@ export async function skabelon() {
       bevillingsområder.push(organisationdata[0].bevillingsområde[i].navn)
     }
 
-    var titel=context.document.body.insertParagraph(valgtDokument, Word.InsertLocation.start)
-    titel.font.size=20  
+    // Indlæser sektionsafgrænsninger
+    const afgrænsningsdata=organisationdata[0].dokumenter.filter(obj=>obj.navn=valgtDokument)
+    const inkluderSektioner=[]
+    for (var i in afgrænsningsdata[0].sektioner) { 
+      inkluderSektioner.push(afgrænsningsdata[0].sektioner[i])
+    }
 
+    const inkluderUndersektioner=[]
+    for (var i in afgrænsningsdata[0].undersektioner) {
+      inkluderUndersektioner.push([afgrænsningsdata[0].undersektioner[i]])
+    }
+    const inkluderUndersektionerFlat=inkluderUndersektioner.flat(Infinity)
+    console.log(inkluderUndersektionerFlat)
 
+    // Indsætter titel
+    var titel=context.document.body.insertParagraph(dokumentdata[0].langtNavn, Word.InsertLocation.start)
+    titel.styleBuiltIn="Heading1"
 
-    if (valgtDokument=="Budgetopfølgning") { 
-
+    if (valgtDokument=="Budgetopfølgning") {         
+      // Indsætter sektioner og undersektioner
       for (var key in sektioner) {
         if (sektioner.hasOwnProperty(key)) { 
           context.document.body.paragraphs.getLast().select("End")
-          var selection = context.document.getSelection()
-
   
           const sektion = sektioner[key]
-  
-          if (sektion=="Bevilling") {
-            for(var bevillingsområde in bevillingsområder) {
-              const tekst=sektion + " " + bevillingsområder[bevillingsområde]
-              await context.sync();
-              await indsætOverskrift(tekst);
-              await indsætUndersektioner(sektion, undersektioner, bevillingsområder[bevillingsområde]);
-            } 
-          } else {
-            await indsætOverskrift(sektion);
-          }
-        }
+
+          await context.sync(); 
+          if (inkluderSektioner[0].includes(parseInt(key))) {
+            if (sektion=="Bevilling") {
+              for(var bevillingsområde in bevillingsområder) { 
+                await indsætSektion(sektion+" "+bevillingsområder[bevillingsområde]);
+                await context.sync();              
+
+                //console.log(bevillingsområde)
+                console.log(inkluderUndersektionerFlat[0].bevilling[bevillingsområde])
+                
+                const inkluderedeUndersektioner=[]
+                const inkluderedeUndersektionerKey=inkluderUndersektionerFlat[0].bevilling[bevillingsområde]
+                for (var i in inkluderedeUndersektionerKey) {        
+                  inkluderedeUndersektioner.push(undersektioner[0].bevilling[inkluderedeUndersektionerKey[i]])
+                }
+                
+                await indsætUndersektioner(sektion, inkluderedeUndersektioner, bevillingsområder[bevillingsområde], "Heading3");
+                //await indsætUndersektioner(sektion, undersektioner, bevillingsområder[bevillingsområde], "Heading3");
+                await context.sync();
+              } 
+            } else {
+              await indsætSektion(sektion);
+            }
+          } 
+        } 
       } 
 
-      // Indsætter tabeller for servicerammen
-      const contentControls = context.document.contentControls;
+      // Indsætter indhold i rammestrukturen
+      var contentControls = context.document.contentControls;
       contentControls.load('id');
 
       await context.sync();
 
+      // Servicerammen
       for(var bevillingsområde in bevillingsområder) {
-
         const delområder=organisationdata[0].bevillingsområde[bevillingsområde].delområde
-        console.log(delområder)
 
         const ccNavn="Bevilling "+bevillingsområder[bevillingsområde] + " Servicerammen"
         const targetCC=genContentControls.indexOf(ccNavn)
-  
-        const rækker=delområder.length+1
-        const kolonner=tabelindhold[0].kolonnenavneTabel1.length
+        console.log(targetCC)
 
+        var rækker=delområder.length+1
+        var kolonner=tabelindhold[0].kolonnenavneTabel1.length
+
+        // Konstruerer datatabel
         var data = [tabelindhold[0].kolonnenavneTabel1]
         for (var delområde in delområder){
           var række=[delområder[delområde]]
@@ -176,30 +255,53 @@ export async function skabelon() {
             række.push("")
           }
           data.push(række)
-          console.log(række)
-          console.log(data)
         }
 
-        const table=contentControls.items[targetCC].insertTable(delområder.length+1,tabelindhold[0].kolonnenavneTabel1.length,"start",data);
-
-
-        table.font.bold=false
-        table.font.size=8
-        table.autoFitWindow()
-
-        const række1=table.rows.getFirst()
-        række1.shadingColor="#DDEBF7"
-        række1.verticalAlignment="Center"
-        række1.preferredHeight=40
-        række1.font.bold=true
-
-
+        var tabel=contentControls.items[targetCC].insertTable(rækker,tabelindhold[0].kolonnenavneTabel1.length,"Start" ,data);
+        await formaterTabel(tabel,contentControls.items[targetCC])
         await context.sync();
+
+        await indsætSektionerICC(ccNavn,delområder,"Heading4");
+        await context.sync();
+
+        // Sletter tom paragraph før tabel
+        var temp=contentControls.items[targetCC].paragraphs.getFirst()
+        temp.delete()
 
       }
 
+      // Anlæg
+      const ccNavn="Anlæg"
+      const targetCC=genContentControls.indexOf(ccNavn)
 
+      var rækker=[]
+      var tempKey=inkluderUndersektionerFlat[0].anlæg[0]
+      for (var i in tempKey) {        
+       rækker.push(undersektioner[1].anlæg[tempKey[i]])
+      }
+      var rækkerAntal=rækker.length+1
+      var kolonnerAntal=tabelindhold[0].kolonnenavneTabel1.length
       
+      var data = [tabelindhold[0].kolonnenavneTabel1]
+      for (var i in rækker){
+        var række=[rækker[i]]
+        for(var i = 1; i <= kolonner-1; i++) {
+          række.push("")
+        }
+        data.push(række)
+      }
+
+      var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
+      await formaterTabel(tabel,contentControls.items[targetCC])
+      await context.sync();
+
+      // Indsætter undersektioner
+      await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
+      await context.sync();
+
+      // Sletter tom paragraph før tabel
+      var temp=contentControls.items[targetCC].paragraphs.getFirst()
+      temp.delete()
     }
     console.log("nåede hertil")
   });

@@ -1,6 +1,12 @@
 [
     {
         "type":"Budgetopfølgning",
+        "undertype":[
+            "31. marts",
+            "31. maj",
+            "30. september"
+        ],
+        "langtNavn":"Budgetopfølgning og forventet regnskab",
         "sektioner":[
             "Resumé",
             "Bevilling",
@@ -12,14 +18,22 @@
                 "bevilling":[
                     "Servicerammen",
                     "Indkomstoverførsler",
-                    "Refusion af særligt dyre enkeltsager",
                     "Ældreboliger",
                     "Brugerfinansieret område",
                     "Centrale refusionsordninger mv."
-                ],
+                ]
+            },
+            {
                 "anlæg":[
-                    "Slotte",
-                    "Veje"
+                    "Skattefinansierede anlæg",
+                    "Ældreboliger - anlæg",
+                    "Brugerfinansierede udgifter - anlæg",
+                    "Jordforsyning"
+                ]
+            },
+            {
+                "Bevillingsansøgninger":[
+                    
                 ]
             }
         ],
