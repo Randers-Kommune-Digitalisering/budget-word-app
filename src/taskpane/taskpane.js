@@ -245,10 +245,10 @@ export async function skabelon() {
         console.log(targetCC)
 
         var rækker=delområder.length+1
-        var kolonner=tabelindhold[0].kolonnenavneTabel1.length
+        var kolonner=tabelindhold[0].kolonnenavneTabelType1.length
 
         // Konstruerer datatabel
-        var data = [tabelindhold[0].kolonnenavneTabel1]
+        var data = [tabelindhold[0].kolonnenavneTabelType1]
         for (var delområde in delområder){
           var række=[delområder[delområde]]
           for(var i = 1; i <= kolonner-1; i++) {
@@ -257,7 +257,7 @@ export async function skabelon() {
           data.push(række)
         }
 
-        var tabel=contentControls.items[targetCC].insertTable(rækker,tabelindhold[0].kolonnenavneTabel1.length,"Start" ,data);
+        var tabel=contentControls.items[targetCC].insertTable(rækker,tabelindhold[0].kolonnenavneTabelType1.length,"Start" ,data);
         await formaterTabel(tabel,contentControls.items[targetCC])
         await context.sync();
 
@@ -280,9 +280,9 @@ export async function skabelon() {
        rækker.push(undersektioner[1].anlæg[tempKey[i]])
       }
       var rækkerAntal=rækker.length+1
-      var kolonnerAntal=tabelindhold[0].kolonnenavneTabel1.length
+      var kolonnerAntal=tabelindhold[0].kolonnenavneTabelType1.length
       
-      var data = [tabelindhold[0].kolonnenavneTabel1]
+      var data = [tabelindhold[0].kolonnenavneTabelType1]
       for (var i in rækker){
         var række=[rækker[i]]
         for(var i = 1; i <= kolonner-1; i++) {
@@ -414,12 +414,12 @@ export async function insertTable() {
     //console.log(dokumenttypeAfgr);
 
     //Udtrækker kolonnenavne for tabel 1
-    //for (var key in dokumenttypeAfgr[0].kolonnenavneTabel1) {
-    //  context.document.body.insertParagraph(dokumenttypeAfgr[0].kolonnenavneTabel1[key], Word.InsertLocation.end);
+    //for (var key in dokumenttypeAfgr[0].kolonnenavneTabelType1) {
+    //  context.document.body.insertParagraph(dokumenttypeAfgr[0].kolonnenavneTabelType1[key], Word.InsertLocation.end);
     //}
-    const antalKolonner = dokumenttypeAfgr[0].kolonnenavneTabel1.length;
-    const kolonneNavne = dokumenttypeAfgr[0].kolonnenavneTabel1;
-    //console.log(dokumenttypeAfgr[0].kolonnenavneTabel1.length);
+    const antalKolonner = dokumenttypeAfgr[0].kolonnenavneTabelType1.length;
+    const kolonneNavne = dokumenttypeAfgr[0].kolonnenavneTabelType1;
+    //console.log(dokumenttypeAfgr[0].kolonnenavneTabelType1.length);
 
     //Udtrækker delområder
     const udvalgUI = document.getElementById("udvalgDropdown").selectedIndex;

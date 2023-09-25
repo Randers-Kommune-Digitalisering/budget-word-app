@@ -33,13 +33,21 @@
             },
             {
                 "Bevillingsansøgninger":[
-                    
+                    "Servicerammen",
+                    "Indkomstoverførsler",
+                    "Ældreboliger",
+                    "Brugerfinansieret område",
+                    "Centrale refusionsordninger mv.",
+                    "Skattefinansierede anlæg",
+                    "Ældreboliger - anlæg",
+                    "Brugerfinansierede udgifter - anlæg",
+                    "Jordforsyning"
                 ]
             }
         ],
         "tabelindhold": [
             {
-                "kolonnenavneTabel1":[
+                "kolonnenavneTabelType1":[
                     "Service (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
@@ -52,16 +60,13 @@
                 ]
             },
             {
-                "kolonnenavneTabel2":[
-                    "Service (mio. kr.)",	
-                    "Oprindeligt budget",	
-                    "Korrigeret budget ekskl. overførsler",	
-                    "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsa,ns",	
-                    "Forventet forbrug",	
-                    "Årets forventede resultat ekskl. overførsler",	
-                    "Overførsler",
-                    "Årets forventede resultat inkl. overførsler"
+                "kolonnenavneTabelType2":[
+                    "Bevillingsansøgninger (mio. kr.)",
+                    "2023",
+                    "2024",
+                    "2025",
+                    "2026",
+                    "2023 Anlæg"
                 ]
             }
         ] 
