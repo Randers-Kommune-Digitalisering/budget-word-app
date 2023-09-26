@@ -16,9 +16,38 @@ Office.onReady((info) => {
     document.getElementById("loadContentControls").onclick = loadContentControls;
     document.getElementById("indsætTest").onclick = indsætTest;
     document.getElementById("rydAlt").onclick = rydAlt;
+    document.getElementById("indlæsAfsnit").onclick = indlæsAfsnit;
   }
 });
 
+export async function indlæsAfsnit() {
+  return Word.run(async (context) => {
+    var afsnit=context.document.body.paragraphs.load(['text','style'])
+    await context.sync()
+    var items=afsnit.items
+    var overskrift=[]
+    var sidsteOverskrift=1
+    for(var i in items) {
+      if(items[i].style!="Normal") {
+        if (parseInt(items[i].style.slice(-1))>sidsteOverskrift&items[i].style.slice(0,10)=="Overskrift") {
+          //items[i].style.slice(-1)
+          overskrift.push(items[i].text)
+          sidsteOverskrift=items[i].style.slice(-1)
+          console.log(items[i].style.slice(-1), sidsteOverskrift, overskrift)
+        } else {
+          for(var j = 0; j < sidsteOverskrift-items[i].style.slice(-1); j++) {
+            overskrift.pop()
+          }
+          overskrift.push(items[i].text)
+          console.log(items[i].style, sidsteOverskrift, overskrift)
+        }
+        
+        //console.log(items[i].text, items[i].style, parseInt(items[i].style.slice(-1))
+      }
+    }
+  })
+}
+ 
 export async function rydAlt() {
   return Word.run(async (context) => {
     context.document.body.clear(); 
@@ -123,7 +152,7 @@ export async function indsætSektionerICC(cc, undersektioner, heading) {
   });
 }
 
-export async function formaterTabel(tabel, placering, projekter=0) {
+export async function formaterTabel(tabel, placering, projekter=0, fodnoteType=0) {
   return Word.run(async (context) => {
     tabel.font.bold=false
     tabel.font.size=8
@@ -141,9 +170,16 @@ export async function formaterTabel(tabel, placering, projekter=0) {
     række1.preferredHeight=40
     række1.font.bold=true
 
-    const fodnote=placering.insertText("Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.","End")
-    fodnote.font.size=8
-    fodnote.font.italic=true
+    if (fodnoteType==0) {
+      var fodnote=placering.insertText("Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.","End")
+      fodnote.font.size=8
+      fodnote.font.italic=true
+    }
+    if (fodnoteType==1) {
+      var fodnote=placering.insertText("Note: Minus angiver indtægter, plus angiver udgifter.","End")
+      fodnote.font.size=8
+      fodnote.font.italic=true
+    }
     
     // const test=rækker.load(['items','values'])
     // await context.sync();
@@ -189,7 +225,7 @@ export async function skabelon() {
       inkluderUndersektioner.push([afgrænsningsdata[0].undersektioner[i]])
     }
     const inkluderUndersektionerFlat=inkluderUndersektioner.flat(Infinity)
-    console.log(inkluderUndersektionerFlat)
+    // console.log(inkluderUndersektionerFlat)
 
     // Indsætter titel
     var titel=context.document.body.insertParagraph(dokumentdata[0].langtNavn, Word.InsertLocation.start)
@@ -211,7 +247,7 @@ export async function skabelon() {
                 await context.sync();              
 
                 //console.log(bevillingsområde)
-                console.log(inkluderUndersektionerFlat[0].bevilling[bevillingsområde])
+                // console.log(inkluderUndersektionerFlat[0].bevilling[bevillingsområde])
                 
                 const inkluderedeUndersektioner=[]
                 const inkluderedeUndersektionerKey=inkluderUndersektionerFlat[0].bevilling[bevillingsområde]
@@ -236,139 +272,195 @@ export async function skabelon() {
 
       await context.sync();
 
-      // Servicerammen
+      // Bevillingsområder
       for(var bevillingsområde in bevillingsområder) {
-        const delområder=organisationdata[0].bevillingsområde[bevillingsområde].delområde
+        for (var bevilling in undersektioner[0].bevilling) {      
+          var caseVar=undersektioner[0].bevilling[bevilling]
+          // console.log("caseVar", caseVar)
+          // console.log(caseVar=undersektioner[0].bevilling[bevilling])
+          switch(caseVar) {
+            case "Servicerammen":
+              // Servicerammen
+              const delområder=organisationdata[0].bevillingsområde[bevillingsområde].delområde
+            
+              var ccNavn="Bevilling "+bevillingsområder[bevillingsområde] + " Servicerammen"
+              var targetCC=genContentControls.indexOf(ccNavn)
 
-        const ccNavn="Bevilling "+bevillingsområder[bevillingsområde] + " Servicerammen"
-        const targetCC=genContentControls.indexOf(ccNavn)
-        console.log(targetCC)
+              var rækkerAntal=delområder.length+1
+              var kolonnerAntal=tabelindhold[0].kolonnenavneTabelType1.length
 
-        var rækker=delområder.length+1
-        var kolonner=tabelindhold[0].kolonnenavneTabelType1.length
+              // Konstruerer datatabel
+              var data = [tabelindhold[0].kolonnenavneTabelType1]
+              for (var delområde in delområder){
+                var række=[delområder[delområde]]
+                for(var i = 1; i <= kolonnerAntal-1; i++) {
+                  række.push("")
+                }
+                data.push(række)
+              }
 
-        // Konstruerer datatabel
+              var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"Start" ,data);
+              await formaterTabel(tabel,contentControls.items[targetCC])
+              await context.sync();
+
+              //// Indsætter undersektioner
+              await indsætSektionerICC(ccNavn,delområder,"Heading4");
+              await context.sync();
+
+              //// Sletter tom paragraph før tabel
+              var temp=contentControls.items[targetCC].paragraphs.getFirst()
+              temp.delete();
+            ;
+            case "Brugerfinansieret område":
+              if (parseInt(bevilling)==3&afgrænsningsdata[0].undersektioner[0].bevilling[bevillingsområde].includes(3)) {
+                var ccNavn="Bevilling "+bevillingsområder[bevillingsområde]+" "+caseVar
+                var targetCC=genContentControls.indexOf(ccNavn)
+
+                var rækker=[]
+                var tempKey=organisationdata[0].bevillingsområde[0].brugerfinansieret
+                for (var i in tempKey) {        
+                  rækker.push(tempKey[i])
+                }
+                var rækkerAntal=rækker.length+1
+                var kolonnerAntal=tabelindhold[0].kolonnenavneTabelType1.length
+                
+                var data = [tabelindhold[0].kolonnenavneTabelType1]
+                var række=[]
+                for (var i in rækker){
+                  var række=[rækker[i]]
+                  for(var i = 1; i <= kolonnerAntal-1; i++) {
+                    række.push("")
+                  }
+                  data.push(række)
+                }
+                
+                var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
+                await formaterTabel(tabel,contentControls.items[targetCC])
+                await context.sync();
+        
+                //// Indsætter undersektioner
+                await indsætSektionerICC(ccNavn,rækker,"Heading4"); 
+                await context.sync();
+        
+                //// Sletter tom paragraph før tabel
+                var temp=contentControls.items[targetCC].paragraphs.getFirst()
+                temp.delete() 
+              }
+            ;
+            case "Centrale refusionsordninger mv.":
+            ;
+          }
+        }      
+      }
+
+      // Anlæg
+      if (inkluderSektioner[0].includes(2)) {
+        var ccNavn="Anlæg"
+        var targetCC=genContentControls.indexOf(ccNavn)
+
+        var rækker=[]
+        var tempKey=inkluderUndersektionerFlat[0].anlæg[0]
+        for (var i in tempKey) {        
+        rækker.push(undersektioner[1].anlæg[tempKey[i]])
+        }
+        var rækkerAntal=rækker.length+1
+        var kolonnerAntal=tabelindhold[0].kolonnenavneTabelType1.length
+        
         var data = [tabelindhold[0].kolonnenavneTabelType1]
-        for (var delområde in delområder){
-          var række=[delområder[delområde]]
-          for(var i = 1; i <= kolonner-1; i++) {
+        var række=[]
+        for (var i in rækker){
+          var række=[rækker[i]]
+          for(var i = 1; i <= kolonnerAntal-1; i++) {
             række.push("")
           }
           data.push(række)
         }
 
-        var tabel=contentControls.items[targetCC].insertTable(rækker,tabelindhold[0].kolonnenavneTabelType1.length,"Start" ,data);
+        var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
         await formaterTabel(tabel,contentControls.items[targetCC])
         await context.sync();
 
-        await indsætSektionerICC(ccNavn,delområder,"Heading4");
+        //// Indsætter undersektioner
+        await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
         await context.sync();
 
-        // Sletter tom paragraph før tabel
+        //// Sletter tom paragraph før tabel
         var temp=contentControls.items[targetCC].paragraphs.getFirst()
         temp.delete()
-
       }
 
-      // Anlæg
-      const ccNavn="Anlæg"
-      const targetCC=genContentControls.indexOf(ccNavn)
+      // Bevillingsansøgninger
+      var ccNavn="Bevillingsansøgninger"
+      var targetCC=genContentControls.indexOf(ccNavn)
 
       var rækker=[]
-      var tempKey=inkluderUndersektionerFlat[0].anlæg[0]
+      var tempKey=inkluderUndersektionerFlat[0].bevillingsansøgninger[0]
       for (var i in tempKey) {        
-       rækker.push(undersektioner[1].anlæg[tempKey[i]])
+       rækker.push(undersektioner[2].bevillingsansøgninger[tempKey[i]])
       }
       var rækkerAntal=rækker.length+1
-      var kolonnerAntal=tabelindhold[0].kolonnenavneTabelType1.length
+      var kolonnerAntal=tabelindhold[1].kolonnenavneTabelType2.length
       
-      var data = [tabelindhold[0].kolonnenavneTabelType1]
+      var data = [tabelindhold[1].kolonnenavneTabelType2]
       for (var i in rækker){
         var række=[rækker[i]]
-        for(var i = 1; i <= kolonner-1; i++) {
+        for(var i = 1; i <= kolonnerAntal-1; i++) {
           række.push("")
         }
         data.push(række)
       }
 
       var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
-      await formaterTabel(tabel,contentControls.items[targetCC])
+      await formaterTabel(tabel,contentControls.items[targetCC],0,1)
       await context.sync();
 
-      // Indsætter undersektioner
+      //// Indsætter undersektioner
       await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
       await context.sync();
 
-      // Sletter tom paragraph før tabel
+      //// Sletter tom paragraph før tabel
       var temp=contentControls.items[targetCC].paragraphs.getFirst()
       temp.delete()
+
+      // Custom tabeller
+      var customTabeller=afgrænsningsdata[0].customTabeller
+      for (var i in customTabeller) {
+        var rækker=customTabeller[i].rækker
+        var kolonner=customTabeller[i].kolonner
+        var rækkerAntal=rækker.length+1
+        var kolonnerAntal=kolonner.length
+
+        var ccNavn=customTabeller[i].placering
+        var targetCC=genContentControls.indexOf(ccNavn)
+        var data = [kolonner]
+        for (var i in rækker){
+          var række=[rækker[i]]
+          for(var i = 1; i <= kolonnerAntal-1; i++) {
+            række.push("")
+          }
+          data.push(række)
+        }
+        console.log(genContentControls) 
+        console.log(rækkerAntal,kolonnerAntal,"start",data)
+        var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
+        await formaterTabel(tabel,contentControls.items[targetCC],0,0)
+        await context.sync(); 
+  
+        //// Indsætter undersektioner
+        await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
+        await context.sync();
+  
+        //// Sletter tom paragraph før tabel
+        var temp=contentControls.items[targetCC].paragraphs.getFirst()
+        temp.delete()
+      }
+
+
     }
     console.log("nåede hertil")
   });
 }
 
-export async function loadContentControls() {
-  return Word.run(async (context) =>{
-     // Create a proxy object for the content controls collection.
-     const contentControls = context.document.contentControls;
-
-     // Queue a command to load the id property for all of the content controls.
-     contentControls.load('id');
-
- 
-     // Synchronize the document state by executing the queued commands,
-     // and return a promise to indicate task completion.
-     await context.sync();
-
-     console.log(contentControls.items)
-
-      for (var i in contentControls.items) {
-        console.log(contentControls.items[i]._I,)
-      }
-
-     if (contentControls.items.length === 0) {
-         console.log('No content control found.');
-     }
-     else {
-         // Queue a command to load the properties on the first content control.
-         contentControls.items[0].load(  'appearance,' +
-                                         'cannotDelete,' +
-                                         'cannotEdit,' +
-                                         'color,' +
-                                         'id,' +
-                                         'placeHolderText,' +
-                                         'removeWhenEdited,' +
-                                         'title,' +
-                                         'text,' +
-                                         'type,' +
-                                         'style,' +
-                                         'tag,' +
-                                         'font/size,' +
-                                         'font/name,' +
-                                         'font/color');
- 
-         // Synchronize the document state by executing the queued commands,
-         // and return a promise to indicate task completion.
-         await context.sync();
-         console.log('Property values of the first content control:' +
-             '   ----- appearance: ' + contentControls.items[0].appearance +
-             '   ----- cannotDelete: ' + contentControls.items[0].cannotDelete +
-             '   ----- cannotEdit: ' + contentControls.items[0].cannotEdit +
-             '   ----- color: ' + contentControls.items[0].color +
-             '   ----- id: ' + contentControls.items[0].id +
-             '   ----- placeHolderText: ' + contentControls.items[0].placeholderText +
-             '   ----- removeWhenEdited: ' + contentControls.items[0].removeWhenEdited +
-             '   ----- title: ' + contentControls.items[0].title +
-             '   ----- text: ' + contentControls.items[0].text +
-             '   ----- type: ' + contentControls.items[0].type +
-             '   ----- style: ' + contentControls.items[0].style +
-             '   ----- tag: ' + contentControls.items[0].tag +
-             '   ----- font size: ' + contentControls.items[0].font.size +
-             '   ----- font name: ' + contentControls.items[0].font.name +
-             '   ----- font color: ' + contentControls.items[0].font.color);
-     }
-  })
-}
 
 export async function indsætTest() {
   return Word.run(async (context) => {
@@ -387,7 +479,7 @@ export async function indsætTest() {
     else {
         contentControls.items[targetCC].insertText('Indsat tekst!', 'Replace');
         contentControls.items[targetCC].insertTable(5,5,"Start");
-        await context.sync();
+        await context.sync();  
     }
   });
 }
@@ -406,7 +498,7 @@ export async function insertTable() {
     // Indlæser dokumenttype parametre fra json
     const response = await fetch("./assets/dokumenttype.json");
     const dokumenttypeJSON = await response.json();
-    console.log(dokumenttypeJSON);
+    //console.log(dokumenttypeJSON);
 
     // Henter kolonneoverskrifter for tabel 1
     const valgtIndex = dokumenttypeUI - 1;
@@ -434,7 +526,6 @@ export async function insertTable() {
     const organisationAfgr = organisationJSON[udvalgIndex].bevillingsomr[bevillingsområdeIndex];
     const delområder = organisationAfgr.delområde;
     const antalRækker = organisationAfgr.delområde.length + 1;
-    console.log(delområder, antalRækker);
 
     //const currentYear = new Date(Date.now()).getFullYear();
     //const budgetperiode=[currentYear+1,currentYear+2,currentYear+3,currentYear+4];
@@ -449,7 +540,6 @@ export async function insertTable() {
     await context.sync();
 
     for (var i = 1; i <= tabelRækker.items.length; i++) {
-      console.log(tabelRækker.items[i].values);
       const rk = (tabelRækker.items[i].values = [[1, 2, 3, 4, 5, 6, 7, 8, 9]]);
       await context.sync();
     }

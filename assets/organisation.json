@@ -18,6 +18,9 @@
                     "Forsikringer",
                     "Servicebuffer, lovændringer og reserver"
                 ],
+                "brugerfinansieret":[
+                    "Tjenestemandspensioner og -præmier"
+                ],
                 "projekter":0
             },
             {
@@ -31,7 +34,7 @@
                 "projekter":0
             }
             ],
-        "dokumenter":[
+        "dokumenter":[ 
             {
                 "navn":"Budgetopfølgning",
                 "sektioner":[
@@ -45,7 +48,18 @@
                         ],
                         "anlæg":[
                             [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,3,5]
                         ]
+                    }
+                ],
+                "customTabeller":[
+                    {  
+                        "navn":"test",
+                        "placering":"Resumé",
+                        "kolonner":["Kolonne 0","Kolonne 1","Kolonne 2"],
+                        "rækker":["Række 1","Række 2"]
                     }
                 ]
             }
@@ -63,6 +77,18 @@
                     "Fritidstilbud og klubber",
                     "Tilskud til private institutioner",
                     "Særlige dagtilbud"
+                ],
+                "indkomstoverførsler":[
+
+                ],
+                "ældreboliger":[
+                    
+                ],
+                "brugerfinansieret":[
+                    
+                ],
+                "centralt":[
+                    
                 ],
                 "projekter":1
             },
