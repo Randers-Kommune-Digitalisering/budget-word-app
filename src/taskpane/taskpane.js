@@ -20,29 +20,49 @@ Office.onReady((info) => {
   }
 });
 
-export async function indlæsAfsnit() {
+export async function indlæsAfsnit(placering) {
   return Word.run(async (context) => {
     var afsnit=context.document.body.paragraphs.load(['text','style'])
     await context.sync()
     var items=afsnit.items
     var overskrift=[]
-    var sidsteOverskrift=1
+    var overskriftNiveau=[]
     for(var i in items) {
-      if(items[i].style!="Normal") {
-        if (parseInt(items[i].style.slice(-1))>sidsteOverskrift&items[i].style.slice(0,10)=="Overskrift") {
-          //items[i].style.slice(-1)
-          overskrift.push(items[i].text)
-          sidsteOverskrift=items[i].style.slice(-1)
-          console.log(items[i].style.slice(-1), sidsteOverskrift, overskrift)
-        } else {
-          for(var j = 0; j < sidsteOverskrift-items[i].style.slice(-1); j++) {
+      if(items[i].style.slice(0,10)=="Overskrift") {
+        var nyOverskrift=items[i].text
+        var nyOverskriftNiveau=items[i].style.slice(-1)
+        if(nyOverskriftNiveau==overskriftNiveau.slice(-1)) {
+          overskrift.pop()
+          overskriftNiveau.pop()
+          overskrift.push(nyOverskrift)
+          overskriftNiveau.push(nyOverskriftNiveau)
+        }
+        if (nyOverskriftNiveau>overskriftNiveau.slice(-1)) {
+          overskrift.push(nyOverskrift)
+          overskriftNiveau.push(nyOverskriftNiveau)
+        }
+        if (nyOverskriftNiveau<overskriftNiveau.slice(-1)) {
+          while(nyOverskriftNiveau<overskriftNiveau.slice(-1)) {
             overskrift.pop()
+            overskriftNiveau.pop()
           }
-          overskrift.push(items[i].text)
-          console.log(items[i].style, sidsteOverskrift, overskrift)
+          overskrift.pop()
+          overskriftNiveau.pop()
+          overskrift.push(nyOverskrift)
+          overskriftNiveau.push(nyOverskriftNiveau)
+        }
+        //console.log(overskriftNiveau,overskrift.slice(1,overskrift.length).toString().replaceAll(","," "))
+
+        console.log(i ,items[i])
+        if (placering==overskrift.slice(1,overskrift.length).toString().replaceAll(","," ")) {
+          return i
         }
         
-        //console.log(items[i].text, items[i].style, parseInt(items[i].style.slice(-1))
+        //return items[i]
+        
+        //const indsæt=items[i].insertParagraph("Test","After")
+        //indsæt.styleBuiltIn="Normal"
+      
       }
     }
   })
@@ -152,7 +172,7 @@ export async function indsætSektionerICC(cc, undersektioner, heading) {
   });
 }
 
-export async function formaterTabel(tabel, placering, projekter=0, fodnoteType=0) {
+export async function formaterTabel(tabel, placering, projekter=0, fodnoteType=0,customFodnote=0) {
   return Word.run(async (context) => {
     tabel.font.bold=false
     tabel.font.size=8
@@ -162,7 +182,6 @@ export async function formaterTabel(tabel, placering, projekter=0, fodnoteType=0
     }
     tabel.addRows("end",1,[["I alt"]])
 
-
     const rækker=tabel.rows
     const række1=rækker.getFirst()
     række1.shadingColor="#DDEBF7"
@@ -170,20 +189,22 @@ export async function formaterTabel(tabel, placering, projekter=0, fodnoteType=0
     række1.preferredHeight=40
     række1.font.bold=true
 
-    if (fodnoteType==0) {
-      var fodnote=placering.insertText("Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.","End")
+    if (customFodnote==0) {
+      if (fodnoteType==0) {
+        var fodnote=placering.insertText("Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.","End")
+        fodnote.font.size=8
+        fodnote.font.italic=true
+      }
+      if (fodnoteType==1) {
+        var fodnote=placering.insertText("Note: Minus angiver indtægter, plus angiver udgifter.","End")
+        fodnote.font.size=8
+        fodnote.font.italic=true
+      }
+    } else {
+      var fodnote=placering.insertText(customFodnote,"End")
       fodnote.font.size=8
       fodnote.font.italic=true
     }
-    if (fodnoteType==1) {
-      var fodnote=placering.insertText("Note: Minus angiver indtægter, plus angiver udgifter.","End")
-      fodnote.font.size=8
-      fodnote.font.italic=true
-    }
-    
-    // const test=rækker.load(['items','values'])
-    // await context.sync();
-    // console.log(test.items[1].values) 
   })
 }
 
@@ -424,14 +445,19 @@ export async function skabelon() {
 
       // Custom tabeller
       var customTabeller=afgrænsningsdata[0].customTabeller
+
+      var afsnit=context.document.body.paragraphs.load(['text'])
+      await context.sync()
+
       for (var i in customTabeller) {
         var rækker=customTabeller[i].rækker
         var kolonner=customTabeller[i].kolonner
+        var tabelnr=customTabeller[i].tabelnr
         var rækkerAntal=rækker.length+1
         var kolonnerAntal=kolonner.length
 
         var ccNavn=customTabeller[i].placering
-        var targetCC=genContentControls.indexOf(ccNavn)
+        var targetP=parseInt(await indlæsAfsnit(ccNavn))
         var data = [kolonner]
         for (var i in rækker){
           var række=[rækker[i]]
@@ -440,21 +466,61 @@ export async function skabelon() {
           }
           data.push(række)
         }
-        console.log(genContentControls) 
-        console.log(rækkerAntal,kolonnerAntal,"start",data)
-        var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
-        await formaterTabel(tabel,contentControls.items[targetCC],0,0)
+        //console.log(afsnit.items[targetP], afsnit.items[targetP].text, targetP)
+        // var cc=afsnit.items[targetP].select("End")
+        // var selection = context.document.getSelection()
+        // var cc=selection.insertContentControl("RichText")
+        // cc.title="Customtabel"
+        const nytAfsnit=afsnit.items[targetP].insertParagraph("","After")
+        nytAfsnit.styleBuiltIn="Normal"
+        //const nytAfsnit2=nytAfsnit.insertParagraph("","After")
+        var tabel=nytAfsnit.insertTable(rækkerAntal,kolonnerAntal,"After",data);
+        var tabeller=context.document.body.tables.load()
+        //var sidsteTabel=context.document.body.tables.load("id")
+        await context.sync()
+
+
+        // for (var i in tabeller.items) {
+        //   tabeller.items[i].select("End")
+        //   var selection=context.document.getSelection()
+        //   selection.insertText(i,"end")
+        // }
+        console.log(tabelnr)
+        tabeller.items[tabelnr].select("end")
+        var placering=context.document.getSelection()
+        console.log(placering) 
+        //console.log(tabelid)
+        //console.log(Math.max(...tabelid))
+        //console.log(sidsteTabel.items)
+        //sidsteTabel.getLast().select("End")
+        //var placering=context.document.getSelection() 
+
+
+        //var placering=tabel.select("End")
+        //afsnit.items[targetP].insertParagraph("","After")
+        //var afsnit=context.document.body.paragraphs.load(['text'])
+        //var tabel=afsnit.items[targetP+1].insertTable(rækkerAntal,kolonnerAntal,"Before",data);
+       
+        await formaterTabel(tabel,placering,0,2,"") 
+       
+        //tabel.insertText("test1","End ")
         await context.sync(); 
   
         //// Indsætter undersektioner
-        await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
+        //await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
         await context.sync();
   
         //// Sletter tom paragraph før tabel
-        var temp=contentControls.items[targetCC].paragraphs.getFirst()
-        temp.delete()
+        // var temp=contentControls.items[targetCC].paragraphs.getFirst()
+        // temp.delete()
       }
+      //console.log(await indlæsAfsnit(ccNavn))
+      // var test=await new indlæsAfsnit()
+      // context.sync()
+      // console.log(test)
 
+      // test.insertParagraph("test","After")
+      // console.log("funktion "+await indlæsAfsnit())
 
     }
     console.log("nåede hertil")

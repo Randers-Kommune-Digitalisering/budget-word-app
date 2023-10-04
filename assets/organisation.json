@@ -56,10 +56,28 @@
                 ],
                 "customTabeller":[
                     {  
-                        "navn":"test",
-                        "placering":"Resumé",
-                        "kolonner":["Kolonne 0","Kolonne 1","Kolonne 2"],
-                        "rækker":["Række 1","Række 2"]
+                        "navn":"ct1",
+                        "placering":"Bevilling Administration Servicerammen Social og Arbejdsmarked",
+                        "tabelnr":1,
+                        "kolonner":[
+                            "Service (mio. kr.)",	
+                            "Oprindeligt budget",	
+                            "Korrigeret budget ekskl. overførsler",	
+                            "Bevillings-ansøgninger",	
+                            "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                            "Forventet forbrug",	
+                            "Årets forventede resultat ekskl. overførsler",	
+                            "Overførsler",
+                            "Årets forventede resultat inkl. overførsler"
+                        ],
+                        "rækker":[
+                            "Social og Arbejdsmarked fælles",
+                            "Sekretariat",
+                            "Borgerservice",
+                            "I alt inden for rammen",
+                            "Borgerservice",
+                            "I alt uden for rammen" 
+                        ]
                     }
                 ]
             }
