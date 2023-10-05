@@ -15,6 +15,7 @@ Office.onReady((info) => {
     document.getElementById("addHeader").onclick = addHeader;
     document.getElementById("loadContentControls").onclick = loadContentControls;
     document.getElementById("rydAlt").onclick = rydAlt;
+    document.getElementById("rydAltDev").onclick = rydAlt;
     document.getElementById("addImage").onclick = addImage;
   }
 });
@@ -77,7 +78,7 @@ export async function indlæsAfsnit(placering) {
         
         //const indsæt=items[i].insertParagraph("Test","After")
         //indsæt.styleBuiltIn="Normal"
-      
+        
       }
     }
   })
@@ -226,9 +227,10 @@ export async function formaterTabel(tabel, placering, projekter=0, fodnoteType=0
 export async function skabelon() {
   return Word.run(async (context) => {
 
-    globalThis.genContentControls=[]
+    globalThis.genContentControls=[] 
 
     const valgtDokument = document.getElementById("dokumentDropdown").value;
+    const valgtDokumentDetajle = document.getElementById("dokumentDetaljeDropdown").value;
     var valgtUdvalg = document.getElementById("udvalgDropdown").value;
     
     const responseDokumenttype = await fetch("./assets/dokumenttype.json");
@@ -241,6 +243,7 @@ export async function skabelon() {
     const sektioner=dokumentdata[0].sektioner;
     const undersektioner=dokumentdata[0].undersektioner;
     const tabelindhold=dokumentdata[0].tabelindhold;
+    const notatDetaljer=dokumentdata[0].notatdetaljer;
 
     const organisationdata=organisationJSON.filter(obj=>obj.udvalg==valgtUdvalg);
     //console.log(organisationdata)
@@ -261,13 +264,39 @@ export async function skabelon() {
       inkluderUndersektioner.push([afgrænsningsdata[0].undersektioner[i]])
     }
     const inkluderUndersektionerFlat=inkluderUndersektioner.flat(Infinity)
-    // console.log(inkluderUndersektionerFlat)
 
-    // Indsætter titel
-    var titel=context.document.body.insertParagraph(dokumentdata[0].langtNavn, Word.InsertLocation.start)
-    titel.styleBuiltIn="Heading1"
+    const currentYear=new Date(Date.now()).getFullYear()
+
 
     if (valgtDokument=="Budgetopfølgning") {         
+
+      // Indsætter notattitel
+      const notatTitel=context.document.body.insertParagraph("Budgetopfølgning pr. "+valgtDokumentDetajle+" "+currentYear, Word.InsertLocation.start)
+      notatTitel.style="Brev/notat KORT (O1)"
+      
+      await indsætConcentControl("Notatdetaljer")
+      context.document.body.paragraphs.getLast().select("End")
+      var selection = context.document.getSelection()
+      selection.insertParagraph('', "After");   
+
+      const cc = context.document.contentControls;
+      cc.load("items")
+      await context.sync()
+      console.log(notatDetaljer)
+      for (var i in notatDetaljer) {
+        const tekst=cc.items[0].insertParagraph(notatDetaljer[i]+"	","End")
+        tekst.lineUnitAfter=0
+        tekst.lineUnitBefore=0
+        //cc.font.bold=true
+      }
+      
+
+      // Indsæter titel
+      var titel=context.document.body.insertParagraph(valgtUdvalg+" – "+dokumentdata[0].langtNavn.toLowerCase()+" pr. "+valgtDokumentDetajle+" "+currentYear, Word.InsertLocation.end)
+      titel.styleBuiltIn="Heading1"
+      
+      await context.sync();
+      
       // Indsætter sektioner og undersektioner
       for (var key in sektioner) {
         if (sektioner.hasOwnProperty(key)) { 
@@ -346,7 +375,7 @@ export async function skabelon() {
               //// Sletter tom paragraph før tabel
               var temp=contentControls.items[targetCC].paragraphs.getFirst()
               temp.delete();
-            ;
+            ; 
             case "Brugerfinansieret område":
               if (parseInt(bevilling)==3&afgrænsningsdata[0].undersektioner[0].bevilling[bevillingsområde].includes(3)) {
                 var ccNavn="Bevilling "+bevillingsområder[bevillingsområde]+" "+caseVar
@@ -443,7 +472,7 @@ export async function skabelon() {
         for(var i = 1; i <= kolonnerAntal-1; i++) {
           række.push("")
         }
-        data.push(række)
+        data.push(række) 
       }
 
       var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
@@ -500,10 +529,10 @@ export async function skabelon() {
         //   var selection=context.document.getSelection()
         //   selection.insertText(i,"end")
         // }
-        console.log(tabelnr)
+        //console.log(tabelnr)
         tabeller.items[tabelnr].select("end")
         var placering=context.document.getSelection()
-        console.log(placering) 
+        //console.log(placering) 
         //console.log(tabelid)
         //console.log(Math.max(...tabelid))
         //console.log(sidsteTabel.items)

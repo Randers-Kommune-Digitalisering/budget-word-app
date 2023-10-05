@@ -22,182 +22,160 @@
 </head>
 
 <body class="ms-font-m ms-welcome ms-Fabric">
-    <header class="ms-welcome__header">
-        <img width="150" height="150" src="../../assets/logo-filled.png" alt="Randers Kommunes budgetværktøjer" title="Randers Kommunes budgetværktøjer" />
-       
-    </header>
-    <section id="sideload-msg" class="ms-welcome__main">
-        <h2 class="ms-font-xl">Please <a target="_blank" href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing">sideload</a> your add-in to see app body.</h2>
-    </section>
-    <main id="app-body" class="ms-welcome__main" style="display: none;">
+  <header class="ms-welcome__header">
+    <img width="150" height="150" src="../../assets/logo-filled.png" alt="Randers Kommunes budgetværktøjer" title="Randers Kommunes budgetværktøjer" />
+  </header>
+  <section id="sideload-msg" class="ms-welcome__main">
+    <h2 class="ms-font-xl">Please <a target="_blank" href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing">sideload</a> your add-in to see app body.</h2>
+  </section>
+  <main id="app-body" class="ms-welcome__main" style="display: none;">
 
-      <h2>1. Vælg dokumenttype</h2>
-      <select id="dokumentDropdown" class="dropdown"></select>
-      <select id="dokumentDetajleDropdown" class="dropdown" style="display:none;"></select>
-
-      <h2>2. Vælg udvalg m.m.</h2>
-      <select id="udvalgDropdown" class="dropdown"></select>
-      <select id="bevillingsområdeDropdown" class="dropdown" style="display:none;">Vælg bevillingsområde</select>
-      
-      <h2>3. Værktøjer</h2>
+    <p class="overskrift">1. Vælg dokumenttype</p>
+    <select id="dokumentDropdown" class="dropdown"></select>
+    <select id="dokumentDetaljeDropdown" class="dropdown skjult"></select>
+    <select id="udvalgDropdown" class="dropdown skjult"></select>
+    <select id="bevillingsområdeDropdown" class="dropdown skjult">Vælg bevillingsområde</select>
+    
+    <div id="toolsdiv" class="skjult">
+      <p class="overskrift">2. Værktøjer</p>
       <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero">
         <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
       </div>
       <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd alt</span>
+        <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
       </div>
-
-
-      <div class="udviklerdiv">
-        <h4 style="margin-top:0px;"><i class="fa-solid fa-code icon"></i>Udviklerværktøjer</h4>
-        <div role="button" id="addImage" class="ms-welcome__action ms-Button ms-Button--hero ">
-          <span class="ms-Button-label">Indsæt billede</span>
-        </div>
-        <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ">
-            <span class="ms-Button-label">Indsæt sidehoved</span>
-        </div>
-        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ">
-            <span class="ms-Button-label">Alle udvalg og bevillingsområder</span>
-        </div>
-        <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ">
-            <span class="ms-Button-label">Indsæt test-tabel</span>
-          </div>
-        <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label">Console log content controls</span>
-        </div>
-
+      <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
+        <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
       </div>
-  
+    </div>
 
-
-    </main>
+    <div class="udviklerdiv">
+      <p class="overskrift"><i class="fa-solid fa-code icon"></i>Udviklerværktøjer</p>
+      <div role="button" id="addImage" class="ms-welcome__action ms-Button ms-Button--hero ">
+        <span class="ms-Button-label">Indsæt billede</span>
+      </div>
+      <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ">
+          <span class="ms-Button-label">Indsæt sidehoved</span>
+      </div>
+      <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ">
+          <span class="ms-Button-label">Alle udvalg og bevillingsområder</span>
+      </div>
+      <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ">
+          <span class="ms-Button-label">Indsæt test-tabel</span>
+        </div>
+      <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
+        <span class="ms-Button-label">Console log content controls</span>
+      </div>
+      <div role="button" id="rydAltDev" class="ms-welcome__action ms-Button ms-Button--hero">
+        <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+      </div>
+      <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
+        <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
+      </div>
+    </div>
+  </main>
 </body>
 
 <script>
 let dropdownDokument = document.getElementById('dokumentDropdown');
 dropdownDokument.length = 0;
-
-
-
 let defaultOptionDokument = document.createElement('option');
 defaultOptionDokument.text = 'Vælg dokument';
-
 dropdownDokument.add(defaultOptionDokument);
 dropdownDokument.selectedIndex = 0;
 
+let dropdownUdvalg = document.getElementById('udvalgDropdown');
+dropdownUdvalg.length = 0;   
+let defaultOptionUdvalg = document.createElement('option');
+defaultOptionUdvalg.text = 'Vælg udvalg';
+dropdownUdvalg.add(defaultOptionUdvalg);
+dropdownUdvalg.selectedIndex = 0;
+
 const dokumentURL = './assets/dokumenttype.json';
+const organisationURL = './assets/organisation.json';
   
- fetch(dokumentURL)  
+/* Populerer dokumentdropdown */
+fetch(dokumentURL)  
+  .then(  
+    function(response) {  
+      responseJSON=response.json();
+      responseJSON.then(function(data) {  
+        let option;
+    
+        for (let i = 0; i < data.length; i++) {
+          option = document.createElement('option');
+            option.text = data[i].type;
+            dropdownDokument.add(option); 
+        }    
+      });  
+    }  
+  )  
+
+  /* Populerer udvalgdropdown */
+fetch(organisationURL)  
+  .then(  
+    function(response) {  
+      responseJSON=response.json();
+      responseJSON.then(function(data) {  
+        let option;
+    
+        for (let i = 0; i < data.length; i++) {
+          option = document.createElement('option');
+          option.text = data[i].udvalg;
+          dropdownUdvalg.add(option); 
+        }    
+      });  
+    }  
+  )  
+
+/* Populerer dokumentdetaljadropdown */
+dokumentDropdown.addEventListener("change", e => {
+  const valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
+
+  dropdownDokumentDetalje = document.getElementById('dokumentDetaljeDropdown');
+  dropdownDokumentDetalje.style.display = "block";
+
+  fetch(dokumentURL)  
     .then(  
       function(response) {  
-        if (response.status !== 200) {  
-          console.warn('Fejl: ' + 
-            response.status);  
-          return;  
-        }
-  
-        // Løber gennem alle svar
+
         responseJSON=response.json();
         responseJSON.then(function(data) {  
           let option;
-      
-          for (let i = 0; i < data.length; i++) {
-            option = document.createElement('option');
-              option.text = data[i].type;
-             dropdownDokument.add(option); 
-          }    
+          
+          /* Budgetopfølgning */ 
+          if (dropdownDokument.selectedIndex==1) {
+
+            let defaultOptionDokumentDetalje = document.createElement('option');
+            defaultOptionDokumentDetalje.text = 'Vælg dato'; 
+            dropdownDokumentDetalje.add(defaultOptionDokumentDetalje);
+            dropdownDokumentDetalje.selectedIndex = 0;
+
+            for (let i = 0; i < data[0].undertype.length; i++) {
+              option = document.createElement('option');
+              option.text = data[0].undertype[i];
+              dropdownDokumentDetalje.add(option); 
+            }   
+          }  
         });  
       }  
     )  
-    .catch(function(err) {  
-      console.error('Fetch Error -', err);  
-    });
+});
 
+dokumentDetaljeDropdown.addEventListener("change", e => {
+  document.getElementById('udvalgDropdown').style.display="block";
+});
 
-
-
-
-    dokumentDropdown.addEventListener("change", e => {
-      const valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
-      console.log(valgtDokument)
-
-      dropdownDokumentDetajle = document.getElementById('dokumentDetajleDropdown');
-      dropdownDokumentDetajle.style.display = "block";
-
-      fetch(dokumentURL)  
-        .then(  
-          function(response) {  
-
-            responseJSON=response.json();
-            responseJSON.then(function(data) {  
-              let option;
-              
-              if (dropdownDokument.selectedIndex==1) {
-
-                let defaultOptionDokumentDetalje = document.createElement('option');
-                defaultOptionDokumentDetalje.text = 'Vælg dato'; 
-                dropdownDokumentDetajle.add(defaultOptionDokumentDetalje);
-                dropdownDokumentDetajle.selectedIndex = 0;
-
-                for (let i = 0; i < data[0].undertype.length; i++) {
-                  option = document.createElement('option');
-                    option.text = data[0].undertype[i];
-                    dropdownDokumentDetajle.add(option); 
-                }   
-              } 
-            });  
-          }  
-    )  
-
-    });
+udvalgDropdown.addEventListener("change", e => {
+  document.getElementById('toolsdiv').style.display="block";
+});
   
-</script>
 
-<script>
-    let dropdownUdvalg = document.getElementById('udvalgDropdown');
-    dropdownUdvalg.length = 0;
-    
-    let defaultOptionUdvalg = document.createElement('option');
-    defaultOptionUdvalg.text = 'Vælg udvalg';
-    
-    dropdownUdvalg.add(defaultOptionUdvalg);
-    dropdownUdvalg.selectedIndex = 0;
-    
-    const organisationURL = './assets/organisation.json';
-    
-   fetch(organisationURL)  
-      .then(  
-        function(response) {  
-          if (response.status !== 200) {  
-            console.warn('Fejl: ' + 
-              response.status);  
-            return;  
-          }
-    
-          // Løber gennem alle svar
-          responseJSON=response.json();
-          responseJSON.then(function(data) {  
-            let option;
-        
-            for (let i = 0; i < data.length; i++) {
-              option = document.createElement('option');
-                option.text = data[i].udvalg;
-                //option.value = data[i].forkortelse;
-                dropdownUdvalg.add(option); 
-            }    
-          });  
-        }  
-      )  
-      .catch(function(err) {  
-        console.error('Fetch Error -', err);  
-      });
-</script>
-
-<script>
     const valgtBevillingsområde = document.getElementById("valgtBevillingsområde");
     
     udvalgDropdown.addEventListener("change", e => {
 
+      /*
     dropdownBevillingsområde = document.getElementById('bevillingsområdeDropdown');
     dropdownBevillingsområde.style.display = "block";
     dropdownBevillingsområde.length = 0;
@@ -225,19 +203,8 @@ const dokumentURL = './assets/dokumenttype.json';
                 }    
             });  
         } 
-      )  
-
-        
-       /*
-        responsJSON.then(function(data) {
-            
-        }
-        
-        
-        );
-        */
-        //valgtBevillingsomr.innerHTML = document.getElementById("udvalgDropdown").selectedIndex; 
-        //valgtBevillingsomr.innerHTML =
+      )
+      */  
     })
 </script>
 

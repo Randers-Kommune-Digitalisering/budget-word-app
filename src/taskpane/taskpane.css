@@ -62,12 +62,13 @@
  }
  
 .ms-Button.ms-Button--hero .ms-Button-label {
-  color: #0078d7;
+  color: #1C357A;
+  font-size:larger;
 }
 
 .ms-Button.ms-Button--hero:hover .ms-Button-label,
 .ms-Button.ms-Button--hero:focus .ms-Button-label{
-  color: #005a9e;
+  color: #1C357A;
   cursor: pointer;
 }
 
@@ -84,6 +85,11 @@ b {
 
 .icon {
     margin-right:5px;
+    color: #991426;
+}
+
+.skjult {
+    display:none;
 }
 
 .udviklerdiv {
@@ -93,5 +99,10 @@ b {
     bottom: 0;
     border-top:5px;
     padding: 10px 10px;
-    background-color: lightblue;
+    background-color: #E8E8E8;
+}
+
+.overskrift {
+    font-size: larger;
+    font-weight:bold; 
 }
