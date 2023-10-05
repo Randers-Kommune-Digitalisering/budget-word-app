@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contoso Task Pane Add-in</title>
 
+    <script src="https://kit.fontawesome.com/db48da8ef4.js" crossorigin="anonymous"></script>
+
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
@@ -31,39 +33,41 @@
 
       <h2>1. Vælg dokumenttype</h2>
       <select id="dokumentDropdown" class="dropdown"></select>
+      <select id="dokumentDetajleDropdown" class="dropdown" style="display:none;"></select>
 
       <h2>2. Vælg udvalg m.m.</h2>
       <select id="udvalgDropdown" class="dropdown"></select>
-      <select id="bevillingsområdeDropdown" class="dropdown" style="visibility:hidden;">Vælg bevillingsområde</select>
+      <select id="bevillingsområdeDropdown" class="dropdown" style="display:none;">Vælg bevillingsområde</select>
       
       <h2>3. Værktøjer</h2>
       <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label">Generer dokument</span>
-    </div>
-
-      <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ">
-          <span class="ms-Button-label">Indsæt sidehoved</span>
-      </div>
-
-      <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ">
-          <span class="ms-Button-label">Alle udvalg og bevillingsområder</span>
-      </div>
-      </select>
-      <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ">
-          <span class="ms-Button-label">Indsæt test-tabel</span>
-        </div>
-      <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label">Console log content controls</span>
-      </div>
-      <div role="button" id="indsætTest" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label">Indsæt i content controls nr. 13</span>
-      </div>
-      <div role="button" id="indlæsAfsnit" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label">Indlæs afsnit</span>
+        <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
       </div>
       <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label">Ryd alt</span>
+        <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd alt</span>
       </div>
+
+
+      <div class="udviklerdiv">
+        <h4 style="margin-top:0px;"><i class="fa-solid fa-code icon"></i>Udviklerværktøjer</h4>
+        <div role="button" id="addImage" class="ms-welcome__action ms-Button ms-Button--hero ">
+          <span class="ms-Button-label">Indsæt billede</span>
+        </div>
+        <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ">
+            <span class="ms-Button-label">Indsæt sidehoved</span>
+        </div>
+        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ">
+            <span class="ms-Button-label">Alle udvalg og bevillingsområder</span>
+        </div>
+        <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ">
+            <span class="ms-Button-label">Indsæt test-tabel</span>
+          </div>
+        <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label">Console log content controls</span>
+        </div>
+
+      </div>
+  
 
 
     </main>
@@ -72,6 +76,8 @@
 <script>
 let dropdownDokument = document.getElementById('dokumentDropdown');
 dropdownDokument.length = 0;
+
+
 
 let defaultOptionDokument = document.createElement('option');
 defaultOptionDokument.text = 'Vælg dokument';
@@ -106,11 +112,49 @@ const dokumentURL = './assets/dokumenttype.json';
     .catch(function(err) {  
       console.error('Fetch Error -', err);  
     });
+
+
+
+
+
+    dokumentDropdown.addEventListener("change", e => {
+      const valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
+      console.log(valgtDokument)
+
+      dropdownDokumentDetajle = document.getElementById('dokumentDetajleDropdown');
+      dropdownDokumentDetajle.style.display = "block";
+
+      fetch(dokumentURL)  
+        .then(  
+          function(response) {  
+
+            responseJSON=response.json();
+            responseJSON.then(function(data) {  
+              let option;
+              
+              if (dropdownDokument.selectedIndex==1) {
+
+                let defaultOptionDokumentDetalje = document.createElement('option');
+                defaultOptionDokumentDetalje.text = 'Vælg dato'; 
+                dropdownDokumentDetajle.add(defaultOptionDokumentDetalje);
+                dropdownDokumentDetajle.selectedIndex = 0;
+
+                for (let i = 0; i < data[0].undertype.length; i++) {
+                  option = document.createElement('option');
+                    option.text = data[0].undertype[i];
+                    dropdownDokumentDetajle.add(option); 
+                }   
+              } 
+            });  
+          }  
+    )  
+
+    });
+  
 </script>
 
 <script>
     let dropdownUdvalg = document.getElementById('udvalgDropdown');
-    console.log(dropdownUdvalg)
     dropdownUdvalg.length = 0;
     
     let defaultOptionUdvalg = document.createElement('option');
@@ -155,7 +199,7 @@ const dokumentURL = './assets/dokumenttype.json';
     udvalgDropdown.addEventListener("change", e => {
 
     dropdownBevillingsområde = document.getElementById('bevillingsområdeDropdown');
-    dropdownBevillingsområde.style.visibility = "visible";
+    dropdownBevillingsområde.style.display = "block";
     dropdownBevillingsområde.length = 0;
     
     let defaultOption = document.createElement('option');
