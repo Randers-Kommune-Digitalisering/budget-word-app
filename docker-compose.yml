@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  word-app:
+    build: .
+    networks:
+      - word_app
+    ports:
+      - 80:80
+      
+networks: 
+  word_app:
+    name: word_app
