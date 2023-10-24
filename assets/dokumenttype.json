@@ -1,12 +1,21 @@
 [
     {
         "type":"Budgetopfølgning",
+        "langtNavn":"Budgetopfølgning og forventet regnskab",
+        "notatdetaljer":[
+            "Sagsnavn:",
+            "Sagsnummer:",
+            "Skrevet af:",
+            "E-mail:",
+            "Forvaltning:",
+            "Dato:",
+            "Sendes til:"	
+        ],
         "undertype":[
             "31. marts",
             "31. maj",
             "30. september"
         ],
-        "langtNavn":"Budgetopfølgning og forventet regnskab",
         "sektioner":[
             "Resumé",
             "Bevilling",

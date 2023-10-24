@@ -85,6 +85,7 @@
     },
     {
         "udvalg":"Børne- og familieudvalget",
+        "forkortelse":"BF",
         "bevillingsområde": [   
             {
                 "navn":"Børn",
@@ -143,8 +144,49 @@
         "udvalg":"Beskæftigelsesudvalget",
         "bevillingsområde": [   
             {
-                "navn":"Beskæftigelse, integration og ydelser"
+                "navn":"Beskæftigelse, integration og ydelser",
+                "forkortelse":"BU",
+                "delområde":[
+                    "Integration",
+                    "Beskæftigelsesindsats - jobcentertilbud",
+                    "Øvrige indsatser og ydelser"
+                ],
+                "indkomstoverførsler":[
+                    "Arbejdsløshedsdagpenge",
+                    "Kontanthjælp og ledighedsydelse",
+                    "Sygedagpenge og jobafklaring",
+                    "Ressourceforløb",
+                    "Fleksjob",
+                    "Førtidspensioner",
+                    "Seniorpension",
+                    "Integration",
+                    "Beskæftigelsesindsats - jobcentertilbud",
+                    "Øvrige indsatser og ydelser",
+                    "Boligydelse og boligsikring"
+                ],
+                "projekter":0
             } 
+        ]
+        ,
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,1]
+                        ],
+                        "anlæg":[
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,1]
+                        ]
+                    }
+                ]
+            }
         ]
     },
     {
