@@ -10,7 +10,7 @@
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://randers-adm.topdesk.net/"/>
   <AppDomains>
-    <AppDomain>https://randers.dk/</AppDomain>
+    <AppDomain>https://budget-word-app.prototypes.randers.dk/</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Document"/>
