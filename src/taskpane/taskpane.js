@@ -228,6 +228,28 @@ export async function formaterTabelFormater(tabel){
 }
 */
 
+// Funktion til at gemme et JSON-objekt i dokumentkommentarerne til viderebehandling i VBA. 
+export async function tableAltBeskObj(titel,beskrivelse) {
+  return Word.run(async (context) => {
+              
+    var temp=context.document.properties.load("comments")
+    await context.sync()
+    // console.log(temp.comments)
+    if (temp.comments!="") {
+      var tempjson=JSON.parse(temp.comments) 
+      console.log("tempjson", tempjson)
+      var i=tempjson[Object.keys(tempjson)[Object.keys(tempjson).length - 1]].nr  
+      i++
+    } else {
+      var i=1
+    }
+    
+    dokumentKommentarer.push({nr:i,titel:titel,beskrivelse:beskrivelse})
+    context.document.properties.set({comments:JSON.stringify(dokumentKommentarer)})          
+    await context.sync()  
+  })
+}
+
 
 export async function formaterTabel(tabel, placering, projekter=0, fodnoteType=0, customFodnote=0) {
   return Word.run(async (context) => {
@@ -262,7 +284,7 @@ export async function skabelon() {
   return Word.run(async (context) => {
 
     globalThis.genContentControls=[] 
-    globalThis.tableDescriptions
+    globalThis.dokumentKommentarer=[]
 
     const valgtDokument = document.getElementById("dokumentDropdown").value;
     const valgtDokumentDetajle = document.getElementById("dokumentDetaljeDropdown").value;
@@ -402,6 +424,8 @@ export async function skabelon() {
               var rækkerAntal=delområder.length+1
               var kolonnerAntal=tabelindhold[0].kolonnenavneTabelType1.length
 
+
+              
               // Konstruerer datatabel
               var data = [tabelindhold[0].kolonnenavneTabelType1]
               for (var delområde in delområder){
@@ -414,6 +438,9 @@ export async function skabelon() {
 
               var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"Start",data);
               formaterTabel(tabel, contentControls.items[targetCC])
+              await context.sync()
+
+              tableAltBeskObj(bevillingsområder[bevillingsområde] + " servicerammen", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde "+bevillingsområder[bevillingsområde])
               await context.sync()
 
               //// Indsætter undersektioner
