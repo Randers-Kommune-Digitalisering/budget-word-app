@@ -41,6 +41,9 @@
       <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero">
         <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
       </div>
+      <div role="button" id="formatterTabeller" class="ms-welcome__action ms-Button ms-Button--hero">
+        <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter alle tabeller</span>
+      </div>
       <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero">
         <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
       </div>
@@ -171,41 +174,9 @@ udvalgDropdown.addEventListener("change", e => {
 });
   
 
-    const valgtBevillingsområde = document.getElementById("valgtBevillingsområde");
+const valgtBevillingsområde = document.getElementById("valgtBevillingsområde");
     
-    udvalgDropdown.addEventListener("change", e => {
 
-      /*
-    dropdownBevillingsområde = document.getElementById('bevillingsområdeDropdown');
-    dropdownBevillingsområde.style.display = "block";
-    dropdownBevillingsområde.length = 0;
-    
-    let defaultOption = document.createElement('option');
-    defaultOption.text = 'Vælg bevillingsområde';
-    
-    dropdownBevillingsområde.add(defaultOption);
-    dropdownBevillingsområde.selectedIndex = 0;
-
-    fetch(organisationURL)  
-      .then(  
-        function(response) {  
-            responseJSON=response.json();
-            responseJSON.then(function(data) {  
-                valgtIndex=document.getElementById("udvalgDropdown").selectedIndex-1; 
-                bevillingsområdeAfgr=data[valgtIndex].bevillingsområde
-
-                let option;
-        
-                for (let i = 0; i < bevillingsområdeAfgr.length; i++) {
-                option = document.createElement('option');
-                    option.text =  bevillingsområdeAfgr[i].navn;
-                    dropdownBevillingsområde.add(option); 
-                }    
-            });  
-        } 
-      )
-      */  
-    })
 </script>
 
 
