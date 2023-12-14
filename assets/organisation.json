@@ -50,7 +50,7 @@
                             [0]
                         ],
                         "bevillingsansøgninger":[
-                            [0,3,5]
+                            [0,3,6]
                         ]
                     }
                 ],
@@ -59,6 +59,8 @@
                         "navn":"ct1",
                         "placering":"Bevilling Administration Servicerammen Social og Arbejdsmarked",
                         "tabelnr":1,
+                        "indledendeTekst": "Tabellen viser...",
+                        "fodnote":"",
                         "kolonner":[
                             "Service (mio. kr.)",	
                             "Oprindeligt budget",	
@@ -97,6 +99,14 @@
                     "Tilskud til private institutioner",
                     "Særlige dagtilbud"
                 ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
                 "projekter":1
             },
             {
@@ -107,6 +117,19 @@
                     "Forebyggende foranstaltninger og indsats",
                     "Kvindekrisecentre",
                     "Myndighedscentret (adm.)"
+                ],
+                "indkomstoverførsler":[
+                    "Forebyggende foranstaltninger og indsats"
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                    "Plejefamilier",
+                    "Opholdssteder, sikrede samt døgninst.",
+                    "Forebyggende foranstaltninger og indsats"
+
                 ],
                 "projekter":1
             }
@@ -122,7 +145,14 @@
                         "bevilling":[
                             [0],
                             [0,1,4]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,1,4,6]
                         ]
+                        
                     }
                 ]
             }
@@ -130,10 +160,10 @@
     },
     {
         "udvalg":"Beskæftigelsesudvalget",
+        "forkortelse":"BU",
         "bevillingsområde": [   
             {
                 "navn":"Beskæftigelse, integration og ydelser",
-                "forkortelse":"BU",
                 "delområde":[
                     "Integration",
                     "Beskæftigelsesindsats - jobcentertilbud",
@@ -152,7 +182,7 @@
                     "Øvrige indsatser og ydelser",
                     "Boligydelse og boligsikring"
                 ],
-                "projekter":0
+                "projekter":1
             } 
         ]
         ,
@@ -179,49 +209,404 @@
     },
     {
         "udvalg":"Socialudvalget",
+        "forkortelse":"SU",
         "bevillingsområde": [   
             {
-                "navn":"Tilbud til børn, unge og voksne med særlige behov"
+                "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                "delområde":[
+                    "Psykiatri og Socialt Udsatte",
+                    "Handicap",
+                    "Autisme, senhjerneskade og læring"
+                ],
+                "indkomstoverførsler":[
+                    "Handicap"
+                ],
+                "ældreboliger":[
+                    "Handicap"
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                    "Handicap"
+                ],
+                "projekter":1
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,1,2,4]
+                        ],
+                        "anlæg":[
+                            [0,1]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,1,2,4,6,7]
+                        ]
+                    }
+                ]
+            }
+        ]
+
+    },
+    {
+        "udvalg":"Miljø- og teknikudvalget, skattefinansieret",
+        "forkortelse":"MTS", 
+        "bevillingsområde":[
+            {
+                "navn":"Miljø og teknik, skattefinansieret",
+                "delområde":[
+                    "Natur og Miljø",
+                    "Veje og Trafik",
+                    "Ejendomsservice",
+                    "Driftsafdeling"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "projekter":0
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,6]
+                        ]
+                    }
+                ]
             }
         ]
     },
     {
-        "udvalg":"Miljø- og teknikudvalget",
+        "udvalg":"Miljø- og teknikudvalget, takstfinansieret",
+        "forkortelse":"MTT", 
         "bevillingsområde":[
-            {"navn":"Miljø og teknik, skattefinansieret"},
-            {"navn":"Miljø og teknik, takstfinansieret"}
+            {
+                "navn":"Miljø og teknik, takstfinansieret",
+                "delområde":[
+                    "Rottebekæmpelse",
+                    "Kirkegårde"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                    "Affald og Genbrug"
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "projekter":0               
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,3]
+                        ],
+                        "anlæg":[
+                            [2]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,3,8]
+                        ]
+                    }
+                ]
+            }
         ]
     },
     {
         "udvalg":"Sundheds-, idræts- og kulturudvalget",
+        "forkortelse":"SIK",
         "bevillingsområde":[
-            {"navn":"Kultur og fritid"},
-            {"navn":"Sundhed"}
+            {
+                "navn":"Kultur og fritid",
+                "delområde":[
+                    "Biblioteker",
+                    "Kultur",
+                    "Fritid og Idræt"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "projekter":0   
+            },
+            {
+                "navn":"Sundhed",
+                "delområde":[
+                    "Vederlagsfri fysioterapi",
+                    "Rehabilitering",
+                    "Sundhedsfremme og forebyggelse",
+                    "Andre sundhedsudgifter",
+                    "Sundhedspleje",
+                    "Tandpleje"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "aktivitetsbestemt":[
+                    "Medfinansiering på sundhedsområdet"
+                ],
+                "projekter":0   
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0],[0,5]
+                        ],
+                        "anlæg":[
+                            [0],[0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,5,6],[0,5,6]
+                        ]
+                    }
+                ]
+            }
         ]
     },
     {
         "udvalg":"Omsorgsudvalget",
+        "forkortelse":"OU",
         "bevillingsområde":[
-            {"navn":"Tilbud til ældre"}
+            {
+                "navn":"Tilbud til ældre",
+                "delområde":[
+                    "Praktisk hjælp, pleje og træning",
+                    "Hjælpemidler"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                    "Ældreboliger"
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "projekter":0   
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,2]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,2,6]
+                        ]
+                    }
+                ]
+            }
         ]
     },
     {
         "udvalg":"Landdistriktsudvalget",
+        "forkortelse":"LD",
         "bevillingsområde":[
-            {"navn":"Landdistrikt"}
+            {
+                "navn":"Landdistrikt",
+                "delområde":[
+                    "Landdistrikt",
+                    "Byfornyelse"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "projekter":0   
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,6]
+                        ]
+                    }
+                ]
+            }
         ]
     },
     {
         "udvalg":"Skole- og uddannelsesudvalget",
+        "forkortelse":"SKU",
         "bevillingsområde":[
-            {"navn":"Skole"},
-            {"navn":"Pædagogisk Psykologisk Rådgivning"}
+            {
+                "navn":"Skole",
+                "delområde":[
+                    "Fællesudgifter - Skole",
+                    "Folkeskoler og fritidstilbud",
+                    "Befordring af elever",
+                    "Bidrag til efterskoler",
+                    "Fritidshjem og klubber",
+                    "Specialskoler og -fritidstilbud",
+                    "Ungdomsskole",
+                    "Ungdommens Uddannelsesvejledning",
+                    "Bidrag til privatskoler",
+                    "Forberedende Grunduddannelse"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "projekter":0   
+            },
+            {
+                "navn":"Pædagogisk Psykologisk Rådgivning",
+                "delområde":[
+                    "PPR (Pædagogisk Psykologisk Rådgivning)",
+                    "Forebyggende foranstaltninger børn, unge"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "projekter":0   
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0],[0]
+                        ],
+                        "anlæg":[
+                            [0],[]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,6],[0]
+                        ]
+                    }
+                ]
+            }
         ]
     },
     {
         "udvalg":"Erhvervs- og planudvalget",
+        "forkortelse":"EPU",
         "bevillingsområde":[
-            {"navn":"Erhverv og plan"}
+            {
+                "navn":"Erhverv og plan",
+                "delområde":[
+                    "Erhvervsudvikling",
+                    "Turisme",
+                    "Byudvikling"
+                ],
+                "indkomstoverførsler":[
+                ],
+                "ældreboliger":[
+                ],
+                "brugerfinansieret":[
+                ],
+                "centralerefusionsordninger":[
+                ],
+                "projekter":0   
+            }
+        ],
+        "dokumenter":[
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0]
+                        ],
+                        "anlæg":[
+                            [0,3]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,6,9]
+                        ]
+                    }
+                ]
+            }
         ]
     }
 ]

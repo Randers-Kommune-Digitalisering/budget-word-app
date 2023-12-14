@@ -29,8 +29,10 @@
                     "Indkomstoverførsler",
                     "Ældreboliger",
                     "Brugerfinansieret område",
-                    "Centrale refusionsordninger mv."
-                ]
+                    "Centrale refusionsordninger mv.",
+                    "Aktivitetsbestemt medfinansiering"
+                ],
+                "indledendeTekst": "Tabellen viser..."
             },
             {
                 "anlæg":[
@@ -38,7 +40,8 @@
                     "Ældreboliger - anlæg",
                     "Brugerfinansierede udgifter - anlæg",
                     "Jordforsyning"
-                ]
+                ],
+                "indledendeTekst": "Tabellen viser..."
             },
             {
                 "bevillingsansøgninger":[
@@ -47,16 +50,18 @@
                     "Ældreboliger",
                     "Brugerfinansieret område",
                     "Centrale refusionsordninger mv.",
+                    "Aktivitetsbestemt medfinansiering",
                     "Skattefinansierede anlæg",
                     "Ældreboliger - anlæg",
                     "Brugerfinansierede udgifter - anlæg",
                     "Jordforsyning"
-                ]
+                ],
+                "indledendeTekst": "Tabellen viser..."
             }
         ],
         "tabelindhold": [
             {
-                "kolonnenavneTabelType1":[
+                "kolonnenavneTabelType11":[
                     "Service (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
@@ -66,7 +71,92 @@
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
                     "Årets forventede resultat inkl. overførsler"
-                ]
+                ],
+                "indledendeTekst": "Tabellen viser..."
+            },
+            {
+                "kolonnenavneTabelType12":[
+                    "Indkomstoverførsler (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "indledendeTekst": "Tabellen viser..."
+            },
+            {
+                "kolonnenavneTabelType13":[
+                    "Ældreboliger drift (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "indledendeTekst": "Tabellen viser..."
+            },
+            {
+                "kolonnenavneTabelType14":[
+                    "Brugerfinansieret område (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "indledendeTekst": "Tabellen viser..."
+            },
+            {
+                "kolonnenavneTabelType15":[
+                    "Centrale refusionsordninger mv. (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "indledendeTekst": "Tabellen viser..."
+            },
+            {
+                "kolonnenavneTabelType16":[
+                    "Aktivitetsbestemt medfinansiering (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "indledendeTekst": "Tabellen viser..."
+            },
+            {
+                "kolonnenavneTabelType17":[
+                    "Anlæg (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "indledendeTekst": "Tabellen viser..."
             },
             {
                 "kolonnenavneTabelType2":[
@@ -76,7 +166,8 @@
                     "2025",
                     "2026",
                     "2023 Anlæg"
-                ]
+                ],
+                "indledendeTekst": "Tabellen viser..."
             }
         ]
     },
