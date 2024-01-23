@@ -6,10 +6,13 @@
      padding: 0;
  }
  
- ul {
+main {
+    display:none;
+}
+ul {
      margin: 0;
      padding: 0;
- }
+}
  
  .ms-welcome__header {
     padding: 10px;
@@ -75,12 +78,19 @@
 b {
     font-weight: bold;
 }
-
 .dropdown {
     padding:5px;
     font-size: 16px;
     margin-top:5px;
     margin-bottom:5px;
+    width: 100%;
+}
+
+.topmenu {
+    margin:10px 0px 0px 0px;
+    padding:10px;
+    border-top: solid 2px rgba(28, 53, 122, 1);
+    border-bottom: solid 1px rgba(28, 53, 122, 1);
 }
 
 .icon {
@@ -88,21 +98,33 @@ b {
     color: #991426;
 }
 
+.topicon {
+    margin-right:10px;
+    color: rgba(153, 20, 38, 0.5);
+}
+
+.topicon:hover {
+    color:  rgba(153, 20, 38, 1);
+}
+
 .skjult {
     display:none;
 }
 
-.udviklerdiv {
-    position: fixed;
-    left: 0;
-    width:100%;
-    bottom: 0;
-    border-top:5px;
-    padding: 10px 10px;
-    background-color: #E8E8E8;
+.overskrift {
+    margin:10px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    font-size:x-large;
+    font-weight:bold; 
+    /*border-bottom: dashed 1px rgba(28, 53, 122, 1);*/
 }
 
-.overskrift {
-    font-size: larger;
+.overskrift2 {
+    font-size:medium;
     font-weight:bold; 
 }
+
+#skabeloner{display:block;}
+#tools, #tools_overskrift, #dev, #dev_overskrift, #about, #about_overskrift{display:none;}
+
+

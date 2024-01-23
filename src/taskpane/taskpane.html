@@ -26,54 +26,71 @@
     <img width="150" height="150" src="../../assets/logo-filled.png" alt="Randers Kommunes budgetværktøjer" title="Randers Kommunes budgetværktøjer" />
   </header>
   <section id="sideload-msg" class="ms-welcome__main">
-    <h2 class="ms-font-xl">Please <a target="_blank" href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing">sideload</a> your add-in to see app body.</h2>
+    <h2 class="ms-font-xl"></h2>
   </section>
-  <main id="app-body" class="ms-welcome__main" style="display: none;">
+  <main id="app-body" class="ms-welcome__main">
 
-    <p class="overskrift">1. Vælg dokumenttype</p>
-    <select id="dokumentDropdown" class="dropdown"></select>
-    <select id="dokumentDetaljeDropdown" class="dropdown skjult"></select>
-    <select id="udvalgDropdown" class="dropdown skjult"></select>
-    <select id="bevillingsområdeDropdown" class="dropdown skjult">Vælg bevillingsområde</select>
-    
-    <div id="toolsdiv" class="skjult">
-      <p class="overskrift">2. Værktøjer</p>
-      <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
-      </div>
-      <div role="button" id="formatterTabeller" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter alle tabeller</span>
-      </div>
-      <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
-      </div>
-      <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
-        <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
-      </div>
+    <div id="skabeloner_overskrift">
+      <p class="overskrift"><i class="fa-solid fa-wand-magic icon"></i>Skabeloner</p>
     </div>
-
-    <div class="udviklerdiv">
+    <div id="tools_overskrift">
+      <p class="overskrift"><i class="fa-solid fa-screwdriver-wrench icon"></i>Værktøjer</p>
+    </div>
+    <div id="dev_overskrift">
       <p class="overskrift"><i class="fa-solid fa-code icon"></i>Udviklerværktøjer</p>
-      <div role="button" id="addImage" class="ms-welcome__action ms-Button ms-Button--hero ">
-        <span class="ms-Button-label">Indsæt billede</span>
-      </div>
-      <div role="button" id="addHeader" class="ms-welcome__action ms-Button ms-Button--hero ">
-          <span class="ms-Button-label">Indsæt sidehoved</span>
-      </div>
-      <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ">
-          <span class="ms-Button-label">Alle udvalg og bevillingsområder</span>
-      </div>
-      <div role="button" id="insertTable" class="ms-welcome__action ms-Button ms-Button--hero ">
-          <span class="ms-Button-label">Indsæt test-tabel</span>
+    </div>
+    <div id="about_overskrift">
+      <p class="overskrift"><i class="fa-solid fa-question icon"></i>Om</p>
+    </div>
+    <div class="topmenu ">
+      <i id="tm_skabeloner" class="fa-solid fa-wand-magic topicon fa-lg"></i>
+      <i id="tm_tools" class="fa-solid fa-screwdriver-wrench topicon fa-lg"></i>
+      <i id="tm_dev" class="fa-solid fa-code topicon fa-lg"></i>
+      <i id="tm_about" class="fa-solid fa-question topicon fa-lg"></i>
+    </div>
+    <div class="wrapper">
+      <div id="skabeloner">
+        <p class="overskrift2">1. Vælg dokumenttype </p>
+        <select id="dokumentDropdown" class="dropdown" title="dokumentDropdown"></select>
+        <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown"></select>
+        <select id="udvalgDropdown" class="dropdown skjult" title="udvalgDropdown"></select>
+        <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown">Vælg bevillingsområde</select>
+        <div id="toolsdiv" class="skjult">
+          <p class="overskrift2">2. Værktøjer</p>
+          <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero">
+            <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
+          </div>
+          <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero">
+            <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+          </div>
+          <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
+            <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
+          </div>
         </div>
-      <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label">Console log content controls</span>
       </div>
-      <div role="button" id="rydAltDev" class="ms-welcome__action ms-Button ms-Button--hero">
-        <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+      <div id="tools">
+        <div role="button" id="formatterTabeller" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter alle tabeller</span>
+        </div>
+        <div role="button" id="rydAltDev" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+        </div>
+        <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
+          <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
+        </div>
       </div>
-      <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
-        <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
+      <div id="dev">
+        <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label">Console log content controls</span>
+        </div>
+        <div role="button" id="rydAltDev" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+        </div>
+        <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
+          <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
+        </div>
+      </div>
+      <div id="about">
       </div>
     </div>
   </main>
@@ -172,6 +189,35 @@ dokumentDetaljeDropdown.addEventListener("change", e => {
 udvalgDropdown.addEventListener("change", e => {
   document.getElementById('toolsdiv').style.display="block";
 });
+
+function setDisplay(elementIdToShow) {
+  const elements = ['skabeloner', 'tools', 'dev', 'about'];
+
+  elements.forEach((elementId) => {
+    const displayStyle = elementId === elementIdToShow ? 'block' : 'none';
+    document.getElementById(elementId).style.display = displayStyle;
+    const overskrift=elementId+"_overskrift"
+    document.getElementById(overskrift).style.display = displayStyle;
+  });
+}
+
+tm_skabeloner.addEventListener("click", () => {
+  setDisplay('skabeloner');
+});
+
+tm_tools.addEventListener("click", () => {
+  setDisplay('tools');
+});
+
+tm_dev.addEventListener("click", () => {
+  setDisplay('dev');
+});
+
+tm_about.addEventListener("click", () => {
+  setDisplay('about');
+});
+  
+
   
 
 const valgtBevillingsområde = document.getElementById("valgtBevillingsområde");

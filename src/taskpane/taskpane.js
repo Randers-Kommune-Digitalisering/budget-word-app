@@ -1,15 +1,14 @@
+import { formaterTabeller } from "./utils/utils.js";
+
+
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
-    document.getElementById("run").onclick = run;
     document.getElementById("skabelon").onclick = skabelon;
-    document.getElementById("insertTable").onclick = insertTable;
-    document.getElementById("addHeader").onclick = addHeader;
     document.getElementById("loadContentControls").onclick = loadContentControls;
     document.getElementById("rydAlt").onclick = rydAlt;
     document.getElementById("rydAltDev").onclick = rydAlt;
-    document.getElementById("addImage").onclick = addImage;
     document.getElementById("formatterTabeller").onclick = formaterTabeller;
   }
 });
@@ -63,7 +62,7 @@ export async function rydAlt() {
   });
 }
 
-export async function indsætConcentControl(name) {
+export async function indsætContentControl(name) {
   return Word.run(async (context) => {
     context.document.body.paragraphs.getLast().select("End")
     var selection = context.document.getSelection()
@@ -84,7 +83,7 @@ export async function indsætSektion(tekst) {
     overskrift.styleBuiltIn="Heading2"
 
     await context.sync();
-    await indsætConcentControl(tekst)
+    await indsætContentControl(tekst)
     
     selection.insertParagraph('', "After");   
   })
@@ -100,7 +99,7 @@ export async function indsætUndersektioner(sektion, undersektioner, ekstraTekst
       underoverskrift.styleBuiltIn=heading
       context.document.body.paragraphs.getLast().select("End")
       await context.sync();
-      await indsætConcentControl(sektion+" "+ ekstraTekst +" "+ tekstUndersektion)
+      await indsætContentControl(sektion+" "+ ekstraTekst +" "+ tekstUndersektion)
       selection.insertParagraph('', "After")
     }  
     await context.sync()
@@ -128,87 +127,6 @@ export async function indsætSektionerICC(cc, undersektioner, heading) {
       }
     await context.sync()
   });
-}
-
-// Formatter alle tabeller i dokumentet 
-export async function formaterTabeller(){
-  return Word.run(async (context) => {
-    // Loop over alle tabeller
-    var tables=context.document.body.tables
-    tables.load('items')
-    await context.sync()
-    if (tables.items.length > 0) {
-      for (var j=0;j<tables.items.length;j++) {
-        var table = tables.items[j];
-        table.font.bold=false
-        table.font.size=8
-
-        // Fjerner alle rammer
-        var borderLocation = Word.BorderLocation.all;
-        var border = table.getBorder(borderLocation);
-        border.set({type:'none'})
-
-        // Tilføjer horisontale streger
-        var borderLocation = Word.BorderLocation.insideHorizontal
-        var border = table.getBorder(borderLocation);
-        border.set({color:"#D9D9D9",width:1, type:'Single'})
-
-        // Loop over alle rækker
-        var rækker=table.rows
-        rækker.load('items')
-        await context.sync()
-        for (var i=0; i<rækker.items.length; i++) {
-          rækker.items[i].verticalAlignment="Center"
-          
-          // Styler førster og sidste række
-          if (i==0|i==rækker.items.length-1) {
-            var borderLocation = Word.BorderLocation.top;
-            var border = rækker.items[i].getBorder(borderLocation);
-            border.set({color:"#808080",width:1, type:'Single'})
-            var borderLocation = Word.BorderLocation.bottom;
-            var border = rækker.items[i].getBorder(borderLocation);
-            border.set({color:"#808080",width:1, type:'Single'})
-            rækker.items[i].shadingColor="#DDEBF7"
-            rækker.items[i].font.bold=true
-          }
-
-          // Loop over celler
-          var celler=rækker.items[i].cells
-          celler.load('items')
-          await context.sync()
-          for (var k=0; k<celler.items.length; k++) {
-            // Sætter padding
-            celler.items[k].setCellPadding("Top",3.4)
-            celler.items[k].setCellPadding("Bottom",3.4)
-
-            // Højrestiller kolonne > 1 og række > 1
-            if (i>0&k>0) {
-              celler.items[k].horizontalAlignment="Right" 
-            } 
-            if (k==0) {
-              celler.items[k].columnWidth=250
-            }
-            if (celler.items[k].value.slice(0,5)=="I alt") {
-              console.log(celler.items[k].value.slice(0,5))
-              rækker.items[i].shadingColor="#DDEBF7"
-              rækker.items[i].font.bold=true
-              celler.items[k].setCellPadding("Top",3.4)
-              celler.items[k].setCellPadding("Bottom",3.4)
-              var borderLocation = Word.BorderLocation.top;
-              var border = rækker.items[i].getBorder(borderLocation);
-              border.set({color:"#808080",width:1, type:'Single'})
-              var borderLocation = Word.BorderLocation.bottom;
-              var border = rækker.items[i].getBorder(borderLocation);
-              border.set({color:"#808080",width:1, type:'Single'})
-            }
-
-          }
-        }
-      }
-      await context.sync()
-      }
-    await context.sync()
-  })
 }
 
 // Funktion til at gemme et JSON-objekt i dokumentkommentarerne til viderebehandling i VBA. 
@@ -311,17 +229,20 @@ export async function skabelon() {
       inkluderUndersektioner.push([afgrænsningsdata[0].undersektioner[i]])
     }
     const inkluderUndersektionerFlat=inkluderUndersektioner.flat(Infinity)
-
     const currentYear=new Date(Date.now()).getFullYear()
+
+
+    console.log("her: ",afgrænsningsdata[0].undersektioner[0].bevilling[0])
+    console.log("org: ",Object.keys(organisationdata[0].bevillingsområde[0]))
 
     if (valgtDokument=="Budgetopfølgning") {         
 
       // Indsætter notattitel
       const notatTitel=context.document.body.insertParagraph("Budgetopfølgning pr. "+valgtDokumentDetajle+" "+currentYear, Word.InsertLocation.start)
-      notatTitel.style="Brev/notat KORT (O1)"
-      
+      notatTitel.style="Brev/notat KORT (O1)";
+         
       // Indsætter notatdetaljer
-      await indsætConcentControl("Notatdetaljer")
+      await indsætContentControl("Notatdetaljer")
       context.document.body.paragraphs.getLast().select("End")
       var selection = context.document.getSelection()
       selection.insertParagraph('', "After");   
@@ -351,7 +272,6 @@ export async function skabelon() {
       var temp=cc.items[0].paragraphs.getFirst()
       temp.delete()
 
-
       // Indsæter titel
       var titel=context.document.body.insertParagraph(valgtUdvalg+" – "+dokumentdata[0].langtNavn.toLowerCase()+" pr. "+valgtDokumentDetajle+" "+currentYear, Word.InsertLocation.end)
       titel.styleBuiltIn="Heading1"
@@ -359,7 +279,7 @@ export async function skabelon() {
       // Indsætter dokumenttitel
       var dokumentegenskaber=context.document.properties.load("title")
       await context.sync()
-      console.log(dokumentegenskaber)
+      //console.log(dokumentegenskaber)
       context.document.properties.set({title:valgtUdvalg+" – "+dokumentdata[0].langtNavn.toLowerCase()+" pr. "+valgtDokumentDetajle+" "+currentYear})
       
       await context.sync();
@@ -409,7 +329,7 @@ export async function skabelon() {
               // Servicerammen
               const delområder=organisationdata[0].bevillingsområde[bevillingsområde].delområde
             
-              var ccNavn="Bevilling "+bevillingsområder[bevillingsområde] + " Servicerammen"
+              var ccNavn="Bevilling "+bevillingsområder[bevillingsområde] +" "+caseVar
               var targetCC=genContentControls.indexOf(ccNavn)
 
               var rækkerAntal=delområder.length+1
@@ -425,9 +345,11 @@ export async function skabelon() {
                 data.push(række)
               }
 
-              var tabel=contentControls.items[targetCC].insertParagraph(tabelindhold[0].indledendeTekst,"Start");
+              var tabel=contentControls.items[targetCC].insertParagraph(organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0],"Start");
+              //console.log(organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0]);
+              //var tabel=contentControls.items[targetCC].insertParagraph(organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0],"Start");
               var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
-              formaterTabel(tabel, contentControls.items[targetCC])
+              formaterTabel(tabel, contentControls.items[targetCC],organisationdata[0].bevillingsområde[bevillingsområde].projekter)
               await context.sync()
 
               tableAltBeskObj(bevillingsområder[bevillingsområde] + " servicerammen", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde "+bevillingsområder[bevillingsområde])
@@ -639,7 +561,9 @@ export async function skabelon() {
             ;
           }      
         }
-      }
+      } 
+
+      
 
       // Anlæg
       if (inkluderSektioner[0].includes(2)) {
@@ -759,120 +683,6 @@ export async function skabelon() {
 
     }
     console.log("nåede hertil")
-  });
-}
-
-
-export async function insertTable() {
-  return Word.run(async (context) => {
-
-    // Indlæser dokumenttype fra UI
-    const dokumenttypeUI = document.getElementById("dokumentDropdown").selectedIndex;
-    //console.log(dokumenttypeUI);
-
-    // Indlæser dokumenttype parametre fra json
-    const response = await fetch("./assets/dokumenttype.json");
-    const dokumenttypeJSON = await response.json();
-    //console.log(dokumenttypeJSON);
-
-    // Henter kolonneoverskrifter for tabel 1
-    const valgtIndex = dokumenttypeUI - 1;
-    const dokumenttypeAfgr = dokumenttypeJSON[valgtIndex].tabelindhold;
-    //console.log(dokumenttypeAfgr);
-
-    //Udtrækker kolonnenavne for tabel 1
-    //for (var key in dokumenttypeAfgr[0].kolonnenavneTabelType1) {
-    //  context.document.body.insertParagraph(dokumenttypeAfgr[0].kolonnenavneTabelType1[key], Word.InsertLocation.end);
-    //}
-    const antalKolonner = dokumenttypeAfgr[0].kolonnenavneTabelType1.length;
-    const kolonneNavne = dokumenttypeAfgr[0].kolonnenavneTabelType1;
-    //console.log(dokumenttypeAfgr[0].kolonnenavneTabelType1.length);
-
-    //Udtrækker delområder
-    const udvalgUI = document.getElementById("udvalgDropdown").selectedIndex;
-    const bevillingsområdeUI = document.getElementById("bevillingsomrDropdown").selectedIndex;
-
-    const responseOrganisation = await fetch("./assets/organisation.json");
-    const organisationJSON = await responseOrganisation.json();
-
-    const udvalgIndex = udvalgUI - 1;
-    const bevillingsområdeIndex = bevillingsområdeUI - 1;
-
-    const organisationAfgr = organisationJSON[udvalgIndex].bevillingsomr[bevillingsområdeIndex];
-    const delområder = organisationAfgr.delområde;
-    const antalRækker = organisationAfgr.delområde.length + 1;
-
-    const data = [kolonneNavne];
-    const table = context.document.body.insertTable(antalRækker, antalKolonner, "Start", data);
-
-    const tabelRækker = table.rows;
-    tabelRækker.load("items");
-
-    await context.sync();
-
-    for (var i = 1; i <= tabelRækker.items.length; i++) {
-      const rk = (tabelRækker.items[i].values = [[1, 2, 3, 4, 5, 6, 7, 8, 9]]);
-      await context.sync();
-    }
-
-    await context.sync();
-  });
-}
-
-
-export async function addHeader() {
-  return Word.run(async (context) => {
-    const header1 = document.getElementById("udvalgDropdown").value;
-    const header2 = document.getElementById("bevillingsområdeDropdown").value;
-
-    const header = context.document.sections
-      .getFirst()
-      .getHeader(Word.HeaderFooterType.primary)
-      .insertParagraph(header1.concat(" - ", header2), "End");
-
-    header.alignment = "Centered";
-    header.font.set({
-      bold: false,
-      italic: false,
-      name: "Calibri",
-      color: "black",
-      size: 18,
-    });
-
-    //header.style.font.size=18;
-
-    await context.sync();
-  });
-}
-
-
-export async function run() {
-  return Word.run(async (context) => {
-    /**
-     * Insert your Word code here
-     */
-
-    const response = await fetch("./assets/organisation.json");
-    const organisation = await response.json();
-
-    // insert a paragraph at the end of the document.
-    for (var key in organisation) {
-      if (organisation.hasOwnProperty(key)) {
-        for (var key2 in organisation[key].bevillingsomr) {
-          if (organisation[key].bevillingsomr.hasOwnProperty(key2)) {
-            const tekst = organisation[key].udvalg + " - " + organisation[key].bevillingsomr[key2];
-            context.document.body.insertParagraph(tekst, Word.InsertLocation.end);
-          }
-        }
-      }
-    }
-    //await context.sync()
-    //context.document.save();
-    //const paragraph2 = context.document.body.insertParagraph(organisation[1].udvalg, Word.InsertLocation.end);
-
-    // change the paragraph color to blue.
-    // paragraph.font.color = "blue";
-
-    await context.sync();
+    formaterTabeller();
   });
 }

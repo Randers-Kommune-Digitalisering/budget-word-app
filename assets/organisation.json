@@ -5,6 +5,10 @@
         "bevillingsområde":[   
             {
                 "navn":"Administration",
+                "projekter":0,
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration."
+                ],
                 "delområde":[
                     "Udvikling, Miljø og Teknik",
                     "Børn og Skole",
@@ -20,11 +24,13 @@
                 ],
                 "brugerfinansieret":[
                     "Tjenestemandspensioner og -præmier"
-                ],
-                "projekter":0
+                ]
             },
             {
                 "navn":"Politisk organisation",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Politisk organisation."
+                ],
                 "delområde":[
                     "Fælles formål - Politisk organisation",
                     "Kommunalbestyrelsesmedlemmer",

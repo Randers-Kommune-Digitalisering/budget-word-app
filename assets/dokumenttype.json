@@ -32,8 +32,10 @@
                     "Centrale refusionsordninger mv.",
                     "Aktivitetsbestemt medfinansiering"
                 ],
-                "indledendeTekst": "Tabellen viser..."
-            },
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for..."
+                ]
+            },  
             {
                 "anlæg":[
                     "Skattefinansierede anlæg",
@@ -66,7 +68,7 @@
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
                     "Forventet forbrug",	
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
@@ -80,7 +82,7 @@
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
                     "Forventet forbrug",	
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
@@ -94,7 +96,7 @@
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
                     "Forventet forbrug",	
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
@@ -104,11 +106,11 @@
             },
             {
                 "kolonnenavneTabelType14":[
-                    "Brugerfinansieret område (mio. kr.)",	
+                    "Brugerfinansieret område - drift (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
                     "Forventet forbrug",	
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
@@ -122,7 +124,7 @@
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
                     "Forventet forbrug",	
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
@@ -136,7 +138,7 @@
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
                     "Forventet forbrug",	
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
@@ -150,7 +152,7 @@
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
-                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
                     "Forventet forbrug",	
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
@@ -169,7 +171,8 @@
                 ],
                 "indledendeTekst": "Tabellen viser..."
             }
-        ]
+        ],
+        "kolonnebredde1":[20,10,10,10,10,10,10,10,10]
     },
     {
         "type":"Budgetbemærkninger Del 1"
