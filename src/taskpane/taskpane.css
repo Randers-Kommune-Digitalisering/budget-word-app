@@ -89,7 +89,8 @@ b {
 .topmenu {
     margin:10px 0px 0px 0px;
     padding:10px;
-    border-bottom: solid 2px rgba(28, 53, 122, 1);
+    border-top: solid 2px rgba(28, 53, 122, 1);
+    border-bottom: solid 1px rgba(28, 53, 122, 1);
 }
 
 .icon {
@@ -111,11 +112,11 @@ b {
 }
 
 .overskrift {
-    margin:10px 0px 10px 0px;
-    padding:0px 0px 10px 0px;
+    margin:10px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
     font-size:x-large;
     font-weight:bold; 
-    border-bottom: dashed 1px rgba(28, 53, 122, 1);
+    /*border-bottom: dashed 1px rgba(28, 53, 122, 1);*/
 }
 
 .overskrift2 {
@@ -124,8 +125,6 @@ b {
 }
 
 #skabeloner{display:block;}
-#tools{display:none;}
-#dev{display:none;}
-#about{display:none;}
+#tools, #tools_overskrift, #dev, #dev_overskrift, #about, #about_overskrift{display:none;}
 
 

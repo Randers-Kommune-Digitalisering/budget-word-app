@@ -49,22 +49,22 @@ export async function formaterTabeller(){
             await context.sync()
             for (var k=0; k<celler.items.length; k++) {
               // Sætter padding
-              celler.items[k].setCellPadding("Top",3.4)
-              celler.items[k].setCellPadding("Bottom",3.4)
+              celler.items[k].setCellPadding("Top",3)
+              celler.items[k].setCellPadding("Bottom",3)
   
               // Højrestiller kolonne > 1 og række > 1
               if (i>0&k>0) {
                 celler.items[k].horizontalAlignment="Right" 
               } 
               if (k==0) {
-                celler.items[k].columnWidth=250
+                celler.items[k].columnWidth=240   // Virker vist ikke efter hensigten...
               }
               if (celler.items[k].value.slice(0,5)=="I alt") {
                 console.log(celler.items[k].value.slice(0,5))
                 rækker.items[i].shadingColor="#DDEBF7"
                 rækker.items[i].font.bold=true
-                celler.items[k].setCellPadding("Top",3.4)
-                celler.items[k].setCellPadding("Bottom",3.4)
+                celler.items[k].setCellPadding("Top",3)
+                celler.items[k].setCellPadding("Bottom",3)
                 var borderLocation = Word.BorderLocation.top;
                 var border = rækker.items[i].getBorder(borderLocation);
                 border.set({color:"#808080",width:1, type:'Single'})
