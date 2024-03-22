@@ -31,9 +31,6 @@
                     "Brugerfinansieret område",
                     "Centrale refusionsordninger mv.",
                     "Aktivitetsbestemt medfinansiering"
-                ],
-                "beskrivelse":[
-                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for..."
                 ]
             },  
             {
@@ -42,8 +39,7 @@
                     "Ældreboliger - anlæg",
                     "Brugerfinansierede udgifter - anlæg",
                     "Jordforsyning"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             },
             {
                 "bevillingsansøgninger":[
@@ -57,8 +53,7 @@
                     "Ældreboliger - anlæg",
                     "Brugerfinansierede udgifter - anlæg",
                     "Jordforsyning"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             }
         ],
         "tabelindhold": [
@@ -73,8 +68,7 @@
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
                     "Årets forventede resultat inkl. overførsler"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             },
             {
                 "kolonnenavneTabelType12":[
@@ -87,8 +81,7 @@
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
                     "Årets forventede resultat inkl. overførsler"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             },
             {
                 "kolonnenavneTabelType13":[
@@ -101,8 +94,7 @@
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
                     "Årets forventede resultat inkl. overførsler"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             },
             {
                 "kolonnenavneTabelType14":[
@@ -115,8 +107,7 @@
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
                     "Årets forventede resultat inkl. overførsler"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             },
             {
                 "kolonnenavneTabelType15":[
@@ -129,8 +120,7 @@
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
                     "Årets forventede resultat inkl. overførsler"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             },
             {
                 "kolonnenavneTabelType16":[
@@ -143,8 +133,7 @@
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
                     "Årets forventede resultat inkl. overførsler"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             },
             {
                 "kolonnenavneTabelType17":[
@@ -157,27 +146,19 @@
                     "Årets forventede resultat ekskl. overførsler",	
                     "Overførsler",
                     "Årets forventede resultat inkl. overførsler"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                ]
             },
             {
                 "kolonnenavneTabelType2":[
                     "Bevillingsansøgninger (mio. kr.)",
-                    "2023",
                     "2024",
                     "2025",
                     "2026",
-                    "2023 Anlæg"
-                ],
-                "indledendeTekst": "Tabellen viser..."
+                    "2027",
+                    "2024 Anlægsbevillinger"
+                ]
             }
         ],
         "kolonnebredde1":[20,10,10,10,10,10,10,10,10]
-    },
-    {
-        "type":"Budgetbemærkninger Del 1"
-    },
-    {
-        "type":"Regnskabsbemærkninger"
     }
 ]
