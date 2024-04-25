@@ -64,8 +64,8 @@
                     {  
                         "navn":"ct1",
                         "placering":"Bevilling Administration Servicerammen Social og Arbejdsmarked",
-                        "tabelnr":1,
-                        "indledendeTekst": "Tabellen viser...",
+                        "tabelnr":2,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
                         "fodnote":"",
                         "kolonner":[
                             "Service (mio. kr.)",	
@@ -97,6 +97,9 @@
         "bevillingsområde": [   
             {
                 "navn":"Børn",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Børn."
+                ],
                 "delområde":[
                     "Fælles formål - Børn",
                     "Dagpleje",
@@ -117,6 +120,9 @@
             },
             {
                 "navn":"Familie",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Familie."
+                ],
                 "delområde":[
                     "Plejefamilier",
                     "Opholdssteder, sikrede samt døgninst.",
@@ -170,6 +176,9 @@
         "bevillingsområde": [   
             {
                 "navn":"Beskæftigelse, integration og ydelser",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Beskæftigelse, integration og ydelser."
+                ],
                 "delområde":[
                     "Integration",
                     "Beskæftigelsesindsats - jobcentertilbud",
@@ -219,6 +228,9 @@
         "bevillingsområde": [   
             {
                 "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Tilbud til børn, unge og voksne med særlige behov."
+                ],
                 "delområde":[
                     "Psykiatri og Socialt Udsatte",
                     "Handicap",
@@ -267,6 +279,9 @@
         "bevillingsområde":[
             {
                 "navn":"Miljø og teknik, skattefinansieret",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Miljø og teknik, skattefinansieret."
+                ],
                 "delområde":[
                     "Natur og Miljø",
                     "Veje og Trafik",
@@ -281,8 +296,13 @@
                 ],
                 "centralerefusionsordninger":[
                 ],
-                "projekter":0
+                "projekter":1
             }
+        ],
+        "anlæg":[
+            "Stab og Bæredygtighed",
+            "Erhverv og Bosætning",
+            "Plan, By og Natur"
         ],
         "dokumenter":[
             {
@@ -312,6 +332,9 @@
         "bevillingsområde":[
             {
                 "navn":"Miljø og teknik, takstfinansieret",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Miljø og teknik, takstfinansieret."
+                ],
                 "delområde":[
                     "Rottebekæmpelse",
                     "Kirkegårde"
@@ -356,6 +379,9 @@
         "bevillingsområde":[
             {
                 "navn":"Kultur og fritid",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Kultur og fritid."
+                ],
                 "delområde":[
                     "Biblioteker",
                     "Kultur",
@@ -369,10 +395,13 @@
                 ],
                 "centralerefusionsordninger":[
                 ],
-                "projekter":0   
+                "projekter":1   
             },
             {
                 "navn":"Sundhed",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Sundhed."
+                ],
                 "delområde":[
                     "Vederlagsfri fysioterapi",
                     "Rehabilitering",
@@ -392,8 +421,12 @@
                 "aktivitetsbestemt":[
                     "Medfinansiering på sundhedsområdet"
                 ],
-                "projekter":0   
+                "projekter":1   
             }
+        ],
+        "anlæg":[
+            "Kultur og fritid",
+            "Sundhedsområdet"            
         ],
         "dokumenter":[
             {
@@ -404,13 +437,14 @@
                 "undersektioner":[
                     {
                         "bevilling":[
-                            [0],[0,5]
+                            [0],
+                            [0,5]
                         ],
                         "anlæg":[
-                            [0],[0]
+                            [0]
                         ],
                         "bevillingsansøgninger":[
-                            [0,5,6],[0,5,6]
+                            [0,5,6]
                         ]
                     }
                 ]
@@ -423,6 +457,9 @@
         "bevillingsområde":[
             {
                 "navn":"Tilbud til ældre",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Tilbud til ældre."
+                ],
                 "delområde":[
                     "Praktisk hjælp, pleje og træning",
                     "Hjælpemidler"
@@ -467,6 +504,9 @@
         "bevillingsområde":[
             {
                 "navn":"Landdistrikt",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Landdistrikt."
+                ],
                 "delområde":[
                     "Landdistrikt",
                     "Byfornyelse"
@@ -481,6 +521,11 @@
                 ],
                 "projekter":0   
             }
+        ],
+        "anlæg":[
+            "Stab og Bæredygtighed",
+            "Erhverv og Bosætning",
+            "Plan, By og Natur"
         ],
         "dokumenter":[
             {
@@ -510,6 +555,9 @@
         "bevillingsområde":[
             {
                 "navn":"Skole",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Skole."
+                ],
                 "delområde":[
                     "Fællesudgifter - Skole",
                     "Folkeskoler og fritidstilbud",
@@ -530,10 +578,13 @@
                 ],
                 "centralerefusionsordninger":[
                 ],
-                "projekter":0   
+                "projekter":1 
             },
             {
                 "navn":"Pædagogisk Psykologisk Rådgivning",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Pædagogisk Psykologisk Rådgivning."
+                ],
                 "delområde":[
                     "PPR (Pædagogisk Psykologisk Rådgivning)",
                     "Forebyggende foranstaltninger børn, unge"
@@ -577,6 +628,9 @@
         "bevillingsområde":[
             {
                 "navn":"Erhverv og plan",
+                "beskrivelse":[
+                    "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Erhverv og plan."
+                ],
                 "delområde":[
                     "Erhvervsudvikling",
                     "Turisme",
@@ -609,6 +663,54 @@
                         ],
                         "bevillingsansøgninger":[
                             [0,6,9]
+                        ]
+                    }
+                ],
+                "customTabeller":[
+                    {  
+                        "navn":"ct1",
+                        "placering":"Anlæg Skattefinansierede anlæg",
+                        "tabelnr":3,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for skattefinansierende anlæg, Erhvervs- og planudvalget",
+                        "fodnote":"",
+                        "kolonner":[
+                            "Skattefinansierede anlæg (mio. kr.)",	
+                            "Oprindeligt budget",	
+                            "Korrigeret budget ekskl. overførsler",	
+                            "Bevillings-ansøgninger",	
+                            "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                            "Forventet forbrug",	
+                            "Årets forventede resultat ekskl. overførsler",	
+                            "Overførsler",
+                            "Årets forventede resultat inkl. overførsler"
+                        ],
+                        "rækker":[
+                            "Flodbyen Randers",
+                            "Stab og Bæredygtighed",
+                            "Plan, By og Natur"
+                        ]
+                    },
+                    {  
+                        "navn":"ct2",
+                        "placering":"Anlæg Jordforsyning",
+                        "tabelnr":4,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for skattefinansierende jordforsyning, Erhvervs- og planudvalget",
+                        "fodnote":"",
+                        "kolonner":[
+                            "Jordforsyning (mio. kr.)",	
+                            "Oprindeligt budget",	
+                            "Korrigeret budget ekskl. overførsler",	
+                            "Bevillings-ansøgninger",	
+                            "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                            "Forventet forbrug",	
+                            "Årets forventede resultat ekskl. overførsler",	
+                            "Overførsler",
+                            "Årets forventede resultat inkl. overførsler"
+                        ],
+                        "rækker":[
+                            "Grundsalg",
+                            "Jordkøb",
+                            "Byggemodning"
                         ]
                     }
                 ]

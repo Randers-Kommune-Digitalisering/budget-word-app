@@ -6,12 +6,52 @@ Office.onReady((info) => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("skabelon").onclick = skabelon;
-    document.getElementById("loadContentControls").onclick = loadContentControls;
+    document.getElementById("loadContentControls").onclick = loadElements;
     document.getElementById("rydAlt").onclick = rydAlt;
+    document.getElementById("rydAltTools").onclick = rydAlt;
     document.getElementById("rydAltDev").onclick = rydAlt;
+    document.getElementById("hentFil").onclick = hentFil;
     document.getElementById("formatterTabeller").onclick = formaterTabeller;
+
   }
 });
+
+export async function loadElements() {
+  return Word.run(async (context) => {
+    
+    var contentControls = context.document.contentControls;
+    contentControls.load('items');
+    await context.sync();
+    console.log("Content controls")
+    for (var key in contentControls.items) {
+      if (contentControls.items.hasOwnProperty(key)) { 
+        console.log(contentControls.items[key]._Ti, ": ",contentControls.items[key]._Te)
+      }
+    }
+
+    var afsnit=context.document.body.paragraphs;
+    afsnit.load('items');
+    await context.sync();
+    console.log("Afsnit")
+    for (var key in afsnit.items) {
+      if (afsnit.items.hasOwnProperty(key)) { 
+        console.log(afsnit.items[key]._Te)
+      }
+    }
+
+    var tables=context.document.body.tables;
+    tables.load('items');
+    await context.sync();
+    console.log("Tabeller")
+    console.log(tables)
+    for (var key in tables.items) {
+      if (tables.items.hasOwnProperty(key)) { 
+        console.table(tables.items[key]._V)
+      }
+    }
+    
+  })
+}
 
 export async function indlæsAfsnit(placering) {
   return Word.run(async (context) => {
@@ -45,17 +85,16 @@ export async function indlæsAfsnit(placering) {
           overskriftNiveau.push(nyOverskriftNiveau)
         }
 
-        console.log(i ,items[i])
         if (placering==overskrift.slice(1,overskrift.length).toString().replaceAll(","," ")) {
           return i
         }
-        
+        console.log(overskriftNiveau,overskrift)
       }
     }
   })
 }
  
-export async function rydAlt() {
+export async function rydAlt() { 
   return Word.run(async (context) => {
     context.document.body.clear(); 
     await context.sync();
@@ -112,18 +151,19 @@ export async function indsætSektionerICC(cc, undersektioner, heading) {
     const contentControls = context.document.contentControls;
     contentControls.load('id');
 
-    await context.sync()
+    await context.sync();
 
     const targetCC=genContentControls.indexOf(cc)
     const last=contentControls.items[targetCC]
-    const undersektionerRev=undersektioner.slice().reverse()
+    var temp=last.insertParagraph('',"End")
+      .styleBuiltIn="Normal";
       for(var undersektion in undersektioner) {
         if (undersektioner.length>1) {
           last.insertParagraph(undersektioner[undersektion],"End")  
           .styleBuiltIn=heading;
         }
           last.insertParagraph('',"End")
-          .styleBuiltIn="Normal"
+          .styleBuiltIn="Normal";
       }
     await context.sync()
   });
@@ -185,13 +225,20 @@ export async function formaterTabel(tabel, placering, projekter=0, fodnoteType=0
       fodnote.font.size=8
       fodnote.font.italic=true
     }
-  })
+  }) 
 }
 
+export async function hentFil() {
+  return Word.run(async (context) => { 
+    context.location='ms-word:ofe|u|https://broen.randers.dk/media/60535/tjekliste-it-indkoeb-280621.docx'
+    await context.sync();
+  })
+}
+  
 // Generer skabelonen
 export async function skabelon() {
   return Word.run(async (context) => {
-
+     
     globalThis.genContentControls=[] 
     globalThis.dokumentKommentarer=[]
 
@@ -314,6 +361,7 @@ export async function skabelon() {
         } 
       } 
 
+      
       // Indsætter indhold i rammestrukturen
       var contentControls = context.document.contentControls;
       contentControls.load('id');
@@ -345,23 +393,21 @@ export async function skabelon() {
                 data.push(række)
               }
 
+              // Indledende tekst 
               var tabel=contentControls.items[targetCC].insertParagraph(organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0],"Start");
-              //console.log(organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0]);
-              //var tabel=contentControls.items[targetCC].insertParagraph(organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0],"Start");
+
+              // Datatabel
               var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
               formaterTabel(tabel, contentControls.items[targetCC],organisationdata[0].bevillingsområde[bevillingsområde].projekter)
               await context.sync()
 
-              tableAltBeskObj(bevillingsområder[bevillingsområde] + " servicerammen", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde "+bevillingsområder[bevillingsområde])
-              await context.sync()
+              // Tabelbeskrivelse
+              tableAltBeskObj(bevillingsområder[bevillingsområde] + " servicerammen", organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0])
+              await context.sync();
 
               //// Indsætter undersektioner
               await indsætSektionerICC(ccNavn,delområder,"Heading4");
-              await context.sync();
-
-              //// Sletter tom paragraph før tabel
-              // var temp=contentControls.items[targetCC].paragraphs.getFirst()
-              // temp.delete();
+              //await context.sync();
             ; 
             case "Indkomstoverførsler":
               if (parseInt(bevilling)==1&afgrænsningsdata[0].undersektioner[0].bevilling[bevillingsområde].includes(1)) {
@@ -390,9 +436,8 @@ export async function skabelon() {
                 await formaterTabel(tabel,contentControls.items[targetCC])
                 await context.sync();
         
-                tableAltBeskObj(bevillingsområder[bevillingsområde] + " indkomstoverførsler", "Tabellen viser...")
+                tableAltBeskObj(bevillingsområder[bevillingsområde] + " indkomstoverførsler", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat forindkomstoverførsler, "+ bevillingsområder[bevillingsområde])
                 await context.sync()
-
 
                 //// Indsætter undersektioner
                 await indsætSektionerICC(ccNavn,rækker,"Heading4"); 
@@ -430,7 +475,7 @@ export async function skabelon() {
                 await formaterTabel(tabel,contentControls.items[targetCC])
                 await context.sync();
 
-                tableAltBeskObj(bevillingsområder[bevillingsområde] + " ældreboliger", "Tabellen viser...")
+                tableAltBeskObj(bevillingsområder[bevillingsområde] + " ældreboliger", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for ældreboliger, "+ bevillingsområder[bevillingsområde])
                 await context.sync()
         
                 //// Indsætter undersektioner
@@ -469,7 +514,7 @@ export async function skabelon() {
                 await formaterTabel(tabel,contentControls.items[targetCC])
                 await context.sync();
 
-                tableAltBeskObj(bevillingsområder[bevillingsområde] + " brugerfinansieret område", "Tabellen viser...")
+                tableAltBeskObj(bevillingsområder[bevillingsområde] + " brugerfinansieret område", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for det brugerfinansierde område, "+ bevillingsområder[bevillingsområde])
                 await context.sync()
         
                 //// Indsætter undersektioner
@@ -508,7 +553,7 @@ export async function skabelon() {
                 await formaterTabel(tabel,contentControls.items[targetCC])
                 await context.sync();
         
-                tableAltBeskObj(bevillingsområder[bevillingsområde] + " centrale refusionsordninger mv.", "Tabellen viser...")
+                tableAltBeskObj(bevillingsområder[bevillingsområde] + " centrale refusionsordninger mv.", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for centrale refusionsordninger mv., "+ bevillingsområder[bevillingsområde])
                 await context.sync()
                 
                 //// Indsætter undersektioner
@@ -547,7 +592,7 @@ export async function skabelon() {
                 await formaterTabel(tabel,contentControls.items[targetCC])
                 await context.sync();
         
-                tableAltBeskObj(bevillingsområder[bevillingsområde] + " centrale refusionsordninger mv.", "Tabellen viser...")
+                tableAltBeskObj(bevillingsområder[bevillingsområde] + " aktivitetsbestemt medfinansiering", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aktivitetsbestemt medfinansiering mv., "+ bevillingsområder[bevillingsområde])
                 await context.sync()
                 
                 //// Indsætter undersektioner
@@ -564,17 +609,30 @@ export async function skabelon() {
       } 
 
       
-
+      
       // Anlæg
       if (inkluderSektioner[0].includes(2)) {
         var ccNavn="Anlæg"
         var targetCC=genContentControls.indexOf(ccNavn)
 
+        // Hvis "anlæg" null under et givent udvalg i organisation.json, anvendes blot oplysningen fra dokumenttype.json. 
+        // Er "anlæg" ikke null anvendes denne som grundlag for rækkerne       
+
         var rækker=[]
-        var tempKey=inkluderUndersektionerFlat[0].anlæg[0]
-        for (var i in tempKey) {        
-        rækker.push(undersektioner[1].anlæg[tempKey[i]])
+
+        // Check for undefined 
+        if (organisationdata[0].anlæg!=undefined) {
+          var tempKey=organisationdata[0].anlæg
+          for (var i in tempKey) {        
+            rækker.push(organisationdata[0].anlæg[i])
+          }
+        } else {
+          var tempKey=inkluderUndersektionerFlat[0].anlæg[0]
+          for (var i in tempKey) {        
+            rækker.push(undersektioner[1].anlæg[tempKey[i]])
+          }
         }
+        
         var rækkerAntal=rækker.length+1
         var kolonnerAntal=tabelindhold[6].kolonnenavneTabelType17.length
         
@@ -592,12 +650,12 @@ export async function skabelon() {
         await formaterTabel(tabel,contentControls.items[targetCC])
         await context.sync();
 
-        tableAltBeskObj(valgtUdvalg + " anlæg", "Tabellen viser...")
+        tableAltBeskObj(valgtUdvalg + " anlæg", "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg, "+valgtUdvalg) 
         await context.sync()
 
         //// Indsætter undersektioner
         await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
-        await context.sync();
+        await context.sync(); 
 
         //// Sletter tom paragraph før tabel
         var temp=contentControls.items[targetCC].paragraphs.getFirst()
@@ -629,7 +687,7 @@ export async function skabelon() {
       await formaterTabel(tabel,contentControls.items[targetCC],0,1)
       await context.sync();
 
-      tableAltBeskObj(valgtUdvalg + " bevillingsansøgninger", "Tabellen viser...")
+      tableAltBeskObj(valgtUdvalg + " bevillingsansøgninger", "Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret for "+valgtUdvalg)
       await context.sync()
 
       //// Indsætter undersektioner
@@ -643,10 +701,14 @@ export async function skabelon() {
       // Custom tabeller
       var customTabeller=afgrænsningsdata[0].customTabeller
 
-      var afsnit=context.document.body.paragraphs.load(['text'])
-      await context.sync()
+
 
       for (var i in customTabeller) {
+        var afsnit=context.document.body.paragraphs.load(['text'])
+        await context.sync()
+        console.log(afsnit)
+
+        console.log(i, customTabeller[i])
         var rækker=customTabeller[i].rækker
         var kolonner=customTabeller[i].kolonner
         var tabelnr=customTabeller[i].tabelnr
@@ -654,7 +716,9 @@ export async function skabelon() {
         var kolonnerAntal=kolonner.length
 
         var ccNavn=customTabeller[i].placering
+        console.log(ccNavn)
         var targetP=parseInt(await indlæsAfsnit(ccNavn))
+        console.log(targetP)
         var data = [kolonner]
         for (var j in rækker){
           var række=[rækker[j]]
@@ -664,10 +728,14 @@ export async function skabelon() {
           data.push(række)
         }
 
-        const nytAfsnit=afsnit.items[targetP].insertParagraph("","After")
+        var nytAfsnit=afsnit.items[targetP].insertParagraph("","After")
         nytAfsnit.styleBuiltIn="Normal"
+        await context.sync()
+
   
         var tabel=nytAfsnit.insertTable(rækkerAntal,kolonnerAntal,"After",data);
+        await context.sync()
+
         var tabeller=context.document.body.tables.load()        
         await context.sync()
 
@@ -676,12 +744,13 @@ export async function skabelon() {
        
         await formaterTabel(tabel,placering,0,2,"") 
        
-        tableAltBeskObj(valgtUdvalg + " CT" +i, "Tabellen viser...",2)
+        tableAltBeskObj(valgtUdvalg + " CT" +i, customTabeller[i].indledendeTekst,customTabeller[i].tabelnr)
         await context.sync()
 
-      }
-
+      } 
+      
     }
+    
     console.log("nåede hertil")
     formaterTabeller();
   });
