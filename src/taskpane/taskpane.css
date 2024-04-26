@@ -5,15 +5,35 @@
      margin: 0;
      padding: 0;
  }
- 
-main {
-    display:none;
-}
 ul {
      margin: 0;
      padding: 0;
 }
- 
+
+.bottom {
+    background-color: white;
+    position: fixed; 
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.linkitekst:visited, .linkitekst:link {
+    color:rgba(28, 53, 122, 1);
+    text-decoration: none;
+    font-weight: bold;
+}
+.linkitekst:hover, .linkitekst:active {
+    color:rgba(28, 53, 122, 1);
+    text-decoration: underline;
+    font-weight: bold;
+}    
+
+.linkknap:visited, .linkknap:link, .linkknap:hover, .linkknap:active {
+    color:rgba(28, 53, 122, 1);
+    text-decoration: none;
+}
+
  .ms-welcome__header {
     padding: 10px;
     padding-bottom: 10px;
