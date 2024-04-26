@@ -50,13 +50,15 @@
     </div>
     <div class="wrapper">
       <div id="skabeloner">
-        <p class="overskrift2">1. Vælg dokumenttype </p>
+        <p class="overskrift2">1. Åben Startskabelon</p>
+        <p><i>Enten direkte fra fællesdrevet eller <a class="linkitekst" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self">her</a> (åbner i et nyt vindue - aktiver redigering inden du går videre).</i></p>
+        <p class="overskrift2">2. Vælg dokumenttype </p>
         <select id="dokumentDropdown" class="dropdown" title="dokumentDropdown"></select>
         <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown"></select>
         <select id="udvalgDropdown" class="dropdown skjult" title="udvalgDropdown"></select>
         <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown">Vælg bevillingsområde</select>
         <div id="toolsdiv" class="skjult">
-          <p class="overskrift2">2. Værktøjer</p>
+          <p class="overskrift2">3. Værktøjer</p>
           <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero">
             <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
           </div>
@@ -66,11 +68,17 @@
           <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
             <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
           </div>
+          <p class="overskrift2">4. Afslut</p>
+          <p><i>Kør VBA-scriptet </i><code>indsætTabelbeskrivelser()</code><i> og gem dokumentet som </i><code>.docx</code><i> med dokumenttitlen som filnavn.</i>
+          </p> 
         </div>
       </div>
       <div id="tools">
         <div role="button" id="formatterTabeller" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter alle tabeller</span>
+        </div>
+        <div role="button" id="HentSkabelon" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><a class="linkknap" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self"><i class="fa-solid fa-file-word icon"></i>Hent startskabelon</a></span>
         </div>
         <div role="button" id="rydAltTools" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
@@ -83,13 +91,6 @@
         <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label">Console log content controls</span>
         </div>
-        <div role="button" id="hentFil" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label">Hent fil</span>
-        </div>
-        <div>
-          <span class="ms-Button-label"><a href="ms-word:ofe|u|https://broen.randers.dk/media/60535/tjekliste-it-indkoeb-280621.docx" target="_self">Hent fil</a></span>
-        </div>
-
         <div role="button" id="rydAltDev" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
         </div>
@@ -100,8 +101,16 @@
       <div id="about">
       </div>
     </div>
+    <div class="bottom">
+      <p>
+        <a title="" href="https://github.com/Randers-Kommune-Digitalisering/budget-word-app" target="_blank"><i class="fa-brands fa-github icon"></i></a>
+        <a href="https://budget-word-app.prototypes.randers.dk/" target="_blank"><i class="fa-solid fa-globe icon"></i></a></br>
+        <i>budget-word-app v. 0.1</i>
+      </p>
+    </div>
   </main>
 </body>
+
 
 <script>
 let dropdownDokument = document.getElementById('dokumentDropdown');
@@ -128,7 +137,6 @@ fetch(dokumentURL)
       responseJSON=response.json();
       responseJSON.then(function(data) {  
         let option;
-    
         for (let i = 0; i < data.length; i++) {
           option = document.createElement('option');
             option.text = data[i].type;
@@ -144,15 +152,25 @@ fetch(organisationURL)
     function(response) {  
       responseJSON=response.json();
       responseJSON.then(function(data) {  
-        let option;
-    
+
+        /* Skaber array med udvalg, så de kan sorteres alfabetisk*/
+        var options=[]; 
         for (let i = 0; i < data.length; i++) {
+          options.push(data[i].udvalg);
+          console.log(data[i].udvalg)
+        }   
+        options.sort()
+
+        /* Populerer dropdown-listen */
+        let option;
+        for (let i = 0; i < options.length; i++) {
           option = document.createElement('option');
-          option.text = data[i].udvalg;
+          option.text = options[i];
+          console.log( options[i])
           dropdownUdvalg.add(option); 
         }    
       });  
-    }  
+    }   
   )  
 
 /* Populerer dokumentdetaljadropdown */

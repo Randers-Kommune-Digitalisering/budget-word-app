@@ -380,10 +380,14 @@ export async function skabelon() {
               var ccNavn="Bevilling "+bevillingsområder[bevillingsområde] +" "+caseVar
               var targetCC=genContentControls.indexOf(ccNavn)
 
+              // Indledende tekst 
+              var tabel=contentControls.items[targetCC].insertParagraph(organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0],"Start");
+
+              // Datatabel
+              // Konstruerer datatabel
               var rækkerAntal=delområder.length+1
               var kolonnerAntal=tabelindhold[0].kolonnenavneTabelType11.length
               
-              // Konstruerer datatabel
               var data = [tabelindhold[0].kolonnenavneTabelType11]
               for (var delområde in delområder){
                 var række=[delområder[delområde]]
@@ -393,15 +397,12 @@ export async function skabelon() {
                 data.push(række)
               }
 
-              // Indledende tekst 
-              var tabel=contentControls.items[targetCC].insertParagraph(organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0],"Start");
-
-              // Datatabel
+              // Indsætter datatabel
               var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
               formaterTabel(tabel, contentControls.items[targetCC],organisationdata[0].bevillingsområde[bevillingsområde].projekter)
               await context.sync()
 
-              // Tabelbeskrivelse
+              // Tabelbeskrivelse i dokumentegenskaber (til VBA-script)
               tableAltBeskObj(bevillingsområder[bevillingsområde] + " servicerammen", organisationdata[0].bevillingsområde[bevillingsområde].beskrivelse[0])
               await context.sync();
 
