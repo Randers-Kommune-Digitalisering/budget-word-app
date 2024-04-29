@@ -31,7 +31,7 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration.",
                                 "projekter":0,
-                                "typeKolonner":0,
+                                "kolonner":"kolonnenavneTabelType11",
                                 "rækker":[
                                     "Udvikling, Miljø og Teknik",
                                     "Børn og Skole",
@@ -48,10 +48,10 @@
                             },
                             {
                                 "nr":3,
-                                "navn":"Brugerfinansieret område",
-                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for det brugerfinansierede område.",
+                                "navn":"Brugerfinansieret",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration.",
                                 "projekter":0,
-                                "typeKolonner":3,
+                                "kolonner":"kolonnenavneTabelType14",
                                 "rækker":[
                                     "Tjenestemandspensioner og -præmier"
                                 ]
@@ -66,7 +66,7 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Politisk organisation.",
                                 "projekter":0,
-                                "typeKolonner":0,
+                                "kolonner":"kolonnenavneTabelType11",
                                 "rækker":[
                                     "Fælles formål - Politisk organisation",
                                     "Kommunalbestyrelsesmedlemmer",
@@ -129,8 +129,7 @@
                         ]
                     }
                 ]
-            },
-            {"navn":"Budgetskemaer del 1"}
+            }
         ]
     }
 ]

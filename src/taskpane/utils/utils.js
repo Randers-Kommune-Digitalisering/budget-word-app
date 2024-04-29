@@ -2,8 +2,6 @@
 export async function formaterTabeller(){
     return Word.run(async (context) => {
         
-      
-
       // Loop over alle tabeller
       var tables=context.document.body.tables
       tables.load('items')
