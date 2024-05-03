@@ -128,15 +128,18 @@ b {
 .icon {
     margin-right:5px;
     color: #991426;
+    cursor: pointer;
 }
 
 .topicon {
     margin-right:10px;
     color: rgba(153, 20, 38, 0.5);
+    cursor: pointer;
 }
 
 .topicon:hover {
     color:  rgba(153, 20, 38, 1);
+    cursor: pointer;
 }
 
 .skjult {
@@ -159,4 +162,6 @@ b {
 #skabeloner{display:block;}
 #tools, #tools_overskrift, #dev, #dev_overskrift, #about, #about_overskrift{display:none;}
 
-
+.pointer {
+    
+}

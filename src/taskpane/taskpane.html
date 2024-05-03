@@ -53,17 +53,21 @@
         <p class="overskrift2">1. Åben Startskabelon</p>
         <p><i>Enten direkte fra fællesdrevet eller <a class="linkitekst" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self">her</a> (åbner i et nyt vindue - aktiver redigering inden du går videre).</i></p>
         <p class="overskrift2">2. Vælg dokumenttype </p>
+
         <select id="dokumentDropdown" class="dropdown" title="dokumentDropdown"></select>
-        <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown"></select>
         <select id="udvalgDropdown" class="dropdown skjult" title="udvalgDropdown"></select>
-        <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown">Vælg bevillingsområde</select>
+        <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown"></select>
+        <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown"></select>
         <div id="toolsdiv" class="skjult">
           <p class="overskrift2">3. Værktøjer</p>
-          <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero">
+          <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero"> 
             <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
           </div>
           <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero">
             <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+          </div>
+          <div role="button" id="rydSidehoved" class="ms-welcome__action ms-Button ms-Button--hero">
+            <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd sidehoved</span>
           </div>
           <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
             <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
@@ -174,44 +178,97 @@ fetch(organisationURL)
   )  
 
 /* Populerer dokumentdetaljadropdown */
+
+dropdownUdvalg=document.getElementById('udvalgDropdown');
+dropdownDokumentDetalje = document.getElementById('dokumentDetaljeDropdown');
+dropdownBevilling = document.getElementById('bevillingsområdeDropdown');
+
+
 dokumentDropdown.addEventListener("change", e => {
-  const valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
+  valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
 
-  dropdownDokumentDetalje = document.getElementById('dokumentDetaljeDropdown');
-  dropdownDokumentDetalje.style.display = "block";
+  dropdownUdvalg.style.display="block"
+  dropdownDokumentDetalje.style.display="none";
+  dropdownBevilling.style.display="none";
+  toolsdiv.style.display="none";
+})
 
-  fetch(dokumentURL)  
-    .then(  
-      function(response) {  
-
-        responseJSON=response.json();
-        responseJSON.then(function(data) {  
-          let option;
-          
-          /* Budgetopfølgning */ 
-          if (dropdownDokument.selectedIndex==1) {
-
-            let defaultOptionDokumentDetalje = document.createElement('option');
-            defaultOptionDokumentDetalje.text = 'Vælg dato'; 
-            dropdownDokumentDetalje.add(defaultOptionDokumentDetalje);
-            dropdownDokumentDetalje.selectedIndex = 0;
-
-            for (let i = 0; i < data[0].undertype.length; i++) {
-              option = document.createElement('option');
-              option.text = data[0].undertype[i];
-              dropdownDokumentDetalje.add(option); 
-            }   
-          }  
-        });  
-      }  
-    )  
-});
-
-dokumentDetaljeDropdown.addEventListener("change", e => {
-  document.getElementById('udvalgDropdown').style.display="block";
-});
 
 udvalgDropdown.addEventListener("change", e => {
+  valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
+
+  if (valgtDokument==="Budgetopfølgning") {
+    dropdownDokumentDetalje.style.display="block";
+
+    fetch(dokumentURL)  
+      .then(  
+        function(response) {  
+
+          responseJSON=response.json();
+          responseJSON.then(function(data) {  
+            let option;
+            
+            /* Budgetopfølgning */ 
+            if (dropdownDokument.selectedIndex==1) {
+
+              removeOptions(dropdownDokumentDetalje);
+
+              let defaultOptionDokumentDetalje = document.createElement('option');
+              defaultOptionDokumentDetalje.text = 'Vælg dato'; 
+              dropdownDokumentDetalje.add(defaultOptionDokumentDetalje);
+              dropdownDokumentDetalje.selectedIndex = 0;
+
+              for (let i = 0; i < data[0].undertype.length; i++) {
+                option = document.createElement('option');
+                option.text = data[0].undertype[i];
+                dropdownDokumentDetalje.add(option); 
+              }   
+            }  
+          });  
+        }  
+      )  
+  }
+  if (valgtDokument==="Budgetbemærkninger del 1") {
+    document.getElementById('bevillingsområdeDropdown').style.display="block";
+    valgtUdvalg = dropdownUdvalg.options[dropdownUdvalg.selectedIndex].text;
+
+
+    fetch(organisationURL)  
+      .then(  
+        function(response) {  
+
+          responseJSON=response.json();
+          responseJSON.then(function(data) {   
+
+            removeOptions(dropdownBevilling);
+
+            let defaultOptionBevilling = document.createElement('option');
+            defaultOptionBevilling.text = 'Vælg bevillingsområde'; 
+            dropdownBevilling.add(defaultOptionBevilling);
+            dropdownBevilling.selectedIndex = 0;
+
+            data=data.filter(obj=>obj.udvalg==valgtUdvalg);
+  
+            for (let i = 0; i < data[0].dokumenter[0].bevillingsområde.length; i++) {
+              option = document.createElement('option');
+              option.text = data[0].dokumenter[0].bevillingsområde[i].navn;
+              dropdownBevilling.add(option); 
+            }   
+          
+          });  
+        }  
+      )  
+
+
+
+  }
+});
+
+dropdownDokumentDetalje.addEventListener("change", e => {
+  document.getElementById('toolsdiv').style.display="block";
+});
+
+dropdownBevilling.addEventListener("change", e => {
   document.getElementById('toolsdiv').style.display="block";
 });
 
@@ -243,13 +300,12 @@ tm_about.addEventListener("click", () => {
 });
   
 
-  
-
-const valgtBevillingsområde = document.getElementById("valgtBevillingsområde");
-    
+function removeOptions(selectElement) {
+   var i, L = selectElement.options.length - 1;
+   for(i = L; i >= 0; i--) {
+      selectElement.remove(i);
+   }
+}
 
 </script>
-
-
 </html>
-

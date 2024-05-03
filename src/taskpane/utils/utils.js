@@ -9,6 +9,7 @@ export async function formaterTabeller(){
       if (tables.items.length > 0) {
         for (var j=0;j<tables.items.length;j++) {
           var table = tables.items[j];
+          table.headerRowCount = 1
           table.font.bold=false
           table.font.size=8
   
@@ -39,6 +40,7 @@ export async function formaterTabeller(){
               border.set({color:"#808080",width:1, type:'Single'})
               rækker.items[i].shadingColor="#DDEBF7"
               rækker.items[i].font.bold=true
+              rækker.items[i].font.name="Calibri"
             }
   
             // Loop over celler
@@ -50,6 +52,14 @@ export async function formaterTabeller(){
               celler.items[k].setCellPadding("Top",3)
               celler.items[k].setCellPadding("Bottom",3)
   
+              
+              // Højrestiller kolonneoverskrifter til højre hvis kun tal
+              if (i==0) {
+                const årstal=/^\d{4}$/;
+                if (årstal.test(celler.items[k].value)==true) {
+                  celler.items[k].horizontalAlignment="Right"
+                }
+              }
               // Højrestiller kolonne > 1 og række > 1
               if (i>0&k>0) {
                 celler.items[k].horizontalAlignment="Right" 
