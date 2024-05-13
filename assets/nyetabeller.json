@@ -30,9 +30,8 @@
                                 "nr":0,
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration.",
-                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                                 "projekter":0,
-                                "typeKolonner":0,
+                                "kolonner":"kolonnenavneTabelType11",
                                 "rækker":[
                                     "Udvikling, Miljø og Teknik",
                                     "Børn og Skole",
@@ -49,11 +48,10 @@
                             },
                             {
                                 "nr":3,
-                                "navn":"Brugerfinansieret område",
-                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for det brugerfinansierede område.",
-                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "navn":"Brugerfinansieret",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration.",
                                 "projekter":0,
-                                "typeKolonner":3,
+                                "kolonner":"kolonnenavneTabelType14",
                                 "rækker":[
                                     "Tjenestemandspensioner og -præmier"
                                 ]
@@ -67,9 +65,8 @@
                                 "nr":0,
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Politisk organisation.",
-                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                                 "projekter":0,
-                                "typeKolonner":0,
+                                "kolonner":"kolonnenavneTabelType11",
                                 "rækker":[
                                     "Fælles formål - Politisk organisation",
                                     "Kommunalbestyrelsesmedlemmer",
@@ -85,9 +82,8 @@
                         "nr":0,
                         "navn":"Anlæg",
                         "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
-                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                         "projekter":0,
-                        "typeKolonner":6,
+                        "kolonner":"kolonnenavneTabelType2",
                         "rækker":[
                             "Skattefinansierede anlæg"
                         ]
@@ -98,9 +94,8 @@
                         "nr":0,
                         "navn":"Bevillingsansøgninger",
                         "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
-                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
                         "projekter":0,
-                        "typeKolonner":7,
+                        "kolonner":"kolonnenavneTabelType2",
                         "rækker":[
                             "Skattefinansierede anlæg"
                         ]
@@ -110,9 +105,9 @@
                     {  
                         "navn":"ct1",
                         "placering":"Bevilling Administration Servicerammen Social og Arbejdsmarked",
-                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                        "tabelnr":1,
+                        "tabelnr":2,
                         "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
+                        "fodnote":"",
                         "kolonner":[
                             "Service (mio. kr.)",	
                             "Oprindeligt budget",	
@@ -128,19 +123,14 @@
                             "Social og Arbejdsmarked fælles",
                             "Sekretariat",
                             "Borgerservice",
-                            "I alt inden for aftale",
+                            "I alt inden for rammen",
                             "Borgerservice",
-                            "I alt uden for aftale" 
+                            "I alt uden for rammen" 
                         ]
                     }
                 ]
-            },
-            {"navn":"Budgetskemaer del 1"}
+            }
         ]
-    },
-    {
-        "udvalg":"Børne- og familieudvalget",
-        "forkortelse":"BF"
     }
 ]
 

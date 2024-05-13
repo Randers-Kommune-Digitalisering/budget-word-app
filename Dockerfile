@@ -1,10 +1,18 @@
 FROM node:lts-alpine as build
 
 # install simple http server for serving static content
-RUN npm install -g http-server
+#RUN npm install -g http-server
+
+# Set dir and user
+ENV APP_HOME=/app
+ENV APP_USER=non-root
+
+# Add user
+RUN addgroup $APP_USER && \
+    adduser $APP_USER -D -G $APP_USER -h $APP_HOME
 
 # make the 'app' folder the current working directory
-WORKDIR /app
+WORKDIR $APP_HOME
 
 # Copy package.json to the WORKDIR
 COPY package.json ./
@@ -18,4 +26,8 @@ COPY . .
 # build app for production with minification
 RUN npm run build
 
-CMD [ "http-server", "-p 80", "dist" ]
+EXPOSE 80
+
+USER $APP_USER
+
+CMD [ "npm", "run", "serve" ]
