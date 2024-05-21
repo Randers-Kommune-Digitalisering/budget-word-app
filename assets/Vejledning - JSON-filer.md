@@ -155,6 +155,8 @@ Endelig er der en sektion `"customTabeller"`, som indeholder brugerdefinerede ta
    - Skriv navnet på din nye branch i tekstfeltet. Fx. `redigering - uke`.
    - Klik på `Create branch: [branch-navn] from main` for at oprette branchen.
 
+     ![alt text](image.png)
+
 #### Rediger en fil med den indbyggede editor
 
 1. **Naviger til filen**:
@@ -165,6 +167,8 @@ Endelig er der en sektion `"customTabeller"`, som indeholder brugerdefinerede ta
    - Klik på blyant-ikonet (`Edit this file`) øverst til højre for at åbne filen i den indbyggede editor.
    - Foretag de ønskede ændringer i filen ved at redigere tekstindholdet.
 
+     ![alt text](image-1.png)
+
 #### Commit Ændringer
 
 1. **Commit Ændringerne**:
@@ -173,11 +177,15 @@ Endelig er der en sektion `"customTabeller"`, som indeholder brugerdefinerede ta
    - Vælg `Commit directly to the [branch-navn] branch` for at committe ændringerne direkte til din nye branch.
    - Klik på `Commit changes` for at gemme dine ændringer.
 
+     ![alt text](image-2.png)
+
 #### Lav et Pull Request
 
 1. **Åbn Pull Request i fanen øvers**:
    - Klik på fanen `Pull requests` øverst i repository-visningen.
    - Klik på den grønne knap `New pull request`.
+
+     ![alt text](image-3.png)
 
 2. **Vælg Branches**:
    - Sørg for, at `base` branch (den du ønsker at merge dine ændringer ind i) er korrekt valgt (f.eks. `main`).
