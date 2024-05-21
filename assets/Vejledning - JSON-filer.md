@@ -8,7 +8,11 @@
     2. [Deployment på Kubernetes](#kubernetes)
 
 ## 1. Introduktion <a id="introduktion"></a>
-Strukturen 
+Strukturen i skabelonerne genereres ud fra to JSON-filer: 
+- *dokumenttype.json* 
+- *organisation.json*
+
+*dokumenttype.json* beskriver de forskelle dokumenter appen er i stand til at generere, mens *organisation.json* beskriver hvordan skabelonerne skal udformes for specifikke  organisatoriske enheder (forvaltninger). Begge filer er beskrevet yderligere nedenfor. 
 
 ### 1.1 *dokumenttype.json* <a id="dokumenttype"></a>
 ## Beskrivelse af JSON-fil
@@ -141,5 +145,49 @@ Endelig er der en sektion `"customTabeller"`, som indeholder brugerdefinerede ta
 
 ## 2. Redigering af JSON-filer <a id="redigering"></a>
 ### 2.1 GitHub <a id="github"></a>
+#### Opret en branch på et GitHub repository
+
+1. **Naviger til budgetappens repository**:
+   - Gå til [https://github.com/Randers-Kommune-Digitalisering/budget-word-app](https://github.com/Randers-Kommune-Digitalisering/budget-word-app) og log ind på din konto.
+
+2. **Opret en ny branch**:
+   - Klik på dropdown-menuen, hvor der står `main` øverst til venstre i filvisningen.
+   - Skriv navnet på din nye branch i tekstfeltet. Fx. `redigering - uke`.
+   - Klik på `Create branch: [branch-navn] from main` for at oprette branchen.
+
+#### Rediger en fil med den indbyggede editor
+
+1. **Naviger til filen**:
+   - Find den fil, du vil redigere i repository-strukturen, og klik på filens navn for at åbne den. *dokumenttype.json* og *organiastion.json* ligger her:
+   [github.com/Randers-Kommune-Digitalisering/budget-word-app/assets](https://github.com/Randers-Kommune-Digitalisering/budget-word-app/assets)
+
+2. **Rediger filen**:
+   - Klik på blyant-ikonet (`Edit this file`) øverst til højre for at åbne filen i den indbyggede editor.
+   - Foretag de ønskede ændringer i filen ved at redigere tekstindholdet.
+
+#### Commit Ændringer
+
+1. **Commit Ændringerne**:
+   - Øverst til højre er en knap, der hedder `Commit changes`. Klik på den når du vil "gemme". 
+   - Skriv en beskrivende commit-besked i feltet `Commit message`.
+   - Vælg `Commit directly to the [branch-navn] branch` for at committe ændringerne direkte til din nye branch.
+   - Klik på `Commit changes` for at gemme dine ændringer.
+
+#### Lav et Pull Request
+
+1. **Åbn Pull Request i fanen øvers**:
+   - Klik på fanen `Pull requests` øverst i repository-visningen.
+   - Klik på den grønne knap `New pull request`.
+
+2. **Vælg Branches**:
+   - Sørg for, at `base` branch (den du ønsker at merge dine ændringer ind i) er korrekt valgt (f.eks. `main`).
+   - Sørg for, at `compare` branch er sat til den branch, du har lavet dine ændringer på.
+
+3. **Opret Pull Request**:
+   - Klik på den grønne knap `Create pull request`.
+   - Skriv en titel og en beskrivelse for din pull request, der forklarer, hvad ændringerne indebærer.
+   - Klik på `Create pull request` for at oprette pull requesten.
+
 
 ### 2.2 Deployment på Kubernetes <a id="kubernetes"></a>
+... sker af sig selv med CI via Github Actions. Efter lidt tid kan du tjekke filerne er blevet opdateret på [budget-word-app.prototypes.randers.dk/assets/](https://budget-word-app.prototypes.randers.dk/assets/)
