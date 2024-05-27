@@ -135,7 +135,58 @@
                     }
                 ]
             },
-            {"navn":"Budgetskemaer del 1"}
+            {
+                "navn":"Budgetskemaer del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Administration",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Udg. til central ledelse og adm. pr.","indb. i 2022 for Randers Kommune:","","Udg. til central ledelse og adm. pr.","indb. i 2022 - placering på","landsplan:"],
+                                "politikker":[]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækkerServicerammen":[
+                                    "Udvikling, Miljø og Teknik",
+                                    "Børn og Skole",
+                                    "Social og Arbejdsmarked",
+                                    "Sundhed, Kultur og Omsorg",
+                                    "Stabe og tværgående konti",
+                                    "Redningsberedskab",
+                                    "Løn- og barselspuljer",
+                                    "Udbetaling Danmark",
+                                    "Tjenestemandspensioner og -præmier",
+                                    "Forsikringer",
+                                    "Servicebuffer, lovændringer og reserver" 
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Tjenestemandspensioner og -præmier"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlæg",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i 2024-2027. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Anlægsbuffer"
+                                ]   
+                            }
+
+                        ]
+
+                        
+                    }
+                ]
+            }
         ]
     },
     {
