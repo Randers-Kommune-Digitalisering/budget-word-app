@@ -406,6 +406,7 @@ export async function skabelon() {
             }
             data.push(række)
           }
+          
          
           var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
           tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote)
@@ -597,9 +598,18 @@ export async function skabelon() {
       
       // Indsætter indhold i rammestrukturen
       var contentControls = context.document.contentControls;
-      const id=contentControls.load('id');
+      contentControls.load('items');
       await context.sync();
-      console.log(id)
+
+      // Indsætter tabel til fakta og politikker
+      
+
+
+
+      var ccNavn="1. Beskrivelse af området"
+      var targetCC=genContentControls.indexOf(ccNavn)
+      var indsatTabel=contentControls.items[targetCC].insertTable(8,4,"End",data);
+      await context.sync();
     } 
      
     
