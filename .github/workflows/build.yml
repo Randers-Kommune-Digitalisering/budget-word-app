@@ -72,3 +72,30 @@ jobs:
       - name: Push version service docker image.
         if: ${{ steps.tag.conclusion != 'skipped' }}
         run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:${{ steps.tag.outputs.VERSION }}
+
+  # Update verion i config
+      - name: Checkout Target Repository
+        uses: actions/checkout@v2
+        with:
+          repository: Randers-Kommune-Digitalisering/kithosting-randers-kommune-apps
+          ref: 'test'
+          path: infrastructure
+          ssh-key: ${{ secrets.ACCESS_ARGO_APPS }}
+          
+      - name: Install yq
+        run: |
+          sudo apt install -y jq
+
+      - name: Update version
+        run: |
+          yq e ".service.image.tag = \"${{ github.sha }}\"" -i infrastructure/budget-word-app/values.yaml
+
+      - name: Commit and push
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          cd infrastructure
+          if [[ -n "$(git status -s)" ]]; then
+            git commit -am "Update version"
+            git push
+          fi

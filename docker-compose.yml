@@ -6,7 +6,25 @@ services:
       - word_app
     ports:
       - 80:80
-      
+    environment:
+      FTP_PATH: demo
+      FTP_USER: demo
+      FTP_PASS: pass
+      FTP_PORT: 22
+      FTP_HOST: ftp
+
+    depends_on: 
+      - ftp
+
+  ftp:
+    image: atmoz/sftp:latest
+    restart: always
+    command: demo:pass:::demo
+    ports:
+      - "22:22"
+    networks:
+      - word_app
+
 networks: 
   word_app:
     name: word_app
