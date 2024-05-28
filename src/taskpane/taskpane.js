@@ -1,4 +1,5 @@
 //import { ContextExclusionPlugin } from "webpack";
+import { generateCertificates } from "office-addin-dev-certs";
 import { formaterTabeller } from "./utils/utils.js";
 
 
@@ -567,6 +568,8 @@ export async function skabelon() {
         await context.sync()
 
       } 
+
+      formaterTabeller();
     } 
      
     if (valgtDokument=="Budgetbemærkninger del 1") {
@@ -602,6 +605,55 @@ export async function skabelon() {
       } 
       
       // Indsætter indhold i rammestrukturen
+      var ccNavn="2.1 Hovedtal - 2.1 Drift"
+      // console.log(genContentControls)
+      var targetCC=genContentControls.indexOf(ccNavn)
+            
+      var tabelDrift=afgrænsningsdata[1].tabeller
+      console.log(tabelDrift)
+
+      const tekst=contentControls.items[targetCC].insertParagraph(tabel.beskrivelse,"Start");
+
+      // Hvis "anlæg" null under et givent udvalg i organisation.json, anvendes blot oplysningen fra dokumenttype.json. 
+      // Er "anlæg" ikke null anvendes denne som grundlag for rækkerne       
+      // var rækker=[] 
+      // if (anlæg!=undefined) {
+      //   var rækkerTilBrug=anlæg.rækker
+      // } else {
+      //   var rækkerTilBrug=inkluderUndersektionerFlat[0].anlæg[0]
+      // }
+      // for (var række in rækkerTilBrug) {        
+      //   rækker.push(rækkerTilBrug[række])
+      // }
+      // var rækkerAntal=rækker.length+1 
+      // var kolonner=tabelindhold[anlæg.typeKolonner].overskrifter 
+      // var kolonnerAntal=kolonner.length
+      // var fodnote=anlæg.note
+
+
+      // var data = [kolonner]
+      // for (var j in rækker){
+      //   var række=[rækker[j]]
+      //   for(var i = 1; i <= kolonnerAntal-1; i++) {
+      //     række.push("")
+      //   }
+      //   data.push(række)
+      // }
+
+      // var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
+      // await tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote)
+      // await context.sync();
+
+      // tableAltBeskObj(valgtUdvalg + " anlæg", anlæg.beskrivelse) 
+      // await context.sync()
+
+      // //// Indsætter undersektioner
+      // await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
+      // await context.sync(); 
+
+
+
+
 
       const parse = require('json-templates');
       // const template = parse();
@@ -610,6 +662,10 @@ export async function skabelon() {
       var contentControls = context.document.contentControls;
       contentControls.load('items');
       await context.sync();
+
+      console.log(afgrænsningsdata, sektioner)
+        //=organisationJSON.filter(obj=>obj.udvalg==valgtUdvalg);
+
 
       // Indsætter tabel til fakta og politikker
 
@@ -621,10 +677,11 @@ export async function skabelon() {
       var indsatTabel=contentControls.items[targetCC].insertTable(8,4,"End",data);
       await context.sync();
     } 
+
      
     
 
-    console.log("nåede hertil")
-    formaterTabeller();
+    console.log("nåede igennem!");
+
   });
 }
