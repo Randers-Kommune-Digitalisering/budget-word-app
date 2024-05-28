@@ -143,7 +143,7 @@ export async function indsætSektion(tekst) {
   return Word.run(async (context) => {
     context.document.body.paragraphs.getLast().select("End")
     var selection = context.document.getSelection()
-    
+
     const overskrift=selection.insertParagraph(tekst);
     overskrift.styleBuiltIn="Heading2"
 
@@ -523,6 +523,7 @@ export async function skabelon() {
         var rækkerAntal=rækker.length+1
         var kolonnerAntal=kolonner.length
         var fodnote=customTabeller[i].note
+        var placeringOmkringAfsnit = customTabeller[i].placeringOmkringAfsnit;
 
         var ccNavn=customTabeller[i].placering
         var targetP=parseInt(await indlæsAfsnit(ccNavn))
@@ -535,7 +536,7 @@ export async function skabelon() {
           data.push(række)
         }
 
-        var nytAfsnit=afsnit.items[targetP].insertParagraph("","After")
+        var nytAfsnit = afsnit.items[targetP].insertParagraph("", placeringOmkringAfsnit);
         nytAfsnit.styleBuiltIn="Normal"
         await context.sync()
 
