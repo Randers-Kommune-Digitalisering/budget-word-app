@@ -2,6 +2,7 @@
 import { formaterTabeller } from "./utils/utils.js";
 
 
+
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
     document.getElementById("sideload-msg").style.display = "none";
@@ -13,6 +14,8 @@ Office.onReady((info) => {
     document.getElementById("rydAltTools").onclick = rydAlt;
     document.getElementById("rydAltDev").onclick = rydAlt;
     document.getElementById("formaterTabeller").onclick = formaterTabeller; 
+
+
 
   }
 });
@@ -208,7 +211,7 @@ export async function tableAltBeskObj(titel,beskrivelse,tabelnr=0) {
     } else {
       var i=1
     }
-    
+     
     if (tabelnr==0) {
       dokumentKommentarer.push({nr:i,titel:titel,beskrivelse:beskrivelse})
     } else {
@@ -493,9 +496,9 @@ export async function skabelon() {
         for(var i = 1; i <= kolonnerAntal-1; i++) {
           række.push("")
         }
-        data.push(række) 
-      }
-
+        data.push(række)  
+      } 
+ 
       var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
       tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote)
 
@@ -512,6 +515,7 @@ export async function skabelon() {
 
       // Custom tabeller
       var customTabeller=afgrænsningsdata[0].customTabeller
+      console.log(customTabeller)
 
       for (var i in customTabeller) {
         var afsnit=context.document.body.paragraphs.load(['text'])
@@ -523,6 +527,7 @@ export async function skabelon() {
         var rækkerAntal=rækker.length+1
         var kolonnerAntal=kolonner.length
         var fodnote=customTabeller[i].note
+        var placeringOmkringAfsnit=customTabeller[i].placeringOmkringAfsnit
 
         var ccNavn=customTabeller[i].placering
         var targetP=parseInt(await indlæsAfsnit(ccNavn))
@@ -535,13 +540,13 @@ export async function skabelon() {
           data.push(række)
         }
 
-        var nytAfsnit=afsnit.items[targetP].insertParagraph("","After")
+        var nytAfsnit=afsnit.items[targetP].insertParagraph("",placeringOmkringAfsnit)    
         nytAfsnit.styleBuiltIn="Normal"
         await context.sync()
 
         var tabel=nytAfsnit.insertTable(rækkerAntal,kolonnerAntal,"Before",data);
 
-        // Fodnoten indsættes selvstændigt for CS-tabeller, da den ellers vil indsættes formert
+        // Fodnoten indsættes selvstændigt for CS-tabeller, da den ellers vil indsættes forkert
         var indsatFodnote=nytAfsnit.insertParagraph(fodnote,"Before")
         indsatFodnote.font.size=8
         indsatFodnote.font.italic=true
@@ -556,14 +561,14 @@ export async function skabelon() {
         await context.sync()
 
         await tabelAddOns(tabel,placering,0,0) 
-        await context.sync()
+        await context.sync() 
 
         tableAltBeskObj(valgtUdvalg + " CT" +i, customTabeller[i].indledendeTekst,customTabeller[i].tabelnr)
         await context.sync()
 
       } 
-    }
-    
+    } 
+     
     if (valgtDokument=="Budgetbemærkninger del 1") {
       // Indsætter dokumenttitel
       var dokumentegenskaber=context.document.properties.load("title")
@@ -597,12 +602,17 @@ export async function skabelon() {
       } 
       
       // Indsætter indhold i rammestrukturen
+
+      const parse = require('json-templates');
+      // const template = parse();
+      // console.log(template({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 })); 
+
       var contentControls = context.document.contentControls;
       contentControls.load('items');
       await context.sync();
 
       // Indsætter tabel til fakta og politikker
-      
+
 
 
 

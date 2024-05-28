@@ -67,7 +67,7 @@ export async function formaterTabeller(){
               if (k==0) {
                 celler.items[k].columnWidth=240   // Virker vist ikke efter hensigten...
               }
-              if (celler.items[k].value.slice(0,5)=="I alt") {
+              if (celler.items[k].value.slice(0,5)=="I alt"||celler.items[k].value.slice(-5)=="i alt") {
                 console.log(celler.items[k].value.slice(0,5))
                 rækker.items[i].shadingColor="#DDEBF7"
                 rækker.items[i].font.bold=true
