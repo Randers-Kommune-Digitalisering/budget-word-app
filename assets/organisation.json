@@ -102,7 +102,10 @@
                         "projekter":0,
                         "typeKolonner":7,
                         "rækker":[
+                            "Skattefinansierede anlæg",
+                            "Brugerfinansieret område",
                             "Skattefinansierede anlæg"
+
                         ]
                     }
                 ],
@@ -110,6 +113,7 @@
                     {  
                         "navn":"ct1",
                         "placering":"Bevilling Administration Servicerammen Social og Arbejdsmarked",
+                        "placeringOmkringAfsnit":"After",
                         "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                         "tabelnr":1,
                         "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
@@ -146,14 +150,13 @@
                                 "navn":"Fakta og politikker",
                                 "faktaOverskrift":"Fakta",
                                 "fakta":["Udg. til central ledelse og adm. pr.","indb. i 2022 for Randers Kommune:","","Udg. til central ledelse og adm. pr.","indb. i 2022 - placering på","landsplan:"],
-                                "politikker":[]
+                                "politikker":["Indkøbspolitik","Personale- og ledelsespolitik","Politik for aktivt medborgerskab","Økonomisk politik","Se Randers Kommunes politikker på","Randers.dk/politikker"]
                             },{
                                 "nr":1,
                                 "navn":"Driftsbudget",
-                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration.",
-                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":0,
-                                "typeKolonner":0,
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Udvikling, Miljø og Teknik",
                                     "Børn og Skole",
@@ -173,9 +176,9 @@
                             },{
                                 "nr":2,
                                 "navn":"Anlæg",
-                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Administration.",
-                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i 2024-2027. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
-                                "typeKolonner":0,
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "Anlægsbuffer"
                                 ]   
@@ -188,10 +191,966 @@
                 ]
             }
         ]
-    },
+    }, 
     {
         "udvalg":"Børne- og familieudvalget",
-        "forkortelse":"BF"
+        "forkortelse":"BF",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0],
+                            [0,1,4]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,1,4,6]
+                        ]
+                    }
+                ],
+                "bevillingsområde": [   
+                    {
+                        "navn":"Børn",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Børn.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Fælles formål - Børn",
+                                    "Dagpleje",
+                                    "Dagtilbud",
+                                    "Fritidstilbud og klubber",
+                                    "Tilskud til private institutioner",
+                                    "Særlige dagtilbud"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"Familie",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Familie.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Plejefamilier",
+                                    "Opholdssteder, sikrede samt døgninst.",
+                                    "Forebyggende foranstaltninger og indsats",
+                                    "Kvindekrisecentre",
+                                    "Myndighedscentret (adm.)"
+                                ]
+                            },
+                            {
+                                "nr":1,
+                                "navn":"Indkomstoverførsler",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for indkomstsoverførsler, bevillingsområde Familie.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Forebyggende foranstaltninger og indsats"
+                                ]
+                            },
+                            {
+                                "nr":2,
+                                "navn":"Centrale refusionsordninger mv.",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for centrale refusionsordninger, bevillingsområde Familie.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Plejefamilier",
+                                    "Opholdssteder, sikrede samt døgninst.",
+                                    "Forebyggende foranstaltninger og indsats"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Indkomstoverførsler",
+                            "Centrale refusionsordninger mv.",
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Beskæftigelsesudvalget",
+        "forkortelse":"BU",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,1]
+                        ],
+                        "anlæg":[
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,1]
+                        ]
+                    }
+                ], 
+                "bevillingsområde": [   
+                    {
+                        "navn":"Beskæftigelse, integration og ydelser",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Beskæftigelse, integration og ydelser.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Integration",
+                                    "Beskæftigelsesindsats - jobcentertilbud",
+                                    "Øvrige indsatser og ydelser"
+                                ]                                
+                            },
+                            {
+                                "nr":1,
+                                "navn":"Indkomstoverførsler",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for indkomstoverførsler, bevillingsområde Beskæftigelse, integration og ydelser.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":4,
+                                "rækker":[
+                                    "Arbejdsløshedsdagpenge",
+                                    "Kontanthjælp og ledighedsydelse",
+                                    "Sygedagpenge og jobafklaring",
+                                    "Ressourceforløb",
+                                    "Fleksjob",
+                                    "Førtidspensioner",
+                                    "Seniorpension",
+                                    "Integration",
+                                    "Beskæftigelsesindsats - jobcentertilbud",
+                                    "Øvrige indsatser og ydelser",
+                                    "Boligydelse og boligsikring"
+                                ]                                  
+                            }
+                        ]
+                    } 
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Indkomstoverførsler"
+                        ]
+                    }
+                ]           
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Socialudvalget",
+        "forkortelse":"SU",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,1,2,4]
+                        ],
+                        "anlæg":[
+                            [0,1]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,1,2,4,6,7]
+                        ]
+                    }
+                ],
+                "bevillingsområde": [   
+                    {
+                        "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap",
+                                    "Autisme, senhjerneskade og læring"
+                                ]                                
+                            },
+                            {
+                                "nr":1,
+                                "navn":"Indkomstoverførsler",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for indkomstoverførsler, bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Handicap"
+                                ]                                
+                            },
+                            {
+                                "nr":2,
+                                "navn":"Ældreboliger",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for ældreboliger, bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Handicap"
+                                ]                                
+                            },
+                            {
+                                "nr":3,
+                                "navn":"Centrale refusionsordninger mv.",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for centrale refusionsordninger mv., bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Handicap"
+                                ]                                
+                            }
+                        ]
+                    }
+                ],
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Skattefinansierede anlæg",
+                            "Ældreboliger - anlæg"
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Indkomstoverførsler",
+                            "Ældreboliger",
+                            "Centrale refusionsordninger mv.",
+                            "Skattefinansierede anlæg",
+                            "Ældreboliger - anlæg"
+                        ]
+                    }
+                ]          
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Miljø- og teknikudvalget, skattefinansieret",
+        "forkortelse":"MTS", 
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,6]
+                        ]
+                    }
+                ],    
+                "bevillingsområde":[
+                    {
+                        "navn":"Miljø og teknik, skattefinansieret",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Miljø og teknik, skattefinansieret.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Natur og Miljø",
+                                    "Veje og Trafik",
+                                    "Ejendomsservice",
+                                    "Driftsafdeling"
+                                ]                                     
+                            }
+                        ]
+                    }
+                ],
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Stab og Bæredygtighed",
+                            "Erhverv og Bosætning",
+                            "Plan, By og Natur"
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ]      
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Miljø- og teknikudvalget, takstfinansieret",
+        "forkortelse":"MTT",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,3]
+                        ],
+                        "anlæg":[
+                            [2]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,3,8]
+                        ]
+                    }
+                ],
+                "bevillingsområde":[
+                    {
+                        "navn":"Miljø og teknik, takstfinansieret",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Miljø og teknik, takstfinansieret.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Rottebekæmpelse",
+                                    "Kirkegårde"
+                                ]                                     
+                            },
+                            {
+                                "nr":1,
+                                "navn":"Brugerfinansieret område",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for det brugerfinansierede område, bevillingsområde Miljø og teknik, takstfinansieret.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Affald og Genbrug"
+                                ]                                     
+                            }                            
+                        ]      
+                    }
+                ],
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Brugerfinansierede udgifter - anlæg"
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Brugerfinansieret område",
+                            "Brugerfinansierede udgifter - anlæg"
+                        ]
+                    }
+                ]            
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Sundheds-, idræts- og kulturudvalget",
+        "forkortelse":"SIK",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0],
+                            [0,5]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,5,6]
+                        ]
+                    }
+                ],
+                "bevillingsområde":[
+                    {
+                        "navn":"Kultur og fritid",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Kultur og fritid.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Biblioteker",
+                                    "Kultur",
+                                    "Fritid og Idræt"
+                                ]                                     
+                            }
+                        ] 
+                    },
+                    {
+                        "navn":"Sundhed",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Sundhed.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Vederlagsfri fysioterapi",
+                                    "Rehabilitering",
+                                    "Sundhedsfremme og forebyggelse",
+                                    "Andre sundhedsudgifter",
+                                    "Sundhedspleje",
+                                    "Tandpleje"
+                                ]                                     
+                            },
+                            {
+                                "nr":1,
+                                "navn":"Aktivitetsbestemt medfinansiering",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aktivitetsbestemt medfinansiering, bevillingsområde Sundhed.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Medfinansiering på sundhedsområdet"
+                                ]                                     
+                            }                           
+                        ]  
+                    }
+                ], 
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Aktivitetsbestemt medfinansiering",
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ],
+                "customTabeller":[
+                    {  
+                        "navn":"ct1",
+                        "placering":"Bevilling Kultur og fritid",
+                        "placeringOmkringAfsnit":"Before",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "tabelnr":0,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
+                        "kolonner":[
+                            "Drift i alt (mio. kr.)",	
+                            "Oprindeligt budget",	
+                            "Korrigeret budget ekskl. overførsler",	
+                            "Bevillings-ansøgninger",	
+                            "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                            "Forventet forbrug",	
+                            "Årets forventede resultat ekskl. overførsler",	
+                            "Overførsler",
+                            "Årets forventede resultat inkl. overførsler"
+                        ],
+                        "rækker":[
+                            "Kultur og fritid",
+                            "Sundhedsområdet",
+                            "Serviceudgifter i alt",
+                            "Medfinansiering på sundhedsområdet"
+                            
+                        ]
+                    }
+                ]                
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Omsorgsudvalget",
+        "forkortelse":"OU",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,2]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,2,6]
+                        ]
+                    }
+                ],            
+                "bevillingsområde":[
+                    {
+                        "navn":"Tilbud til ældre",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Tilbud til ældre.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Praktisk hjælp, pleje og træning",
+                                    "Hjælpemidler"
+                                ]                                     
+                            },
+                            {
+                                "nr":1,
+                                "navn":"Ældreboliger",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for ældreboliger, bevillingsområde Tilbud til ældre.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Ældreboliger"
+                                ]                                  
+                            }
+                        ] 
+                    }
+                ],
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Skattefinansierede anlæg"
+
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Ældreboliger",
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Landdistriktsudvalget",
+        "forkortelse":"LD",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0]
+                        ],
+                        "anlæg":[
+                            [0]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,6]
+                        ]
+                    }
+                ],
+                "bevillingsområde":[
+                    {
+                        "navn":"Landdistrikt",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Landdistrikt.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Landdistrikt",
+                                    "Byfornyelse"
+                                ]                                     
+                            }
+                        ]
+                    }
+                ], 
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Stab og Bæredygtighed",
+                            "Erhverv og Bosætning",
+                            "Plan, By og Natur"
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ]           
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Skole- og uddannelsesudvalget",
+        "forkortelse":"SKU",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0],[0]
+                        ],
+                        "anlæg":[
+                            [0],[]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,6],[0]
+                        ]
+                    }
+                ],
+                "bevillingsområde":[
+                    {
+                        "navn":"Skole",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Skole.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":1,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Fællesudgifter - Skole",
+                                    "Folkeskoler og fritidstilbud",
+                                    "Befordring af elever",
+                                    "Bidrag til efterskoler",
+                                    "Fritidshjem og klubber",
+                                    "Specialskoler og -fritidstilbud",
+                                    "Ungdomsskole",
+                                    "Ungdommens Uddannelsesvejledning",
+                                    "Bidrag til privatskoler",
+                                    "Forberedende Grunduddannelse"
+                                ]                                     
+                            }
+                        ] 
+                    },
+                    {
+                        "navn":"Pædagogisk Psykologisk Rådgivning",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Pædagogisk Psykologisk Rådgivning.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "PPR (Pædagogisk Psykologisk Rådgivning)",
+                                    "Forebyggende foranstaltninger børn, unge"
+                                ]                                     
+                            }
+                        ] 
+                    }
+                ],
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Skattefinansierede anlæg"
+                        ]
+                    }
+                ]              
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
+    },
+    {
+        "udvalg":"Erhvervs- og planudvalget",
+        "forkortelse":"EPU",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0]
+                        ],
+                        "anlæg":[
+                            [0,3]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,6,9]
+                        ]
+                    }
+                ],
+                "bevillingsområde":[
+                    {
+                        "navn":"Erhverv og plan",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Erhverv og plan.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    "Erhvervsudvikling",
+                                    "Turisme",
+                                    "Byudvikling"
+                                ]                                     
+                            }
+                        ] 
+                    }
+                ], 
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            "Skattefinansierede anlæg",
+                            "Jordforsyning"
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Skattefinansierede anlæg",
+                            "Jordforsyning"
+                        ]
+                    }
+                ]            
+            },
+            {
+                "navn":"Budgetskemaer del 1"           
+            }
+        ]
     }
 ]
 
