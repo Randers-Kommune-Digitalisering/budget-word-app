@@ -115,7 +115,7 @@
                         "placering":"Bevilling Administration Servicerammen Social og Arbejdsmarked",
                         "placeringOmkringAfsnit":"After",
                         "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                        "tabelnr":1,
+                        "tabelnr":2,
                         "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
                         "kolonner":[
                             "Service (mio. kr.)",	
@@ -785,8 +785,8 @@
                         "placering":"Bevilling Kultur og fritid",
                         "placeringOmkringAfsnit":"Before",
                         "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                        "tabelnr":0,
-                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
+                        "tabelnr":1,
+                        "indledendeTekst": "Tabellen viser service udgifter samlet for Sundheds-, idræts- og kulturudvalget og dertil medfinansiering på sundhedsområdet",
                         "kolonner":[
                             "Drift i alt (mio. kr.)",	
                             "Oprindeligt budget",	

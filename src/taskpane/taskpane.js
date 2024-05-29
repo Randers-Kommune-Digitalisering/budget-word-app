@@ -1,6 +1,7 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
 import { formaterTabeller } from "./utils/utils.js";
-
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -12,21 +13,19 @@ Office.onReady((info) => {
     document.getElementById("rydSidehoved").onclick = rydSidehoved;
     document.getElementById("rydAltTools").onclick = rydAlt;
     document.getElementById("rydAltDev").onclick = rydAlt;
-    document.getElementById("formaterTabeller").onclick = formaterTabeller; 
-
+    document.getElementById("formaterTabeller").onclick = formaterTabeller;
   }
 });
 
 export async function loadElements() {
   return Word.run(async (context) => {
-    
     var contentControls = context.document.contentControls;
-    contentControls.load('items');
+    contentControls.load("items");
     await context.sync();
-    console.log("Content controls")
+    console.log("Content controls");
     for (var key in contentControls.items) {
-      if (contentControls.items.hasOwnProperty(key)) { 
-        console.log(contentControls.items[key]._Ti, ": ",contentControls.items[key]._Te)
+      if (contentControls.items.hasOwnProperty(key)) {
+        console.log(contentControls.items[key]._Ti, ": ", contentControls.items[key]._Te);
       }
     }
 
@@ -75,7 +74,7 @@ export async function indlæsAfsnit(placering) {
           overskrift.push(nyOverskrift)
           overskriftNiveau.push(nyOverskriftNiveau)
         }
-        if (nyOverskriftNiveau<overskriftNiveau.slice(-1)) {
+        if (nyOverskriftNiveau<overskriftNiveau.slice(-1)) { 
           while(nyOverskriftNiveau<overskriftNiveau.slice(-1)) {
             overskrift.pop()
             overskriftNiveau.pop()
