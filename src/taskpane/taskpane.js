@@ -242,6 +242,14 @@ export async function tabelAddOns(tabel, placering, projekter=0, fodnote=0) {
   })
 }
 
+export async function fetchAssets(adr) {
+  return Word.run(async (context) => {
+    var response = await fetch(adr, { cache: "reload" });
+    return response.json();
+  });
+};
+
+
   
 // Generer skabelonen
 export async function skabelon() {
@@ -255,20 +263,32 @@ export async function skabelon() {
     const valgtUdvalg = document.getElementById("udvalgDropdown").value;
     const valgtBevilling = document.getElementById("bevillingsområdeDropdown").value;
     
-    const responseDokumenttype = await fetch("./assets/dokumenttype.json");
+    const responseDokumenttype = await fetch("./assets/dokumenttype.json", { cache: "reload" });
     const dokumenttypeJSON = await responseDokumenttype.json();
 
-    const responseOrganisation = await fetch("./assets/organisation.json");
-    const organisationJSON = await responseOrganisation.json();
+    //const responseOrganisation = await fetch("./assets/organisation.json", { cache: "reload" }); 
+    //const organisationJSON = await responseOrganisation.json();
+    
+    // console.log("fetchAssets(\"./assets/organisation.json\"): ", await fetchAssets("./assets/organisation.json"))
+    // console.log("OrganisationJSON: ", organisationJSON)
+
+    // const dokumentdata=organisationJSON.filter(obj=>obj.type==valgtDokument); 
+
+
+    // var responseOrganisation_bbd1 = await fetch("./assets/organisation_bbd1.json");
+    // var organisationJSON_bbd1 = await responseOrganisation_bbd1.json();
+    // console.log("organisationJSON_bbd1: ",organisationJSON_bbd1) 
     
     const dokumentdata=dokumenttypeJSON.filter(obj=>obj.type==valgtDokument);
     const sektioner=dokumentdata[0].sektioner;
     const undersektioner=dokumentdata[0].undersektioner;
     const tabelindhold=dokumentdata[0].tabelindhold;
-    const notatDetaljer=dokumentdata[0].notatdetaljer;
-    const langtNavn=dokumentdata[0].langtNavn;
+    const notatDetaljer=dokumentdata[0].notatdetaljer; 
+    const langtNavn=dokumentdata[0].langtNavn; 
 
-    const organisationdata=organisationJSON.filter(obj=>obj.udvalg==valgtUdvalg);
+    var organisationJSON=await fetchAssets("./assets/organisation.json")
+    var organisationdata = organisationJSON.filter(obj=>obj.udvalg==valgtUdvalg);
+    //console.log("organisationdata: ",organisationdata)
 
     /* Udlæser bevillingsområder fra første dokumenttype - ændrer sig ikke på tværs af typer*/
     const bevillingsområder=[]
@@ -277,9 +297,10 @@ export async function skabelon() {
     }
 
     // Indlæser sektionsafgrænsninger
-    const afgrænsningsdata=organisationdata[0].dokumenter.filter(obj=>obj.navn=valgtDokument)
+    var afgrænsningsdata=organisationdata[0].dokumenter.filter(obj=>obj.navn=valgtDokument)
+    console.log("afgrænsningsdata: ",afgrænsningsdata) 
     const inkluderSektioner=[]
-    for (var i in afgrænsningsdata[0].sektioner) { 
+    for (var i in afgrænsningsdata[0].sektioner) {  
       inkluderSektioner.push(afgrænsningsdata[0].sektioner[i])
     }
 
@@ -293,7 +314,7 @@ export async function skabelon() {
     const budgetperiodeÅr4=currentYear+4
     const budgetperiode= budgetperiodeÅr1+"-"+ budgetperiodeÅr4
 
-    if (valgtDokument=="Budgetopfølgning") {         
+    if (valgtDokument=="Budgetopfølgning") {        
 
       // Indsætter notattitel
       const notatTitel=context.document.body.insertParagraph("Budgetopfølgning pr. "+valgtDokumentDetajle+" "+currentYear, Word.InsertLocation.start)
@@ -493,7 +514,7 @@ export async function skabelon() {
           række.push("")
         }
         data.push(række) 
-      }
+      } 
 
       var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
       tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote)
@@ -562,9 +583,28 @@ export async function skabelon() {
         await context.sync()
 
       } 
+      formaterTabeller();
     }
     
     if (valgtDokument=="Budgetbemærkninger del 1") {
+      //  Fetcher organisationsdata igen
+      var organisation=await fetchAssets("./assets/organisation.json")
+      console.log("organisation: ",organisation)
+      var inputdata=organisation.filter(obj=>obj.udvalg==valgtUdvalg)
+      inputdata=inputdata[0].dokumenter.filter(obj => obj.navn==valgtDokument)
+      inputdata=inputdata[0].bevillingsområde.filter(obj => obj.navn==valgtBevilling)
+      console.log("inputdata: ",inputdata)
+
+      // tabelindhold
+      var tabeller=inputdata[0].tabeller
+      var faktaoverskrift=tabeller[0].faktaOverskrift
+      var fakta=tabeller[0].fakta
+      var politikker=tabeller[0].politikker
+      console.log("tabeller: ",tabeller)  
+      console.log("faktaoverskrift: ",faktaoverskrift)
+      console.log("fakta: ",fakta)
+      console.log("politikker: ",politikker)
+      
       // Indsætter dokumenttitel
       var dokumentegenskaber=context.document.properties.load("title")
       await context.sync()
@@ -598,23 +638,129 @@ export async function skabelon() {
       
       // Indsætter indhold i rammestrukturen
       var contentControls = context.document.contentControls;
-      contentControls.load('items');
+      contentControls.load('id');
       await context.sync();
 
-      // Indsætter tabel til fakta og politikker
-      
 
+      // Service 
+
+
+      // Tabeller for hvert bevillingsområde
+
+      /*
+      for (var tabel in tabeller) {    
+        const ccNavn="Bevilling "+bevillingsområder[bevillingsområde] +" "+tabeller[tabel].navn
+        const targetCC=genContentControls.indexOf(ccNavn)
+  
+        // Indledende tekst 
+        const tekst=contentControls.items[targetCC].insertParagraph(tabeller[tabel].beskrivelse,"Start");
+
+        // Datatabel
+        var rækker=tabeller[tabel].rækker
+        var rækkerAntal=tabeller[tabel].rækker.length+1
+        var kolonner=tabelindhold[tabeller[tabel].typeKolonner].overskrifter
+        var kolonnerAntal=kolonner.length
+        var projekter=tabeller[tabel].projekter
+        var fodnote=tabeller[tabel].note
+
+        var data = [kolonner]
+        for (var j in rækker){
+          var række=[rækker[j]]
+          for(var i = 1; i <= kolonnerAntal-1; i++) {
+            række.push("")
+          }
+          data.push(række)
+        }
+        
+        
+        var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
+        tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote)
+  
+
+
+      var contentControls = context.document.contentControls;
+      contentControls.load('items');
+      await context.sync();
+      
+      */ 
+
+      // Indsætter tabel til fakta og politikker
+      rækker=Math.max(1+fakta.length,politikker.length)
+      console.log("rækker: ",rækker)      
 
 
       var ccNavn="1. Beskrivelse af området"
       var targetCC=genContentControls.indexOf(ccNavn)
       var indsatTabel=contentControls.items[targetCC].insertTable(8,4,"End",data);
+
+      // Styler tabel - skal flyttes til utils
+      indsatTabel.headerRowCount = 1
+      indsatTabel.font.bold=false
+      indsatTabel.font.size=11
+      indsatTabel.font.name="Calibri"
+      indsatTabel.font.color="#000000"
+
+      // Loop over alle rækker
+      var rækker=indsatTabel.rows
+      rækker.load('items')
+      await context.sync()
+      for (var i=0; i<rækker.items.length; i++) {
+        rækker.items[i].verticalAlignment="Center"
+        
+        if (i==0) {
+          rækker.items[i].font.bold=true
+        }
+
+        // Loop over celler
+        var celler=rækker.items[i].cells
+        celler.load('items')
+        await context.sync()
+        for (var k=0; k<celler.items.length; k++) {
+          
+          // Styler kolonne 0, 1 og 3
+          if (k!=2) {
+            celler.items[k].shadingColor="#DDEBF7"
+          }
+          // Sætter padding
+          celler.items[k].setCellPadding("Top",0)
+          celler.items[k].setCellPadding("Bottom",0)
+
+          // Højrestiller kolonne 1
+          if (k==1) {
+            celler.items[k].horizontalAlignment="Right" 
+          } 
+          // Indstiller bredden
+          // 28.35 points pr. centimer, 17 cm sidebredde. = 491,95 points
+          if (k==0) {
+            celler.items[k].columnWidth=160  
+          }
+          if (k==1) {
+            celler.items[k].columnWidth=60  
+          }
+          if (k==2) {
+            celler.items[k].columnWidth=42  
+          }
+          if (k==3) {
+            celler.items[k].columnWidth=220  
+          }
+        }
+      }
+
+
+      // Fjerner alle rammer
+      var borderLocation = Word.BorderLocation.all;
+      var border = indsatTabel.getBorder(borderLocation);
+      border.set({type:'none'})
+
+
+
+
       await context.sync();
     } 
      
     
-
+ 
     console.log("nåede hertil")
-    formaterTabeller();
+
   });
 }
