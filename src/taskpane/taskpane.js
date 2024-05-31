@@ -587,6 +587,7 @@ export async function skabelon() {
     }
     
     if (valgtDokument=="Budgetbemærkninger del 1") {
+      
       //  Fetcher organisationsdata igen
       var organisation=await fetchAssets("./assets/organisation.json")
       console.log("organisation: ",organisation)
@@ -601,9 +602,6 @@ export async function skabelon() {
       var fakta=tabeller[0].fakta
       var politikker=tabeller[0].politikker
       console.log("tabeller: ",tabeller)  
-      console.log("faktaoverskrift: ",faktaoverskrift)
-      console.log("fakta: ",fakta)
-      console.log("politikker: ",politikker)
       
       // Indsætter dokumenttitel
       var dokumentegenskaber=context.document.properties.load("title")
@@ -641,19 +639,105 @@ export async function skabelon() {
       contentControls.load('id');
       await context.sync();
 
+      // Indsætter tabel til fakta og politikker
+      rækker=Math.max(fakta.length,politikker.length+2)
+      console.log(rækker)
+      var data=[]
+      data.push([faktaoverskrift,"","","Politikker"])
+      
+      for (var række=0; række<rækker; række++) {
+          data.push([fakta[række],"","",politikker[række]])
+      }
+      data[rækker-1][3]="Se Randers Kommunes politikker på"
+      data[rækker][3]="Randers.dk/politikker"
 
-      // Service 
+      var ccNavn="1. Beskrivelse af området"
+      var targetCC=genContentControls.indexOf(ccNavn)
+      var indsatTabel=contentControls.items[targetCC].insertTable(rækker+1,4,"End",data);
 
+      // Styler tabel - skal flyttes til utils
+      indsatTabel.headerRowCount = 1
+      indsatTabel.font.bold=false
+      indsatTabel.font.size=11
+      indsatTabel.font.name="Calibri"
+      indsatTabel.font.color="#000000"
 
-      // Tabeller for hvert bevillingsområde
+      // Loop over alle rækker
+      var rækker=indsatTabel.rows
+      rækker.load('items')
+      await context.sync()
+      for (var i=0; i<rækker.items.length; i++) {
+        rækker.items[i].verticalAlignment="Top"
+        
+        if (i==0) {
+          rækker.items[i].font.bold=true
+        }
 
+        // Loop over celler
+        var celler=rækker.items[i].cells
+        celler.load('items')
+        await context.sync()
+        for (var k=0; k<celler.items.length; k++) {
+          
+          // Styler kolonne 0, 1 og 3
+          if (k!=2) {
+            celler.items[k].shadingColor="#DDEBF7"
+          }
+          // Sætter padding
+          celler.items[k].setCellPadding("Top",0)
+          celler.items[k].setCellPadding("Bottom",0)
+
+          // Højrestiller kolonne 1
+          if (k==1) {
+            celler.items[k].horizontalAlignment="Right" 
+          } 
+          // Indstiller bredden
+          // 28.35 points pr. centimer, 17 cm sidebredde. = 491,95 points
+          if (k==0) {
+            celler.items[k].columnWidth=180  
+          }
+          if (k==1) {
+            celler.items[k].columnWidth=40  
+          }
+          if (k==2) {
+            celler.items[k].columnWidth=42  
+          }
+          if (k==3) {
+            celler.items[k].columnWidth=220  
+          }
+          if (i==rækker.items.length-1 & k==3) { 
+            // VIRKER IKKE... 
+            /*
+            const cell=celler.items[k]
+            cell.insertHtml(
+              `<a href="Randers.dk/politikker">Randers.dk/politikker</a>`,
+              Word.InsertLocation.replace
+            );
+            */
+          }
+        }
+      }
+      
+      // Fjerner alle rammer
+      var borderLocation = Word.BorderLocation.all;
+      var border = indsatTabel.getBorder(borderLocation);
+      border.set({type:'none'})
+      await context.sync();
+
+      // Indsætter tabel vedr. drift
+      var ccNavn="2. Hovedtal - 2.1 Drift"
+      var targetCC=genContentControls.indexOf(ccNavn)
+
+      // Indledende tekst 
+      const parse = require('json-templates');
+      const templateBeskrivelse = parse(tabeller[1].beskrivelse);
+      console.log(templateBeskrivelse({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 })); 
+
+      const tekst=contentControls.items[targetCC].insertParagraph(templateBeskrivelse({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }),"Start");
       /*
-      for (var tabel in tabeller) {    
-        const ccNavn="Bevilling "+bevillingsområder[bevillingsområde] +" "+tabeller[tabel].navn
-        const targetCC=genContentControls.indexOf(ccNavn)
-  
-        // Indledende tekst 
-        const tekst=contentControls.items[targetCC].insertParagraph(tabeller[tabel].beskrivelse,"Start");
+
+
+      // var indsatTabel=contentControls.items[targetCC].insertTable(rækker+1,4,"End",data);
 
         // Datatabel
         var rækker=tabeller[tabel].rækker
@@ -681,81 +765,9 @@ export async function skabelon() {
       var contentControls = context.document.contentControls;
       contentControls.load('items');
       await context.sync();
+      */
       
-      */ 
-
-      // Indsætter tabel til fakta og politikker
-      rækker=Math.max(1+fakta.length,politikker.length)
-      console.log("rækker: ",rækker)      
-
-
-      var ccNavn="1. Beskrivelse af området"
-      var targetCC=genContentControls.indexOf(ccNavn)
-      var indsatTabel=contentControls.items[targetCC].insertTable(8,4,"End",data);
-
-      // Styler tabel - skal flyttes til utils
-      indsatTabel.headerRowCount = 1
-      indsatTabel.font.bold=false
-      indsatTabel.font.size=11
-      indsatTabel.font.name="Calibri"
-      indsatTabel.font.color="#000000"
-
-      // Loop over alle rækker
-      var rækker=indsatTabel.rows
-      rækker.load('items')
-      await context.sync()
-      for (var i=0; i<rækker.items.length; i++) {
-        rækker.items[i].verticalAlignment="Center"
-        
-        if (i==0) {
-          rækker.items[i].font.bold=true
-        }
-
-        // Loop over celler
-        var celler=rækker.items[i].cells
-        celler.load('items')
-        await context.sync()
-        for (var k=0; k<celler.items.length; k++) {
-          
-          // Styler kolonne 0, 1 og 3
-          if (k!=2) {
-            celler.items[k].shadingColor="#DDEBF7"
-          }
-          // Sætter padding
-          celler.items[k].setCellPadding("Top",0)
-          celler.items[k].setCellPadding("Bottom",0)
-
-          // Højrestiller kolonne 1
-          if (k==1) {
-            celler.items[k].horizontalAlignment="Right" 
-          } 
-          // Indstiller bredden
-          // 28.35 points pr. centimer, 17 cm sidebredde. = 491,95 points
-          if (k==0) {
-            celler.items[k].columnWidth=160  
-          }
-          if (k==1) {
-            celler.items[k].columnWidth=60  
-          }
-          if (k==2) {
-            celler.items[k].columnWidth=42  
-          }
-          if (k==3) {
-            celler.items[k].columnWidth=220  
-          }
-        }
-      }
-
-
-      // Fjerner alle rammer
-      var borderLocation = Word.BorderLocation.all;
-      var border = indsatTabel.getBorder(borderLocation);
-      border.set({type:'none'})
-
-
-
-
-      await context.sync();
+  
     } 
      
     
