@@ -260,8 +260,6 @@ export async function skabelon() {
 
     const responseOrganisation = await fetch("./assets/organisation.json");
     const organisationJSON = await responseOrganisation.json();
-
-    console.log(organisationJSON)
     
     const dokumentdata=dokumenttypeJSON.filter(obj=>obj.type==valgtDokument);
     const sektioner=dokumentdata[0].sektioner;
