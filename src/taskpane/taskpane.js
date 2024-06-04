@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
-import { formaterTabeller } from "./utils/utils.js";
+import { formaterTabeller, formaterTabellerBB } from "./utils/utils.js";
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -311,6 +311,8 @@ export async function skabelon() {
     const inkluderUndersektionerFlat=inkluderUndersektioner.flat(Infinity)
     const currentYear=new Date(Date.now()).getFullYear()
     const budgetperiodeÅr1=currentYear+1
+    const budgetperiodeÅr2=currentYear+2
+    const budgetperiodeÅr3=currentYear+3
     const budgetperiodeÅr4=currentYear+4
     const budgetperiode= budgetperiodeÅr1+"-"+ budgetperiodeÅr4
 
@@ -655,6 +657,12 @@ export async function skabelon() {
       var targetCC=genContentControls.indexOf(ccNavn)
       var indsatTabel=contentControls.items[targetCC].insertTable(rækker+1,4,"End",data);
 
+      tableAltBeskObj("Infobokse med fakta og politikker", "Infobokse med fakta og politikker")
+      await context.sync();
+
+    
+
+
       // Styler tabel - skal flyttes til utils
       indsatTabel.headerRowCount = 1
       indsatTabel.font.bold=false
@@ -684,8 +692,8 @@ export async function skabelon() {
             celler.items[k].shadingColor="#DDEBF7"
           }
           // Sætter padding
-          celler.items[k].setCellPadding("Top",0)
-          celler.items[k].setCellPadding("Bottom",0)
+          celler.items[k].setCellPadding("Top",1)
+          celler.items[k].setCellPadding("Bottom",1)
 
           // Højrestiller kolonne 1
           if (k==1) {
@@ -717,6 +725,20 @@ export async function skabelon() {
           }
         }
       }
+
+      // Sletter sidste tomme afsnit - virker ikke
+      /*
+      const afsnit=contentControls.items[targetCC].paragraphs
+      afsnit.load('items')
+      await context.sync()  
+      for (var i=0; i<afsnit.items.length; i++) {
+        console.log(afsnit.items[i].text)
+      }
+      console.log("sidste afsnit",afsnit.items[afsnit.items.length-1])
+      
+      afsnit.items[afsnit.items.length-1].delete()
+      await context.sync()  
+      */
       
       // Fjerner alle rammer
       var borderLocation = Word.BorderLocation.all;
@@ -733,7 +755,90 @@ export async function skabelon() {
       const templateBeskrivelse = parse(tabeller[1].beskrivelse);
       console.log(templateBeskrivelse({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 })); 
 
-      const tekst=contentControls.items[targetCC].insertParagraph(templateBeskrivelse({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }),"Start");
+      const indsatTabelbeskrivelse=contentControls.items[targetCC].insertParagraph(templateBeskrivelse({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }),"Start");
+      await context.sync();
+
+      var rækkerServicerammen=tabeller[1].rækkerServicerammen
+      var rækkerUdenForServicerammen=tabeller[1].rækkerUdenForServicerammen
+      var k1r1=tabeller[1].k1r1
+      var tabelnr=tabeller[1].nr
+      var rækkerServicerammenAntal=rækkerServicerammen.length
+      var rækkerUdenForServicerammenAntal=rækkerUdenForServicerammen.length
+      var kolonnerAntal=5
+      var fodnote=tabeller[1].note
+
+      var data = [[k1r1, budgetperiodeÅr1, budgetperiodeÅr2, budgetperiodeÅr3, budgetperiodeÅr4]] 
+      
+      // Servicerammen
+      data.push(["Servicerammen","","","",""])
+      for (var j in rækkerServicerammen){
+        var række=[rækkerServicerammen[j]]
+        for(var i = 1; i <= kolonnerAntal-1; i++) {
+          række.push("")
+        }
+        data.push(række)
+      }
+      // Uden for servicerammen
+      data.push(["Uden for servicerammen","","","",""])
+      for (var j in rækkerUdenForServicerammen){
+        var række=[rækkerUdenForServicerammen[j]]
+        for(var j = 1; j <= kolonnerAntal-1; j++) {
+          række.push("")
+        }
+        data.push(række)
+      }
+      
+      var indsatTabel=contentControls.items[targetCC].insertTable(rækkerServicerammenAntal+rækkerUdenForServicerammenAntal+3,kolonnerAntal,"End",data);
+      //console.table(data)
+      await context.sync()
+      tabelAddOns(indsatTabel,contentControls.items[targetCC],0,fodnote)
+      await context.sync()
+      tableAltBeskObj(tabeller[1].navn, templateBeskrivelse({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }))
+      await context.sync()
+      contentControls.items[targetCC].insertParagraph('2.1.1 Servicerammen',"End").styleBuiltIn="Heading3"
+      contentControls.items[targetCC].insertParagraph('',"End").styleBuiltIn="Normal"
+      contentControls.items[targetCC].insertParagraph('2.1.2 Uden for servicerammen',"End").styleBuiltIn="Heading3"
+      contentControls.items[targetCC].insertParagraph('',"End").styleBuiltIn="Normal"
+
+      formaterTabellerBB("tabel-1")
+
+      // Indsætter tabel vedr. anlæg
+      var ccNavn="2. Hovedtal - 2.2 Anlæg"
+      var targetCC=genContentControls.indexOf(ccNavn)
+
+      // Indledende tekst 
+      const parse2 = require('json-templates');
+      const templateBeskrivelse2 = parse2(tabeller[2].beskrivelse);
+      var indsatTabelbeskrivelse2=contentControls.items[targetCC].insertParagraph(templateBeskrivelse2({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }),"Start");
+      await context.sync();
+
+      var rækker=tabeller[2].rækker
+      var rækkerAntal=tabeller[2].rækker.length
+      var k1r1=tabeller[2].k1r1
+      var tabelnr=tabeller[2].nr
+      var kolonnerAntal=5
+      const parse3 = require('json-templates');
+      const templateBeskrivelse3 = parse3(tabeller[2].note);
+
+      var data = [[k1r1, budgetperiodeÅr1, budgetperiodeÅr2, budgetperiodeÅr3, budgetperiodeÅr4]] 
+      
+      for (var j in rækker){
+        var række=[rækker[j]]
+        for(var i = 1; i <= kolonnerAntal-1; i++) {
+          række.push("")
+        }
+        data.push(række)
+      }
+      console.log(data)
+      
+      var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal+1,kolonnerAntal,"End",data);
+      await context.sync()
+      tabelAddOns(indsatTabel,contentControls.items[targetCC],0,templateBeskrivelse3({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }))
+      await context.sync()
+      tableAltBeskObj(tabeller[2].navn, templateBeskrivelse2({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }))
+      await context.sync()
+
+      formaterTabellerBB("tabel-2")
       /*
 
 
