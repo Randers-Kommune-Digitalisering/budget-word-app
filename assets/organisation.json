@@ -120,7 +120,86 @@
                 ]
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Børn",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Dagplejebørn","Vuggestuebørn","Børnehavebørn (ekskl. Børnebyer)","Antal dagtilbud","Antal fritidshjem og klubber","Antal selvejende institutioner","Antal private institutioner"],
+                                "politikker":["Børne- og ungepolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Fælles formål - Børn",
+                                    "Dagpleje",
+                                    "Dagtilbud",
+                                    "Fritidstilbud og klubber",
+                                    "Tilskud til private institutioner",
+                                    "Særlige dagtilbud"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Indsæt/slet rækker efter behov]"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt rækker efter behov - eller slet afsnit vedr. anlæg helt]"
+                                ]   
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"Familie",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Egne institutioner i Randers Kommune:","Døgnpladser, Rismøllegården","Døgnpladser, Familieværksteder","Døgnpladser, Randers Krisecenter","Antal anbragte:","Plejefamilie","Døgninstitution/opholdssted"],
+                                "politikker":["Børne- og ungepolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Plejefamilier",
+                                    "Opholdssteder, sikrede inst. og døgninstitutioner",
+                                    "Forebyggende foranstaltninger og indsats",
+                                    "Kvindekrisecentre",
+                                    "Familie- og rådgivningscentret (adm.)"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Plejefamilier",
+                                    "Opholdssteder, sikrede inst. og døgninstitutioner",
+                                    "Forebyggende foranstaltninger og indsats"                                
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt rækker efter behov - eller slet afsnit vedr. anlæg helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -202,7 +281,54 @@
                 ]           
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Beskæftigelse, integration og ydelser",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Antal helårspersoner (B2025)","Antal personer i kontakt med jobcenteret (2023)","Antal virksomhedsbesøg (2023)","Beskæftigelsesområdets andel af driftsbudget i Randers Kommune (2025)"],
+                                "politikker":["Beskæftigelsespolitikken"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Integration",
+                                    "Beskæftigelsesindsats - jobcentertilbud",
+                                    "Øvrige indsatser og ydelser"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Arbejdsløshedsdagpenge",
+                                    "Kontanthjælp og ledighedsydelse",
+                                    "Sygedagpenge og jobafklaring",
+                                    "Ressourceforløb",
+                                    "Fleksjob",
+                                    "Førtidspension",
+                                    "Seniorpension",
+                                    "Integration",
+                                    "Beskæftigelsesindsats - jobcentertilbud",
+                                    "Øvrige indsatser og ydelser",
+                                    "Boligydelse og boligsikring"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt rækker efter behov - eller slet afsnit vedr. anlæg helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -315,7 +441,45 @@
                 ]          
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Botilbud til voksne","Mestringsvejledning i eget hjem","Herberg/forsorgshjem","","Misbrugsbehandling stof","Misbrugsbehandling alkohol","","Børn og unge i døgntilbud","Børn og unge i forebyggende tilbud"],
+                                "politikker":["Politik for borgere med særlige behov"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap",
+                                    "Autisme, senhjerneskade og læring"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt rækker efter behov]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -393,7 +557,47 @@
                 ]      
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Skattefinansieret",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Offentlig vej","Antal årlige miljøtilsyn","Offentlige vandløb","Passagerer på færgerne 2023","Årlige naturgenopretningsprojekter","Miljøreguleret virksomheder","Miljøreguleret landbrug"],
+                                "politikker":["Klima-, natur- og miljøpolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Natur og Miljø",
+                                    "Veje og Trafik",
+                                    "Ejendomsservice",
+                                    "Driftafdeling"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Indsæt rækker efter behov]"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "Natur og Miljø",
+                                    "Veje og Trafik",
+                                    "Ejendomsservice"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -479,7 +683,43 @@
                 ]            
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Skattefinansieret",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Antal rolleanmeldelser (2023):","Rottespærrer kommunale institutioner:","Intelligente fælder:","Antal rottefængere","","Kommunale kirkegårde:", "Areal kirkegårde:", "","Restaffald pr. borger (2023):","Årlig affaldsudgift for typisk enfamilieshus (2023):"],
+                                "politikker":["Klima-, natur- og miljøpolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Rottebekæmpelse",
+                                    "Kirkegårde"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Affald og Genbrug"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[indtast rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -616,7 +856,82 @@
                 ]                
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Kultur og fritid",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Antal medlemmer i idrætsforeninger under 25 år, 2023:","Antal medlemmer i idrætsforeninger over 25 år, 2023:","Antal besøgende på biblioteket 2023:", "Antal besøgende, Museum Østjylland i Randers 2023:"],
+                                "politikker":["Kulturpolitik","Fritids- og idrætspolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Biblioteker",
+                                    "Kultur",
+                                    "Fritid og Idræt"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Tilføj rækker efter behov]"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Tilføj rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    },                    
+                    {
+                        "navn":"Sundhed",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Antal børn og unge i børne- og ungetandplejen:","Antal voksne i tandplejen:","Antak kontakter/besøg sundhedsplejen:","Antal genoptræningsplaner","Antal deltagere i forløbsprogrammer"],
+                                "politikker":["Sundhedspolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Vederlagsfri fysioterapi",
+                                    "Rehabilitering",
+                                    "Sundhedsfremme og forebyggelse",
+                                    "Andre sundhedsudgifter",
+                                    "Sundhedspleje",
+                                    "Tandpleje"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Medfinansiering på sundhedsområdet"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -703,7 +1018,43 @@
                 ]
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Tilbud til ældre",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Antal borgere, der får hjemmehjælp:","Antal borgere, der får sygepleje:","Antal permanenter boliger:","Antal midlertidlige boliger:","Antal med hjælpemidler:","Antal hjemmeboende, Madservice:"],
+                                "politikker":["Omsorgs- og værdighedspolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Praktisk hjælp, pleje og træning",
+                                    "Hjælpemidler"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Ældreboliger"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -779,7 +1130,43 @@
                 ]           
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Landistrikt",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Borgere uden for Randers by 2023:","Ansøgninger til Landsbypuljen 2024:","Midler bevilget fra Landsbypuljen 2022:","Midler bevilget fr Landistriktspuljen 2022:","Foreninger tildelt driftstilskud 2023:"],
+                                "politikker":["Landdistriktspolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Landdistrikt",
+                                    "Byfornyelse"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Tilføj/slet rækker efter behov]"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Tilføj rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -878,7 +1265,84 @@
                 ]              
             },
             {
-                "navn":"Budgetbemærkninger del 1"           
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Skole",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Antal folkeskoler:", "Antal specialklasser:","Antal almenklasser:","Antal specialklasser:","Elever i folkeskolen","Antal børn i SFO","Elever i specialklasser:","Elever i specialskoler:"],
+                                "politikker":["Uddannelsespolitik","Sammenhængende børne- og ungepolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Fællesudgifter - Skole",
+                                    "Folkeskoler og fritidstilbud",
+                                    "Befordring af elever",
+                                    "Bidrag til efterskoler",
+                                    "Specialskoler og -fritidstilbud",
+                                    "Ungdomsskole",
+                                    "Ungdommens Uddannelsesvejledning",
+                                    "Bidrag til privatskoler",
+                                    "Forberedende Grunduddannelse"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Indsæt/slet rækker efter behov]"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt/slet rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"PPR",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":[],
+                                "politikker":["Sammenhængende børne- og ungepolitik"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "PPR (Pædagogisk Psykologisk Rådgivning)",
+                                    "Forebyggende foranstaltninger børn, unge"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Indsæt/slet rækker efter behov]"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt/slet rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -955,52 +1419,44 @@
                 ]            
             },
             {
-                "navn":"Budgetbemærkninger del 1",    
+                "navn":"Budgetbemærkninger del 1",
                 "bevillingsområde":[   
                     {
-                        "navn":"Administration",
+                        "navn":"Erhverv og plan",
                         "tabeller":[
                             {
                                 "nr":0,
                                 "navn":"Fakta og politikker",
                                 "faktaOverskrift":"Fakta",
-                                "fakta":["Udg. til central ledelse og adm. pr.","indb. i 2022 for Randers Kommune:","","Udg. til central ledelse og adm. pr.","indb. i 2022 - placering på","landsplan:"],
-                                "politikker":["Indkøbspolitik","Personale- og ledelsespolitik","Politik for aktivt medborgerskab","Økonomisk politik","Se Randers Kommunes politikker på","Randers.dk/politikker"]
+                                "fakta":["Arbejdsplader i kommunen (2023):","Virksomheder i kommunen (2023):","Konkurser i kommunen (2023):"],
+                                "politikker":[]
                             },{
                                 "nr":1,
                                 "navn":"Driftsbudget",
-                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
                                 "k1r1":"Administration (mio. kr.)",
                                 "rækkerServicerammen":[
-                                    "Udvikling, Miljø og Teknik",
-                                    "Børn og Skole",
-                                    "Social og Arbejdsmarked",
-                                    "Sundhed, Kultur og Omsorg",
-                                    "Stabe og tværgående konti",
-                                    "Redningsberedskab",
-                                    "Løn- og barselspuljer",
-                                    "Udbetaling Danmark",
-                                    "Tjenestemandspensioner og -præmier",
-                                    "Forsikringer",
-                                    "Servicebuffer, lovændringer og reserver" 
+                                    "Erhvervsudvikling",
+                                    "Turisme",
+                                    "Byudvikling"
                                 ],                                
                                 "rækkerUdenForServicerammen":[
-                                    "Tjenestemandspensioner og -præmier"
+                                    "[Indsæt/slet rækker efter behov]"
                                 ]   
                             },{
                                 "nr":2,
-                                "navn":"Anlæg",
-                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter",
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
                                 "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
-                                    "Anlægsbuffer"
+                                    "[Indsæt/slet rækker efter behov - eller slet afsnittet helt]"
                                 ]   
                             }
                         ]
                     }
-                ]       
+                ]
             }
         ]
     },

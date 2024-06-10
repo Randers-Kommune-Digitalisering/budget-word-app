@@ -254,7 +254,15 @@ export async function fetchAssets(adr) {
 // Generer skabelonen
 export async function skabelon() {
   return Word.run(async (context) => {
-     
+
+    /* 
+    Dette virker ikke. Se OneNote/ChatGPT for alternativ løsning.
+    https://chatgpt.com/share/8f0b37b7-d4f4-4e8b-adb9-992f549b29a3
+    var response = await fetch("file:////randers.dk/dfs/Budget/Karl Fritjof Krassel/test.csv", { cache: "reload" });
+    console.log(response)
+    console.table(response.text())
+    */ 
+
     globalThis.genContentControls=[] 
     globalThis.dokumentKommentarer=[]
 
@@ -291,7 +299,7 @@ export async function skabelon() {
     //console.log("organisationdata: ",organisationdata)
 
     /* Udlæser bevillingsområder fra første dokumenttype - ændrer sig ikke på tværs af typer*/
-    const bevillingsområder=[]
+    const bevillingsområder=[] 
     for (var i in organisationdata[0].dokumenter[0].bevillingsområde) {
       bevillingsområder.push(organisationdata[0].dokumenter[0].bevillingsområde[i].navn)
     }
@@ -657,11 +665,17 @@ export async function skabelon() {
       var targetCC=genContentControls.indexOf(ccNavn)
       var indsatTabel=contentControls.items[targetCC].insertTable(rækker+1,4,"End",data);
 
-      tableAltBeskObj("Infobokse med fakta og politikker", "Infobokse med fakta og politikker")
-      await context.sync();
+      /*
+      var cell=indsatTabel.getCell(rækker,3)
+      var cellBody=cell.body
+      var paragraph = cellBody.paragraphs.getFirst();
+      var range = paragraph.getTextRanges(["Randers.dk/politikker"], false).getFirst();
 
-    
+      range.set({hyperlink:'https://github.com'})
+      // range.hyperlink="https://randers.dk/politikker"
+      //console.log(range)
 
+      */
 
       // Styler tabel - skal flyttes til utils
       indsatTabel.headerRowCount = 1
@@ -725,6 +739,7 @@ export async function skabelon() {
           }
         }
       }
+      
 
       // Sletter sidste tomme afsnit - virker ikke
       /*
@@ -829,7 +844,7 @@ export async function skabelon() {
         }
         data.push(række)
       }
-      console.log(data)
+      console.log(data) 
       
       var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal+1,kolonnerAntal,"End",data);
       await context.sync()
