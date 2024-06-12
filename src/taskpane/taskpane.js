@@ -789,12 +789,12 @@ export async function skabelon() {
       
       // Servicerammen
       data.push(["Servicerammen","","","",""])
-      for (var j in rækkerServicerammen){
+      for (var j in rækkerServicerammen){ 
         var række=[rækkerServicerammen[j]]
         for(var i = 1; i <= kolonnerAntal-1; i++) {
           række.push("")
         }
-        data.push(række)
+        data.push(række) 
       }
       // Uden for servicerammen
       data.push(["Uden for servicerammen","","","",""])

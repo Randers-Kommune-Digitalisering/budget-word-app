@@ -560,7 +560,7 @@
                 "navn":"Budgetbemærkninger del 1",
                 "bevillingsområde":[   
                     {
-                        "navn":"Skattefinansieret",
+                        "navn":"Miljø og teknik, skattefinansieret",
                         "tabeller":[
                             {
                                 "nr":0,
@@ -578,7 +578,7 @@
                                     "Natur og Miljø",
                                     "Veje og Trafik",
                                     "Ejendomsservice",
-                                    "Driftafdeling"
+                                    "Driftsafdeling"
                                 ],                                
                                 "rækkerUdenForServicerammen":[
                                     "[Indsæt rækker efter behov]"
@@ -686,7 +686,7 @@
                 "navn":"Budgetbemærkninger del 1",
                 "bevillingsområde":[   
                     {
-                        "navn":"Skattefinansieret",
+                        "navn":"Miljø og teknik, takstfinansieret",
                         "tabeller":[
                             {
                                 "nr":0,
@@ -900,7 +900,7 @@
                                 "nr":0,
                                 "navn":"Fakta og politikker",
                                 "faktaOverskrift":"Fakta",
-                                "fakta":["Antal børn og unge i børne- og ungetandplejen:","Antal voksne i tandplejen:","Antak kontakter/besøg sundhedsplejen:","Antal genoptræningsplaner","Antal deltagere i forløbsprogrammer"],
+                                "fakta":["Antal børn og unge i børne- og ungetandplejen:","Antal voksne i tandplejen:","Antal kontakter/besøg sundhedsplejen:","Antal genoptræningsplaner","Antal deltagere i forløbsprogrammer"],
                                 "politikker":["Sundhedspolitik"]
                             },{
                                 "nr":1,
@@ -1133,13 +1133,13 @@
                 "navn":"Budgetbemærkninger del 1",
                 "bevillingsområde":[   
                     {
-                        "navn":"Landistrikt",
+                        "navn":"Landdistrikt",
                         "tabeller":[
                             {
                                 "nr":0,
                                 "navn":"Fakta og politikker",
                                 "faktaOverskrift":"Fakta",
-                                "fakta":["Borgere uden for Randers by 2023:","Ansøgninger til Landsbypuljen 2024:","Midler bevilget fra Landsbypuljen 2022:","Midler bevilget fr Landistriktspuljen 2022:","Foreninger tildelt driftstilskud 2023:"],
+                                "fakta":["Borgere uden for Randers by 2023:","Ansøgninger til Landsbypuljen 2024:","Midler bevilget fra Landsbypuljen 2022:","Midler bevilget fr Landdistriktspuljen 2022:","Foreninger tildelt driftstilskud 2023:"],
                                 "politikker":["Landdistriktspolitik"]
                             },{
                                 "nr":1,
@@ -1309,7 +1309,7 @@
                         ]
                     },
                     {
-                        "navn":"PPR",
+                        "navn":"Pædagogisk Psykologisk Rådgivning",
                         "tabeller":[
                             {
                                 "nr":0,
@@ -1428,7 +1428,7 @@
                                 "nr":0,
                                 "navn":"Fakta og politikker",
                                 "faktaOverskrift":"Fakta",
-                                "fakta":["Arbejdsplader i kommunen (2023):","Virksomheder i kommunen (2023):","Konkurser i kommunen (2023):"],
+                                "fakta":["Arbejdspladser i kommunen (2023):","Virksomheder i kommunen (2023):","Konkurser i kommunen (2023):"],
                                 "politikker":[]
                             },{
                                 "nr":1,
@@ -1642,6 +1642,42 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "Anlægsbuffer"
+                                ]   
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"Politisk organisation",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Antal politiske udvalg:","","Antal byrådsmedlemmer:"],
+                                "politikker":[]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Fælles formål - Politisk organisation",
+                                    "Kommunalbestyrelsesmedlemmer",
+                                    "Kommissioner, råd og nævn",
+                                    "Valg"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Indsæt/slet rækker efter behov]"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt rækker efter behov - eller slet afsnit helt]"
                                 ]   
                             }
                         ]
