@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
-import { formaterTabeller, formaterTabellerBB } from "./utils/utils.js";
+import { formaterTabeller, formaterTabellerBB, replaceWordsWithLinks } from "./utils/utils.js";
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -659,11 +659,13 @@ export async function skabelon() {
           data.push([fakta[række],"","",politikker[række]])
       }
       data[rækker-1][3]="Se Randers Kommunes politikker på"
-      data[rækker][3]="Randers.dk/politikker"
+      data[rækker][3]="www.randers.dk/demokrati/politikker/"
 
       var ccNavn="1. Beskrivelse af området"
       var targetCC=genContentControls.indexOf(ccNavn)
       var indsatTabel=contentControls.items[targetCC].insertTable(rækker+1,4,"End",data);
+
+      tableAltBeskObj("Fakta og politikker", "Fakta og politikker")
 
       /*
       var cell=indsatTabel.getCell(rækker,3)
@@ -728,6 +730,7 @@ export async function skabelon() {
             celler.items[k].columnWidth=220  
           }
           if (i==rækker.items.length-1 & k==3) { 
+            celler.items[k].verticalAlignment="Top"
             // VIRKER IKKE... 
             /*
             const cell=celler.items[k]
@@ -890,7 +893,7 @@ export async function skabelon() {
   
     } 
      
-    
+    // replaceWordsWithLinks()
  
     console.log("nåede hertil")
 

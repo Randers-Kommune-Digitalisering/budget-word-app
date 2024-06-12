@@ -208,3 +208,32 @@ export async function formaterTabellerBB(tabel){
     await context.sync();
   })
 }
+
+export async function replaceWordsWithLinks() {
+  return Word.run(async (context) => { 
+      const body = context.document.body;
+      body.load("text");
+      await context.sync();
+
+      const text = body.text;
+      const regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
+      const matches = text.match(regex);
+
+      if (matches) {
+          for (const match of matches) {
+              const searchResults = body.search(match, { matchCase: false, matchWholeWord: true });
+              context.load(searchResults, 'items');
+              await context.sync();
+
+              for (const result of searchResults.items) {
+                  result.insertHyperlink(match, match, 'DisplayText');
+              }
+          }
+      }
+  }).catch(function (error) {
+      console.log(error.message);
+  });
+}
+
+// To run the function, call replaceWordsWithLinks()
+replaceWordsWithLinks();
