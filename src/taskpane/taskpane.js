@@ -2,20 +2,71 @@
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
 import { formaterTabeller, formaterTabellerBB, replaceWordsWithLinks } from "./utils/utils.js";
+import * as XLSX from 'xlsx';
+
+const required_styles = ["Brev/notat KORT (O1)"];
+const allowed_files = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"];
+let dialog = null;
+let excel_file = null;
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
+    document.getElementById("skabelon").onclick = () => tryCatch(skabelon);
+    document.getElementById("loadContentControls").onclick = () => tryCatch(loadElements);
+    document.getElementById("rydAlt").onclick = () => tryCatch(rydAlt);
+    document.getElementById("rydSidehoved").onclick = () => tryCatch(rydSidehoved);
+    document.getElementById("rydAltTools").onclick = () => tryCatch(rydAlt);
+    document.getElementById("rydAltDev").onclick = () => tryCatch(rydAlt);
+    document.getElementById("insert").onclick = () => tryCatch(insertData);
+    document.getElementById("formaterTabeller").onclick = () => tryCatch(formaterTabeller);
+    
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
-    document.getElementById("skabelon").onclick = skabelon;
-    document.getElementById("loadContentControls").onclick = loadElements;
-    document.getElementById("rydAlt").onclick = rydAlt;
-    document.getElementById("rydSidehoved").onclick = rydSidehoved;
-    document.getElementById("rydAltTools").onclick = rydAlt;
-    document.getElementById("rydAltDev").onclick = rydAlt;
-    document.getElementById("formaterTabeller").onclick = formaterTabeller;
+
+    document.getElementById('file').addEventListener('change', checkfile)
   }
 });
+
+function openDialog(title, message) {
+  var title = title ? title : 'Fejl';
+  var message = message ? message : 'Der er sket en fejl. Prøv igen.';
+  Office.context.ui.displayDialogAsync(
+    'https://localhost:3000/popup.html?messageTitle=' + String(title) + '&message=' + String(message),
+    { height: 20, width: 10 },
+
+    function (result) {
+      dialog = result.value;
+      dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, processMessage);
+    }
+  );
+}
+
+function processMessage(arg) {
+  console.log(arg.message);
+  dialog.close();
+}
+
+async function tryCatch(callback) {
+  try {
+    await callback();
+  } catch (error) {
+    openDialog("Fejl", error.toString());
+    console.error(error.message);
+  }
+}
+
+function has_styles() {
+  Office.context.document.getSelectedDataAsync(
+    Office.CoercionType.Ooxml,
+    ( result ) => {
+      var style_present = true
+      for (style in required_styles) {
+        style_present = result.value.includes(style) && style_present;
+      }
+      return style_present;
+    }
+  );
+}
 
 export async function loadElements() {
   return Word.run(async (context) => {
@@ -255,12 +306,19 @@ export async function fetchAssets(adr) {
 export async function skabelon() {
   return Word.run(async (context) => {
 
+    if (!has_styles()) {
+      openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Tilføj dem eller åben start skabelonen");
+      return
+    }
+
     /* 
     Dette virker ikke. Se OneNote/ChatGPT for alternativ løsning.
     https://chatgpt.com/share/8f0b37b7-d4f4-4e8b-adb9-992f549b29a3
     var response = await fetch("file:////randers.dk/dfs/Budget/Karl Fritjof Krassel/test.csv", { cache: "reload" });
     console.log(response)
     console.table(response.text())
+
+    NB: Er blevet tilføjet i bunden af filen, som et ekstra skridt efter skabelonen er genereret. Men kan rykkes op så det er et skridt inden.
     */ 
 
     globalThis.genContentControls=[] 
@@ -306,7 +364,8 @@ export async function skabelon() {
 
     // Indlæser sektionsafgrænsninger
     var afgrænsningsdata=organisationdata[0].dokumenter.filter(obj=>obj.navn=valgtDokument)
-    console.log("afgrænsningsdata: ",afgrænsningsdata) 
+    console.log("afgrænsningsdata: ",afgrænsningsdata)
+    
     const inkluderSektioner=[]
     for (var i in afgrænsningsdata[0].sektioner) {  
       inkluderSektioner.push(afgrænsningsdata[0].sektioner[i])
@@ -332,6 +391,7 @@ export async function skabelon() {
          
       // Indsætter notatdetaljer
       await indsætContentControl("Notatdetaljer")
+      
       context.document.body.paragraphs.getLast().select("End")
       var selection = context.document.getSelection()
       selection.insertParagraph('', "After");   
@@ -898,4 +958,47 @@ export async function skabelon() {
     console.log("nåede hertil")
 
   });
+}
+
+function checkfile(e) {
+  if (e.target.files[0]) {
+    const file = e.target.files[0];
+    if (allowed_files.includes(file.type)) {
+      console.log(file);
+      readFile(file);
+    } else {
+      openDialog("Fejl", "Filen er ikke af den korrekte type. Det skal være en Excel-fil.");
+    }
+  }
+}
+
+function readFile(file) {
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    if(evt.target.readyState != 2) return;
+    if(evt.target.error) {
+      openDialog("Fejl", "Kunne ikke læse filen. Prøv igen.");
+    }
+    try {
+      excel_file = XLSX.read(evt.target.result);
+    } catch (error) {
+      openDialog("Fejl", "Kunne ikke læse filen. Prøv igen.");
+    };
+  }
+  reader.readAsArrayBuffer(file);
+}
+
+export async function insertData() {
+  if (excel_file) {
+    let first_sheet = excel_file.Sheets[excel_file.SheetNames[0]]; // Få det første ark
+    // Tjek at filen indeholder det rigtige data her
+    // Eksempel, indeholder A1 cellen "Test"?
+    if(first_sheet.A1.v === 'Test') {
+      console.log('Yay - Data er korrekt');
+    } else {
+      throw new Error('Øv - Data er ikke korrekt');
+    }
+  } else {
+    openDialog("Fejl", "Ingen fil valgt.");
+  }
 }
