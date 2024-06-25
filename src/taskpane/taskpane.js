@@ -11,7 +11,7 @@ let excel_file = null;
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
-    document.getElementById("skabelon").onclick = () => tryCatch(skabelon);
+    document.getElementById("skabelon").onclick = () => () => tryCatch(() => has_styles(() => tryCatch(skabelon)))
     document.getElementById("loadContentControls").onclick = () => tryCatch(loadElements);
     document.getElementById("rydAlt").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydSidehoved").onclick = () => tryCatch(rydSidehoved);
@@ -53,19 +53,6 @@ async function tryCatch(callback) {
     openDialog("Fejl", error.toString());
     console.error(error.message);
   }
-}
-
-function has_styles() {
-  Office.context.document.getSelectedDataAsync(
-    Office.CoercionType.Ooxml,
-    ( result ) => {
-      var style_present = true
-      for (style in required_styles) {
-        style_present = result.value.includes(style) && style_present;
-      }
-      return style_present;
-    }
-  );
 }
 
 export async function loadElements() {
@@ -300,16 +287,9 @@ export async function fetchAssets(adr) {
   });
 };
 
-
-  
 // Generer skabelonen
 export async function skabelon() {
   return Word.run(async (context) => {
-
-    if (!has_styles()) {
-      openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Tilføj dem eller åben start skabelonen");
-      return
-    }
 
     /* 
     Dette virker ikke. Se OneNote/ChatGPT for alternativ løsning.
@@ -1001,4 +981,22 @@ export async function insertData() {
   } else {
     openDialog("Fejl", "Ingen fil valgt.");
   }
+}
+
+function has_styles(callback) {
+  Office.context.document.getSelectedDataAsync(
+    Office.CoercionType.Ooxml,
+    ( result ) => {
+      var style_present = true
+      required_styles.forEach(style => {
+        style_present = result.value.includes(style) && style_present;
+      });
+      console.log(style_present)
+      if (style_present) {
+        callback()
+      } else {
+        openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Tilføj dem eller åben start skabelonen");
+      }
+    }
+  );
 }
