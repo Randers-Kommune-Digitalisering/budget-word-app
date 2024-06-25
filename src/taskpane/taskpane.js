@@ -11,7 +11,7 @@ let excel_file = null;
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
-    document.getElementById("skabelon").onclick = () => () => tryCatch(() => has_styles(() => tryCatch(skabelon)))
+    document.getElementById("skabelon").onclick = () => tryCatch(() => has_styles(() => tryCatch(skabelon)))
     document.getElementById("loadContentControls").onclick = () => tryCatch(loadElements);
     document.getElementById("rydAlt").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydSidehoved").onclick = () => tryCatch(rydSidehoved);
