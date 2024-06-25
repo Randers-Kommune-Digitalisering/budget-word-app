@@ -72,7 +72,17 @@
           <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
             <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
           </div>
-          <p class="overskrift2">4. Afslut</p>
+
+          <div>
+            <p class="overskrift2">4. Indsæt data</p>
+            <p>Upload Excel-fil med data og tryk <i>indsæt</i></p>           
+            <input id="file" name="file" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <div role="button" id="insert" class="ms-welcome__action ms-Button ms-Button--hero"> 
+              <span class="ms-Button-label"><i class="fa-solid fa-file-import icon"></i>Indsæt</span>
+            </div>
+          </div>
+
+          <p class="overskrift2">5. Afslut</p>
           <p><i>Kør VBA-scriptet </i><code>indsætTabelbeskrivelser()</code><i> og gem dokumentet som </i><code>.docx</code><i> med dokumenttitlen som filnavn.</i>
           </p> 
         </div>
