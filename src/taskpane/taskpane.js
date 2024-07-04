@@ -1,23 +1,21 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
-import { formaterTabeller, formaterTabellerBB, replaceWordsWithLinks } from "./utils/utils.js";
-import * as XLSX from 'xlsx';
+import { formaterTabeller, formaterTabellerBB, replaceWordsWithLinks, sumArrays } from "./utils/utils.js";
+import { generateTable, readFile} from "./utils/data.js";
 
 const required_styles = ["Brev/notat KORT (O1)"];
 const allowed_files = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"];
 let dialog = null;
-let excel_file = null;
 
 Office.onReady((info) => {
-  if (info.host === Office.HostType.Word) {
-    document.getElementById("skabelon").onclick = () => tryCatch(() => has_styles(() => tryCatch(skabelon)))
+  if (info.host === Office.HostType.Word) {   
+    document.getElementById("skabelon").onclick = () => tryCatch(() => hasStyles(() => tryCatch(skabelon)))
     document.getElementById("loadContentControls").onclick = () => tryCatch(loadElements);
     document.getElementById("rydAlt").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydSidehoved").onclick = () => tryCatch(rydSidehoved);
     document.getElementById("rydAltTools").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydAltDev").onclick = () => tryCatch(rydAlt);
-    document.getElementById("insert").onclick = () => tryCatch(insertData);
     document.getElementById("formaterTabeller").onclick = () => tryCatch(formaterTabeller);
     
     document.getElementById("sideload-msg").style.display = "none";
@@ -26,6 +24,8 @@ Office.onReady((info) => {
     document.getElementById('file').addEventListener('change', checkfile)
   }
 });
+
+let withData = false
 
 function openDialog(title, message) {
   var title = title ? title : 'Fejl';
@@ -263,14 +263,18 @@ export async function tableAltBeskObj(titel,beskrivelse,tabelnr=0) {
 }
 
 
-export async function tabelAddOns(tabel, placering, projekter=0, fodnote=0) {
+export async function tabelAddOns(tabel, placering, projekter=0, fodnote=0, data=null) {
   return Word.run(async (context) => {
 
     tabel.headerRowCount=1
     if (projekter==1) {
       tabel.addRows("end",2,[["I alt ekskl. projekter"],["Projekter"]])
     }
-    tabel.addRows("end",1,[["I alt"]])
+
+    let total = ["I alt"]
+    if(data) total = total.concat(data)
+    
+      tabel.addRows("end",1,[total])
 
     if (fodnote!=0) {
       var indsatFodnote=placering.insertText(fodnote,"End")
@@ -291,6 +295,7 @@ export async function fetchAssets(adr) {
 export async function skabelon() {
   return Word.run(async (context) => {
 
+
     /* 
     Dette virker ikke. Se OneNote/ChatGPT for alternativ løsning.
     https://chatgpt.com/share/8f0b37b7-d4f4-4e8b-adb9-992f549b29a3
@@ -308,6 +313,8 @@ export async function skabelon() {
     const valgtDokumentDetajle = document.getElementById("dokumentDetaljeDropdown").value;
     const valgtUdvalg = document.getElementById("udvalgDropdown").value;
     const valgtBevilling = document.getElementById("bevillingsområdeDropdown").value;
+
+    const fileType = document.getElementById("fileTypeDropdown").value;
     
     const responseDokumenttype = await fetch("./assets/dokumenttype.json", { cache: "reload" });
     const dokumenttypeJSON = await responseDokumenttype.json();
@@ -344,7 +351,6 @@ export async function skabelon() {
 
     // Indlæser sektionsafgrænsninger
     var afgrænsningsdata=organisationdata[0].dokumenter.filter(obj=>obj.navn=valgtDokument)
-    console.log("afgrænsningsdata: ",afgrænsningsdata)
     
     const inkluderSektioner=[]
     for (var i in afgrænsningsdata[0].sektioner) {  
@@ -468,6 +474,7 @@ export async function skabelon() {
           var projekter=tabeller[tabel].projekter
           var fodnote=tabeller[tabel].note
 
+          /*
           var data = [kolonner]
           for (var j in rækker){
             var række=[rækker[j]]
@@ -476,19 +483,26 @@ export async function skabelon() {
             }
             data.push(række)
           }
-          
+          */
+
+          let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+
+          let row_names = undefined
+          if(withData) row_names = rækker.map(row => row[0])
+          else row_names = rækker
+
+          let total_data = undefined
+          if(withData) total_data = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))).map(value => (Math.round(value * 10) / 10).toFixed(1))
          
           var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
-          tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote)
+          tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote, data=total_data)
     
           // Tabelbeskrivelse i dokumentegenskaber (til VBA-script)
           tableAltBeskObj(bevillingsområder[bevillingsområde] + tabeller[tabel].navn, tabeller[tabel].beskrivelse)
           await context.sync();
 
           //// Indsætter undersektioner
-          await indsætSektionerICC(ccNavn,rækker,"Heading4");
-          //await context.sync();
-
+          await indsætSektionerICC(ccNavn,row_names,"Heading4"); // Change rækker to row_names
           await context.sync()  
         }
       } 
@@ -518,7 +532,7 @@ export async function skabelon() {
         var kolonnerAntal=kolonner.length
         var fodnote=anlæg.note
 
-
+        /*
         var data = [kolonner]
         for (var j in rækker){
           var række=[rækker[j]]
@@ -527,9 +541,15 @@ export async function skabelon() {
           }
           data.push(række)
         }
+        */
+
+        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+
+        let total_data = undefined
+        if(withData) total_data = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))).map(value => (Math.round(value * 10) / 10).toFixed(1))
 
         var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
-        await tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote)
+        await tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote, data=total_data)
         await context.sync();
 
         tableAltBeskObj(valgtUdvalg + " anlæg", anlæg.beskrivelse) 
@@ -557,6 +577,7 @@ export async function skabelon() {
       var kolonnerAntal=kolonner.length
       var fodnote=bevillingsansøgninger.note
       
+      /*
       var data = [kolonner]
       for (var j in rækker){
         var række=[rækker[j]]
@@ -564,7 +585,10 @@ export async function skabelon() {
           række.push("")
         }
         data.push(række) 
-      } 
+      }
+      */
+
+      let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
 
       var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
       tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote)
@@ -597,6 +621,8 @@ export async function skabelon() {
 
         var ccNavn=customTabeller[i].placering
         var targetP=parseInt(await indlæsAfsnit(ccNavn))
+
+        /*
         var data = [kolonner]
         for (var j in rækker){
           var række=[rækker[j]]
@@ -605,6 +631,20 @@ export async function skabelon() {
           }
           data.push(række)
         }
+        */
+
+        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+
+        //// REALLY STUDPID! \\\\
+        // This asumes that all custom tables have rows with "I alt" in the row name and that they should be summed and inserted in the "I alt" row at the bottom
+        // But in reality this is not the case, so this is a really bad solution
+        // Most tables probably need to be handled like "Bevillingsområder" where all rows are summed and inserted in the "I alt" row
+        let total_data = undefined
+        if(withData) {
+          total_data = data.filter((arr) => arr[0].includes("I alt"))
+          total_data = sumArrays(...total_data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))).map(value => (Math.round(value * 10) / 10).toFixed(1))
+        }
+        ////------------------\\\\
 
         var nytAfsnit = afsnit.items[targetP].insertParagraph("", placeringOmkringAfsnit);
         nytAfsnit.styleBuiltIn="Normal"
@@ -626,7 +666,7 @@ export async function skabelon() {
         var placering=context.document.getSelection() 
         await context.sync()
 
-        await tabelAddOns(tabel,placering,0,0) 
+        await tabelAddOns(tabel,placering,0,0, data=total_data) 
         await context.sync()
 
         tableAltBeskObj(valgtUdvalg + " CT" +i, customTabeller[i].indledendeTekst,customTabeller[i].tabelnr)
@@ -940,50 +980,49 @@ export async function skabelon() {
   });
 }
 
+
+// New helper functions 
+
 function checkfile(e) {
+  var fileTypeDropdown = document.getElementById("fileTypeDropdown")
+
+  if (fileTypeDropdown.options.length < 1) {
+    let option_normal = document.createElement('option');
+    option_normal.text = "normal";
+    option_normal.value = "default"
+    fileTypeDropdown.add(option_normal); 
+
+    let option_expanded = document.createElement('option');
+    option_expanded.text = "ekspanderet";
+    option_expanded.value = "expanded"
+    fileTypeDropdown.add(option_expanded);
+  }
+
+  fileTypeDropdown.options.selectedIndex = (0)
+
   if (e.target.files[0]) {
     const file = e.target.files[0];
     if (allowed_files.includes(file.type)) {
-      console.log(file);
       readFile(file);
+      withData = true
+      
+      //if (fileTypeDropdown.name.includes("ekspanderet")) fileTypeDropdown.options.selectedIndex = (1)
+      //else fileTypeDropdown.options.selectedIndex = (0)
+      
+      //fileTypeDropdown.classList.remove("skjult")
+
     } else {
+      withData = false
+      fileTypeDropdown.classList.add("skjult")
       openDialog("Fejl", "Filen er ikke af den korrekte type. Det skal være en Excel-fil.");
     }
-  }
-}
-
-function readFile(file) {
-  const reader = new FileReader();
-  reader.onload = function(evt) {
-    if(evt.target.readyState != 2) return;
-    if(evt.target.error) {
-      openDialog("Fejl", "Kunne ikke læse filen. Prøv igen.");
-    }
-    try {
-      excel_file = XLSX.read(evt.target.result);
-    } catch (error) {
-      openDialog("Fejl", "Kunne ikke læse filen. Prøv igen.");
-    };
-  }
-  reader.readAsArrayBuffer(file);
-}
-
-export async function insertData() {
-  if (excel_file) {
-    let first_sheet = excel_file.Sheets[excel_file.SheetNames[0]]; // Få det første ark
-    // Tjek at filen indeholder det rigtige data her
-    // Eksempel, indeholder A1 cellen "Test"?
-    if(first_sheet.A1.v === 'Test') {
-      console.log('Yay - Data er korrekt');
-    } else {
-      throw new Error('Øv - Data er ikke korrekt');
-    }
   } else {
-    openDialog("Fejl", "Ingen fil valgt.");
+    withData = false
+    fileTypeDropdown.classList.add("skjult")
   }
 }
 
-function has_styles(callback) {
+function hasStyles(callback) {
   Office.context.document.getSelectedDataAsync(
     Office.CoercionType.Ooxml,
     ( result ) => {
@@ -991,7 +1030,6 @@ function has_styles(callback) {
       required_styles.forEach(style => {
         style_present = result.value.includes(style) && style_present;
       });
-      console.log(style_present)
       if (style_present) {
         callback()
       } else {
