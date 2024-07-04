@@ -636,6 +636,9 @@ export async function skabelon() {
         let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
 
         //// REALLY STUDPID! \\\\
+        // This asumes that all custom tables have rows with "I alt" in the row name and that they should be summed and inserted in the "I alt" row at the bottom
+        // But in reality this is not the case, so this is a really bad solution
+        // Most tables probably need to be handled like "Bevillingsområder" where all rows are summed and inserted in the "I alt" row
         let total_data = undefined
         if(withData) {
           total_data = data.filter((arr) => arr[0].includes("I alt"))
@@ -982,28 +985,31 @@ export async function skabelon() {
 
 function checkfile(e) {
   var fileTypeDropdown = document.getElementById("fileTypeDropdown")
+
+  if (fileTypeDropdown.options.length < 1) {
+    let option_normal = document.createElement('option');
+    option_normal.text = "normal";
+    option_normal.value = "default"
+    fileTypeDropdown.add(option_normal); 
+
+    let option_expanded = document.createElement('option');
+    option_expanded.text = "ekspanderet";
+    option_expanded.value = "expanded"
+    fileTypeDropdown.add(option_expanded);
+  }
+
+  fileTypeDropdown.options.selectedIndex = (0)
+
   if (e.target.files[0]) {
     const file = e.target.files[0];
     if (allowed_files.includes(file.type)) {
       readFile(file);
       withData = true
-
-      if (fileTypeDropdown.options.length < 1) {
-        let option_normal = document.createElement('option');
-        option_normal.text = "normal";
-        option_normal.value = "default"
-        fileTypeDropdown.add(option_normal); 
-
-        let option_expanded = document.createElement('option');
-        option_expanded.text = "ekspanderet";
-        option_expanded.value = "expanded"
-        fileTypeDropdown.add(option_expanded);
-      }
       
-      if (fileTypeDropdown.name.includes("ekspanderet")) fileTypeDropdown.options.selectedIndex = (1)
-      else fileTypeDropdown.options.selectedIndex = (0)
-
-      fileTypeDropdown.classList.remove("skjult")
+      //if (fileTypeDropdown.name.includes("ekspanderet")) fileTypeDropdown.options.selectedIndex = (1)
+      //else fileTypeDropdown.options.selectedIndex = (0)
+      
+      //fileTypeDropdown.classList.remove("skjult")
 
     } else {
       withData = false
