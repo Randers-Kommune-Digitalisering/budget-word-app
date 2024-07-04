@@ -262,10 +262,43 @@ export async function tableAltBeskObj(titel,beskrivelse,tabelnr=0) {
   })
 }
 
+function  roundNestedArray(arr) {
+  return arr.map(innerArr => 
+    innerArr.map(item => 
+      typeof item === 'number' ? Math.round(item * 10) / 10 : item
+    )
+  );
+}
+
+function dataProjectsTotalsRounding(data, projekter, withData, valgtDokumentDetajle, fileType) {
+  let dataOutput = [...data]
+  if(withData) {
+    if (projekter != "") {
+      // Total uden projekter
+      let dataTotalProjekter = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))) 
+      let totalRækkeProjekter = ["I alt ekskl. projekter"]
+      totalRækkeProjekter = totalRækkeProjekter.concat(dataTotalProjekter)
+      dataOutput.push(totalRækkeProjekter)
+      // Projekter 
+      let projektData = generateTable(data[0], projekter, withData, valgtDokumentDetajle, fileType)
+      data.push(projektData[1])
+      dataOutput.push(projektData[1])
+    }
+
+    // Total
+    let dataTotal = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))) 
+    let totalRække = ["I alt"]
+    totalRække = totalRække.concat(dataTotal)
+    dataOutput.push(totalRække)
+    dataOutput = roundNestedArray(dataOutput)
+  }
+  return dataOutput
+}
 
 export async function tabelAddOns(tabel, placering, projekter=0, fodnote=0, data=null) {
   return Word.run(async (context) => {
 
+    /*
     tabel.headerRowCount=1
     if (projekter==1) {
       tabel.addRows("end",2,[["I alt ekskl. projekter"],["Projekter"]])
@@ -275,7 +308,7 @@ export async function tabelAddOns(tabel, placering, projekter=0, fodnote=0, data
     if(data) total = total.concat(data)
     
       tabel.addRows("end",1,[total])
-
+    */
     if (fodnote!=0) {
       var indsatFodnote=placering.insertText(fodnote,"End")
       indsatFodnote.font.size=8
@@ -491,11 +524,21 @@ export async function skabelon() {
           if(withData) row_names = rækker.map(row => row[0])
           else row_names = rækker
 
-          let total_data = undefined
-          if(withData) total_data = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))).map(value => (Math.round(value * 10) / 10).toFixed(1))
-         
-          var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
-          tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote, data=total_data)
+          // Indsætter totaler og foretager afrunding 
+          let dataFinalMatrix = dataProjectsTotalsRounding(data, projekter, withData, valgtDokumentDetajle, fileType)  
+          console.table(dataFinalMatrix)  
+
+          //let total_data = undefined
+          //if(withData) total_data = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))).map(value => (Math.round(value * 10) / 10).toFixed(1))
+          //console.log("data: ", data[0])
+
+          rækkerAntal = dataFinalMatrix.length
+          kolonnerAntal = dataFinalMatrix[0].length
+
+          var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",dataFinalMatrix);
+
+
+          tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote, data)
     
           // Tabelbeskrivelse i dokumentegenskaber (til VBA-script)
           tableAltBeskObj(bevillingsområder[bevillingsområde] + tabeller[tabel].navn, tabeller[tabel].beskrivelse)
@@ -974,7 +1017,6 @@ export async function skabelon() {
     } 
      
     // replaceWordsWithLinks()
- 
     console.log("nåede hertil")
 
   });
@@ -1033,7 +1075,7 @@ function hasStyles(callback) {
       if (style_present) {
         callback()
       } else {
-        openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Tilføj dem eller åben start skabelonen");
+        openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Tilføj dem eller åben start skabelonen"); 
       }
     }
   );

@@ -155,14 +155,14 @@ function getRowData(id, date, sheet, fileType) {
                     console.log("unknown type", key)
                     }
                 });
-                values = values.map(value => (Math.round(value * 10) / 10).toFixed(1))
+                //values = values.map(value => (Math.round(value * 10) / 10).toFixed(1))   Flyttes da det giver afrundingsfejl
                 totalValues.push(values)
             } else throw Error("Data error: row for id '" + id + "' not found")
         });
         let res = null
         if(totalValues.length > 1){
             res = sumArrays(...totalValues.map( subarray => subarray.map( (el) => parseFloat(el)))) // back to floats and sum them
-            res = res.map(value => (Math.round(value * 10) / 10).toFixed(1)) // round again
+            //res = res.map(value => (Math.round(value * 10) / 10).toFixed(1)) // round again
         } else {
             res = totalValues[0]
         }

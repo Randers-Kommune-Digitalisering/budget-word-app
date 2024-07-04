@@ -31,18 +31,18 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Børn.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[["Projekter","BD20A4","BD22A4"]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Fælles formål - Børn",
-                                    "Dagpleje",
-                                    "Dagtilbud",
-                                    "Fritidstilbud og klubber",
-                                    "Tilskud til private institutioner",
-                                    "Særlige dagtilbud"
+                                    ["Fælles formål - Børn","7300020ABD10.0023"],
+                                    ["Dagpleje","7300020ABD15.0023"],
+                                    ["Dagtilbud","7300020ABD20.0023"],
+                                    ["Fritidstilbud og klubber","7300020ABD22.0023"],
+                                    ["Tilskud til private institutioner","7300020ABD25.0023"],
+                                    ["Særlige dagtilbud","7300020ABD30.0023"]
                                 ]
-                            }
-                        ]
+                            }  
+                        ]    
                     },
                     {
                         "navn":"Familie",
