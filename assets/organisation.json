@@ -1495,17 +1495,17 @@
                                 "projekter":0,
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Udvikling, Miljø og Teknik",
-                                    "Børn og Skole",
-                                    "Social og Arbejdsmarked",
-                                    "Sundhed, Kultur og Omsorg",
-                                    "Stabe og tværgående konti",
-                                    "Redningsberedskab",
-                                    "Løn- og barselspuljer",
-                                    "Udbetaling Danmark",
-                                    "Tjenestemandspensioner og -præmier",
-                                    "Forsikringer",
-                                    "Servicebuffer, lovændringer og reserver"
+                                    ["Udvikling, Miljø og Teknik", "7300020AAA10.0023"],
+                                    ["Børn og Skole", "7300020AAA15.0023"],
+                                    ["Social og Arbejdsmarked", "7300020AAA20.0023"],
+                                    ["Sundhed, Kultur og Omsorg", "7300020AAA25.0023"],
+                                    ["Stabe og tværgående konti", "7300020AAA30.0023"],
+                                    ["Redningsberedskab", "7300020AAA35.0023"],
+                                    ["Løn- og barselspuljer", "7300020AAA40.0023"],
+                                    ["Udbetaling Danmark", "7300020AAA45.0023"],
+                                    ["Tjenestemandspensioner og -præmier", "7300020AAA50.0023"],
+                                    ["Forsikringer", "7300020AAA55.0023"],
+                                    ["Servicebuffer, lovændringer og reserver", "7300020AAA60.0023"]
                                 ]
                             },
                             {
@@ -1516,7 +1516,7 @@
                                 "projekter":0,
                                 "typeKolonner":3,
                                 "rækker":[
-                                    "Tjenestemandspensioner og -præmier"
+                                    ["Tjenestemandspensioner og -præmier", "7300020FAA50.0023"]
                                 ]
                             }
                         ]
@@ -1532,10 +1532,10 @@
                                 "projekter":0,
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Fælles formål - Politisk organisation",
-                                    "Kommunalbestyrelsesmedlemmer",
-                                    "Kommissioner, råd og nævn",
-                                    "Valg"
+                                    ["Fælles formål - Politisk organisation","7300020AAB10.0023"],
+                                    ["Kommunalbestyrelsesmedlemmer","7300020AAB15.0023"],
+                                    ["Kommissioner, råd og nævn","7300020AAB20.0023"],
+                                    ["Valg", "7300020AAB25.0023"]
                                 ]
                             }
                         ]
@@ -1550,7 +1550,7 @@
                         "projekter":0,
                         "typeKolonner":6,
                         "rækker":[
-                            "Skattefinansierede anlæg"
+                            ["Skattefinansierede anlæg", "7300020S.0023"]
                         ]
                     }
                 ],
@@ -1590,12 +1590,12 @@
                             "Årets forventede resultat inkl. overførsler"
                         ],
                         "rækker":[
-                            "Social og Arbejdsmarked fælles",
-                            "Sekretariat",
-                            "Borgerservice",
-                            "I alt inden for aftale",
-                            "Borgerservice",
-                            "I alt uden for aftale" 
+                            ["Social og Arbejdsmarked fælles", "3000000000"],
+                            ["Sekretariat", "730002031", "730002032"],
+                            ["Borgerservice", "73000203311"],
+                            ["I alt inden for aftale", "3000000000", "730002031", "730002032", "73000203311"],
+                            ["Borgerservice", "AA20A2"],
+                            ["I alt uden for aftale", "AA20A2"]
                         ]
                     }
                 ]
