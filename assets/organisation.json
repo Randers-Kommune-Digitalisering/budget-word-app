@@ -52,14 +52,14 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Familie.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[["Projekter","BE25A4","BE20A4"]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Plejefamilier",
-                                    "Opholdssteder, sikrede samt døgninst.",
-                                    "Forebyggende foranstaltninger og indsats",
-                                    "Kvindekrisecentre",
-                                    "Myndighedscentret (adm.)"
+                                    ["Plejefamilier","7300020ABE10.0023"],
+                                    ["Opholdssteder, sikrede samt døgninst.","7300020ABE15.0023"],
+                                    ["Forebyggende foranstaltninger og indsats","7300020ABE20.0023"],
+                                    ["Kvindekrisecentre","7300020ABE25.0023"],
+                                    ["Myndighedscentret (adm.)","7300020ABE30.0023"]
                                 ]
                             },
                             {
@@ -67,10 +67,10 @@
                                 "navn":"Indkomstoverførsler",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for indkomstsoverførsler, bevillingsområde Familie.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":0,
+                                "projekter":[[""]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Forebyggende foranstaltninger og indsats"
+                                    ["Forebyggende foranstaltninger og indsats","7300020BBE20.0023"]
                                 ]
                             },
                             {
@@ -78,12 +78,12 @@
                                 "navn":"Centrale refusionsordninger mv.",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for centrale refusionsordninger, bevillingsområde Familie.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":0,
+                                "projekter":[[""]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Plejefamilier",
-                                    "Opholdssteder, sikrede samt døgninst.",
-                                    "Forebyggende foranstaltninger og indsats"
+                                    ["Plejefamilier","7300020DBE10.0023"],
+                                    ["Opholdssteder, sikrede samt døgninst.","7300020DBE15.0023"],
+                                    ["Forebyggende foranstaltninger og indsats","7300020DBE20.0023"]
                                 ]
                             }
                         ]
@@ -95,10 +95,10 @@
                         "navn":"Anlæg",
                         "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
                         "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                        "projekter":0,
+                        "projekter":[[""]],
                         "typeKolonner":6,
                         "rækker":[
-                            "Skattefinansierede anlæg"
+                            ["Skattefinansierede anlæg","7300020SB.0023"]
                         ]
                     }
                 ],
@@ -115,6 +115,33 @@
                             "Indkomstoverførsler",
                             "Centrale refusionsordninger mv.",
                             "Skattefinansierede anlæg"
+                        ]
+                    }
+                ],
+                "customTabeller":[
+                    {  
+                        "navn":"ct1",
+                        "placering":"Bevilling Familie",
+                        "placeringOmkringAfsnit":"Before",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "tabelnr":2,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
+                        "kolonner":[
+                            "Service (mio. kr.)",	
+                            "Oprindeligt budget",	
+                            "Korrigeret budget ekskl. overførsler",	
+                            "Bevillings-ansøgninger",	
+                            "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                            "Forventet forbrug",	
+                            "Årets forventede resultat ekskl. overførsler",	
+                            "Overførsler",
+                            "Årets forventede resultat inkl. overførsler"
+                        ],
+                        "rækker":[
+                            ["Dagtilbud Nordvest", "73000202305"],
+                            ["Dagtilbud Nordøst", "73000202306"],
+                            ["Dagtilbud Sydvest", "73000202307"]
+                            
                         ]
                     }
                 ]

@@ -270,28 +270,30 @@ function  roundNestedArray(arr) {
   );
 }
 
-function dataProjectsTotalsRounding(data, projekter, withData, valgtDokumentDetajle, fileType) {
+function dataProjectsTotalsRounding(data, projekter, deletekst="", withData, valgtDokumentDetajle, fileType) {
   let dataOutput = [...data]
-  if(withData) {
-    if (projekter != "") {
-      // Total uden projekter
-      let dataTotalProjekter = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))) 
-      let totalRækkeProjekter = ["I alt ekskl. projekter"]
-      totalRækkeProjekter = totalRækkeProjekter.concat(dataTotalProjekter)
-      dataOutput.push(totalRækkeProjekter)
-      // Projekter 
-      let projektData = generateTable(data[0], projekter, withData, valgtDokumentDetajle, fileType)
-      data.push(projektData[1])
-      dataOutput.push(projektData[1])
-    }
 
-    // Total
-    let dataTotal = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))) 
-    let totalRække = ["I alt"]
-    totalRække = totalRække.concat(dataTotal)
-    dataOutput.push(totalRække)
-    dataOutput = roundNestedArray(dataOutput)
+  if (projekter != "") {
+    // Total uden projekter
+    let dataTotalProjekter = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))) 
+    let totalRækkeProjekter = [deletekst]
+    totalRækkeProjekter = totalRækkeProjekter.concat(dataTotalProjekter)
+    dataOutput.push(totalRækkeProjekter)
+    // Projekter 
+    let projektData = generateTable(data[0], projekter, withData, valgtDokumentDetajle, fileType)
+    data.push(projektData[1])
+    dataOutput.push(projektData[1])
   }
+
+  // Total
+  let dataTotal = undefined
+  if(withData) dataTotal = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))) 
+    else dataTotal = new Array(data[0].length-1)
+  let totalRække = ["I alt"]
+  totalRække = totalRække.concat(dataTotal)
+  dataOutput.push(totalRække)
+  dataOutput = roundNestedArray(dataOutput)
+
   return dataOutput
 }
 
@@ -507,17 +509,6 @@ export async function skabelon() {
           var projekter=tabeller[tabel].projekter
           var fodnote=tabeller[tabel].note
 
-          /*
-          var data = [kolonner]
-          for (var j in rækker){
-            var række=[rækker[j]]
-            for(var i = 1; i <= kolonnerAntal-1; i++) {
-              række.push("")
-            }
-            data.push(række)
-          }
-          */
-
           let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
 
           let row_names = undefined
@@ -525,18 +516,13 @@ export async function skabelon() {
           else row_names = rækker
 
           // Indsætter totaler og foretager afrunding 
-          let dataFinalMatrix = dataProjectsTotalsRounding(data, projekter, withData, valgtDokumentDetajle, fileType)  
+          let dataFinalMatrix = dataProjectsTotalsRounding(data, projekter, "I alt ekskl. projekter", withData, valgtDokumentDetajle, fileType)  
           console.table(dataFinalMatrix)  
-
-          //let total_data = undefined
-          //if(withData) total_data = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))).map(value => (Math.round(value * 10) / 10).toFixed(1))
-          //console.log("data: ", data[0])
 
           rækkerAntal = dataFinalMatrix.length
           kolonnerAntal = dataFinalMatrix[0].length
 
           var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",dataFinalMatrix);
-
 
           tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote, data)
     
@@ -575,24 +561,16 @@ export async function skabelon() {
         var kolonnerAntal=kolonner.length
         var fodnote=anlæg.note
 
-        /*
-        var data = [kolonner]
-        for (var j in rækker){
-          var række=[rækker[j]]
-          for(var i = 1; i <= kolonnerAntal-1; i++) {
-            række.push("")
-          }
-          data.push(række)
-        }
-        */
-
         let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
 
-        let total_data = undefined
-        if(withData) total_data = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))).map(value => (Math.round(value * 10) / 10).toFixed(1))
+        // Indsætter totaler og foretager afrunding 
+        let dataFinalMatrix = dataProjectsTotalsRounding(data, projekter="", "", withData, valgtDokumentDetajle, fileType)  
 
-        var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
-        await tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote, data=total_data)
+        rækkerAntal = dataFinalMatrix.length
+        kolonnerAntal = dataFinalMatrix[0].length
+        var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",dataFinalMatrix);
+
+        await tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote, data)
         await context.sync();
 
         tableAltBeskObj(valgtUdvalg + " anlæg", anlæg.beskrivelse) 
@@ -620,21 +598,17 @@ export async function skabelon() {
       var kolonnerAntal=kolonner.length
       var fodnote=bevillingsansøgninger.note
       
-      /*
-      var data = [kolonner]
-      for (var j in rækker){
-        var række=[rækker[j]]
-        for(var i = 1; i <= kolonnerAntal-1; i++) {
-          række.push("")
-        }
-        data.push(række) 
-      }
-      */
-
       let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+      console.table(data)
 
-      var tabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"start",data);
-      tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote)
+      // Indsætter totaler og foretager afrunding 
+      let dataFinalMatrix = dataProjectsTotalsRounding(data, projekter="", "", withData=false, valgtDokumentDetajle, fileType)  
+
+      rækkerAntal = dataFinalMatrix.length
+      kolonnerAntal = dataFinalMatrix[0].length
+      var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",dataFinalMatrix);
+
+      await tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote, data)
 
       tableAltBeskObj(valgtUdvalg + " bevillingsansøgninger", bevillingsansøgninger.beskrivelse)
       await context.sync()
@@ -664,17 +638,6 @@ export async function skabelon() {
 
         var ccNavn=customTabeller[i].placering
         var targetP=parseInt(await indlæsAfsnit(ccNavn))
-
-        /*
-        var data = [kolonner]
-        for (var j in rækker){
-          var række=[rækker[j]]
-          for(var j = 1; j <= kolonnerAntal-1; j++) {
-            række.push("")
-          }
-          data.push(række)
-        }
-        */
 
         let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
 
