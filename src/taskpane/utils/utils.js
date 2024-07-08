@@ -146,7 +146,7 @@ export async function formaterTabellerBB(tabel){
         border.set({color:"#808080",width:1, type:'Single'})
         rækker.items[i].shadingColor="#DDEBF7"
         rækker.items[i].font.bold=true
-        rækker.items[i].font.name="Calibri"
+        rækker.items[i].font.name="Calibri" 
       }
 
       // Loop over celler

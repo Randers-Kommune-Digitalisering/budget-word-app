@@ -261,16 +261,16 @@ export async function tableAltBeskObj(titel,beskrivelse,tabelnr=0) {
     await context.sync()  
   })
 }
-
 function  roundNestedArray(arr) {
   return arr.map(innerArr => 
     innerArr.map(item => 
-      typeof item === 'number' ? Math.round(item * 10) / 10 : item
+      //typeof item === 'number' ? Math.round(item * 10) / 10 : item 
+      typeof item === 'number' ? item.toFixed(1).replace(".",",") : item 
     )
   );
 }
 
-function dataProjectsTotalsRounding(data, projekter, deletekst="", withData, valgtDokumentDetajle, fileType) {
+function dataProjectsTotalsRounding(data, projekter, deletekst="", withData, valgtDokumentDetajle, fileType, indsætTotalRække=true) {
   let dataOutput = [...data]
 
   if (projekter != "") {
@@ -289,9 +289,11 @@ function dataProjectsTotalsRounding(data, projekter, deletekst="", withData, val
   let dataTotal = undefined
   if(withData) dataTotal = sumArrays(...data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))) 
     else dataTotal = new Array(data[0].length-1)
-  let totalRække = ["I alt"]
-  totalRække = totalRække.concat(dataTotal)
-  dataOutput.push(totalRække)
+  if (indsætTotalRække) {
+    let totalRække = ["I alt"]
+    totalRække = totalRække.concat(dataTotal)
+    dataOutput.push(totalRække)
+  }
   dataOutput = roundNestedArray(dataOutput)
 
   return dataOutput
@@ -299,18 +301,6 @@ function dataProjectsTotalsRounding(data, projekter, deletekst="", withData, val
 
 export async function tabelAddOns(tabel, placering, projekter=0, fodnote=0, data=null) {
   return Word.run(async (context) => {
-
-    /*
-    tabel.headerRowCount=1
-    if (projekter==1) {
-      tabel.addRows("end",2,[["I alt ekskl. projekter"],["Projekter"]])
-    }
-
-    let total = ["I alt"]
-    if(data) total = total.concat(data)
-    
-      tabel.addRows("end",1,[total])
-    */
     if (fodnote!=0) {
       var indsatFodnote=placering.insertText(fodnote,"End")
       indsatFodnote.font.size=8
@@ -330,17 +320,6 @@ export async function fetchAssets(adr) {
 export async function skabelon() {
   return Word.run(async (context) => {
 
-
-    /* 
-    Dette virker ikke. Se OneNote/ChatGPT for alternativ løsning.
-    https://chatgpt.com/share/8f0b37b7-d4f4-4e8b-adb9-992f549b29a3
-    var response = await fetch("file:////randers.dk/dfs/Budget/Karl Fritjof Krassel/test.csv", { cache: "reload" });
-    console.log(response)
-    console.table(response.text())
-
-    NB: Er blevet tilføjet i bunden af filen, som et ekstra skridt efter skabelonen er genereret. Men kan rykkes op så det er et skridt inden.
-    */ 
-
     globalThis.genContentControls=[] 
     globalThis.dokumentKommentarer=[]
 
@@ -353,19 +332,6 @@ export async function skabelon() {
     
     const responseDokumenttype = await fetch("./assets/dokumenttype.json", { cache: "reload" });
     const dokumenttypeJSON = await responseDokumenttype.json();
-
-    //const responseOrganisation = await fetch("./assets/organisation.json", { cache: "reload" }); 
-    //const organisationJSON = await responseOrganisation.json();
-    
-    // console.log("fetchAssets(\"./assets/organisation.json\"): ", await fetchAssets("./assets/organisation.json"))
-    // console.log("OrganisationJSON: ", organisationJSON)
-
-    // const dokumentdata=organisationJSON.filter(obj=>obj.type==valgtDokument); 
-
-
-    // var responseOrganisation_bbd1 = await fetch("./assets/organisation_bbd1.json");
-    // var organisationJSON_bbd1 = await responseOrganisation_bbd1.json();
-    // console.log("organisationJSON_bbd1: ",organisationJSON_bbd1) 
     
     const dokumentdata=dokumenttypeJSON.filter(obj=>obj.type==valgtDokument);
     const sektioner=dokumentdata[0].sektioner;
@@ -376,7 +342,6 @@ export async function skabelon() {
 
     var organisationJSON=await fetchAssets("./assets/organisation.json")
     var organisationdata = organisationJSON.filter(obj=>obj.udvalg==valgtUdvalg);
-    //console.log("organisationdata: ",organisationdata)
 
     /* Udlæser bevillingsområder fra første dokumenttype - ændrer sig ikke på tværs af typer*/
     const bevillingsområder=[] 
@@ -599,16 +564,15 @@ export async function skabelon() {
       var fodnote=bevillingsansøgninger.note
       
       let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
-      console.table(data)
 
       // Indsætter totaler og foretager afrunding 
-      let dataFinalMatrix = dataProjectsTotalsRounding(data, projekter="", "", withData=false, valgtDokumentDetajle, fileType)  
+      let dataFinalMatrix = dataProjectsTotalsRounding(data, "", "", false, valgtDokumentDetajle, fileType)  
 
       rækkerAntal = dataFinalMatrix.length
       kolonnerAntal = dataFinalMatrix[0].length
       var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",dataFinalMatrix);
 
-      await tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote, data)
+      await tabelAddOns(indsatTabel,contentControls.items[targetCC],0,fodnote, data)
 
       tableAltBeskObj(valgtUdvalg + " bevillingsansøgninger", bevillingsansøgninger.beskrivelse)
       await context.sync()
@@ -639,24 +603,18 @@ export async function skabelon() {
         var ccNavn=customTabeller[i].placering
         var targetP=parseInt(await indlæsAfsnit(ccNavn))
 
-        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
-
-        //// REALLY STUDPID! \\\\
-        // This asumes that all custom tables have rows with "I alt" in the row name and that they should be summed and inserted in the "I alt" row at the bottom
-        // But in reality this is not the case, so this is a really bad solution
-        // Most tables probably need to be handled like "Bevillingsområder" where all rows are summed and inserted in the "I alt" row
-        let total_data = undefined
-        if(withData) {
-          total_data = data.filter((arr) => arr[0].includes("I alt"))
-          total_data = sumArrays(...total_data.map(arr => arr.slice(1)).map( subarray => subarray.map( (el) => parseFloat(el)))).map(value => (Math.round(value * 10) / 10).toFixed(1))
-        }
-        ////------------------\\\\
-
         var nytAfsnit = afsnit.items[targetP].insertParagraph("", placeringOmkringAfsnit);
         nytAfsnit.styleBuiltIn="Normal"
         await context.sync()
 
-        var tabel=nytAfsnit.insertTable(rækkerAntal,kolonnerAntal,"Before",data);
+        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+
+        // Indsætter totaler og foretager afrunding 
+        let dataFinalMatrix = dataProjectsTotalsRounding(data, "", "", false, valgtDokumentDetajle, fileType, false)  
+
+        rækkerAntal = dataFinalMatrix.length
+        kolonnerAntal = dataFinalMatrix[0].length
+        var indsatTabel=nytAfsnit.insertTable(rækkerAntal,kolonnerAntal,"Before",dataFinalMatrix);
 
         // Fodnoten indsættes selvstændigt for CS-tabeller, da den ellers vil indsættes formert
         var indsatFodnote=nytAfsnit.insertParagraph(fodnote,"Before")
@@ -672,7 +630,7 @@ export async function skabelon() {
         var placering=context.document.getSelection() 
         await context.sync()
 
-        await tabelAddOns(tabel,placering,0,0, data=total_data) 
+        // await tabelAddOns(tabel,placering,0,0, data=total_data) 
         await context.sync()
 
         tableAltBeskObj(valgtUdvalg + " CT" +i, customTabeller[i].indledendeTekst,customTabeller[i].tabelnr)
@@ -753,18 +711,6 @@ export async function skabelon() {
 
       tableAltBeskObj("Fakta og politikker", "Fakta og politikker")
 
-      /*
-      var cell=indsatTabel.getCell(rækker,3)
-      var cellBody=cell.body
-      var paragraph = cellBody.paragraphs.getFirst();
-      var range = paragraph.getTextRanges(["Randers.dk/politikker"], false).getFirst();
-
-      range.set({hyperlink:'https://github.com'})
-      // range.hyperlink="https://randers.dk/politikker"
-      //console.log(range)
-
-      */
-
       // Styler tabel - skal flyttes til utils
       indsatTabel.headerRowCount = 1
       indsatTabel.font.bold=false
@@ -828,21 +774,6 @@ export async function skabelon() {
           }
         }
       }
-      
-
-      // Sletter sidste tomme afsnit - virker ikke
-      /*
-      const afsnit=contentControls.items[targetCC].paragraphs
-      afsnit.load('items')
-      await context.sync()  
-      for (var i=0; i<afsnit.items.length; i++) {
-        console.log(afsnit.items[i].text)
-      }
-      console.log("sidste afsnit",afsnit.items[afsnit.items.length-1])
-      
-      afsnit.items[afsnit.items.length-1].delete()
-      await context.sync()  
-      */
       
       // Fjerner alle rammer
       var borderLocation = Word.BorderLocation.all;
@@ -943,39 +874,6 @@ export async function skabelon() {
       await context.sync()
 
       formaterTabellerBB("tabel-2")
-      /*
-
-
-      // var indsatTabel=contentControls.items[targetCC].insertTable(rækker+1,4,"End",data);
-
-        // Datatabel
-        var rækker=tabeller[tabel].rækker
-        var rækkerAntal=tabeller[tabel].rækker.length+1
-        var kolonner=tabelindhold[tabeller[tabel].typeKolonner].overskrifter
-        var kolonnerAntal=kolonner.length
-        var projekter=tabeller[tabel].projekter
-        var fodnote=tabeller[tabel].note
-
-        var data = [kolonner]
-        for (var j in rækker){
-          var række=[rækker[j]]
-          for(var i = 1; i <= kolonnerAntal-1; i++) {
-            række.push("")
-          }
-          data.push(række)
-        }
-        
-        
-        var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",data);
-        tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote)
-  
-
-
-      var contentControls = context.document.contentControls;
-      contentControls.load('items');
-      await context.sync();
-      */
-      
   
     } 
      
@@ -1011,11 +909,6 @@ function checkfile(e) {
       readFile(file);
       withData = true
       
-      //if (fileTypeDropdown.name.includes("ekspanderet")) fileTypeDropdown.options.selectedIndex = (1)
-      //else fileTypeDropdown.options.selectedIndex = (0)
-      
-      //fileTypeDropdown.classList.remove("skjult")
-
     } else {
       withData = false
       fileTypeDropdown.classList.add("skjult")

@@ -138,10 +138,30 @@
                             "Årets forventede resultat inkl. overførsler"
                         ],
                         "rækker":[
-                            ["Dagtilbud Nordvest", "73000202305"],
-                            ["Dagtilbud Nordøst", "73000202306"],
-                            ["Dagtilbud Sydvest", "73000202307"]
-                            
+                            ["Dagpleje","73000202303"],
+                            ["Dagtilbud Midt","73000202304"],
+                            ["Dagtilbud Nordvest","73000202305"],
+                            ["Dagtilbud Nordøst","73000202306"],
+                            ["Dagtilbud Sydvest","73000202307"],
+                            ["Dagtilbud Sydøst","73000202308"],
+                            ["Den selvejende institution Glentevej","73000202309"],
+                            ["Kristrup Vuggestue","73000202310"],
+                            ["Tjærbyvejens Vuggestue","73000202311"],
+                            ["Børnehaven Bredstrupsgade","73000202312"],
+                            ["Børnehuset Himmelblå","73000202313"],
+                            ["Børnehaven Tirsdalen","73000202314"],
+                            ["Kristrup Børnehus","73000202315"],
+                            ["Helsted Børnehus","73000202316"],
+                            ["Platangården","73000202317"],
+                            ["Børnehaven og Vuggestuen Rådmands Blvd.","73000202318"],
+                            ["Børnehuset Mariendal","73000202319"],
+                            ["KFUM's institutioner","73000202121"],
+                            ["Vorup Børne- og ungdomshus","73000202122"],
+                            ["Solgården","73000202123"],
+                            ["I alt aftaleenheder","73000202303","73000202304","73000202305","73000202306","73000202307","73000202308","73000202309","73000202310","73000202311","73000202312","73000202313","73000202314","73000202315","73000202316","73000202317","73000202318","73000202319","73000202121","73000202122","73000202123"],
+                            ["Uden for aftale","BD10A2","BD15A2","BD20A2","BD22A2","BD25A2","BD30A2"],
+                            ["Projekter","BD20A4"],
+                            ["I alt Børn","73000202303","73000202304","73000202305","73000202306","73000202307","73000202308","73000202309","73000202310","73000202311","73000202312","73000202313","73000202314","73000202315","73000202316","73000202317","73000202318","73000202319","73000202121","73000202122","73000202123","BD10A2","BD15A2","BD20A2","BD22A2","BD25A2","BD30A2","BD20A4"]
                         ]
                     }
                 ]
@@ -260,12 +280,12 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Beskæftigelse, integration og ydelser.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[["Projekter","CF40A4"]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Integration",
-                                    "Beskæftigelsesindsats - jobcentertilbud",
-                                    "Øvrige indsatser og ydelser"
+                                    ["Integration","7300020ACF35.0023"],
+                                    ["Beskæftigelsesindsats - jobcentertilbud","7300020ACF40.0023"],
+                                    ["Øvrige indsatser og ydelser","7300020ACF45.0023"]                                    
                                 ]                                
                             },
                             {
@@ -276,17 +296,17 @@
                                 "projekter":0,
                                 "typeKolonner":4,
                                 "rækker":[
-                                    "Arbejdsløshedsdagpenge",
-                                    "Kontanthjælp og ledighedsydelse",
-                                    "Sygedagpenge og jobafklaring",
-                                    "Ressourceforløb",
-                                    "Fleksjob",
-                                    "Førtidspensioner",
-                                    "Seniorpension",
-                                    "Integration",
-                                    "Beskæftigelsesindsats - jobcentertilbud",
-                                    "Øvrige indsatser og ydelser",
-                                    "Boligydelse og boligsikring"
+                                    ["Arbejdsløshedsdagpenge","7300020BCF05.0023"],
+                                    ["Kontanthjælp og ledighedsydelse","7300020BCF10.0023"],
+                                    ["Sygedagpenge og jobafklaring","7300020BCF15.0023"],
+                                    ["Ressourceforløb","7300020BCF20.0023"],
+                                    ["Fleksjob","7300020BCF25.0023"],
+                                    ["Førtidspensioner","7300020BCF30.0023"],
+                                    ["Seniorpension","7300020BCF33.0023"],
+                                    ["Integration","7300020BCF35.0023"],
+                                    ["Beskæftigelsesindsats - jobcentertilbud","7300020BCF40.0023"],
+                                    ["Øvrige indsatser og ydelser","7300020BCF45.0023"],
+                                    ["Boligydelse og boligsikring","7300020BCF50.0023"]
                                 ]                                  
                             }
                         ]
