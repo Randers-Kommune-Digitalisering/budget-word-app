@@ -30,6 +30,7 @@
     "core-js": "^3.9.1",
     "http-server": "^14.1.1",
     "json-loader": "^0.5.7",
+    "json-templates": "^5.1.0",
     "regenerator-runtime": "^0.13.7",
     "webpack-dev-server": "^5.0.4",
     "webpack-server": "^0.1.2",

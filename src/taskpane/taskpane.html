@@ -23,7 +23,8 @@
 
 <body class="ms-font-m ms-welcome ms-Fabric">
   <header class="ms-welcome__header">
-    <img width="150" height="150" src="../../assets/logo-filled.png" alt="Randers Kommunes budgetværktøjer" title="Randers Kommunes budgetværktøjer" />
+    <img id="test" width="50" height="50" src="../../assets/logo-filled.png" alt="Randers Kommunes budgetværktøjer" title="Randers Kommunes budgetværktøjer" />
+
   </header>
   <section id="sideload-msg" class="ms-welcome__main">
     <h2 class="ms-font-xl"></h2>
@@ -59,7 +60,15 @@
         <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown"></select>
         <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown"></select>
         <div id="toolsdiv" class="skjult">
-          <p class="overskrift2">3. Værktøjer</p>
+
+          <div>
+            <p class="overskrift2">3. Indlæs data</p>
+            <p>Vælg Excel-fil med data</p>           
+            <input id="file" name="file" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <select id="fileTypeDropdown" class="dropdown skjult"></select>
+          </div>
+
+          <p class="overskrift2">4. Værktøjer</p>
           <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero"> 
             <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
           </div>
@@ -72,7 +81,7 @@
           <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
             <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
           </div>
-          <p class="overskrift2">4. Afslut</p>
+          <p class="overskrift2">5. Afslut</p>
           <p><i>Kør VBA-scriptet </i><code>indsætTabelbeskrivelser()</code><i> og gem dokumentet som </i><code>.docx</code><i> med dokumenttitlen som filnavn.</i>
           </p> 
         </div>
