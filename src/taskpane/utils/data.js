@@ -43,6 +43,7 @@ var globalData = null;
 // Functions
 
 export function readFile(file) {
+    let sheets=["Input","Input - MTU","Input - BF - CT1","Input - SU - CT1","Input - EP - CT1"]
     const reader = new FileReader();
     reader.onload = function(evt) {
       if(evt.target.readyState != 2) return;
@@ -51,11 +52,17 @@ export function readFile(file) {
       }
       try {
         let excel_file = XLSX.read(evt.target.result);
-        let data_sheet = excel_file.Sheets["Input"];
-        if (data_sheet) {
-            globalData = data_sheet;
-        } else {
-          throw("Kunne ikke finde Input-arket. Prøv igen.");
+        globalData=[]
+        for (let sheet in sheets) {
+          console.log("Sheet", sheet)
+          let data_sheet = excel_file.Sheets[sheets[sheet]];
+          console.log("data_sheet", data_sheet)
+          if (data_sheet) {
+              globalData.push(data_sheet);
+              console.log("GlobalData", globalData)
+          } else {
+            throw("Kunne ikke finde Input-arket. Prøv igen.");
+          }
         }
       } catch (error) {
         console.log(error);
@@ -65,7 +72,7 @@ export function readFile(file) {
     reader.readAsArrayBuffer(file);
 }
 
-export function generateTable(columns, rows, withData, dateType, fileType) {
+export function generateTable(columns, rows, withData, dateType, fileType, sheet=0) {
     let table = [columns]
     for (var i in rows){
       if(Array.isArray(rows[i]) && rows[i].length > 1) {
@@ -74,7 +81,7 @@ export function generateTable(columns, rows, withData, dateType, fileType) {
         else id = rows[i].slice(1)
         if(id && withData){
           let first_column = rows[i][0]
-          let data = getRowData(id, dateTypes.indexOf(dateType), globalData, fileTypes.indexOf(fileType))
+          let data = getRowData(id, dateTypes.indexOf(dateType), globalData[sheet], fileTypes.indexOf(fileType))
           table.push([first_column, ...data])
         } else {
             let tmp_row = [rows[i][0]]

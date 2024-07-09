@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
-import { formaterTabeller, formaterTabellerBB, replaceWordsWithLinks, sumArrays } from "./utils/utils.js";
+import { formaterTabeller, formaterTabellerBB, sumArrays } from "./utils/utils.js";
 import { generateTable, readFile} from "./utils/data.js";
 
 const required_styles = ["Brev/notat KORT (O1)"];
@@ -51,7 +51,7 @@ async function tryCatch(callback) {
     await callback();
   } catch (error) {
     openDialog("Fejl", error.toString());
-    console.error(error.message);
+    /*console.error(error.message);*/
   }
 }
 
@@ -473,8 +473,13 @@ export async function skabelon() {
           var kolonnerAntal=kolonner.length
           var projekter=tabeller[tabel].projekter
           var fodnote=tabeller[tabel].note
+          var dataArk=tabeller[tabel].dataArk
 
-          let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+          if (dataArk == undefined) { 
+            dataArk = 0
+          }
+
+          let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType, dataArk)
 
           let row_names = undefined
           if(withData) row_names = rækker.map(row => row[0])
@@ -525,8 +530,13 @@ export async function skabelon() {
         var kolonner=tabelindhold[anlæg.typeKolonner].overskrifter 
         var kolonnerAntal=kolonner.length
         var fodnote=anlæg.note
+        var dataArk=anlæg.dataArk
 
-        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+        if (dataArk == undefined) { 
+          dataArk = 0
+        }
+
+        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType, dataArk)
 
         // Indsætter totaler og foretager afrunding 
         let dataFinalMatrix = dataProjectsTotalsRounding(data, projekter="", "", withData, valgtDokumentDetajle, fileType)  
@@ -535,17 +545,19 @@ export async function skabelon() {
         kolonnerAntal = dataFinalMatrix[0].length
         var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal,kolonnerAntal,"End",dataFinalMatrix);
 
-        await tabelAddOns(tabel,contentControls.items[targetCC],0,fodnote, data)
+        await tabelAddOns(indsatTabel,contentControls.items[targetCC],0,fodnote, data)
         await context.sync();
 
         tableAltBeskObj(valgtUdvalg + " anlæg", anlæg.beskrivelse) 
-        await context.sync()
+        await context.sync();
+
+        let rækkeNavne = rækker.map(row => row[0])
 
         //// Indsætter undersektioner
-        await indsætSektionerICC(ccNavn,rækker,"Heading3"); 
+        await indsætSektionerICC(ccNavn,rækkeNavne,"Heading3"); 
         await context.sync(); 
 
-      }
+      }   
       
       // Bevillingsansøgninger
       var ccNavn="Bevillingsansøgninger"
@@ -562,8 +574,13 @@ export async function skabelon() {
       var kolonner=tabelindhold[bevillingsansøgninger.typeKolonner].overskrifter 
       var kolonnerAntal=kolonner.length
       var fodnote=bevillingsansøgninger.note
+      var dataArk=bevillingsansøgninger.dataArk
+
+      if (dataArk == undefined) { 
+        dataArk = 0
+      }
       
-      let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+      let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType, dataArk)
 
       // Indsætter totaler og foretager afrunding 
       let dataFinalMatrix = dataProjectsTotalsRounding(data, "", "", false, valgtDokumentDetajle, fileType)  
@@ -599,6 +616,11 @@ export async function skabelon() {
         var kolonnerAntal=kolonner.length
         var fodnote=customTabeller[i].note
         var placeringOmkringAfsnit = customTabeller[i].placeringOmkringAfsnit;
+        var dataArk=customTabeller[i].dataArk
+
+        if (dataArk == undefined) { 
+          dataArk = 0 
+        }
 
         var ccNavn=customTabeller[i].placering
         var targetP=parseInt(await indlæsAfsnit(ccNavn))
@@ -607,7 +629,7 @@ export async function skabelon() {
         nytAfsnit.styleBuiltIn="Normal"
         await context.sync()
 
-        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType)
+        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType, dataArk)
 
         // Indsætter totaler og foretager afrunding 
         let dataFinalMatrix = dataProjectsTotalsRounding(data, "", "", false, valgtDokumentDetajle, fileType, false)  
@@ -635,8 +657,7 @@ export async function skabelon() {
 
         tableAltBeskObj(valgtUdvalg + " CT" +i, customTabeller[i].indledendeTekst,customTabeller[i].tabelnr)
         await context.sync()
-
-      } 
+      }
       formaterTabeller();
     }
     
@@ -664,7 +685,7 @@ export async function skabelon() {
       await context.sync();
 
       // Sidehoved
-      // Rydder sidehoved i startskabelonen
+      // Rydder sidehoved i startskabelonen 
       rydSidehoved()
 
       var header=context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary)
@@ -851,7 +872,7 @@ export async function skabelon() {
       var rækkerAntal=tabeller[2].rækker.length
       var k1r1=tabeller[2].k1r1
       var tabelnr=tabeller[2].nr
-      var kolonnerAntal=5
+      var kolonnerAntal=5 
       const parse3 = require('json-templates');
       const templateBeskrivelse3 = parse3(tabeller[2].note);
 
@@ -864,7 +885,6 @@ export async function skabelon() {
         }
         data.push(række)
       }
-      console.log(data) 
       
       var indsatTabel=contentControls.items[targetCC].insertTable(rækkerAntal+1,kolonnerAntal,"End",data);
       await context.sync()
@@ -876,8 +896,6 @@ export async function skabelon() {
       formaterTabellerBB("tabel-2")
   
     } 
-     
-    // replaceWordsWithLinks()
     console.log("nåede hertil")
 
   });
@@ -916,7 +934,7 @@ function checkfile(e) {
     }
   } else {
     withData = false
-    fileTypeDropdown.classList.add("skjult")
+    fileTypeDropdown.classList.add("skjult") 
   }
 }
 

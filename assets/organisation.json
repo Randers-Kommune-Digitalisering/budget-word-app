@@ -125,7 +125,8 @@
                         "placeringOmkringAfsnit":"Before",
                         "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                         "tabelnr":2,
-                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
+                        "dataArk":2,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aftaleenheder under Børn under Børne- og familieudvalget",
                         "kolonner":[
                             "Service (mio. kr.)",	
                             "Oprindeligt budget",	
@@ -159,9 +160,9 @@
                             ["Vorup Børne- og ungdomshus","73000202122"],
                             ["Solgården","73000202123"],
                             ["I alt aftaleenheder","73000202303","73000202304","73000202305","73000202306","73000202307","73000202308","73000202309","73000202310","73000202311","73000202312","73000202313","73000202314","73000202315","73000202316","73000202317","73000202318","73000202319","73000202121","73000202122","73000202123"],
-                            ["Uden for aftale","BD10A2","BD15A2","BD20A2","BD22A2","BD25A2","BD30A2"],
-                            ["Projekter","BD20A4"],
-                            ["I alt Børn","73000202303","73000202304","73000202305","73000202306","73000202307","73000202308","73000202309","73000202310","73000202311","73000202312","73000202313","73000202314","73000202315","73000202316","73000202317","73000202318","73000202319","73000202121","73000202122","73000202123","BD10A2","BD15A2","BD20A2","BD22A2","BD25A2","BD30A2","BD20A4"]
+                            ["Uden for aftale","73000202.0025"],
+                            ["Projekter","73000204.0025"],
+                            ["I alt Børn","73000202303","73000202304","73000202305","73000202306","73000202307","73000202308","73000202309","73000202310","73000202311","73000202312","73000202313","73000202314","73000202315","73000202316","73000202317","73000202318","73000202319","73000202121","73000202122","73000202123","73000202.0025","73000204.0025"]
                         ]
                     }
                 ]
@@ -410,12 +411,12 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[["Projekter","DI30A4","DI35A4","DI40A4"]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Psykiatri og Socialt Udsatte",
-                                    "Handicap",
-                                    "Autisme, senhjerneskade og læring"
+                                    ["Psykiatri og Socialt Udsatte","7300020ADI30.0023"],
+                                    ["Handicap","7300020ADI35.0023"],
+                                    ["Autisme, senhjerneskade og læring","7300020ADI40.0023"]                                                                      
                                 ]                                
                             },
                             {
@@ -426,7 +427,7 @@
                                 "projekter":0,
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Handicap"
+                                    ["Handicap","7300020BDI35.0023"]
                                 ]                                
                             },
                             {
@@ -437,7 +438,7 @@
                                 "projekter":0,
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Handicap"
+                                    ["Handicap","7300020GDI35.0023"]
                                 ]                                
                             },
                             {
@@ -448,7 +449,8 @@
                                 "projekter":0,
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Handicap"
+                                    ["Psykiatri og Socialt Udsatte","7300020DDI30.0023"],
+                                    ["Handicap","7300020DDI35.0023"]                                                                      
                                 ]                                
                             }
                         ]
@@ -463,8 +465,8 @@
                         "projekter":0,
                         "typeKolonner":6,
                         "rækker":[
-                            "Skattefinansierede anlæg",
-                            "Ældreboliger - anlæg"
+                            ["Skattefinansierede anlæg","7300020SD.0023"],
+                            ["Ældreboliger - anlæg","7300020TD.0023"]                                                       
                         ]
                     }
                 ],
@@ -561,13 +563,14 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Miljø og teknik, skattefinansieret.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[["Projekter","EJ10A4"]],
                                 "typeKolonner":0,
+                                "dataArk":1,
                                 "rækker":[
-                                    "Natur og Miljø",
-                                    "Veje og Trafik",
-                                    "Ejendomsservice",
-                                    "Driftsafdeling"
+                                    ["Natur og Miljø","7300020AEJ10.0023"],
+                                    ["Veje og Trafik","7300020AEJ20.0023"],
+                                    ["Ejendomsservice","7300020AEJ15.0023"],
+                                    ["Driftsafdeling","7300020AEJ25.0023"]                                    
                                 ]                                     
                             }
                         ]
@@ -581,10 +584,11 @@
                         "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                         "projekter":0,
                         "typeKolonner":6,
+                        "dataArk":1,
                         "rækker":[
-                            "Stab og Bæredygtighed",
-                            "Erhverv og Bosætning",
-                            "Plan, By og Natur"
+                            ["Bygningsadministration","73000209551"],
+                            ["Grønne områder og friluftsliv","73000209582"],
+                            ["Veje og Trafik","73000209588"]                            
                         ]
                     }
                 ],
@@ -596,6 +600,7 @@
                         "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
                         "projekter":0,
                         "typeKolonner":7,
+                        "dataArk":1,
                         "rækker":[
                             "Servicerammen",
                             "Skattefinansierede anlæg"
@@ -681,9 +686,10 @@
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                                 "projekter":0,
                                 "typeKolonner":0,
+                                "dataArk":1,
                                 "rækker":[
-                                    "Rottebekæmpelse",
-                                    "Kirkegårde"
+                                    ["Rottebekæmpelse","7300020AEK15.0023"],
+                                    ["Kirkegårde","7300020AEK20.0023"]                                    
                                 ]                                     
                             },
                             {
@@ -693,8 +699,9 @@
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                                 "projekter":0,
                                 "typeKolonner":0,
+                                "dataArk":1,
                                 "rækker":[
-                                    "Affald og Genbrug"
+                                    ["Affald og Genbrug","7300020FEK10.0023"]
                                 ]                                     
                             }                            
                         ]      
@@ -708,8 +715,9 @@
                         "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                         "projekter":0,
                         "typeKolonner":6,
+                        "dataArk":1,
                         "rækker":[
-                            "Brugerfinansierede udgifter - anlæg"
+                            ["Brugerfinansierede udgifter - anlæg","7300020U.0023"]
                         ]
                     }
                 ],
@@ -802,12 +810,12 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Kultur og fritid.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[["Projekter","FM15A4","FM20A4"]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Biblioteker",
-                                    "Kultur",
-                                    "Fritid og Idræt"
+                                    ["Biblioteker","7300020AFM10.0023"],
+                                    ["Kultur","7300020AFM15.0023"],
+                                    ["Fritid og Idræt","7300020AFM20.0023"]                                    
                                 ]                                     
                             }
                         ] 
@@ -820,15 +828,15 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Sundhed.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[["Projekter","FN25A4"]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Vederlagsfri fysioterapi",
-                                    "Rehabilitering",
-                                    "Sundhedsfremme og forebyggelse",
-                                    "Andre sundhedsudgifter",
-                                    "Sundhedspleje",
-                                    "Tandpleje"
+                                    ["Vederlagsfri fysioterapi","7300020AFN15.0023"],
+                                    ["Rehabilitering","7300020AFN20.0023"],
+                                    ["Sundhedsfremme og forebyggelse","7300020AFN25.0023"],
+                                    ["Andre sundhedsudgifter","7300020AFN30.0023"],
+                                    ["Sundhedspleje","7300020AFN35.0023"],
+                                    ["Tandpleje","7300020AFN40.0023"]                                    
                                 ]                                     
                             },
                             {
@@ -836,10 +844,10 @@
                                 "navn":"Aktivitetsbestemt medfinansiering",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aktivitetsbestemt medfinansiering, bevillingsområde Sundhed.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[[""]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Medfinansiering på sundhedsområdet"
+                                    ["Medfinansiering på sundhedsområdet","7300020EFN10.0023"]
                                 ]                                     
                             }                           
                         ]  
@@ -851,10 +859,11 @@
                         "navn":"Anlæg",
                         "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
                         "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                        "projekter":0,
+                        "projekter":[[""]],
                         "typeKolonner":6,
                         "rækker":[
-                            "Skattefinansierede anlæg"
+                            ["Kultur og fritid","7300020SFM.0023"],
+                            ["Sundhedsområdet","7300020SFN.0023"]
                         ]
                     }
                 ],
@@ -893,11 +902,11 @@
                             "Årets forventede resultat inkl. overførsler"
                         ],
                         "rækker":[
-                            "Kultur og fritid",
-                            "Sundhedsområdet",
-                            "Serviceudgifter i alt",
-                            "Medfinansiering på sundhedsområdet"
-                            
+                            ["Kultur og fritid","7300020AFM.0023","FM15A4","FM20A4"],
+                            ["Sundhedsområdet","7300020AFN.0023","FN25A4"],                            
+                            ["I alt serviceudgifter","7300020AFM.0023","7300020AFN.0023","FM15A4","FM20A4","FN25A4"],
+                            ["Medfinansiering på sundhedsområdet","7300020EFN10.0023"], 
+                            ["I alt","7300020AFM.0023","7300020AFN.0023","FM15A4","FM20A4","FN25A4","7300020EFN10.0023"]  
                         ]
                     }
                 ]                
@@ -1013,11 +1022,12 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Tilbud til ældre.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":0,
+                                "projekter":[["Projekter","GO10A4"]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Praktisk hjælp, pleje og træning",
-                                    "Hjælpemidler"
+                                    ["Praktisk hjælp, pleje og træning","7300020AGO10.0023"],
+                                    ["Hjælpemidler","7300020AGO20.0023"]
+                                    
                                 ]                                     
                             },
                             {
@@ -1028,7 +1038,7 @@
                                 "projekter":0,
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Ældreboliger"
+                                    ["Ældreboliger","7300020GGO15.0023"]
                                 ]                                  
                             }
                         ] 
@@ -1043,8 +1053,8 @@
                         "projekter":0,
                         "typeKolonner":6,
                         "rækker":[
-                            "Skattefinansierede anlæg"
-
+                            ["Skattefinansierede anlæg","7300020SG.0023"],
+                            ["Ældreboliger - anlæg","7300020TG.0023"]
                         ]
                     }
                 ],
@@ -1136,11 +1146,11 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Landdistrikt.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":0,
+                                "projekter":[[""]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Landdistrikt",
-                                    "Byfornyelse"
+                                    ["Landdistrikt","7300020AHQ10.0023"],
+                                    ["Byfornyelse","7300020AHQ15.0023"]                                    
                                 ]                                     
                             }
                         ]
@@ -1155,9 +1165,7 @@
                         "projekter":0,
                         "typeKolonner":6,
                         "rækker":[
-                            "Stab og Bæredygtighed",
-                            "Erhverv og Bosætning",
-                            "Plan, By og Natur"
+                            ["Plan, By og Natur","7300020SH.0023"]
                         ]
                     }
                 ],
@@ -1248,19 +1256,20 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Skole.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":1,
+                                "projekter":[["Projekter","IR15A4"]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Fællesudgifter - Skole",
-                                    "Folkeskoler og fritidstilbud",
-                                    "Befordring af elever",
-                                    "Bidrag til efterskoler",
-                                    "Fritidshjem og klubber",
-                                    "Specialskoler og -fritidstilbud",
-                                    "Ungdomsskole",
-                                    "Ungdommens Uddannelsesvejledning",
-                                    "Bidrag til privatskoler",
-                                    "Forberedende Grunduddannelse"
+                                    ["Fællesudgifter - Skole","7300020AIR10.0023"],
+                                    ["Folkeskoler og fritidstilbud","7300020AIR15.0023"],
+                                    ["Befordring af elever","7300020AIR20.0023"],
+                                    ["Bidrag til efterskoler","7300020AIR25.0023"],
+                                    ["Fritidshjem og klubber","7300020AIR30.0023"],
+                                    ["Specialskoler og -fritidstilbud","7300020AIR35.0023"],
+                                    ["Ungdomsskole","7300020AIR40.0023"],
+                                    ["Ungdommens Uddannelsesvejledning","7300020AIR45.0023"],
+                                    ["Bidrag til privatskoler","7300020AIR50.0023"],
+                                    ["Forberedende Grunduddannelse","7300020AIR55.0023"]
+                                    
                                 ]                                     
                             }
                         ] 
@@ -1273,11 +1282,11 @@
                                 "navn":"Servicerammen",
                                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Pædagogisk Psykologisk Rådgivning.",
                                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                                "projekter":0,
+                                "projekter":[[""]],
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "PPR (Pædagogisk Psykologisk Rådgivning)",
-                                    "Forebyggende foranstaltninger børn, unge"
+                                    ["PPR (Pædagogisk Psykologisk Rådgivning)","7300020AIS10.0023"],
+                                    ["Forebyggende foranstaltninger børn, unge","7300020AIS20.0023"]                                    
                                 ]                                     
                             }
                         ] 
@@ -1292,7 +1301,7 @@
                         "projekter":0,
                         "typeKolonner":6,
                         "rækker":[
-                            "Skattefinansierede anlæg"
+                            ["Skattefinansierede anlæg","7300020SI.0023"]
                         ]
                     }
                 ],
@@ -1307,6 +1316,57 @@
                         "rækker":[
                             "Servicerammen",
                             "Skattefinansierede anlæg"
+                        ]
+                    }
+                ],
+                "customTabeller":[
+                    {  
+                        "navn":"ct1",
+                        "placering":"Bevilling Pædagogisk Psykologisk Rådgivning",
+                        "placeringOmkringAfsnit":"Before",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "tabelnr":2,
+                        "dataArk":3,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aftalenheder under Skole under Skole- og Uddannelsesudvalget",
+                        "kolonner":[
+                            "Service (mio. kr.)",	
+                            "Oprindeligt budget",	
+                            "Korrigeret budget ekskl. overførsler",	
+                            "Bevillings-ansøgninger",	
+                            "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                            "Forventet forbrug",	
+                            "Årets forventede resultat ekskl. overførsler",	
+                            "Overførsler",
+                            "Årets forventede resultat inkl. overførsler"
+                        ],
+                        "rækker":[
+                            ["Asferg Skole","73000202101"],
+                            ["Assentoftskolen","73000202102"],
+                            ["Bjerregrav Skole","73000202103"],
+                            ["Blicherskolen","73000202104"],
+                            ["Fårup Skole og Børneby","73000202105"],
+                            ["Grønhøjskolen","73000202106"],
+                            ["Havndal Skole og Børneby","73000202107"],
+                            ["Hobrovejens Skole","73000202108"],
+                            ["Hornbæk Skole","73000202109"],
+                            ["Korshøjskolen","73000202110"],
+                            ["Kristrup Skole","73000202111"],
+                            ["Langå Skole","73000202112"],
+                            ["Munkholmskolen","73000202113"],
+                            ["Nørrevangsskolen","73000202114"],
+                            ["Rismølleskolen","73000202115"],
+                            ["Søndermarkskolen","73000202116"],
+                            ["Tirsdalens Skole","73000202117"],
+                            ["Vestervangsskolen","73000202118"],
+                            ["Østervangsskolen","73000202119"],
+                            ["Randers Specialskole","73000202124"],
+                            ["Oust Mølleskolen","73000202125"],
+                            ["Randers Ungdomsskole","73000202126"],
+                            ["Uddannelses- og erhvervsvejledning","73000202127"],
+                            ["I alt aftaleenheder","73000202101","73000202102","73000202103","73000202104","73000202105","73000202106","73000202107","73000202108","73000202109","73000202110","73000202111","73000202112","73000202113","73000202114","73000202115","73000202116","73000202117","73000202118","73000202119","73000202124","73000202125","73000202126","73000202127"],
+                            ["Uden for aftale","73000202.0025"],
+                            ["Projekter","73000204.0025"],
+                            ["I alt","73000202101","73000202102","73000202103","73000202104","73000202105","73000202106","73000202107","73000202108","73000202109","73000202110","73000202111","73000202112","73000202113","73000202114","73000202115","73000202116","73000202117","73000202118","73000202119","73000202124","73000202125","73000202126","73000202127","73000202.0025","73000204.0025"]
                         ]
                     }
                 ]              
@@ -1427,9 +1487,9 @@
                                 "projekter":0,
                                 "typeKolonner":0,
                                 "rækker":[
-                                    "Erhvervsudvikling",
-                                    "Turisme",
-                                    "Byudvikling"
+                                    ["Erhvervsudvikling","7300020AJU10.0023"],
+                                    ["Turisme","7300020AJU15.0023"],
+                                    ["Byudvikling","7300020AJU20.0023"]                                    
                                 ]                                     
                             }
                         ] 
@@ -1444,8 +1504,8 @@
                         "projekter":0,
                         "typeKolonner":6,
                         "rækker":[
-                            "Skattefinansierede anlæg",
-                            "Jordforsyning"
+                            ["Skattefinansierede anlæg","7300020SJ.0023"],
+                            ["Jordforsyning","7300020VJ.0023"]                            
                         ]
                     }
                 ],
@@ -1463,7 +1523,60 @@
                             "Jordforsyning"
                         ]
                     }
-                ]            
+                ],
+                "customTabeller":[
+                    {  
+                        "navn":"ct1",
+                        "placering":"Bevillingsansøgninger",
+                        "placeringOmkringAfsnit":"Before",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "tabelnr":3,
+                        "dataArk":4,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for skattefinansierede anlæg under Erhvervs- og planudvalget",
+                        "kolonner":[
+                            "Skattefinansierede anlæg (mio. kr.)",	
+                            "Oprindeligt budget",	
+                            "Korrigeret budget ekskl. overførsler",	
+                            "Bevillings-ansøgninger",	
+                            "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                            "Forventet forbrug",	
+                            "Årets forventede resultat ekskl. overførsler",	
+                            "Overførsler",
+                            "Årets forventede resultat inkl. overførsler"
+                        ],
+                        "rækker":[
+                            ["Flodbyen","7300020950"],
+                            ["Sekretariat og Bæredygtighed","7300020954"],
+                            ["Plan, By og Natur","7300020958"],
+                            ["I alt","7300020950","7300020954","7300020958"]
+                        ]
+                    },
+                    {  
+                        "navn":"ct2",
+                        "placering":"Bevillingsansøgninger", 
+                        "placeringOmkringAfsnit":"Before",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "tabelnr":4,
+                        "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for jordforsyning under Erhvervs- og planudvalget",
+                        "kolonner":[
+                            "Jordforsyning (mio. kr.)",	
+                            "Oprindeligt budget",	
+                            "Korrigeret budget ekskl. overførsler",	
+                            "Bevillings-ansøgninger",	
+                            "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                            "Forventet forbrug",	
+                            "Årets forventede resultat ekskl. overførsler",	
+                            "Overførsler",
+                            "Årets forventede resultat inkl. overførsler"
+                        ],
+                        "rækker":[
+                            ["Grundsalg","7300020VJV10.0023"],
+                            ["Jordkøb","7300020VJV15.0023"],
+                            ["Byggemodning","7300020VJV20.0023"],
+                            ["I alt","7300020VJV10.0023","7300020VJV15.0023","7300020VJV20.0023"]
+                        ]
+                    }
+                ]              
             },
             {
                 "navn":"Budgetbemærkninger del 1",
@@ -1597,7 +1710,7 @@
                         "projekter":0,
                         "typeKolonner":6,
                         "rækker":[
-                            ["Skattefinansierede anlæg", "7300020S.0023"]
+                            ["Skattefinansierede anlæg", "7300020SA.0023"]
                         ]
                     }
                 ],
@@ -1642,7 +1755,8 @@
                             ["Borgerservice", "73000203311"],
                             ["I alt inden for aftale", "3000000000", "730002031", "730002032", "73000203311"],
                             ["Borgerservice", "AA20A2"],
-                            ["I alt uden for aftale", "AA20A2"]
+                            ["I alt uden for aftale", "AA20A2"],
+                            ["I alt", "3000000000", "730002031", "730002032", "73000203311", "AA20A2"]
                         ]
                     }
                 ]
