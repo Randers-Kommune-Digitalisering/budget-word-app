@@ -1821,7 +1821,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Politisk organisation (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Fælles formål - Politisk organisation",
                                     "Kommunalbestyrelsesmedlemmer",
@@ -1839,6 +1839,59 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Indsæt rækker efter behov - eller slet afsnit helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Administration",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Administration (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Udvikling, Miljø og Teknik",
+                                    "Børn og Skole",
+                                    "Social og Arbejdsmarked",
+                                    "Sundhed, Kultur og Omsorg",
+                                    "Stabe og tværgående konti",
+                                    "Redningsberedskab",
+                                    "Løn- og barselspuljer",
+                                    "Udbetaling Danmark",
+                                    "Tjenestemandspensioner og -præmier",
+                                    "Forsikringer",
+                                    "Servicebuffer, lovændringer og reserver" 
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Tjenestemandspensioner og -præmier" 
+                                ]   
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"Politisk organisation",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Politisk organisation (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Fælles formål - Politisk organisation",
+                                    "Kommunalbestyrelsesmedlemmer",
+                                    "Kommissioner, råd og nævn",
+                                    "Valg"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Indsæt/slet rækker efter behov]"
                                 ]   
                             }
                         ]

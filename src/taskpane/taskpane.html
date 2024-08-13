@@ -237,7 +237,8 @@ udvalgDropdown.addEventListener("change", e => {
         }  
       )  
   }
-  if (valgtDokument==="Budgetbemærkninger del 1") {
+  
+  if (valgtDokument==="Budgetbemærkninger del 1" | valgtDokument==="Budgetbemærkninger del 2") {
     document.getElementById('bevillingsområdeDropdown').style.display="block";
     valgtUdvalg = dropdownUdvalg.options[dropdownUdvalg.selectedIndex].text;
 
