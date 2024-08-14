@@ -39,7 +39,7 @@ function openDialog(title, message) {
       dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, processMessage);
     }
   );
-}
+};
 
 function processMessage(arg) {
   console.log(arg.message);
@@ -213,7 +213,7 @@ export async function indsætUndersektioner(sektion, undersektioner, ekstraTekst
 }
 
 // Funktion til at indsætte sektioner i contentcontrols
-export async function indsætSektionerICC(cc, undersektioner, heading) {
+export async function indsætSektionerICC(cc, undersektioner, heading, numbered=false, prefix="") {
   return Word.run(async (context) => {
     const contentControls = context.document.contentControls;
     contentControls.load('id');
@@ -222,12 +222,19 @@ export async function indsætSektionerICC(cc, undersektioner, heading) {
 
     const targetCC=genContentControls.indexOf(cc)
     const last=contentControls.items[targetCC]
-    var temp=last.insertParagraph('',"End")
-      .styleBuiltIn="Normal";
+    //var temp=last.insertParagraph('',"End")
+      // .styleBuiltIn="Normal";
       for(var undersektion in undersektioner) {
         if (undersektioner.length>1) {
-          last.insertParagraph(undersektioner[undersektion],"End")  
-          .styleBuiltIn=heading;
+          if (numbered) {
+            var undersektionnr=parseInt(undersektion)+1
+            var underoverskrift=prefix.concat(".").concat(undersektionnr).concat(" ").concat(undersektioner[undersektion])
+          } else {
+            var underoverskrift=undersektioner[undersektion]
+          }
+          var indsat=last.insertParagraph(underoverskrift,"End")  
+          indsat.styleBuiltIn="Normal";
+          indsat.styleBuiltIn=heading;
         }
           last.insertParagraph('',"End")
           .styleBuiltIn="Normal";
@@ -976,7 +983,7 @@ export async function skabelon() {
       var kolonnerAntal=4
       var fodnote=tabeller[0].note
 
-      var data = [[k1r1, "Udgift " , "Indtægt ", "Netto "]] 
+      var data = [[k1r1, "Udgift \n".concat(budgetperiodeÅr1) , "Indtægt \n".concat(budgetperiodeÅr1), "Netto \n".concat(budgetperiodeÅr1)]] 
 
       // Servicerammen
       data.push(["Servicerammen","","",""])
@@ -1010,8 +1017,18 @@ export async function skabelon() {
 
       formaterTabellerBB("tabel-0")
 
-    }
+
+      var row_names = rækkerServicerammen.concat(rækkerUdenForServicerammen)
+      // Indsætter undersektioner
+      var ccNavn="1. Supplerende beskrivelse af området - 1.1 Servicerammen"
+      await indsætSektionerICC(ccNavn,rækkerServicerammen,"Heading4",true,"1.1"); 
+      await context.sync()  
+
+      var ccNavn="1. Supplerende beskrivelse af området - 1.2 Uden for servicerammen"
+      await indsætSektionerICC(ccNavn,rækkerUdenForServicerammen,"Heading4",true,"1.2"); 
+      await context.sync()  
     
+    }
     console.log("nåede hertil")
 
   });

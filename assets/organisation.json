@@ -184,7 +184,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Børn (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Fælles formål - Børn",
                                     "Dagpleje",
@@ -222,7 +222,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Familie (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Plejefamilier",
                                     "Opholdssteder, sikrede inst. og døgninstitutioner",
@@ -243,6 +243,57 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Indsæt rækker efter behov - eller slet afsnit vedr. anlæg helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Børn",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Børn (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Fælles formål - Børn",
+                                    "Dagpleje",
+                                    "Dagtilbud",
+                                    "Fritidstilbud og klubber",
+                                    "Tilskud til private institutioner",
+                                    "Særlige dagtilbud"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Indsæt/slet rækker efter behov]"
+                                ]   
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"Familie",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Familie (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Plejefamilier",
+                                    "Opholdssteder, sikrede inst. og døgninstitutioner",
+                                    "Forebyggende foranstaltninger og indsats",
+                                    "Kvindekrisecentre",
+                                    "Familie- og rådgivningscentret (adm.)"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Plejefamilier",
+                                    "Opholdssteder, sikrede inst. og døgninstitutioner",
+                                    "Forebyggende foranstaltninger og indsats"     
                                 ]   
                             }
                         ]
@@ -345,7 +396,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Beskæftigelse, integration og ydelser (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Integration",
                                     "Beskæftigelsesindsats - jobcentertilbud",
@@ -372,6 +423,40 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Indsæt rækker efter behov - eller slet afsnit vedr. anlæg helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Beskæftigelse, integration og ydelser",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Beskæftigelse, integration og ydelser (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Integration",
+                                    "Beskæftigelsesindsats - jobcentertilbud",
+                                    "Øvrige indsatser og ydelser"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Arbejdsløshedsdagpenge",
+                                    "Kontanthjælp og ledighedsydelse",
+                                    "Sygedagpenge og jobafklaring",
+                                    "Ressourceforløb",
+                                    "Fleksjob",
+                                    "Førtidspension",
+                                    "Seniorpension",
+                                    "Integration",
+                                    "Beskæftigelsesindsats - jobcentertilbud",
+                                    "Øvrige indsatser og ydelser",
+                                    "Boligydelse og boligsikring"
                                 ]   
                             }
                         ]
@@ -506,7 +591,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Tilbud til børn, unge og voksne med særlige behov (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Psykiatri og Socialt Udsatte",
                                     "Handicap",
@@ -524,6 +609,31 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Indsæt rækker efter behov]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Tilbud til børn, unge og voksne med særlige behov (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap",
+                                    "Autisme, senhjerneskade og læring"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap"
                                 ]   
                             }
                         ]
@@ -625,7 +735,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Miljø og teknik, skattefinansieret (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Natur og Miljø",
                                     "Veje og Trafik",
@@ -645,6 +755,31 @@
                                     "Natur og Miljø",
                                     "Veje og Trafik",
                                     "Ejendomsservice"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Miljø og teknik, skattefinansieret",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Miljø og teknik, skattefinansieret (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Natur og Miljø",
+                                    "Veje og Trafik",
+                                    "Ejendomsservice",
+                                    "Driftsafdeling"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Indsæt rækker efter behov]"
                                 ]   
                             }
                         ]
@@ -754,7 +889,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Miljø og teknik, takstfinansieret (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Rottebekæmpelse",
                                     "Kirkegårde"
@@ -770,6 +905,29 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[indtast rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Miljø og teknik, takstfinansieret",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Miljø og teknik, takstfinansieret (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Rottebekæmpelse",
+                                    "Kirkegårde"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Affald og Genbrug"
                                 ]   
                             }
                         ]
@@ -928,7 +1086,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Kultur og fritid (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Biblioteker",
                                     "Kultur",
@@ -963,7 +1121,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Sundhed (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Vederlagsfri fysioterapi",
                                     "Rehabilitering",
@@ -983,6 +1141,52 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Indsæt rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Kultur og fritid",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Kultur og fritid (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Biblioteker",
+                                    "Kultur",
+                                    "Fritid og Idræt"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Tilføj rækker efter behov]"
+                                ]   
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"Sundhed",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Sundhed (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Vederlagsfri fysioterapi",
+                                    "Rehabilitering",
+                                    "Sundhedsfremme og forebyggelse",
+                                    "Andre sundhedsudgifter",
+                                    "Sundhedspleje",
+                                    "Tandpleje"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Medfinansiering på sundhedsområdet"
                                 ]   
                             }
                         ]
@@ -1088,10 +1292,10 @@
                                 "politikker":["Omsorgs- og værdighedspolitik"]
                             },{
                                 "nr":1,
-                                "navn":"Driftsbudget",
+                                "navn":"Tilbud til ældre",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Tilbud til ældre (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Praktisk hjælp, pleje og træning",
                                     "Hjælpemidler"
@@ -1107,6 +1311,29 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Indsæt rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Tilbud til ældre",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Tilbud til ældre (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Praktisk hjælp, pleje og træning",
+                                    "Hjælpemidler"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Ældreboliger"
                                 ]   
                             }
                         ]
@@ -1201,7 +1428,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Landdistrikt (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Landdistrikt",
                                     "Byfornyelse"
@@ -1217,6 +1444,29 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Tilføj rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Landdistrikt",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Landdistrikt (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Landdistrikt",
+                                    "Byfornyelse"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Tilføj/slet rækker efter behov]"
                                 ]   
                             }
                         ]
@@ -1388,7 +1638,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Skole (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Fællesudgifter - Skole",
                                     "Folkeskoler og fritidstilbud",
@@ -1429,7 +1679,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Pædagogisk Psykologisk Rådgivning (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "PPR (Pædagogisk Psykologisk Rådgivning)",
                                     "Forebyggende foranstaltninger børn, unge"
@@ -1445,6 +1695,54 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Indsæt/slet rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Skole",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Skole (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Fællesudgifter - Skole",
+                                    "Folkeskoler og fritidstilbud",
+                                    "Befordring af elever",
+                                    "Bidrag til efterskoler",
+                                    "Specialskoler og -fritidstilbud",
+                                    "Ungdomsskole",
+                                    "Ungdommens Uddannelsesvejledning",
+                                    "Bidrag til privatskoler",
+                                    "Forberedende Grunduddannelse"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Tilføj/slet rækker efter behov]"
+                                ]   
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"Pædagogisk Psykologisk Rådgivning",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Pædagogisk Psykologisk Rådgivning (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "PPR (Pædagogisk Psykologisk Rådgivning)",
+                                    "Forebyggende foranstaltninger børn, unge"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Tilføj/slet rækker efter behov]"
                                 ]   
                             }
                         ]
@@ -1595,7 +1893,7 @@
                                 "navn":"Driftsbudget",
                                 "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
                                 "note":"",
-                                "k1r1":"Administration (mio. kr.)",
+                                "k1r1":"Erhverv og plan (mio. kr.)",
                                 "rækkerServicerammen":[
                                     "Erhvervsudvikling",
                                     "Turisme",
@@ -1612,6 +1910,30 @@
                                 "k1r1":"Anlægsprojekter (mio. kr.)",
                                 "rækker":[
                                     "[Indsæt/slet rækker efter behov - eller slet afsnittet helt]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Erhverv og plan",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Erhverv og plan (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Erhvervsudvikling",
+                                    "Turisme",
+                                    "Byudvikling"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "[Tilføj/slet rækker efter behov]"
                                 ]   
                             }
                         ]
