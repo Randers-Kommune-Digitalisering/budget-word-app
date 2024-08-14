@@ -161,15 +161,17 @@ export async function formaterTabellerBB(tabel){
         if (k==0) {
           celler.items[k].columnWidth=248 
         }
-        if (k>1) {
+        if (k>=1) {
           celler.items[k].columnWidth=61
         }
         
         // Højrestiller kolonneoverskrifter til højre hvis kun tal
-        if (i==0) {
+        if (i==0&k>0) {
           const årstal=/^\d{4}$/;
           if (årstal.test(celler.items[k].value)==true) {
             celler.items[k].horizontalAlignment="Right"
+          } else {
+            celler.items[k].horizontalAlignment="Centered"
           }
         }
         // Højrestiller kolonne > 1 og række > 1
