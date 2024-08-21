@@ -1028,6 +1028,35 @@ export async function skabelon() {
       await indsætSektionerICC(ccNavn,rækkerUdenForServicerammen,"Heading4",true,"1.2"); 
       await context.sync()  
     
+      // Tabel i afsnit 3
+      var ccNavn="3. Ændringer på området"
+      var targetCC=genContentControls.indexOf(ccNavn)    
+
+      var indledning="På baggrund af budgetforudsætningerne viser tabellen, hvilke ændringer der er indarbejdet i budgettet siden udgangspunktet fra sidste års vedtagne budget."
+      const indsatIndledning=contentControls.items[targetCC].insertParagraph(indledning,"Start");
+      await context.sync();
+
+      var budgetperiodeÅr0=budgetperiodeÅr1-1
+      var budgetperiodeÅr_1=budgetperiodeÅr0-1
+      var data = [["Ændringer siden budget ".concat(budgetperiodeÅr0).concat(" (mio. kr.)"), budgetperiodeÅr1, budgetperiodeÅr2, budgetperiodeÅr3, budgetperiodeÅr4]] 
+      data.push(["Udgangspunkt ".concat(budgetperiodeÅr0).concat("-budget (").concat(budgetperiodeÅr1).concat("-priser)"), "", "", "", ""])
+      data.push(["Budgetaftale ".concat(budgetperiodeÅr1).concat("-").concat(budgetperiodeÅr4),"", "", "", ""],["[Indsæt rækker efter behov]","","","",""],["","","","",""])
+      data.push(["Budgetaftale tidligere år","","","",""],["[Indsæt rækker efter behov]","","","",""],["","","","",""])
+      data.push(["Tillægsbevillinger og omplaceringer","","","",""],["[Indsæt rækker efter behov]","","","",""],["","","","",""])
+      data.push(["PL og øvrige ændringer","","","",""],["[Indsæt rækker efter behov]","","","",""],["","","","",""])
+      data.push(["Ændringer fra tidligere år","","","",""],["Ændringer fra budget ".concat(budgetperiodeÅr0),"","","",""],["[Indsæt rækker efter behov]","","","",""],["","","","",""])
+      data.push(["Ændringer fra budget ".concat(budgetperiodeÅr_1),"","","",""],["[Indsæt rækker efter behov]","","","",""],["","","","",""])
+      data.push(["I alt","","","",""])
+      console.table(data)
+
+      var indsatTabel=contentControls.items[targetCC].insertTable(data.length,data[0].length,"End",data);
+
+      await context.sync()
+      tableAltBeskObj("Ændringer over år", indledning)
+
+      formaterTabellerBB("tabel-1")
+      await context.sync()
+
     }
     console.log("nåede hertil")
 

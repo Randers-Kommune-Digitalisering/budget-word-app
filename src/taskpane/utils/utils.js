@@ -165,11 +165,12 @@ export async function formaterTabellerBB(tabel){
           celler.items[k].columnWidth=61
         }
         
-        // Højrestiller kolonneoverskrifter til højre hvis kun tal
+        // Højrestiller kolonneoverskrifter til højre hvis kun tal -
+        // OBS: Redundant - gælder åbenbart ikke ikke BB-tabeller! 
         if (i==0&k>0) {
           const årstal=/^\d{4}$/;
           if (årstal.test(celler.items[k].value)==true) {
-            celler.items[k].horizontalAlignment="Right"
+            celler.items[k].horizontalAlignment="Centered"
           } else {
             celler.items[k].horizontalAlignment="Centered"
           }
@@ -196,7 +197,7 @@ export async function formaterTabellerBB(tabel){
           border.set({color:"#808080",width:1, type:'Single'})
         }
         // Styler "servicerammen"
-        if (celler.items[k].value.slice(0,13)=="Servicerammen"|celler.items[k].value.slice(0,22)=="Uden for servicerammen") {
+        if (celler.items[k].value.slice(0,13)=="Servicerammen"|celler.items[k].value.slice(0,22)=="Uden for servicerammen"|celler.items[k].value.slice(0,12)=="Udgangspunkt") {
           console.log(celler.items[k].value.slice(0,5))
           rækker.items[i].shadingColor="#BDD7EE"
           rækker.items[i].font.bold=true
@@ -210,10 +211,24 @@ export async function formaterTabellerBB(tabel){
           var border = rækker.items[i].getBorder(borderLocation);
           border.set({color:"#808080",width:1, type:'Single'})
         }
-
-      }
+        // Styler afsnit i tabellen
+        if (
+          celler.items[k].value.slice(0,13)=="Budgetaftale " || 
+          celler.items[k].value.slice(0,26)=="Budgetaftaler tidligere år" || 
+          celler.items[k].value.slice(0,35)=="Tillægsbevillinger og omplaceringer" ||
+          celler.items[k].value.slice(0,23)=="PL og øvrige ændringer" ||
+          celler.items[k].value.slice(0,27)=="Ændringer fra tidligere år" 
+        ) {
+          rækker.items[i].font.bold=true
+        }
+        if (
+          celler.items[k].value.slice(0,21)=="Ændringer fra budget " 
+        ) {
+          rækker.items[i].font.italic=true
+        }
+        await context.sync();
+      } 
     }
-    await context.sync();
   })
 }
 
