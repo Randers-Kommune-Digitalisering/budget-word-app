@@ -327,6 +327,60 @@ export async function fetchAssets(adr) {
   });
 };
 
+// New helper functions 
+
+function checkfile(e) {
+  var fileTypeDropdown = document.getElementById("fileTypeDropdown")
+
+  if (fileTypeDropdown.options.length < 1) {
+    let option_normal = document.createElement('option');
+    option_normal.text = "normal";
+    option_normal.value = "default"
+    fileTypeDropdown.add(option_normal); 
+
+    let option_expanded = document.createElement('option');
+    option_expanded.text = "ekspanderet";
+    option_expanded.value = "expanded"
+    fileTypeDropdown.add(option_expanded);
+  }
+
+  fileTypeDropdown.options.selectedIndex = (0)
+
+  if (e.target.files[0]) {
+    const file = e.target.files[0];
+    if (allowed_files.includes(file.type)) {
+      readFile(file);
+      withData = true
+      
+    } else {
+      withData = false
+      fileTypeDropdown.classList.add("skjult")
+      openDialog("Fejl", "Filen er ikke af den korrekte type. Det skal være en Excel-fil.");
+    }
+  } else {
+    withData = false
+    fileTypeDropdown.classList.add("skjult") 
+  }
+}
+
+function hasStyles(callback) {
+  Office.context.document.getSelectedDataAsync(
+    Office.CoercionType.Ooxml,
+    ( result ) => {
+      var style_present = true
+      required_styles.forEach(style => {
+        style_present = result.value.includes(style) && style_present;
+      });
+      if (style_present) {
+        callback()
+      } else {
+        openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Tilføj dem eller åben start skabelonen"); 
+      }
+    }
+  );
+}
+
+
 // Generer skabelonen
 export async function skabelon() {
   return Word.run(async (context) => {
@@ -1033,7 +1087,7 @@ export async function skabelon() {
       var targetCC=genContentControls.indexOf(ccNavn)    
 
       var indledning="På baggrund af budgetforudsætningerne viser tabellen, hvilke ændringer der er indarbejdet i budgettet siden udgangspunktet fra sidste års vedtagne budget."
-      const indsatIndledning=contentControls.items[targetCC].insertParagraph(indledning,"Start");
+      var indsatIndledning=contentControls.items[targetCC].insertParagraph(indledning,"Start");
       await context.sync();
 
       var budgetperiodeÅr0=budgetperiodeÅr1-1
@@ -1047,72 +1101,95 @@ export async function skabelon() {
       data.push(["Ændringer fra tidligere år","","","",""],["Ændringer fra budget ".concat(budgetperiodeÅr0),"","","",""],["[Indsæt rækker efter behov]","","","",""],["","","","",""])
       data.push(["Ændringer fra budget ".concat(budgetperiodeÅr_1),"","","",""],["[Indsæt rækker efter behov]","","","",""],["","","","",""])
       data.push(["I alt","","","",""])
-      console.table(data)
+      // console.table(data)
 
       var indsatTabel=contentControls.items[targetCC].insertTable(data.length,data[0].length,"End",data);
 
       await context.sync()
-      tableAltBeskObj("Ændringer over år", indledning)
+      tableAltBeskObj("Ændringer på området", indledning)
 
       formaterTabellerBB("tabel-1")
       await context.sync()
 
+      // Tabel i afsnit 5   
+      var ccNavn="5. Anlægsprojekter"
+      var targetCC=genContentControls.indexOf(ccNavn)    
+
+      const parseIndledning = require('json-templates');
+      var templateIndledning = parseIndledning("Som en del af budgetvedtagelsen for {{fra}}-{{til}}, blev den 10-årige investeringsplan godkendt. I tabellen   ses de år, der ligger uden for budgetperioden.");
+      var indsatIndledning=contentControls.items[targetCC].insertParagraph(templateIndledning({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }),"Start")
+      await context.sync();
+
+      // Henter oplysninger om investeringsplanens sidste år fra dokumentertype.json
+      let investeringsplanSidsteÅr = dokumentdata[0].investeringsplanSidsteÅr
+      console.log(investeringsplanSidsteÅr)
+
+      var data0 = ["10-årig investeringsplan (mio. kr.)"] 
+      var data1 = ["[Indsæt rækker efter behov]"]
+      var data2 = ["I alt"]
+      for (var i=budgetperiodeÅr4+1; i<=investeringsplanSidsteÅr; i++) {
+        data0.push(i)
+        data1.push("")
+        data2.push("")
+      }
+      var data = [data0,data1,data2]
+
+      var indsatTabel=contentControls.items[targetCC].insertTable(data.length,data[0].length,"End",data);
+
+      await context.sync()
+      tableAltBeskObj("10-årig investeringsplan", templateIndledning({ fra: budgetperiodeÅr1, til: budgetperiodeÅr4 }))
+
+      formaterTabellerBB("tabel-2")
+      await context.sync()
+
+      // Ny side
+      contentControls.items[targetCC].insertBreak(Word.BreakType.page, "End");
+      await context.sync();
+      
+      // Anlægsprojekter (eksempel)
+      var ccNavn="5. Anlægsprojekter - Anlægsprojekt: [Navn på anlægsprojekt]"
+      var targetCC=genContentControls.indexOf(ccNavn)
+      contentControls.items[targetCC].insertParagraph("Bevillingsprogramnummer: [xxxxxxxxxx]","Start")
+      await context.sync();
+
+      // Rådighedsbeløb
+      var tabelOverskrift=contentControls.items[targetCC].insertParagraph("Rådighedsbeløb ("+budgetperiodeÅr1+"-priser, 1000 kr.)","End")
+      tabelOverskrift.styleBuiltIn="Heading4"
+      var blanktAfsnit=contentControls.items[targetCC].insertParagraph("","End")
+      blanktAfsnit.styleBuiltIn="Normal"
+      var data = [["Type", "Før "+budgetperiodeÅr1+" (årets priser)", budgetperiodeÅr1, budgetperiodeÅr2, budgetperiodeÅr3, budgetperiodeÅr4, "I alt"]]
+      data.push(["Udgifter","","","","","",""])
+      data.push(["Indtægter","","","","","",""])
+      data.push(["I alt","","","","","",""])
+
+      var indsatTabel=contentControls.items[targetCC].insertTable(data.length,data[0].length,"End",data);
+
+      await context.sync()
+      tableAltBeskObj("Rådighedsbeløb ("+budgetperiodeÅr1+"-priser, 1000 kr.)", "Rådighedsbeløb ("+budgetperiodeÅr1+"-priser, 1000 kr.)")
+
+      formaterTabellerBB("tabel-3")
+      await context.sync()
+
+      // Anlægsbevillinger
+      var tabelOverskrift=contentControls.items[targetCC].insertParagraph("Anlægsbevilling (årets priser, 1000 kr.)","End")
+      tabelOverskrift.styleBuiltIn="Heading4"
+      var blanktAfsnit=contentControls.items[targetCC].insertParagraph("","End")
+      blanktAfsnit.styleBuiltIn="Normal"
+
+      var data = [["Dato","Udgifter","Indtægter","Netto","Bemærkninger"]]
+      data.push(["[Indsæt rækker efter behov]","","","",""])
+      data.push(["I alt","","","",""])
+
+      var indsatTabel=contentControls.items[targetCC].insertTable(data.length,data[0].length,"End",data);
+
+      await context.sync()
+      tableAltBeskObj("Anlægsbevilling (årets priser, 1000 kr.)", "Anlægsbevilling (årets priser, 1000 kr.)")
+
+      formaterTabellerBB("tabel-4")
+      await context.sync()
     }
     console.log("nåede hertil")
-
   });
 }
 
 
-// New helper functions 
-
-function checkfile(e) {
-  var fileTypeDropdown = document.getElementById("fileTypeDropdown")
-
-  if (fileTypeDropdown.options.length < 1) {
-    let option_normal = document.createElement('option');
-    option_normal.text = "normal";
-    option_normal.value = "default"
-    fileTypeDropdown.add(option_normal); 
-
-    let option_expanded = document.createElement('option');
-    option_expanded.text = "ekspanderet";
-    option_expanded.value = "expanded"
-    fileTypeDropdown.add(option_expanded);
-  }
-
-  fileTypeDropdown.options.selectedIndex = (0)
-
-  if (e.target.files[0]) {
-    const file = e.target.files[0];
-    if (allowed_files.includes(file.type)) {
-      readFile(file);
-      withData = true
-      
-    } else {
-      withData = false
-      fileTypeDropdown.classList.add("skjult")
-      openDialog("Fejl", "Filen er ikke af den korrekte type. Det skal være en Excel-fil.");
-    }
-  } else {
-    withData = false
-    fileTypeDropdown.classList.add("skjult") 
-  }
-}
-
-function hasStyles(callback) {
-  Office.context.document.getSelectedDataAsync(
-    Office.CoercionType.Ooxml,
-    ( result ) => {
-      var style_present = true
-      required_styles.forEach(style => {
-        style_present = result.value.includes(style) && style_present;
-      });
-      if (style_present) {
-        callback()
-      } else {
-        openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Tilføj dem eller åben start skabelonen"); 
-      }
-    }
-  );
-}

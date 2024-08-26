@@ -198,7 +198,7 @@ export async function formaterTabellerBB(tabel){
         }
         // Styler "servicerammen"
         if (celler.items[k].value.slice(0,13)=="Servicerammen"|celler.items[k].value.slice(0,22)=="Uden for servicerammen"|celler.items[k].value.slice(0,12)=="Udgangspunkt") {
-          console.log(celler.items[k].value.slice(0,5))
+          // console.log(celler.items[k].value.slice(0,5))
           rækker.items[i].shadingColor="#BDD7EE"
           rækker.items[i].font.bold=true
           celler.items[k].setCellPadding("Top",3)
@@ -257,7 +257,3 @@ export async function replaceWordsWithLinks() {
       console.log(error.message);
   });
 }
-
-
-// To run the function, call replaceWordsWithLinks()
-replaceWordsWithLinks();
