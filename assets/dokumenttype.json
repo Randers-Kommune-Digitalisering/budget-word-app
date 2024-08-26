@@ -199,6 +199,8 @@
     {
         "type":"Budgetbemærkninger del 2",
         "langtNavn":"Del 2",
+        "investeringsplanFørsteÅr":2023,
+        "investeringsplanSidsteÅr":2032,
         "sektioner":[
             "1. Supplerende beskrivelse af området",
             "2. Budgetforudsætninger",
@@ -216,7 +218,7 @@
             [
                 "3.1 Budgetaftale {{fra}}-{{til}}",
                 "3.2 Demografi",
-                "3.3 budgetaftaler tidligere år",
+                "3.3 Budgetaftaler tidligere år",
                 "3.4 Tillægsbevillinger og omplaceringer",
                 "3.5 PL og øvrige ændringer"
             ],  
@@ -225,6 +227,7 @@
                 "4.2 Takster og nøgletal"
             ],
             [
+                "Anlægsprojekt: [Navn på anlægsprojekt]"
             ]
         ]
     }
