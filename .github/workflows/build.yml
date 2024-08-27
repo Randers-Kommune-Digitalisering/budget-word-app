@@ -5,7 +5,9 @@ name: CI
 # Controls when the workflow will run
 on:
   push:
-    branches: [ main, development ]
+    branches: 
+      -'main'
+      -'development'
     tags:
       - 'v*.*.*'
 
