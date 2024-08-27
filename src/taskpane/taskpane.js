@@ -558,7 +558,6 @@ export async function skabelon() {
       contentControls.load("id");
       await context.sync();
 
-      
       // Service
       // Bevillingsområder
       for (var bevillingsområde in bevillingsområder) {
