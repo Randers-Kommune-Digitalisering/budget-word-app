@@ -3,8 +3,6 @@
 https://learn.microsoft.com/en-us/javascript/api/word/word.documentproperties?view=word-js-preview#word-word-documentproperties-comments-member
 
 
-
-
 ```
 [
     {
