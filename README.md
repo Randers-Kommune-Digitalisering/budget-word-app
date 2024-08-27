@@ -61,7 +61,6 @@ https://learn.microsoft.com/en-us/javascript/api/word/word.documentproperties?vi
 
 
 
-
 ## Office Javascript API (WordApi 1.5)
 
 
