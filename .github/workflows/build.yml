@@ -85,6 +85,7 @@ jobs:
             echo "branch=prod" >> $GITHUB_OUTPUT
           else
             echo "branch=unknown" >> $GITHUB_OUTPUT
+          fi
 
       - name: Testing
         if: ${{ steps.branch.conclusion != 'skipped' }}
