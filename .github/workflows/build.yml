@@ -76,7 +76,7 @@ jobs:
   # Update verion i config
       - name: Set Branch Name
         id: branch
-        if: ${{ contains('main,development', ${GITHUB_REF##*/}) }}
+        if: ${{ contains('main,development', github.ref_name) }}
         run: |
           if [[ ${GITHUB_REF##*/} == "development" ]]; then
             echo "branch=test" >> $GITHUB_OUTPUT
