@@ -25,7 +25,7 @@ jobs:
       - name: Setup env variables
         run: |
           echo "DOCKER_SERVICE=ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo github.ref
+          echo ${{ github.ref }}
 
 # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
