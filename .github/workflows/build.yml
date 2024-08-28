@@ -78,16 +78,17 @@ jobs:
         id: branch
         if: ${{ contains('main,development', github.ref_name) }}
         run: |
-          if [[ ${GITHUB_REF##*/} == "development" ]]; then
+          branch_name=${GITHUB_REF##*/}
+          if [[ "$branch_name" == "development" ]]; then
             echo "branch=test" >> $GITHUB_OUTPUT
-          elif [[ ${GITHUB_REF##*/} == "main" ]]; then
+          elif [[ "$branch_name" == "main" ]]; then
             echo "branch=prod" >> $GITHUB_OUTPUT
           else
             echo "branch=unknown" >> $GITHUB_OUTPUT
 
       - name: Testing
         if: ${{ steps.branch.conclusion != 'skipped' }}
-        run: echo "The environment is ${{ steps.branch.outputs.branch }}"
+        run: echo "The branch is ${{ steps.branch.outputs.branch }}"
         
       # - name: Checkout Target Repository
       #   uses: actions/checkout@v2
