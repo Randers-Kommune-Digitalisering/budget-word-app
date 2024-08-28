@@ -25,19 +25,18 @@ jobs:
       - name: Setup env variables
         run: |
           echo "DOCKER_SERVICE=ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo ${GITHUB_REF##*/}
 
 # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
 # Login against a Docker registry except on PR
 # https://github.com/docker/login-action
-      - name: Log into registry ghcr.io
-        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
-        with:
-          registry: ghcr.io/${{ github.repository_owner }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Log into registry ghcr.io
+      #   uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+      #   with:
+      #     registry: ghcr.io/${{ github.repository_owner }}
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
 
 # if below step is skipped this build is a tag build. Can be used for skipping other steps.
       - name: Is Tag Build
@@ -46,57 +45,72 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}        
 
 # Build
-      - name: Build
-        run: ./build/build.sh ${{ env.DOCKER_SERVICE }} ${{ github.event.repository.url }}
+      # - name: Build
+      #   run: ./build/build.sh ${{ env.DOCKER_SERVICE }} ${{ github.event.repository.url }}
 
 # Push to Github
-      - name: Tag service git id docker image
-        run: ./build/docker-tag.sh ${{ env.DOCKER_SERVICE }}:latest ${{ env.DOCKER_SERVICE }}:${{ github.sha }}
+      # - name: Tag service git id docker image
+      #   run: ./build/docker-tag.sh ${{ env.DOCKER_SERVICE }}:latest ${{ env.DOCKER_SERVICE }}:${{ github.sha }}
 
-      - name: Tag service dev docker image
-        run: ./build/docker-tag.sh ${{ env.DOCKER_SERVICE }}:latest ${{ env.DOCKER_SERVICE }}:dev
+      # - name: Tag service dev docker image
+      #   run: ./build/docker-tag.sh ${{ env.DOCKER_SERVICE }}:latest ${{ env.DOCKER_SERVICE }}:dev
 
-      - name: Push dev docker image.
-        run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:dev
+      # - name: Push dev docker image.
+      #   run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:dev
 
-      - name: Push service git id docker image.
-        run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:${{ github.sha }}
+      # - name: Push service git id docker image.
+      #   run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:${{ github.sha }}
 
-      - name: Push latest service docker image
-        if: ${{ steps.tag.conclusion != 'skipped' }}
-        run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:latest
+      # - name: Push latest service docker image
+      #   if: ${{ steps.tag.conclusion != 'skipped' }}
+      #   run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:latest
 
-      - name: Tag version service docker image
-        if: ${{ steps.tag.conclusion != 'skipped' }}
-        run: ./build/docker-tag.sh ${{ env.DOCKER_SERVICE }}:latest ${{ env.DOCKER_SERVICE }}:${{ steps.tag.outputs.VERSION }}
+      # - name: Tag version service docker image
+      #   if: ${{ steps.tag.conclusion != 'skipped' }}
+      #   run: ./build/docker-tag.sh ${{ env.DOCKER_SERVICE }}:latest ${{ env.DOCKER_SERVICE }}:${{ steps.tag.outputs.VERSION }}
 
-      - name: Push version service docker image.
-        if: ${{ steps.tag.conclusion != 'skipped' }}
-        run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:${{ steps.tag.outputs.VERSION }}
+      # - name: Push version service docker image.
+      #   if: ${{ steps.tag.conclusion != 'skipped' }}
+      #   run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:${{ steps.tag.outputs.VERSION }}
 
   # Update verion i config
-      - name: Checkout Target Repository
-        uses: actions/checkout@v2
-        with:
-          repository: Randers-Kommune-Digitalisering/kithosting-randers-kommune-apps
-          ref: 'test'
-          path: infrastructure
-          ssh-key: ${{ secrets.ACCESS_ARGO_APPS }}
+      - name: Set Branch Name
+        id: branch
+        if:   contains('main,development',${GITHUB_REF##*/})
+        run: |
+          if [[ ${GITHUB_REF##*/} == "development" ]]; then
+            echo "branch=test" >> $GITHUB_OUTPUT
+          elif [[ ${GITHUB_REF##*/} == "main" ]]; then
+            echo "branch=prod" >> $GITHUB_OUTPUT
+          else
+            echo "branch=unknown" >> $GITHUB_OUTPUT
+
+      - name: Testing
+        if: ${{ steps.branch.conclusion != 'skipped' }}
+        run: echo "The environment is ${{ steps.branch.outputs.branch }}"
+        
+      # - name: Checkout Target Repository
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: Randers-Kommune-Digitalisering/kithosting-randers-kommune-apps
+      #     ref: 'test'
+      #     path: infrastructure
+      #     ssh-key: ${{ secrets.ACCESS_ARGO_APPS }}
           
-      - name: Install yq
-        run: |
-          sudo apt install -y jq
+      # - name: Install yq
+      #   run: |
+      #     sudo apt install -y jq
 
-      - name: Update version
-        run: |
-          yq e ".service.image.tag = \"${{ github.sha }}\"" -i infrastructure/budget-word-app/values.yaml
+      # - name: Update version
+      #   run: |
+      #     yq e ".service.image.tag = \"${{ github.sha }}\"" -i infrastructure/budget-word-app/values.yaml
 
-      - name: Commit and push
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          cd infrastructure
-          if [[ -n "$(git status -s)" ]]; then
-            git commit -am "Update version"
-            git push
-          fi
+      # - name: Commit and push
+      #   run: |
+      #     git config --global user.name 'GitHub Action'
+      #     git config --global user.email 'action@github.com'
+      #     cd infrastructure
+      #     if [[ -n "$(git status -s)" ]]; then
+      #       git commit -am "Update version"
+      #       git push
+      #     fi
