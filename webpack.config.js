@@ -4,8 +4,19 @@ const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+var deployment_environment = process.env.DEPLOY_ENV;
+if (!deployment_environment) {
+  deployment_environment = "development";
+}
+
 const urlDev = "https://localhost:3000/";
-const urlProd = "https://budget-word-app.prototypes.randers.dk/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
+var urlProd = "https://budget-word-app.prototypes.randers.dk/";
+
+if(deployment_environment.toUpperCase() == "main") {
+  urlProd = "https://budget-word-app.data.randers.dk/";
+}
+
+// const urlProd = "https://budget-word-app.prototypes.randers.dk/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
@@ -53,6 +64,14 @@ module.exports = async (env, options) => {
           generator: {
             filename: "assets/[name][ext][query]",
           },
+        },
+        {
+          test: /taskpane\.html$/,
+          loader: 'string-replace-loader',
+          options: {
+            search: urlDev,
+            replace: urlProd,
+          }
         },
 //        {
 //          test: /\.json$/,

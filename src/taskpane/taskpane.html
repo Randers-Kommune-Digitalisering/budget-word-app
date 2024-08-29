@@ -24,7 +24,6 @@
 <body class="ms-font-m ms-welcome ms-Fabric">
   <header class="ms-welcome__header">
     <img id="test" width="50" height="50" src="../../assets/logo-filled.png" alt="Randers Kommunes budgetværktøjer" title="Randers Kommunes budgetværktøjer" />
-
   </header>
   <section id="sideload-msg" class="ms-welcome__main">
     <h2 class="ms-font-xl"></h2>
@@ -52,7 +51,7 @@
     <div class="wrapper">
       <div id="skabeloner">
         <p class="overskrift2">1. Åben Startskabelon</p>
-        <p><i>Enten direkte fra fællesdrevet eller <a class="linkitekst" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self">her</a> (åbner i et nyt vindue - aktiver redigering inden du går videre).</i></p>
+        <p><i>Enten direkte fra fællesdrevet eller <a class="linkitekst" href="ms-word:ofe|u|https://localhost:3000/assets/Startskabelon.docm" target="_self">her</a> (åbner i et nyt vindue - aktiver redigering inden du går videre).</i></p>
         <p class="overskrift2">2. Vælg dokumenttype </p>
 
         <select id="dokumentDropdown" class="dropdown" title="dokumentDropdown"></select>
@@ -91,7 +90,7 @@
           <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter alle tabeller</span>
         </div>
         <div role="button" id="HentSkabelon" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><a class="linkknap" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self"><i class="fa-solid fa-file-word icon"></i>Hent startskabelon</a></span>
+          <span class="ms-Button-label"><a class="linkknap" href="ms-word:ofe|u|https://localhost:3000/assets/Startskabelon.docm" target="_self"><i class="fa-solid fa-file-word icon"></i>Hent startskabelon</a></span>
         </div>
         <div role="button" id="rydAltTools" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
@@ -117,7 +116,7 @@
     <footer class="bottom">
       <p>
         <a title="" href="https://github.com/Randers-Kommune-Digitalisering/budget-word-app" target="_blank"><i class="fa-brands fa-github icon"></i></a>
-        <a href="https://budget-word-app.prototypes.randers.dk/" target="_blank"><i class="fa-solid fa-globe icon"></i></a></br>
+        <a href="https://localhost:3000/" target="_blank"><i class="fa-solid fa-globe icon"></i></a></br>
         <i>budget-word-app v. 0.1</i>
       </p>
     </footer>
@@ -237,7 +236,8 @@ udvalgDropdown.addEventListener("change", e => {
         }  
       )  
   }
-  if (valgtDokument==="Budgetbemærkninger del 1") {
+  
+  if (valgtDokument==="Budgetbemærkninger del 1" | valgtDokument==="Budgetbemærkninger del 2") {
     document.getElementById('bevillingsområdeDropdown').style.display="block";
     valgtUdvalg = dropdownUdvalg.options[dropdownUdvalg.selectedIndex].text;
 

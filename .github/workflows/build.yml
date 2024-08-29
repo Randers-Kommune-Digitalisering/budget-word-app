@@ -46,7 +46,7 @@ jobs:
 
 # Build
       - name: Build
-        run: ./build/build.sh ${{ env.DOCKER_SERVICE }} ${{ github.event.repository.url }}
+        run: ./build/build.sh ${{ env.DOCKER_SERVICE }} ${{ github.event.repository.url }} ${{ steps.branch.outputs.branch }}
 
 # Push to Github
       - name: Tag service git id docker image
@@ -74,23 +74,40 @@ jobs:
         run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:${{ steps.tag.outputs.VERSION }}
 
   # Update verion i config
+      - name: Set Branch Name
+        id: branch
+        if: ${{ contains('main,development', github.ref_name) }}
+        run: |
+          branch_name=${GITHUB_REF##*/}
+          if [[ "$branch_name" == "development" ]]; then
+            echo "branch=test" >> $GITHUB_OUTPUT
+          elif [[ "$branch_name" == "main" ]]; then
+            echo "branch=prod" >> $GITHUB_OUTPUT
+          else
+            echo "branch=unknown" >> $GITHUB_OUTPUT
+          fi
+        
       - name: Checkout Target Repository
         uses: actions/checkout@v2
+        if: ${{ steps.branch.conclusion != 'skipped' && steps.branch.outputs.branch != 'unknown' }}
         with:
           repository: Randers-Kommune-Digitalisering/kithosting-randers-kommune-apps
-          ref: 'test'
+          ref: ${{ steps.branch.outputs.branch }}
           path: infrastructure
           ssh-key: ${{ secrets.ACCESS_ARGO_APPS }}
           
       - name: Install yq
+        if: ${{ steps.branch.conclusion != 'skipped' && steps.branch.outputs.branch != 'unknown' }}
         run: |
           sudo apt install -y jq
 
       - name: Update version
+        if: ${{ steps.branch.conclusion != 'skipped' && steps.branch.outputs.branch != 'unknown' }}
         run: |
           yq e ".service.image.tag = \"${{ github.sha }}\"" -i infrastructure/budget-word-app/values.yaml
 
       - name: Commit and push
+        if: ${{ steps.branch.conclusion != 'skipped' && steps.branch.outputs.branch != 'unknown' }}
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'

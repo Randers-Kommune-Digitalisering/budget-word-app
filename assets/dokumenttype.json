@@ -195,5 +195,40 @@
                 "[3.2 Budgetaftalen]"
             ]
         ]
+    },
+    {
+        "type":"Budgetbemærkninger del 2",
+        "langtNavn":"Del 2",
+        "investeringsplanFørsteÅr":2023,
+        "investeringsplanSidsteÅr":2032,
+        "sektioner":[
+            "1. Supplerende beskrivelse af området",
+            "2. Budgetforudsætninger",
+            "3. Ændringer på området",
+            "4. Yderligere oplysninger",
+            "5. Anlægsprojekter"
+        ],
+        "undersektioner":[
+            [
+                "1.1 Servicerammen",
+                "1.2 Uden for servicerammen"
+            ],
+            [
+            ],
+            [
+                "3.1 Budgetaftale {{fra}}-{{til}}",
+                "3.2 Demografi",
+                "3.3 Budgetaftaler tidligere år",
+                "3.4 Tillægsbevillinger og omplaceringer",
+                "3.5 PL og øvrige ændringer"
+            ],  
+            [
+                "4.1 Aftaleenheder",
+                "4.2 Takster og nøgletal"
+            ],
+            [
+                "Anlægsprojekt: [Navn på anlægsprojekt]"
+            ]
+        ]
     }
 ]
