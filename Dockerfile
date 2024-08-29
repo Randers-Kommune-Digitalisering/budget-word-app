@@ -3,6 +3,10 @@ FROM node:lts-alpine as build
 # install simple http server for serving static content
 #RUN npm install -g http-server
 
+# set devlopment environment
+ARG DEPLOY_ENV=development
+ENV DEPLOY_ENV=$DEPLOY_ENV
+
 # Set dir and user
 ENV APP_HOME=/app
 ENV APP_USER=non-root
