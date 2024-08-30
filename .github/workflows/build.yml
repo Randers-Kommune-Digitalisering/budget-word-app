@@ -46,7 +46,9 @@ jobs:
 
 # Build
       - name: Build
-        run: ./build/build.sh ${{ env.DOCKER_SERVICE }} ${{ github.event.repository.url }} ${{ steps.branch.outputs.branch }}
+        run: |
+              echo ${{ steps.branch.outputs.branch }}
+              ./build/build.sh ${{ env.DOCKER_SERVICE }} ${{ github.event.repository.url }} ${{ steps.branch.outputs.branch }}
 
 # Push to Github
       - name: Tag service git id docker image
