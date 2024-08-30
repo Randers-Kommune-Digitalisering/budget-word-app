@@ -6,13 +6,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 var deployment_environment = process.env.DEPLOY_ENV;
 if (!deployment_environment) {
-  deployment_environment = "development";
+  deployment_environment = "test";
 }
 
 const urlDev = "https://localhost:3000/";
 var urlProd = "https://budget-word-app.prototypes.randers.dk/";
 
-if(deployment_environment.toLowerCase() == "main") {
+if(deployment_environment.toLowerCase() == "prod") {
   urlProd = "https://budget-word-app.data.randers.dk/";
 }
 
