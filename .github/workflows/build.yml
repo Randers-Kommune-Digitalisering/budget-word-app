@@ -42,13 +42,24 @@ jobs:
       - name: Is Tag Build
         id: tag
         if:  ${{ startsWith(github.ref, 'refs/tags/v') }}
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}        
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+
+      - name: Set Branch Name
+        id: branch
+        if: ${{ contains('main,development', github.ref_name) }}
+        run: |
+          branch_name=${GITHUB_REF##*/}
+          if [[ "$branch_name" == "development" ]]; then
+            echo "branch=test" >> $GITHUB_OUTPUT
+          elif [[ "$branch_name" == "main" ]]; then
+            echo "branch=prod" >> $GITHUB_OUTPUT
+          else
+            echo "branch=unknown" >> $GITHUB_OUTPUT
+          fi
 
 # Build
       - name: Build
-        run: |
-              echo ${{ steps.branch.outputs.branch }}
-              ./build/build.sh ${{ env.DOCKER_SERVICE }} ${{ github.event.repository.url }} ${{ steps.branch.outputs.branch }}
+        run: ./build/build.sh ${{ env.DOCKER_SERVICE }} ${{ github.event.repository.url }} ${{ steps.branch.outputs.branch }}
 
 # Push to Github
       - name: Tag service git id docker image
@@ -75,20 +86,7 @@ jobs:
         if: ${{ steps.tag.conclusion != 'skipped' }}
         run: ./build/docker-push.sh ${{ env.DOCKER_SERVICE }}:${{ steps.tag.outputs.VERSION }}
 
-  # Update verion i config
-      - name: Set Branch Name
-        id: branch
-        if: ${{ contains('main,development', github.ref_name) }}
-        run: |
-          branch_name=${GITHUB_REF##*/}
-          if [[ "$branch_name" == "development" ]]; then
-            echo "branch=test" >> $GITHUB_OUTPUT
-          elif [[ "$branch_name" == "main" ]]; then
-            echo "branch=prod" >> $GITHUB_OUTPUT
-          else
-            echo "branch=unknown" >> $GITHUB_OUTPUT
-          fi
-        
+  # Update verion i config       
       - name: Checkout Target Repository
         uses: actions/checkout@v2
         if: ${{ steps.branch.conclusion != 'skipped' && steps.branch.outputs.branch != 'unknown' }}
