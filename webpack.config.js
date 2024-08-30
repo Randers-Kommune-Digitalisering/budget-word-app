@@ -12,7 +12,7 @@ if (!deployment_environment) {
 const urlDev = "https://localhost:3000/";
 var urlProd = "https://budget-word-app.prototypes.randers.dk/";
 
-if(deployment_environment.toUpperCase() == "main") {
+if(deployment_environment.toLowerCase() == "main") {
   urlProd = "https://budget-word-app.data.randers.dk/";
 }
 
