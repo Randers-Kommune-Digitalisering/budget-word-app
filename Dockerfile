@@ -4,7 +4,7 @@ FROM node:lts-alpine as build
 #RUN npm install -g http-server
 
 # set devlopment environment
-ARG DEPLOY_ENV=development
+ARG DEPLOY_ENV=test
 ENV DEPLOY_ENV=$DEPLOY_ENV
 
 # Set dir and user
