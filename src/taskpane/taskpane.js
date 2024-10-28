@@ -18,7 +18,8 @@ Office.onReady((info) => {
     document.getElementById("rydSidehoved").onclick = () => tryCatch(rydSidehoved);
     document.getElementById("rydAltTools").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydAltDev").onclick = () => tryCatch(rydAlt);
-    document.getElementById("formaterTabeller").onclick = () => tryCatch(formaterTabeller);
+    document.getElementById("formaterTabellerBO").onclick = () => tryCatch(formaterTabeller);
+    document.getElementById("formaterTabellerBB").onclick = () => tryCatch(formaterTabellerBB);
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
 
@@ -33,7 +34,7 @@ function openDialog(title, message) {
   var message = message ? message : "Der er sket en fejl. Prøv igen.";
   Office.context.ui.displayDialogAsync(
     "https://localhost:3000/popup.html?messageTitle=" + String(title) + "&message=" + String(message),
-    { height: 20, width: 10 },
+    { height: 25, width: 7 },
 
     function (result) {
       dialog = result.value;
@@ -136,7 +137,7 @@ export async function rydSidehoved() {
     // Ryd tekst i header
     var header = context.document.sections.getFirst().getHeader("primary");
 
-    var afsnit = header.paragraphs;
+    var afsnit = header.paragraphs; 
     context.load(afsnit, "text");
     await context.sync();
     for (var i = 0; i < afsnit.items.length; i++) {
@@ -151,7 +152,7 @@ export async function rydSidehoved() {
     await context.sync();
     for (var i = 0; i < afsnit.items.length; i++) {
       afsnit.items[i].delete();
-    }
+    } 
   });
 }
 
@@ -392,7 +393,7 @@ function hasStyles(callback) {
     if (style_present) {
       callback();
     } else {
-      openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Tilføj dem eller åben start skabelonen");
+      openDialog("Fejl - Dokumentet har ikke de nødvendige stilarter", "Åben Startskabelonen");
     }
   });
 }

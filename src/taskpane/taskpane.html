@@ -1,6 +1,3 @@
-<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
-<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +30,7 @@
 
     <div id="skabeloner_overskrift">
       <p class="overskrift"><i class="fa-solid fa-wand-magic icon"></i>Skabeloner</p>
-    </div>
+    </div> 
     <div id="tools_overskrift">
       <p class="overskrift"><i class="fa-solid fa-screwdriver-wrench icon"></i>Værktøjer</p>
     </div>
@@ -51,50 +48,54 @@
     </div>
     <div class="wrapper">
       <div id="skabeloner">
-        <p class="overskrift2">1. Åben Startskabelon</p>
+        <p class="overskrift2"><span id="myText"></span>Åben Startskabelon</p>
         <p><i>Enten direkte fra fællesdrevet eller <a class="linkitekst" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self">her</a> (åbner i et nyt vindue - aktiver redigering inden du går videre).</i></p>
-        <p class="overskrift2">2. Vælg dokumenttype </p>
+        <p class="overskrift2">Vælg dokumenttype </p>
 
         <select id="dokumentDropdown" class="dropdown" title="dokumentDropdown"></select>
         <select id="udvalgDropdown" class="dropdown skjult" title="udvalgDropdown"></select>
         <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown"></select>
         <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown"></select>
+        
         <div id="toolsdiv" class="skjult">
-
-          <div>
-            <p class="overskrift2">3. Indlæs data</p>
-            <p>Vælg Excel-fil med data</p>           
+          <div id="loaddatadiv" class="skjult">
+            <p class="overskrift2">Indlæs data</p>
+            <p>Indlæst data fra AO-rapport</p>           
             <input id="file" name="file" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
             <select id="fileTypeDropdown" class="dropdown skjult"></select>
           </div>
 
-          <p class="overskrift2">4. Værktøjer</p>
-          <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero"> 
-            <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
+          <div>
+            <p class="overskrift2">Værktøjer</p>
+            <div role="button" id="skabelon" class="ms-welcome__action ms-Button ms-Button--hero"> 
+              <span class="ms-Button-label"><i class="fa-solid fa-wand-magic icon"></i>Generer skabelon</span>
+            </div>
+            <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
+              <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil inputs</span>
+            </div>
           </div>
-          <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero">
-            <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+          <div>
+            <p class="overskrift2">Afslut</p>
+            <p><i>Kør VBA-scripts'ene </i><code>indsætTabelbeskrivelser()</code><i> og </i><code>sletContentControls()</code><i></i> gem dokumentet som </i><code>.docx</code><i> med dokumenttitlen som filnavn.</i>
+            </p> 
           </div>
-          <div role="button" id="rydSidehoved" class="ms-welcome__action ms-Button ms-Button--hero">
-            <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd sidehoved</span>
-          </div>
-          <div role="button" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
-            <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
-          </div>
-          <p class="overskrift2">5. Afslut</p>
-          <p><i>Kør VBA-scriptet </i><code>indsætTabelbeskrivelser()</code><i> og gem dokumentet som </i><code>.docx</code><i> med dokumenttitlen som filnavn.</i>
-          </p> 
         </div>
       </div>
       <div id="tools">
-        <div role="button" id="formaterTabeller" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter alle tabeller</span>
+        <div role="button" id="formaterTabellerBO" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter tabeller i budgetopfølgningsskabelon</span>
+        </div>
+        <div role="button" id="formaterTabellerBB" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter tabeller i Budgetbemærkninger del 1 & 2</span>
         </div>
         <div role="button" id="HentSkabelon" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><a class="linkknap" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self"><i class="fa-solid fa-file-word icon"></i>Hent startskabelon</a></span>
         </div>
         <div role="button" id="rydAltTools" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+        </div>
+        <div role="button" id="rydSidehoved" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd sidehoved</span>
         </div>
         <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
           <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
@@ -126,6 +127,8 @@
 
 
 <script>
+let progress = 1;
+
 let dropdownDokument = document.getElementById('dokumentDropdown');
 dropdownDokument.length = 0;
 let defaultOptionDokument = document.createElement('option');
@@ -275,7 +278,11 @@ udvalgDropdown.addEventListener("change", e => {
 });
 
 dropdownDokumentDetalje.addEventListener("change", e => {
+  valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
   document.getElementById('toolsdiv').style.display="block";
+  if (dropdownDokument.selectedIndex==1) {  
+    document.getElementById('loaddatadiv').style.display="block";
+  }
 });
 
 dropdownBevilling.addEventListener("change", e => {
@@ -308,7 +315,9 @@ tm_dev.addEventListener("click", () => {
 tm_about.addEventListener("click", () => {
   setDisplay('about');
 });
-  
+
+
+
 
 function removeOptions(selectElement) {
    var i, L = selectElement.options.length - 1;
