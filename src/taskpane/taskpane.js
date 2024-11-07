@@ -3,7 +3,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
-import { formaterTabeller, formaterTabellerBB, sumArrays } from "./utils/utils.js";
+import { formaterTabeller, formaterTabellerBB, formatIntermediateSumRow, formatSelectedTable, sumArrays } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
 
 const required_styles = ["Brev/notat KORT (O1)"];
@@ -19,10 +19,10 @@ Office.onReady((info) => {
     document.getElementById("rydAltTools").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydAltDev").onclick = () => tryCatch(rydAlt);
     document.getElementById("formaterTabellerBO").onclick = () => tryCatch(formaterTabeller);
-    document.getElementById("formaterTabellerBB").onclick = () => tryCatch(formaterTabellerBB);
+    document.getElementById("formatSelectedTable").onclick = () => tryCatch(formatSelectedTable);
+    document.getElementById("formatIntermediateSumRow").onclick = () => tryCatch(formatIntermediateSumRow);
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
-
     document.getElementById("file").addEventListener("change", checkfile);
   }
 });
