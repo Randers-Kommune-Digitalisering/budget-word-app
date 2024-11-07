@@ -3,6 +3,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
+
 import { formaterTabeller, formaterTabellerBB, formatSelectedTable, formatIntermediateSumRow, sumArrays } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
 
@@ -23,12 +24,41 @@ Office.onReady((info) => {
     document.getElementById("formatIntermediateSumRow").onclick = () => tryCatch(formatIntermediateSumRow);
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
-
     document.getElementById("file").addEventListener("change", checkfile);
   }
 });
-
+  
 let withData = false;
+
+function formaterValgtTabelDEPREICATED() {
+  return Word.run(async (context) => {
+    
+    const tables = context.document.getSelection().tables;
+    tables.load("items");
+    await context.sync();
+    var table = tables.items[0];
+    var rows = table.rows;
+    rows.load("items");
+    await context.sync();
+    var cells = [];
+    for (var i in rows.items) {
+      var row = rows.items[i];
+      var cellsinrow = row.load("items");
+      await context.sync();
+      cells.push(cellsinrow);
+    
+    }
+    console.log(rows);
+    console.log(cells);
+
+    formatterTabel(context, table, rows, cells);
+  })
+}
+
+
+
+
+
 
 function openDialog(title, message) {
   var title = title ? title : "Fejl";

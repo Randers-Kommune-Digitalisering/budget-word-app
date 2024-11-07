@@ -1,3 +1,5 @@
+import { NoEmitOnErrorsPlugin } from "webpack";
+
 /* eslint-disable office-addins/no-context-sync-in-loop */
 export function sumArrays(...arrays) {
   const n = arrays.reduce((max, xs) => Math.max(max, xs.length), 0);
@@ -185,8 +187,10 @@ export async function formaterTabeller() {
         border.set({ color: "#D9D9D9", width: 1, type: "Single" });
 
         // Loop over alle rækker
+
         var rækker = table.rows;
         rækker.load("items");
+        console.log(rækker)
         await context.sync();
         for (var i = 0; i < rækker.items.length; i++) {
           rækker.items[i].verticalAlignment = "Center";
@@ -244,8 +248,10 @@ export async function formaterTabeller() {
         }
       }
       await context.sync();
+      console.log("her3");
     }
     await context.sync();
+    console.log("her4");
   });
 }
 
