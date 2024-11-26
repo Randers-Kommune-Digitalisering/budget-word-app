@@ -22,6 +22,50 @@ ul {
     padding: 0px;
 }
 
+
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+}
+
+.toolsWrapper {
+    box-sizing: border-box;
+    clear: both;
+}
+
+.box-left {
+    float: left;
+    padding: 2px;
+    padding-top: 15px;
+}
+
+.box-right {
+    float: left;
+    padding: 2px;
+}
+
+.radioDark:checked {
+    background-color: #BDD7EE; 
+    border-color: #EEEEEE; 
+}
+
+.radioLight:checked{
+    background-color: #DDEBF7; 
+    border-color: #EEEEEE; 
+}
+
+.radioWhite:checked{
+    background-color: #FFFFFF; 
+    border-color: #EEEEEE; 
+}
+
 .bottom {
     background-color: white;
     text-align: center;

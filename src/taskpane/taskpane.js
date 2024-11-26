@@ -3,12 +3,14 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
-import { formaterTabeller, formaterTabellerBB, formatIntermediateSumRow, formatSelectedTable, sumArrays } from "./utils/utils.js";
+import { formaterTabeller, formaterTabellerBB, formaterTabellerBBSelected, formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
 
 const required_styles = ["Brev/notat KORT (O1)"];
 const allowed_files = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"];
 let dialog = null;
+
+let rowColor="";
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -20,6 +22,8 @@ Office.onReady((info) => {
     document.getElementById("rydAltDev").onclick = () => tryCatch(rydAlt);
     document.getElementById("formaterTabellerBO").onclick = () => tryCatch(formaterTabeller);
     document.getElementById("formatSelectedTable").onclick = () => tryCatch(formatSelectedTable);
+    document.getElementById("formatSelectedTableBB").onclick = () => tryCatch(formaterTabellerBBSelected);
+    document.getElementById("formatSelectedTableBuiltIn").onclick = () => tryCatch(formatSelectedTableBuildIn);
     document.getElementById("formatIntermediateSumRow").onclick = () => tryCatch(formatIntermediateSumRow);
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
@@ -399,7 +403,7 @@ function hasStyles(callback) {
 }
 
 // Generer skabelonen
-export async function skabelon() {
+export async function skabelon() {  
   return Word.run(async (context) => {
     globalThis.genContentControls = [];
     globalThis.dokumentKommentarer = [];
@@ -439,7 +443,7 @@ export async function skabelon() {
     }
 
     const inkluderUndersektioner = [];
-    for (var i in afgrænsningsdata[0].undersektioner) {
+    for (var i in afgrænsningsdata[0].undersektioner) { 
       inkluderUndersektioner.push([afgrænsningsdata[0].undersektioner[i]]);
     }
     const inkluderUndersektionerFlat = inkluderUndersektioner.flat(Infinity);
