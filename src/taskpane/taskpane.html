@@ -82,28 +82,114 @@
         </div>
       </div>
       <div id="tools">
-        <div role="button" id="formaterTabellerBO" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter tabeller i budgetopfølgningsskabelon</span>
+        <div class="toolsWrapper">
+          <div class="box-left">
+            <i class="fa-solid fa-table icon"></i>
+          </div>
+          <div class="box-right">
+            <div role="button" id="formatSelectedTable" class="ms-welcome__action ms-Button ms-Button--hero">
+              <span class="ms-Button-label">Autoformatter valgt tabel</span>
+            </div>
+            <input type="checkbox" id="checkbox1" name="" checked>
+            <label for="checkbox1">Speciel sidste række</label></br>
+            <input type="checkbox" id="checkbox2" name="" checked>
+            <label for="checkbox2">Indrykning af rækketekster</label>
+          </div>
         </div>
-        <div role="button" id="formaterTabellerBB" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter tabeller i Budgetbemærkninger del 1 & 2</span>
+        <div class="toolsWrapper">
+          <div class="box-left">
+            <i class="fa-solid fa-crow icon" ></i>
+          </div>
+          <div class="box-right">
+            <div role="button" id="formatIntermediateSumRow" class="ms-welcome__action ms-Button ms-Button--hero">
+              <span class="ms-Button-label"></i>Formater enkelt(e) række(r)</span>
+            </div>
+            <input type="checkbox" id="checkboxRow0" name="">
+            <label for="checkboxRow0" style="font-style: italic;">Kursiv</label></br>
+            <input type="checkbox" id="checkboxRow1" name="" checked>
+            <label for="checkboxRow1" style="font-weight: bold;">Fed</label></br>
+            <input type="checkbox" id="checkboxRow2" name="">
+            <label for="checkboxRow2" style="padding-left: 10px;">Indrykning</label></br>    
+            <input type="checkbox" id="checkboxRow3" name="">
+            <label for="checkboxRow3" style="padding-left: 20px;">Dobblet indrykning</label></br>     
+            <input type="checkbox" id="checkboxRow7" name="">
+            <label for="checkboxRow7">Ekstra højde (overskiftsrække)</label></br>     
+            <input type="checkbox" id="checkboxRow40" name="" checked>
+            <label for="checkboxRow40">Mørk topkant</label></br>         
+            <input type="checkbox" id="checkboxRow41" name="" checked>
+            <label for="checkboxRow41">Mørk bundkant</label></br>         
+            <input type="checkbox" id="checkboxRow5" name="" checked>
+            <label for="checkboxRow5" style="background-color: #DDEBF7;">Lys baggrund</label></br>  
+            <input type="checkbox" id="checkboxRow6" name="">
+            <label for="checkboxRow6" style="background-color: #BDD7EE;">Mørk baggrund</label></br>        
+            <select id="selectRow0" name="">
+              <option value=1 selected>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+              <option value=6>6</option>
+              <option value=7>7</option>
+              <option value=8>8</option>
+              <option value=9>9</option>
+              <option value=10>10</option>
+            </select>
+            <label for="selectRow0">Antal rækker</label></br>
+          </div>
         </div>
-        <div role="button" id="HentSkabelon" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><a class="linkknap" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self"><i class="fa-solid fa-file-word icon"></i>Hent startskabelon</a></span>
+        <div class="toolsWrapper">
+          <div class="box-left">
+            <i class="fa-solid fa-bomb icon"></i>
+          </div>
+          <div class="box-right">
+            <div role="button" id="formatSelectedTableBuiltIn" class="ms-welcome__action ms-Button ms-Button--hero">
+              <span class="ms-Button-label"></i>Formater som Word standardtabel</span>
+            </div>
+          </div>
         </div>
-        <div role="button" id="rydAltTools" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
+        <div class="toolsWrapper">
+          <div class="box-left">
+            <i class="fa-solid fa-file-word icon"></i>
+          </div>
+          <div class="box-right">
+            <div role="button" id="HentSkabelon" class="ms-welcome__action ms-Button ms-Button--hero">
+              <span class="ms-Button-label"><a class="linkknap" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self">Hent startskabelon</a></span>
+            </div>
+          </div>
         </div>
-        <div role="button" id="rydSidehoved" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd sidehoved</span>
+        <div class="toolsWrapper">
+          <div class="box-left">
+            <i class="fa-solid fa-eraser icon"></i>
+          </div>
+          <div class="box-right">
+            <div role="button" id="rydAltTools" class="ms-welcome__action ms-Button ms-Button--hero">
+              <span class="ms-Button-label">Ryd indhold</span>
+            </div>
+          </div>
         </div>
-        <div role="button" id="rydAlt" class="ms-welcome__action ms-Button ms-Button--hero" onClick="window.location.reload();">
-          <span class="ms-Button-label"><i class="fa-solid fa-rotate-left icon"></i>Nulstil</span>
+        <div class="toolsWrapper">
+          <div class="box-left">
+            <i class="fa-solid fa-eraser icon"></i>
+          </div>
+          <div class="box-right">
+            <div role="button" id="rydSidehoved" class="ms-welcome__action ms-Button ms-Button--hero">
+              <span class="ms-Button-label">Ryd sidehoved</span>
+            </div>
+          </div>
         </div>
       </div>
       <div id="dev">
         <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label">Console log content controls</span>
+        </div>
+        <div role="button" id="loadSelection" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label">Console log selection</span>
+        </div> 
+        <div role="button" id="formaterTabellerBO" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter tabeller i budgetopfølgningsskabelon</span>
+        </div>
+        <div role="button" id="formatSelectedTableBB" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter valgt tabel (budgetbemærkninger)</span>
         </div>
         <div role="button" id="rydAltDev" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
@@ -316,6 +402,29 @@ tm_about.addEventListener("click", () => {
   setDisplay('about');
 });
 
+checkboxRow2.addEventListener("change", e => {
+  if (checkboxRow3.checked) {
+    checkboxRow3.checked=false;
+  }
+});
+
+checkboxRow3.addEventListener("change", e => {
+  if (checkboxRow2.checked) {
+    checkboxRow2.checked=false;
+  }
+});
+
+checkboxRow5.addEventListener("change", e => {
+  if (checkboxRow6.checked) {
+    checkboxRow6.checked=false;
+  }
+});
+
+checkboxRow6.addEventListener("change", e => {
+  if (checkboxRow5.checked) {
+    checkboxRow5.checked=false;
+  }
+});
 
 
 
