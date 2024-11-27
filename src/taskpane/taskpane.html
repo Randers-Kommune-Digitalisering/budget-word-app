@@ -102,7 +102,7 @@
           </div>
           <div class="box-right">
             <div role="button" id="formatIntermediateSumRow" class="ms-welcome__action ms-Button ms-Button--hero">
-              <span class="ms-Button-label"></i>Formater enkelt række</span>
+              <span class="ms-Button-label"></i>Formater enkelt(e) række(r)</span>
             </div>
             <input type="checkbox" id="checkboxRow0" name="">
             <label for="checkboxRow0" style="font-style: italic;">Kursiv</label></br>
@@ -112,18 +112,29 @@
             <label for="checkboxRow2" style="padding-left: 10px;">Indrykning</label></br>    
             <input type="checkbox" id="checkboxRow3" name="">
             <label for="checkboxRow3" style="padding-left: 20px;">Dobblet indrykning</label></br>     
-            <input type="checkbox" id="checkboxRow4" name="" checked>
-            <label for="checkboxRow4" style="border-top-style: solid;border-top-width: 1px;border-top-color: #808080;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #808080;">Mørk top- og bundkant</label></br>         
+            <input type="checkbox" id="checkboxRow7" name="">
+            <label for="checkboxRow7">Ekstra højde (overskiftsrække)</label></br>     
+            <input type="checkbox" id="checkboxRow40" name="" checked>
+            <label for="checkboxRow40">Mørk topkant</label></br>         
+            <input type="checkbox" id="checkboxRow41" name="" checked>
+            <label for="checkboxRow41">Mørk bundkant</label></br>         
             <input type="checkbox" id="checkboxRow5" name="" checked>
             <label for="checkboxRow5" style="background-color: #DDEBF7;">Lys baggrund</label></br>  
             <input type="checkbox" id="checkboxRow6" name="">
             <label for="checkboxRow6" style="background-color: #BDD7EE;">Mørk baggrund</label></br>        
-            <input type="radio" id="color1" name="rowColorSelector" class="radioLight" value="#DDEBF7" checked>
-            <label for="color1">Lys</label>
-            <input type="radio" id="color2" name="rowColorSelector" class="radioDark" value="#BDD7EE">
-            <label for="color2">Mørk</label>
-            <input type="radio" id="color3" name="rowColorSelector" class="radioWhite" value="#FFFFFF">
-            <label for="color3">Hvid</label>
+            <select id="selectRow0" name="">
+              <option value=1 selected>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+              <option value=6>6</option>
+              <option value=7>7</option>
+              <option value=8>8</option>
+              <option value=9>9</option>
+              <option value=10>10</option>
+            </select>
+            <label for="selectRow0">Antal rækker</label></br>
           </div>
         </div>
         <div class="toolsWrapper">
@@ -161,6 +172,9 @@
         <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label">Console log content controls</span>
         </div>
+        <div role="button" id="loadSelection" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label">Console log selection</span>
+        </div> 
         <div role="button" id="rydAltDev" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
         </div>

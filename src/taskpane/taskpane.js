@@ -16,6 +16,7 @@ Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
     document.getElementById("skabelon").onclick = () => tryCatch(() => hasStyles(() => tryCatch(skabelon)));
     document.getElementById("loadContentControls").onclick = () => tryCatch(loadElements);
+    document.getElementById("loadSelection").onclick = () => tryCatch(loadSelection);
     document.getElementById("rydAlt").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydSidehoved").onclick = () => tryCatch(rydSidehoved);
     document.getElementById("rydAltTools").onclick = () => tryCatch(rydAlt);
@@ -60,6 +61,17 @@ async function tryCatch(callback) {
     /*console.error(error.message);*/
   }
 }
+
+export async function loadSelection() {
+  return Word.run(async (context) => {
+    var selection = context.document.getSelection();
+    await context.sync();
+    selection.load("ParentTable, ParentTableCell");
+
+    console.log(selection);
+  })
+}
+
 
 export async function loadElements() {
   return Word.run(async (context) => {

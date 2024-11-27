@@ -17,31 +17,99 @@ function getSelectedRadioValue(name) {
 
 export async function formatIntermediateSumRow() {
   return Word.run(async (context) => {
-    const selectedColor = getSelectedRadioValue("rowColorSelector");
-    console.log(selectedColor);
+    // Henter valg fra UI
+    const rowItalics = (document.getElementById("checkboxRow0").checked ? true : false);
+    const rowBold = (document.getElementById("checkboxRow1").checked ? true : false);
+    const rowSingleLeftPadding = (document.getElementById("checkboxRow2").checked ? true : false);
+    const rowDoubleLeftPadding = (document.getElementById("checkboxRow3").checked ? true : false);
+    const rowTopBorder = (document.getElementById("checkboxRow40").checked ? true : false);
+    const rowBottomBorder = (document.getElementById("checkboxRow41").checked ? true : false);
+    const rowLightShading = (document.getElementById("checkboxRow5").checked ? true : false);
+    const rowDarkShading = (document.getElementById("checkboxRow6").checked ? true : false);
+    const rowsToEditCount = parseInt(document.getElementById("selectRow0").value);
+    const rowTopRow = (document.getElementById("checkboxRow7").checked ? true : false);
 
+    // Loader parentTabel og parentTableCell
     const selection = context.document.getSelection();
     selection.load("parentTable, parentTableCell");
     await context.sync();
 
-    const rowToEdit = selection.parentTableCell._R
+    const rowToEdit = selection.parentTableCell._R;
     const table = selection.parentTable;  
+
+    const rowsToEdit = []
+    for (let l = rowToEdit; l < rowsToEditCount+rowToEdit; l++) {
+      console.log(l)
+      rowsToEdit.push(l)
+    }
     
+    // Loader alle tabelrækker
     const rows = table.rows;
     rows.load("items");
     await context.sync();
 
+    // Styler valgt række
     for (var i = 0; i < rows.items.length; i++) {
-      if (i == rowToEdit) {
-        var borderLocation = Word.BorderLocation.top;
-        var border = rows.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-        var borderLocation = Word.BorderLocation.bottom;
-        var border = rows.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-        rows.items[i].shadingColor = selectedColor;
-        rows.items[i].font.bold = true;
-        rows.items[i].font.name = "Calibri";
+      if (rowsToEdit.includes(i)) {
+        // Shading 
+        if (rowLightShading) {
+          rows.items[i].shadingColor = "#DDEBF7";
+        } else if (rowDarkShading) {  
+          rows.items[i].shadingColor = "#BDD7EE";
+        } else {   
+          rows.items[i].shadingColor ="#FFFFFF";
+        }  
+        // Font italics
+        if (rowItalics) {
+          rows.items[i].font.italic = true;
+        } else {
+          rows.items[i].font.italic = false;  
+        }
+        // Font bold
+        if (rowBold) {
+          rows.items[i].font.bold = true;
+        } else {
+          rows.items[i].font.bold = false;
+        }
+        // Border
+        if (rowTopBorder) {
+          var borderLocation = Word.BorderLocation.top;
+          var border = rows.items[i].getBorder(borderLocation);
+          border.set({ color: "#808080", width: 1, type: "Single" });
+        } else {
+          var borderLocation = Word.BorderLocation.top;
+          var border = rows.items[i].getBorder(borderLocation);
+          border.set({ color: "#D9D9D9", width: 0.5, type: "Single" });
+        }
+        if (rowBottomBorder) {
+          var borderLocation = Word.BorderLocation.bottom;
+          var border = rows.items[i].getBorder(borderLocation);
+          border.set({ color: "#808080", width: 1, type: "Single" });
+        } else {
+          var borderLocation = Word.BorderLocation.bottom;
+          var border = rows.items[i].getBorder(borderLocation);
+          border.set({ color: "#D9D9D9", width: 0.5, type: "Single" });
+        }
+        // Padding
+        var celler = rows.items[i].cells;
+        celler.load("items");
+        await context.sync();
+        if (rowSingleLeftPadding | rowDoubleLeftPadding) {
+          if (rowSingleLeftPadding) {
+              celler.items[0].setCellPadding("Left", 10);
+          } else if (rowDoubleLeftPadding) {
+              celler.items[0].setCellPadding("Left", 20);
+          }
+        } else {
+          celler.items[0].setCellPadding("Left", 5.4);
+        }
+        if (rowTopRow) {
+          celler.items[0].setCellPadding("Top", 10);
+          celler.items[0].setCellPadding("Bottom", 10);
+        } else {
+          celler.items[0].setCellPadding("Top", 2);
+          celler.items[0].setCellPadding("Bottom", 2);
+        }
       }
     }
     
@@ -74,15 +142,6 @@ export async function formatSelectedTableBuildIn() {
         celler.items[k].body.styleBuiltIn = "Normal";
       }
     } 
-
-
-    /*
-    selection.load("paragraphs");
-    const paragraphs = selection.paragraphs;
-    await context.sync();
-    console.log(paragraphs);
-    paragraphs.items[0].styleBuiltIn = "Normal";
-    */
   });
 }
 
@@ -109,7 +168,6 @@ export async function formatSelectedTable() {
       celler.load("items");
       await context.sync();
       for (var k = 0; k < celler.items.length; k++) {
-        console.log(celler.items[k]);
         celler.items[k].body.styleBuiltIn = "Normal";
       }
     } 
