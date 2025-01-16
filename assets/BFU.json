@@ -1,0 +1,114 @@
+{
+    "udvalg":"Børne- og familieudvalget",
+    "forkortelse":"BFU",
+    "bevillingsområde": [   
+        {
+            "navn":"Børn",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Fælles formål - Børn","7300020ABD10.0023"],
+                        ["Dagpleje","7300020ABD15.0023"],
+                        ["Dagtilbud","7300020ABD20.0023"],
+                        ["Fritidstilbud og klubber","7300020ABD22.0023"],
+                        ["Tilskud til private institutioner","7300020ABD25.0023"],
+                        ["Særlige dagtilbud","7300020ABD30.0023"]
+                    ],
+                    "projekter":[
+                        ["Projekter","BD20A4","BD22A4"]
+                    ]
+                }  
+            ],
+            "anlæg":[
+                ["Skattefinansierede anlæg","7300020SB.0023"]
+            ]
+        },
+        {
+            "navn":"Familie",
+            "drift":[
+                {
+                    "servicerammen":    [
+                        ["Plejefamilier","7300020ABE10.0023"],
+                        ["Opholdssteder, sikrede samt døgninst.","7300020ABE15.0023"],
+                        ["Forebyggende foranstaltninger og indsats","7300020ABE20.0023"],
+                        ["Kvindekrisecentre","7300020ABE25.0023"],
+                        ["Myndighedscentret (adm.)","7300020ABE30.0023"]
+                    ],
+                    "projekter":[
+                        ["Projekter","BE25A4","BE20A4"]
+                    ],
+                    "indkomstoverførsler":[
+                        ["Forebyggende foranstaltninger og indsats","7300020BBE20.0023"]
+                    ],
+                    "centralerefusion":[
+                        ["Plejefamilier","7300020DBE10.0023"],
+                        ["Opholdssteder, sikrede samt døgninst.","7300020DBE15.0023"],
+                        ["Forebyggende foranstaltninger og indsats","7300020DBE20.0023"]
+                    ]
+                },{
+                    
+                }
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Indkomstoverførsler",
+        "Centrale refusionsordninger mv.",
+        "Skattefinansierede anlæg"
+    ], 
+    "customTabeller":[
+        {  
+            "navn":"ct1",
+            "placering":"Bevilling Familie",
+            "placeringOmkringAfsnit":"Before",
+            "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+            "tabelnr":2,
+            "dataArk":2,
+            "indledendeTekst": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aftaleenheder under Børn under Børne- og familieudvalget",
+            "kolonner":[
+                "Service (mio. kr.)",	
+                "Oprindeligt budget",	
+                "Korrigeret budget ekskl. overførsler",	
+                "Bevillings-ansøgninger",	
+                "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                "Forventet forbrug",	
+                "Årets forventede resultat ekskl. overførsler",	
+                "Overførsler",
+                "Årets forventede resultat inkl. overførsler"
+            ],
+            "rækker":[
+                ["Dagpleje","73000202303"],
+                ["Dagtilbud Midt","73000202304"],
+                ["Dagtilbud Nordvest","73000202305"],
+                ["Dagtilbud Nordøst","73000202306"],
+                ["Dagtilbud Sydvest","73000202307"],
+                ["Dagtilbud Sydøst","73000202308"],
+                ["Den selvejende institution Glentevej","73000202309"],
+                ["Kristrup Vuggestue","73000202310"],
+                ["Tjærbyvejens Vuggestue","73000202311"],
+                ["Børnehaven Bredstrupsgade","73000202312"],
+                ["Børnehuset Himmelblå","73000202313"],
+                ["Børnehaven Tirsdalen","73000202314"],
+                ["Kristrup Børnehus","73000202315"],
+                ["Helsted Børnehus","73000202316"],
+                ["Platangården","73000202317"],
+                ["Børnehaven og Vuggestuen Rådmands Blvd.","73000202318"],
+                ["Børnehuset Mariendal","73000202319"],
+                ["KFUM's institutioner","73000202121"],
+                ["Vorup Børne- og ungdomshus","73000202122"],
+                ["Solgården","73000202123"],
+                ["I alt aftaleenheder","73000202303","73000202304","73000202305","73000202306","73000202307","73000202308","73000202309","73000202310","73000202311","73000202312","73000202313","73000202314","73000202315","73000202316","73000202317","73000202318","73000202319","73000202121","73000202122","73000202123"],
+                ["Uden for aftale","73000202.0025"],
+                ["Projekter","73000204.0025"],
+                ["I alt Børn","73000202303","73000202304","73000202305","73000202306","73000202307","73000202308","73000202309","73000202310","73000202311","73000202312","73000202313","73000202314","73000202315","73000202316","73000202317","73000202318","73000202319","73000202121","73000202122","73000202123","73000202.0025","73000204.0025"]
+            ]
+        }
+    ],
+    "fakta":[
+        "Dagplejebørn","Vuggestuebørn","Børnehavebørn (ekskl. Børnebyer)","Antal dagtilbud","Antal fritidshjem og klubber","Antal selvejende institutioner","Antal private institutioner"
+    ],
+    "politikker":[
+        "Børne- og ungepolitik"
+    ]
+}

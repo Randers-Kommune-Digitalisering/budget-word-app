@@ -230,5 +230,95 @@
                 "Anlægsprojekt: [Navn på anlægsprojekt]"
             ]
         ]
-    }
+    },{
+        "type":"Regnskabsbemærkninger",
+        "langtNavn":"Regnskabsbemærkninger",
+        "struktur":{
+            "drift":"Drift",
+            "drift_s":{
+                "servicerammen":"Servicerammen",
+                "projekter":"Projekter",
+                "indkomstoverførsler":"Indkomstoverførsler",
+                "centralerefusion":"Centrale refusionsordninger mv."
+            },
+            "anlæg":"Anlæg"
+        },
+        "tabeller":{
+            "servicerammen":{
+                "note":"",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Service (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "projekter":{
+                "note":"",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Service (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "indkomstoverførsler":{
+                "note":"",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Service (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "centralerefusion":{
+                "note":"",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Service (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "anlæg":{
+                "note":"",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Service (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            }
+        }   
+    }  
 ]
