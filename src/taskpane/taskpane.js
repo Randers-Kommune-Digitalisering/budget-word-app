@@ -1425,7 +1425,7 @@ export async function skabelon() {
         underoverskrift.styleBuiltIn = "Heading2";
         await context.sync();
 
-        var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+        var emptyParagraph= context.document.body.insertParagraph("Alle beløb i tabellerne er angivet i mio. kr.", Word.InsertLocation.end);
         emptyParagraph.styleBuiltIn = "Normal";
         await context.sync();
 
