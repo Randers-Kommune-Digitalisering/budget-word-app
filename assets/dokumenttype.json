@@ -234,18 +234,36 @@
         "type":"Regnskabsbemærkninger",
         "langtNavn":"Regnskabsbemærkninger",
         "struktur":{
-            "drift":"Drift",
-            "drift_s":{
-                "servicerammen":"Servicerammen",
-                "projekter":"Projekter",
-                "indkomstoverførsler":"Indkomstoverførsler",
-                "centralerefusion":"Centrale refusionsordninger mv."
+            "drift":{
+                "overskrift":"Drift",
+                "standardtekst":"Nedenfor redegøres for regnskabsresultat {{lastYear}} for bevillingsområdet {{omraade}}."
             },
-            "anlæg":"Anlæg"
+            "drift_s":{
+                "servicerammen":{
+                    "overskrift":"Servicerammen",
+                    "standardtekst":""
+                },
+                "projekter":{
+                    "overskrift":"Projekter",
+                    "standardtekst":""
+                },
+                "indkomstoverførsler":{
+                    "overskrift":"Indkomstoverførsler",
+                    "standardtekst":""
+                },
+                "centralerefusion":{
+                    "overskrift":"Centrale refusionsordninger mv.",
+                    "standardtekst":""
+                }
+            },
+            "anlæg":{
+                "overskrift":"Anlæg",
+                "standardtekst":""
+            }
         },
         "tabeller":{
             "servicerammen":{
-                "note":"",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"",
                 "navn":"",
                 "kolonner":[
@@ -260,11 +278,11 @@
                 ]
             },
             "projekter":{
-                "note":"",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"",
                 "navn":"",
                 "kolonner":[
-                    "Service (mio. kr.)",	
+                    "Projekter (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Regnskab",	
@@ -275,11 +293,11 @@
                 ]
             },
             "indkomstoverførsler":{
-                "note":"",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"",
                 "navn":"",
                 "kolonner":[
-                    "Service (mio. kr.)",	
+                    "Indkomstoverførsler (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Regnskab",	
@@ -290,11 +308,11 @@
                 ]
             },
             "centralerefusion":{
-                "note":"",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"",
                 "navn":"",
                 "kolonner":[
-                    "Service (mio. kr.)",	
+                    "Centrale refusionsordninger (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Regnskab",	
@@ -305,11 +323,11 @@
                 ]
             },
             "anlæg":{
-                "note":"",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"",
                 "navn":"",
                 "kolonner":[
-                    "Service (mio. kr.)",	
+                    "Anlæg (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Regnskab",	

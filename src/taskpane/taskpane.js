@@ -1413,6 +1413,10 @@ export async function skabelon() {
       notatTitel.styleBuiltIn = "Heading1";
       await context.sync();
 
+      var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+      emptyParagraph.styleBuiltIn = "Normal";
+      await context.sync();
+
       /* Looper over bevillingsområder */
       for (var i in udvalgsdata.bevillingsområde) {
         
@@ -1421,19 +1425,34 @@ export async function skabelon() {
         underoverskrift.styleBuiltIn = "Heading2";
         await context.sync();
 
+        var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+        emptyParagraph.styleBuiltIn = "Normal";
+        await context.sync();
+
         /* Looper over struktur i dokumentdata */
         for (var j in dokumentdata[0].struktur) {
+          
+          /* Toplevel eller ej */
+          var toplevel = (j.indexOf("_s") > -1 ? false : true) 
 
-          /* Indsætter overskrift hvis value er en string */
-          if (typeof(dokumentdata[0].struktur[j])=="string" & udvalgsdata.bevillingsområde[i].hasOwnProperty(j)) {
-            var underoverskrift = context.document.body.insertParagraph(dokumentdata[0].struktur[j], Word.InsertLocation.end);
+          /* Indsætter overskrift hvis toplevel */
+          if (toplevel & udvalgsdata.bevillingsområde[i].hasOwnProperty(j)) {
+            var underoverskrift = context.document.body.insertParagraph(dokumentdata[0].struktur[j].overskrift, Word.InsertLocation.end);
             underoverskrift.styleBuiltIn = "Heading3";
+            await context.sync();
+
+            var standardtekst = (dokumentdata[0].struktur[j].hasOwnProperty("standardtekst") ? dokumentdata[0].struktur[j].standardtekst : "");
+            var parse = require("json-templates");
+            var parseStandardtekst = parse(standardtekst);
+
+            var indsatStandardtekst= context.document.body.insertParagraph(parseStandardtekst({lastYear: lastYear, omraade: udvalgsdata.bevillingsområde[i].navn}), Word.InsertLocation.end);
+            indsatStandardtekst.styleBuiltIn = "Normal";
             await context.sync();
 
             /* Indsætter evt. tabel */
             if (dokumentdata[0].tabeller.hasOwnProperty(j) & udvalgsdata.bevillingsområde[i].hasOwnProperty(j)) {
               var parse = require("json-templates");
-              var parseKolonner = parse(dokumentdata[0].tabeller[k].kolonner);
+              var parseKolonner = parse(dokumentdata[0].tabeller[j].kolonner);
 
               var rowsFullArray = udvalgsdata.bevillingsområde[i][j];
               console.log(rowsFullArray);
@@ -1447,9 +1466,20 @@ export async function skabelon() {
               indsatTabel.select();
               await context.sync();
               formatSelectedTable();
+
+              var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
+              indsatFodnote.font.size = 9;
+              indsatFodnote.font.italic = true;
+              await context.sync();
+
+              var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+              emptyParagraph.styleBuiltIn = "Normal";
+              await context.sync();
+
+              tableAltBeskObj(dokumentdata[0].tabeller[k].navn,dokumentdata[0].tabeller[k].beskrivelse);
             }
           }
-          if (typeof(dokumentdata[0].struktur[j])=="object") {
+          if (toplevel == false) {
             /* Ellers: Loop over substruktur  */
             var substruktur = j.substring(0, j.indexOf("_"));
 
@@ -1457,8 +1487,14 @@ export async function skabelon() {
             for (var k in dokumentdata[0].struktur[j]) {
               if (udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty(k)) {
                 /* Overskrift */
-                var underoverskrift = context.document.body.insertParagraph(dokumentdata[0].struktur[j][k], Word.InsertLocation.end);
+                var underoverskrift = context.document.body.insertParagraph(dokumentdata[0].struktur[j][k].overskrift, Word.InsertLocation.end);
                 underoverskrift.styleBuiltIn = "Heading4";
+                await context.sync(); 
+
+                var standardtekst = (dokumentdata[0].struktur[j][k].hasOwnProperty("standardtekst") ? dokumentdata[0].struktur[j][k].standardtekst : "");
+
+                var emptyParagraph= context.document.body.insertParagraph(standardtekst, Word.InsertLocation.end);
+                emptyParagraph.styleBuiltIn = "Normal";
                 await context.sync();
 
                 /* Tabel */
@@ -1479,13 +1515,29 @@ export async function skabelon() {
                   indsatTabel.select();
                   await context.sync();
                   formatSelectedTable();
-                }
+
+                  var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
+                  indsatFodnote.font.size = 9;
+                  indsatFodnote.font.italic = true;
+                  await context.sync();
+
+                  var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
+
+                  tableAltBeskObj(dokumentdata[0].tabeller[k].navn,dokumentdata[0].tabeller[k].beskrivelse);
+                } 
 
                 /* Underoverskrifter (hvis mere end en) */
                 if (rowsCount > 1) {
                   for (var rw = 0; rw <= rowsCount - 1; rw++) {
                     var underoverskrift = context.document.body.insertParagraph(rows[rw], Word.InsertLocation.end);
                     underoverskrift.styleBuiltIn = "Heading5";
+                    
+                    await context.sync();
+
+                    var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+                    emptyParagraph.styleBuiltIn = "Normal";
                     await context.sync();
                   }
                 }
@@ -1495,20 +1547,6 @@ export async function skabelon() {
         }        
       }
     } 
-        // Define a new style
-        const test={
-          name: "Arial",
-          size: 14,
-          color: "blue",
-          bold: true
-      }
-        const paragraph = context.document.body.insertParagraph("This is a custom styled paragraph.", Word.InsertLocation.end);
-        paragraph.font.set(test);
-        paragraph.alignment = Word.Alignment.centered;
-        paragraph.spaceAfter = 12;
-        await context.sync();
-        
-        console.log("Custom styled paragraph inserted.");
     console.log("nåede hertil");
   });
 }
