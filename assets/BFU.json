@@ -20,7 +20,11 @@
                 }  
             ],
             "anlæg":[
-                ["Skattefinansierede anlæg","7300020SB.0023"]
+                {
+                    "skattefinansierede":[
+                        ["Skattefinansierede anlæg","7300020SB.0023"]
+                    ]
+                }
             ]
         },
         {
@@ -45,8 +49,6 @@
                         ["Opholdssteder, sikrede samt døgninst.","7300020DBE15.0023"],
                         ["Forebyggende foranstaltninger og indsats","7300020DBE20.0023"]
                     ]
-                },{
-                    
                 }
             ]
         }

@@ -1,0 +1,34 @@
+{
+    "udvalg":"Miljø- og teknikudvalget, takstfinansieret",
+    "forkortelse":"MTT",
+    "bevillingsområde": [   
+        {
+            "navn":"",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Rottebekæmpelse","7300020AEK15.0023"],
+                        ["Kirkegårde","7300020AEK20.0023"]   
+                    ],
+                    "brugerfinansieret":[
+                        ["Affald og Genbrug","7300020FEK10.0023"]
+                    ]
+                }  
+            ],
+            "anlæg":[
+                {
+                    "brugerfinansieretanlæg":[
+                        ["Brugerfinansierede udgifter - anlæg","7300020U.0023"]
+                    ]
+                }
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Brugerfinansieret område",
+        "Brugerfinansierede udgifter - anlæg"
+    ], 
+    "fakta":["Antal rolleanmeldelser (2023):","Rottespærrer kommunale institutioner:","Intelligente fælder:","Antal rottefængere","","Kommunale kirkegårde:", "Areal kirkegårde:", "","Restaffald pr. borger (2023):","Årlig affaldsudgift for typisk enfamilieshus (2023):"],
+    "politikker":["Klima-, natur- og miljøpolitik"]
+}

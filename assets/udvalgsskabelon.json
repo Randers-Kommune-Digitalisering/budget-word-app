@@ -1,0 +1,47 @@
+{
+    "udvalg":"",
+    "forkortelse":"",
+    "bevillingsområde": [   
+        {
+            "navn":"",
+            "drift":[
+                {
+                    "servicerammen":[
+                    ],
+                    "projekter":[
+                    ],
+                    "indkomstoverførsler":[
+                    ],
+                    "brugerfinansieret":[
+                    ],
+                    "ældreboliger":[
+                    ],
+                    "centralerefusion":[
+                    ],
+                    "aktivitetsbestemt":[
+                    ]
+                }  
+            ],
+            "anlæg":[
+                {
+                    "skattefinansierede":[
+                    ],
+                    "ældreboligeranlæg":[
+                    ],
+                    "brugerfinansieretanlæg":[
+                    ],
+                    "jordforsyning":[
+                    ]
+                }
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+    ], 
+    "customTabeller":[
+    ],
+    "fakta":[
+    ],
+    "politikker":[
+    ]
+}

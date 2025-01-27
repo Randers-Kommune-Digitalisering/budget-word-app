@@ -251,14 +251,45 @@
                     "overskrift":"Indkomstoverførsler",
                     "standardtekst":""
                 },
+                "ældreboliger":{
+                    "overskrift":"Ældreboliger - drift",
+                    "standardtekst":""
+                },
+                "brugerfinansieret":{
+                    "overskrift":"Brugerfinansierede udgifter - drift",
+                    "standardtekst":""
+                },
                 "centralerefusion":{
                     "overskrift":"Centrale refusionsordninger mv.",
+                    "standardtekst":""
+                },
+                "aktivitetsbestemt":{
+                    "overskrift":"Aktivitetsbestemt medfinansiering",
                     "standardtekst":""
                 }
             },
             "anlæg":{
                 "overskrift":"Anlæg",
                 "standardtekst":""
+            },
+            "anlæg_s":{
+                "skattefinansierede":{
+                    "overskrift":"Skattefinansierede anlæg",
+                    "standardtekst":""
+                },
+                "ældreboligeranlæg":{
+                    "overskrift":"Ældreboliger - anlæg",
+                    "standardtekst":""
+                },
+                "brugerfinansieretanlæg":{
+                    "overskrift":"Brugerfinansierede udgifter - anlæg",
+                    "standardtekst":""
+                },
+                "jordforsyning":{
+                    "overskrift":"Jordforsyning",
+                    "standardtekst":""
+                }
+
             }
         },
         "tabeller":{
@@ -307,6 +338,36 @@
                     "Overførsler til {{nextYear}}"
                 ]
             },
+            "ældreboliger":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Ældreboliger drift (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "brugerfinansieret":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Brugerfinansierede udgifter - drift (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
             "centralerefusion":{
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"",
@@ -322,12 +383,72 @@
                     "Overførsler til {{nextYear}}"
                 ]
             },
-            "anlæg":{
+            "aktivitetsbestemt":{
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"",
                 "navn":"",
                 "kolonner":[
-                    "Anlæg (mio. kr.)",	
+                    "Aktivitetsbestemt medfinansiering (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "skattefinansierede":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Skattefinansierede anlæg (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "ældreboligeranlæg":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Ældreboliger - anlæg (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "brugerfinansieretanlæg":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Brugerfinansierede udgifter - anlæg (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Regnskab",	
+                    "Årets resultat ekskl. overførsler",
+                    "Overførsler {{lastYear}}",	
+                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Overførsler til {{nextYear}}"
+                ]
+            },
+            "jordforsyning":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"",
+                "navn":"",
+                "kolonner":[
+                    "Jordforsyning (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Regnskab",	

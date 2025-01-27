@@ -1,0 +1,44 @@
+{
+    "udvalg":"Beskæftigelsesudvalget",
+    "forkortelse":"BU",
+    "bevillingsområde": [   
+        {
+            "navn":"Beskæftigelse, integration og ydelser",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Integration","7300020ACF35.0023"],
+                        ["Beskæftigelsesindsats - jobcentertilbud","7300020ACF40.0023"],
+                        ["Øvrige indsatser og ydelser","7300020ACF45.0023"]  
+                    ],
+                    "indkomstoverførsler":[
+                        ["Arbejdsløshedsdagpenge","7300020BCF05.0023"],
+                        ["Kontanthjælp og ledighedsydelse","7300020BCF10.0023"],
+                        ["Sygedagpenge og jobafklaring","7300020BCF15.0023"],
+                        ["Ressourceforløb","7300020BCF20.0023"],
+                        ["Fleksjob","7300020BCF25.0023"],
+                        ["Førtidspensioner","7300020BCF30.0023"],
+                        ["Seniorpension","7300020BCF33.0023"],
+                        ["Integration","7300020BCF35.0023"],
+                        ["Beskæftigelsesindsats - jobcentertilbud","7300020BCF40.0023"],
+                        ["Øvrige indsatser og ydelser","7300020BCF45.0023"],
+                        ["Boligydelse og boligsikring","7300020BCF50.0023"]
+                    ]
+                }  
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Indkomstoverførsler"
+    ],
+    "fakta":[
+        "Antal helårspersoner (B2025)",
+        "Antal personer i kontakt med jobcenteret (2023)",
+        "Antal virksomhedsbesøg (2023)",
+        "Beskæftigelsesområdets andel af driftsbudget i Randers Kommune (2025)"
+    ],
+    "politikker":[
+        "Beskæftigelsespolitikken"
+    ]
+}
