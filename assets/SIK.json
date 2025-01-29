@@ -1,0 +1,63 @@
+{
+    "udvalg":"Sundheds-, idræts- og kulturudvalget",
+    "forkortelse":"SIK",
+    "bevillingsområde": [   
+        {
+            "navn":"Kultur og fritid",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Biblioteker","7300020AFM10.0023"],
+                        ["Kultur","7300020AFM15.0023"],
+                        ["Fritid og Idræt","7300020AFM20.0023"]  
+                    ],
+                    "projekter":[
+                        ["Projekter","FM15A4","FM20A4"]
+                    ]
+                }  
+            ],
+            "anlæg":[
+                {
+                    "skattefinansierede":[
+                        ["Kultur og fritid","7300020SFM.0023"]
+                    ]
+                }
+            ]
+        },
+        {
+        "navn":"Sundhed",
+        "drift":[
+            {
+                "servicerammen":[
+                    ["Vederlagsfri fysioterapi","7300020AFN15.0023"],
+                    ["Rehabilitering","7300020AFN20.0023"],
+                    ["Sundhedsfremme og forebyggelse","7300020AFN25.0023"],
+                    ["Andre sundhedsudgifter","7300020AFN30.0023"],
+                    ["Sundhedspleje","7300020AFN35.0023"],
+                    ["Tandpleje","7300020AFN40.0023"] 
+                ],
+                "projekter":[
+                    ["Projekter","FN25A4"]
+                ],
+                "aktivitetsbestemt":[
+                    ["Medfinansiering på sundhedsområdet","7300020EFN10.0023"]
+                ]
+            }  
+        ],
+        "anlæg":[
+            {
+                "skattefinansierede":[
+                    ["Sundhedsområdet","7300020SFN.0023"]
+                ]
+            }
+        ]
+    }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Aktivitetsbestemt medfinansiering",
+        "Skattefinansierede anlæg"
+    ],
+    "fakta":["Antal børn og unge i børne- og ungetandplejen:","Antal voksne i tandplejen:","Antal kontakter/besøg sundhedsplejen:","Antal genoptræningsplaner","Antal deltagere i forløbsprogrammer"],
+    "politikker":["Sundhedspolitik"]
+}

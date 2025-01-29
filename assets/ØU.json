@@ -1,0 +1,56 @@
+{
+    "udvalg":"Økonomiudvalget",
+    "forkortelse":"ØU",
+    "bevillingsområde": [   
+        {
+            "navn":"Administration",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Udvikling, Miljø og Teknik", "7300020AAA10.0023"],
+                        ["Børn og Skole", "7300020AAA15.0023"],
+                        ["Social og Arbejdsmarked", "7300020AAA20.0023"],
+                        ["Sundhed, Kultur og Omsorg", "7300020AAA25.0023"],
+                        ["Stabe og tværgående konti", "7300020AAA30.0023"],
+                        ["Redningsberedskab", "7300020AAA35.0023"],
+                        ["Løn- og barselspuljer", "7300020AAA40.0023"],
+                        ["Udbetaling Danmark", "7300020AAA45.0023"],
+                        ["Tjenestemandspensioner og -præmier", "7300020AAA50.0023"],
+                        ["Forsikringer", "7300020AAA55.0023"],
+                        ["Servicebuffer, lovændringer og reserver", "7300020AAA60.0023"]
+                    ],
+                    "brugerfinansieret":[
+                        ["Tjenestemandspensioner og -præmier", "7300020FAA50.0023"]
+                    ]
+                }  
+            ],
+            "anlæg":[
+                {
+                    "skattefinansierede":[
+                        ["Skattefinansierede anlæg", "7300020SA.0023"]
+                    ]
+                }
+            ]
+        },
+        {
+            "navn":"Politisk organisation",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Fælles formål - Politisk organisation","7300020AAB10.0023"],
+                        ["Kommunalbestyrelsesmedlemmer","7300020AAB15.0023"],
+                        ["Kommissioner, råd og nævn","7300020AAB20.0023"],
+                        ["Valg", "7300020AAB25.0023"]
+                    ]
+                }  
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Skattefinansierede anlæg",
+        "Brugerfinansieret område",
+        "Skattefinansierede anlæg"
+    ], 
+    "fakta":["Udg. til central ledelse og adm. pr.","indb. i 2022 for Randers Kommune:","","Udg. til central ledelse og adm. pr.","indb. i 2022 - placering på","landsplan:"],
+    "politikker":["Indkøbspolitik","Personale- og ledelsespolitik","Politik for aktivt medborgerskab","Økonomisk politik"]
+}

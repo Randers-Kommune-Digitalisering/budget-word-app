@@ -1459,6 +1459,10 @@ export async function skabelon() {
               var rowsCount = rows.length;
               var columns = parseKolonner({lastYear: lastYear2, nextYear: currentYear});
               
+              var parse = require("json-templates");
+              var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[j].beskrivelse);
+              var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
+
               var data = buildTableMatrix(rows,columns,false,true);
 
               var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
@@ -1475,7 +1479,7 @@ export async function skabelon() {
               emptyParagraph.styleBuiltIn = "Normal";
               await context.sync();
 
-              tableAltBeskObj(dokumentdata[0].tabeller[k].navn,dokumentdata[0].tabeller[k].beskrivelse);
+              tableAltBeskObj(udvalgsdata.bevillingsområde[i].navn + " - " + dokumentdata[0].tabeller[k].navn, tabelBeskrivelse);
             }
           }
           /* Ellers: Loop over substruktur  */
@@ -1511,6 +1515,10 @@ export async function skabelon() {
                     var rowsCount = rows.length;
                     var columns = parseKolonner({lastYear: lastYear2, nextYear: currentYear});
                     
+                    var parse = require("json-templates");
+                    var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[k].beskrivelse);
+                    var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
+
                     var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? true : false);
                     var data = buildTableMatrix(rows,columns,includeProjects,true);
 
@@ -1529,7 +1537,7 @@ export async function skabelon() {
                     emptyParagraph.styleBuiltIn = "Normal";
                     await context.sync();
 
-                    tableAltBeskObj(dokumentdata[0].tabeller[k].navn,dokumentdata[0].tabeller[k].beskrivelse);
+                    tableAltBeskObj(udvalgsdata.bevillingsområde[i].navn + " - " + dokumentdata[0].tabeller[k].navn, tabelBeskrivelse);
                   } 
 
                   /* Underoverskrifter (hvis mere end en) */
