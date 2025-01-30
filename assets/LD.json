@@ -1,0 +1,30 @@
+{
+    "udvalg":"Landdistriktsudvalget",
+    "forkortelse":"LD",
+    "bevillingsområde": [   
+        {
+            "navn":"Landdistrikt",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Landdistrikt","7300020AHQ10.0023"],
+                        ["Byfornyelse","7300020AHQ15.0023"]    
+                    ]
+                }  
+            ],
+            "anlæg":[
+                {
+                    "skattefinansierede":[
+                        ["Plan, By og Natur","7300020SH.0023"]
+                    ]
+                }
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Skattefinansierede anlæg"
+    ], 
+    "fakta":["Borgere uden for Randers by 2023:","Ansøgninger til Landsbypuljen 2024:","Midler bevilget fra Landsbypuljen 2022:","Midler bevilget fr Landdistriktspuljen 2022:","Foreninger tildelt driftstilskud 2023:"],
+    "politikker":["Landdistriktspolitik"]
+}

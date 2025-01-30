@@ -1,0 +1,52 @@
+{
+    "udvalg":"Skole- og uddannelsesudvalget",
+    "forkortelse":"SKU",
+    "bevillingsområde": [   
+        {
+            "navn":"Skole",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Fællesudgifter - Skole","7300020AIR10.0023"],
+                        ["Folkeskoler og fritidstilbud","7300020AIR15.0023"],
+                        ["Befordring af elever","7300020AIR20.0023"],
+                        ["Bidrag til efterskoler","7300020AIR25.0023"],
+                        ["Fritidshjem og klubber","7300020AIR30.0023"],
+                        ["Specialskoler og -fritidstilbud","7300020AIR35.0023"],
+                        ["Ungdomsskole","7300020AIR40.0023"],
+                        ["Ungdommens Uddannelsesvejledning","7300020AIR45.0023"],
+                        ["Bidrag til privatskoler","7300020AIR50.0023"],
+                        ["Forberedende Grunduddannelse","7300020AIR55.0023"]
+                    ],
+                    "projekter":[
+                        ["Projekter","IR15A4"]
+                    ]
+                }  
+            ],
+            "anlæg":[
+                {
+                    "skattefinansierede":[
+                        ["Skattefinansierede anlæg","7300020SI.0023"]
+                    ]
+                }
+            ]
+        },        
+        {
+            "navn":"Pædagogisk Psykologisk Rådgivning",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["PPR (Pædagogisk Psykologisk Rådgivning)","7300020AIS10.0023"],
+                        ["Forebyggende foranstaltninger børn, unge","7300020AIS20.0023"] 
+                    ]
+                }  
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Skattefinansierede anlæg"
+    ], 
+    "fakta":["Antal folkeskoler:", "Antal specialklasser:","Antal almenklasser:","Antal specialklasser:","Elever i folkeskolen","Antal børn i SFO","Elever i specialklasser:","Elever i specialskoler:"],
+    "politikker":["Uddannelsespolitik","Sammenhængende børne- og ungepolitik"]
+}

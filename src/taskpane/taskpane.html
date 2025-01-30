@@ -88,7 +88,7 @@
           </div>
           <div class="box-right">
             <div role="button" id="formatSelectedTable" class="ms-welcome__action ms-Button ms-Button--hero">
-              <span class="ms-Button-label">Autoformatter valgt tabel</span>
+              <span class="ms-Button-label">Autoformater valgt tabel</span>
             </div>
             <input type="checkbox" id="checkbox1" name="" checked>
             <label for="checkbox1">Speciel sidste række</label></br>
@@ -186,10 +186,10 @@
           <span class="ms-Button-label">Console log selection</span>
         </div> 
         <div role="button" id="formaterTabellerBO" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter tabeller i budgetopfølgningsskabelon</span>
+          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformater tabeller i budgetopfølgningsskabelon</span>
         </div>
         <div role="button" id="formatSelectedTableBB" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformatter valgt tabel (budgetbemærkninger)</span>
+          <span class="ms-Button-label"><i class="fa-solid fa-table icon"></i>Autoformater valgt tabel (budgetbemærkninger)</span>
         </div>
         <div role="button" id="rydAltDev" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label"><i class="fa-solid fa-eraser icon"></i>Ryd indhold</span>
@@ -259,7 +259,7 @@ fetch(organisationURL)
         var options=[]; 
         for (let i = 0; i < data.length; i++) {
           options.push(data[i].udvalg);
-          console.log(data[i].udvalg)
+          /* console.log(data[i].udvalg) */
         }   
         options.sort()
 
@@ -268,7 +268,7 @@ fetch(organisationURL)
         for (let i = 0; i < options.length; i++) {
           option = document.createElement('option');
           option.text = options[i];
-          console.log( options[i])
+          /* console.log( options[i]) */
           dropdownUdvalg.add(option); 
         }    
       });  
@@ -295,7 +295,7 @@ dokumentDropdown.addEventListener("change", e => {
 udvalgDropdown.addEventListener("change", e => {
   valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
 
-  if (valgtDokument==="Budgetopfølgning") {
+  if (valgtDokument==="Budgetopfølgning" ) {
     dropdownDokumentDetalje.style.display="block";
 
     fetch(dokumentURL)  
@@ -325,6 +325,9 @@ udvalgDropdown.addEventListener("change", e => {
           });  
         }  
       )  
+  }
+  if (valgtDokument==="Regnskabsbemærkninger") {
+    document.getElementById('toolsdiv').style.display="block";
   }
   
   if (valgtDokument==="Budgetbemærkninger del 1" | valgtDokument==="Budgetbemærkninger del 2") {

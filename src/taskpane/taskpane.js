@@ -53,6 +53,39 @@ function processMessage(arg) {
   dialog.close();
 }
 
+function buildTableMatrix(rows, columns, projects = false, total = true) {
+  var data = [columns]
+  for (var row in rows) {
+    var temp = []
+    temp.push(rows[row])
+    for (var column = 0; column < columns.length-1; column++) {
+      temp.push("")
+    } 
+    data.push(temp)
+  }
+  if (projects) {
+    var extraRows = ["I alt uden projekter", "Projekter"];
+    for (var extraRow = 0; extraRow <= extraRows.length - 1; extraRow++) {
+      var temp = []
+      temp.push(extraRows[extraRow])
+      for (var column = 0; column < columns.length-1; column++) {
+        temp.push("")
+      }
+      data.push(temp)
+    }
+  }
+  if (total) {
+    /* Tilføjer i alt */
+    var temp = []
+    temp.push("I alt")
+    for (var column = 0; column < columns.length-1; column++) {
+      temp.push("")
+    }
+    data.push(temp)
+  }
+  return data
+}
+
 async function tryCatch(callback) {
   try {
     await callback();
@@ -460,6 +493,8 @@ export async function skabelon() {
     }
     const inkluderUndersektionerFlat = inkluderUndersektioner.flat(Infinity);
     const currentYear = new Date(Date.now()).getFullYear();
+    const lastYear = currentYear - 1;
+    const lastYear2 = currentYear - 2;
     const budgetperiodeÅr1 = currentYear + 1;
     const budgetperiodeÅr2 = currentYear + 2;
     const budgetperiodeÅr3 = currentYear + 3;
@@ -804,7 +839,6 @@ export async function skabelon() {
       }
       formaterTabeller();
     }
-
     if (valgtDokument == "Budgetbemærkninger del 1") {
       //  Fetcher organisationsdata igen
       var organisation = await fetchAssets("./assets/organisation.json");
@@ -865,7 +899,6 @@ export async function skabelon() {
 
       // Indsætter tabel til fakta og politikker
       rækker = Math.max(fakta.length, politikker.length + 2);
-      console.log(rækker);
       var data = [];
       data.push([faktaoverskrift, "", "", "Politikker"]);
 
@@ -1369,6 +1402,188 @@ export async function skabelon() {
       formaterTabellerBB("tabel-4");
       await context.sync();
     }
+    if (valgtDokument == "Regnskabsbemærkninger") {
+      /* Loader JSON-fil for relevant udvalg */
+      organisationdata[0].forkortelse
+      var udvalgsdata = await fetchAssets("./assets/"+organisationdata[0].forkortelse+".json");
+
+      /* indsætter titel */
+      var notatTitel = context.document.body.insertParagraph(valgtUdvalg, Word.InsertLocation.start);
+      notatTitel.styleBuiltIn = "Heading1";
+      await context.sync();
+
+      var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+      emptyParagraph.styleBuiltIn = "Normal";
+      await context.sync();
+
+
+      // Indsætter dokumenttitel
+      var dokumentegenskaber = context.document.properties.load("title");
+      await context.sync();
+      context.document.properties.set({
+        title:
+          dokumentdata[0].langtNavn +
+          " - " +
+          valgtUdvalg +
+          " – " +
+          lastYear,
+      });
+
+
+      /* Looper over bevillingsområder */
+      for (var i in udvalgsdata.bevillingsområde) {
+        
+        /* Indsætter overskrift på bevillingsområde */
+        var underoverskrift = context.document.body.insertParagraph("Regnskabsresultat på "+udvalgsdata.bevillingsområde[i].navn, Word.InsertLocation.end);
+        underoverskrift.styleBuiltIn = "Heading2";
+        await context.sync();
+
+        var emptyParagraph= context.document.body.insertParagraph("Alle beløb i tabellerne er angivet i mio. kr.", Word.InsertLocation.end);
+        emptyParagraph.styleBuiltIn = "Normal";
+        await context.sync();
+
+        /* Looper over struktur i dokumentdata */
+        for (var j in dokumentdata[0].struktur) {
+
+          /* Toplevel eller ej */
+          var toplevel = (j.indexOf("_s") > -1 ? false : true)  
+
+          /* Indsætter overskrift hvis toplevel */
+          if (toplevel & udvalgsdata.bevillingsområde[i].hasOwnProperty(j)) { 
+            var underoverskrift = context.document.body.insertParagraph(dokumentdata[0].struktur[j].overskrift, Word.InsertLocation.end);
+            underoverskrift.styleBuiltIn = "Heading3";
+            await context.sync();
+
+            var standardtekst = (dokumentdata[0].struktur[j].hasOwnProperty("standardtekst") ? dokumentdata[0].struktur[j].standardtekst : "");
+            var parse = require("json-templates");
+            var parseStandardtekst = parse(standardtekst);
+
+            var indsatStandardtekst= context.document.body.insertParagraph(parseStandardtekst({lastYear: lastYear, omraade: udvalgsdata.bevillingsområde[i].navn}), Word.InsertLocation.end);
+            indsatStandardtekst.styleBuiltIn = "Normal";
+            await context.sync();
+
+            /* Indsætter evt. tabel */
+            if (dokumentdata[0].tabeller.hasOwnProperty(j) & udvalgsdata.bevillingsområde[i].hasOwnProperty(j)) {
+              
+              var parse = require("json-templates");
+              var parseKolonner = parse(dokumentdata[0].tabeller[j].kolonner);
+
+              var rowsFullArray = udvalgsdata.bevillingsområde[i][j];
+              var rows = rowsFullArray.map(subArray => subArray[0])
+              var rowsCount = rows.length;
+              var columns = parseKolonner({lastYear: lastYear2, nextYear: currentYear});
+              
+              var parse = require("json-templates");
+              var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[j].beskrivelse);
+              var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
+
+              var data = buildTableMatrix(rows,columns,false,true);
+
+              var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
+              indsatTabel.select();
+              await context.sync();
+              formatSelectedTable();
+
+              var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
+              indsatFodnote.font.size = 9;
+              indsatFodnote.font.italic = true;
+              await context.sync();
+
+              var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+              emptyParagraph.styleBuiltIn = "Normal";
+              await context.sync();
+
+              tableAltBeskObj(udvalgsdata.bevillingsområde[i].navn + " - " + dokumentdata[0].tabeller[k].navn, tabelBeskrivelse);
+            }
+          }
+          /* Ellers: Loop over substruktur  */
+          if (toplevel == false) {
+            
+            var substruktur = j.substring(0, j.indexOf("_"));
+
+            /* Looper over substrukturen hvis hovedstrukturen findes (f.eks. kun anlæg_s hvis anlæg) */
+            if (udvalgsdata.bevillingsområde[i].hasOwnProperty(substruktur)) {
+
+              /* Looper over alle substruktur-udfald i dokumenttype. Hvis den findes i udvalgsdata indsættes overskrift som defineret i dokumentdata */
+              for (var k in dokumentdata[0].struktur[j]) {
+
+                if (udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty(k)) {
+                  /* Overskrift */
+                  var underoverskrift = context.document.body.insertParagraph(dokumentdata[0].struktur[j][k].overskrift, Word.InsertLocation.end);
+                  underoverskrift.styleBuiltIn = "Heading4";
+                  await context.sync(); 
+
+                  var standardtekst = (dokumentdata[0].struktur[j][k].hasOwnProperty("standardtekst") ? dokumentdata[0].struktur[j][k].standardtekst : "");
+
+                  var emptyParagraph= context.document.body.insertParagraph(standardtekst, Word.InsertLocation.end);
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
+
+                  /* Tabel */
+                  if (dokumentdata[0].tabeller.hasOwnProperty(k)) {
+                    var parse = require("json-templates");
+                    var parseKolonner = parse(dokumentdata[0].tabeller[k].kolonner);
+
+                    var rowsFullArray = udvalgsdata.bevillingsområde[i][substruktur][0][k];
+                    var rows = rowsFullArray.map(subArray => subArray[0])
+                    var rowsCount = rows.length;
+                    var columns = parseKolonner({lastYear: lastYear2, nextYear: currentYear});
+                    
+                    var parse = require("json-templates");
+                    var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[k].beskrivelse);
+                    var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
+
+                    var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? true : false);
+                    var data = buildTableMatrix(rows,columns,includeProjects,true);
+
+                    var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
+
+                    indsatTabel.select();
+                    await context.sync();
+                    formatSelectedTable();
+
+                    var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
+                    indsatFodnote.font.size = 9;
+                    indsatFodnote.font.italic = true;
+                    await context.sync();
+
+                    var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+                    emptyParagraph.styleBuiltIn = "Normal";
+                    await context.sync();
+
+                    tableAltBeskObj(udvalgsdata.bevillingsområde[i].navn + " - " + dokumentdata[0].tabeller[k].navn, tabelBeskrivelse);
+                  } 
+
+                  /* Underoverskrifter (hvis mere end en) */
+                  if (rowsCount > 1) {
+                    for (var rw = 0; rw <= rowsCount - 1; rw++) {
+                      var underoverskrift = context.document.body.insertParagraph(rows[rw], Word.InsertLocation.end);
+                      underoverskrift.styleBuiltIn = "Heading5";
+                      
+                      await context.sync();
+
+                      var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+                      emptyParagraph.styleBuiltIn = "Normal";
+                      await context.sync();
+                    }
+                  }
+                }
+              }
+              /* Indsætter afsnit vedr. konsenvenser for fremtiden */
+              var underoverskrift = context.document.body.insertParagraph("Konsekvenser for "+currentYear+"-"+budgetperiodeÅr3+" på " + dokumentdata[0].struktur[substruktur].overskrift.toLowerCase(), Word.InsertLocation.end);
+              underoverskrift.styleBuiltIn = "Heading4";
+              await context.sync();
+    
+              var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+              emptyParagraph.styleBuiltIn = "Normal";
+              await context.sync();
+            }
+
+          }
+
+        }        
+      }
+    } 
     console.log("nåede hertil");
   });
 }

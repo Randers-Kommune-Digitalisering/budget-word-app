@@ -39,7 +39,7 @@ export async function formatIntermediateSumRow() {
 
     const rowsToEdit = []
     for (let l = rowToEdit; l < rowsToEditCount+rowToEdit; l++) {
-      console.log(l)
+      // console.log(l)
       rowsToEdit.push(l)
     }
     
@@ -138,7 +138,7 @@ export async function formatSelectedTableBuildIn() {
       celler.load("items");
       await context.sync();
       for (var k = 0; k < celler.items.length; k++) {
-        console.log(celler.items[k]);
+        // console.log(celler.items[k]);
         celler.items[k].body.styleBuiltIn = "Normal";
       }
     } 
@@ -213,8 +213,6 @@ export async function formatSelectedTable() {
         border.set({ color: "#808080", width: 1, type: "Single" });
       }
 
-
-
       // Loop over celler
       var celler = rækker.items[i].cells;
       celler.load("items");
@@ -229,8 +227,7 @@ export async function formatSelectedTable() {
       
       table.width = sidebredde;
 
-      for (var k = 0; k < celler.items.length; k++) {
-     
+      for (var k = 0; k < celler.items.length; k++) {     
         // Instiller kolonnebredde
         if (k == 0) {
           celler.items[k].columnWidth = tabelBredde * venstreKolonne;
@@ -271,21 +268,19 @@ export async function formatSelectedTable() {
           }
         }
         // Styler i alt-rækker
-        /*
         if (celler.items[k].value.slice(0, 5) == "I alt") {
-          console.log(celler.items[k].value.slice(0, 5));
+          // console.log(celler.items[k].value.slice(0, 5));
           rækker.items[i].shadingColor = "#DDEBF7";
           rækker.items[i].font.bold = true;
-          celler.items[k].setCellPadding("Top", 3);
-          celler.items[k].setCellPadding("Bottom", 3);
-          var borderLocation = Word.BorderLocation.top;
+          celler.items[k].setCellPadding("Left", 5);
+          var borderLocation = Word.BorderLocation.top; 
           var border = rækker.items[i].getBorder(borderLocation);
           border.set({ color: "#808080", width: 1, type: "Single" });
           var borderLocation = Word.BorderLocation.bottom;
           var border = rækker.items[i].getBorder(borderLocation);
           border.set({ color: "#808080", width: 1, type: "Single" });
         }
-        */
+        
       }
       await context.sync();
     }
@@ -363,7 +358,7 @@ export async function formaterTabeller() {
               celler.items[k].columnWidth = 240; // Virker vist ikke efter hensigten...
             }
             if (celler.items[k].value.slice(0, 5) == "I alt") {
-              console.log(celler.items[k].value.slice(0, 5));
+              // console.log(celler.items[k].value.slice(0, 5));
               rækker.items[i].shadingColor = "#DDEBF7";
               rækker.items[i].font.bold = true;
               celler.items[k].setCellPadding("Top", 3);
@@ -463,7 +458,7 @@ export async function formaterTabellerBBSelected() {
         }
         // Styler i alt-rækker
         if (celler.items[k].value.slice(0, 5) == "I alt") {
-          console.log(celler.items[k].value.slice(0, 5));
+          // console.log(celler.items[k].value.slice(0, 5));
           rækker.items[i].shadingColor = "#DDEBF7";
           rækker.items[i].font.bold = true;
           celler.items[k].setCellPadding("Top", 3);
@@ -519,7 +514,7 @@ export async function formaterTabellerBBSelected() {
 // Formater tabeller til budgetbemærninger
 export async function formaterTabellerBB(tabel) {
   return Word.run(async (context) => {
-    console.log(tabel);
+    // console.log(tabel);
 
     const tables = context.document.body.tables;
     tables.load("items");
@@ -604,7 +599,7 @@ export async function formaterTabellerBB(tabel) {
         }
         // Styler i alt-rækker
         if (celler.items[k].value.slice(0, 5) == "I alt") {
-          console.log(celler.items[k].value.slice(0, 5));
+          // console.log(celler.items[k].value.slice(0, 5));
           rækker.items[i].shadingColor = "#DDEBF7";
           rækker.items[i].font.bold = true;
           celler.items[k].setCellPadding("Top", 3);

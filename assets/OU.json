@@ -1,0 +1,40 @@
+{
+    "udvalg":"Omsorgsudvalget",
+    "forkortelse":"OU",
+    "bevillingsområde": [   
+        {
+            "navn":"Tilbud til ældre",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Praktisk hjælp, pleje og træning","7300020AGO10.0023"],
+                        ["Hjælpemidler","7300020AGO20.0023"]
+                    ],
+                    "projekter":[
+                        ["Projekter","GO10A4"]
+                    ],
+                    "ældreboliger":[
+                        ["Ældreboliger","7300020GGO15.0023"]
+                    ]
+                }  
+            ],
+            "anlæg":[
+                {
+                    "skattefinansierede":[
+                        ["Skattefinansierede anlæg","7300020SG.0023"]
+                    ],
+                    "ældreboligeranlæg":[
+                        ["Ældreboliger - anlæg","7300020TG.0023"]
+                    ]
+                }
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Ældreboliger",
+        "Skattefinansierede anlæg"
+    ], 
+    "fakta":["Antal borgere, der får hjemmehjælp:","Antal borgere, der får sygepleje:","Antal permanenter boliger:","Antal midlertidlige boliger:","Antal med hjælpemidler:","Antal hjemmeboende, Madservice:"],
+    "politikker":["Omsorgs- og værdighedspolitik"]
+}

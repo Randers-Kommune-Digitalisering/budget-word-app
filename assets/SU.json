@@ -1,0 +1,60 @@
+{
+    "udvalg":"Socialudvalget",
+    "forkortelse":"SU",
+    "bevillingsområde": [   
+        {
+            "navn":"Tilbud til børn, unge og voksne med særlige behov",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Psykiatri og Socialt Udsatte","7300020ADI30.0023"],
+                        ["Handicap","7300020ADI35.0023"],
+                        ["Autisme, senhjerneskade og læring","7300020ADI40.0023"]  
+                    ],
+                    "indkomstoverførsler":[
+                        ["Handicap","7300020BDI35.0023"]
+                    ],
+                    "ældreboliger":[
+                        ["Handicap","7300020GDI35.0023"]
+                    ],
+                    "centralerefusion":[
+                        ["Psykiatri og Socialt Udsatte","7300020DDI30.0023"],
+                        ["Handicap","7300020DDI35.0023"]     
+                    ]
+                }  
+            ],
+            "anlæg":[
+                {
+                    "skattefinansierede":[
+                        ["Skattefinansierede anlæg","7300020SD.0023"]
+                    ],
+                    "ældreboligeranlæg":[
+                        ["Ældreboliger - anlæg","7300020TD.0023"] 
+                    ]
+                }
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Indkomstoverførsler",
+        "Ældreboliger",
+        "Centrale refusionsordninger mv.",
+        "Skattefinansierede anlæg",
+        "Ældreboliger - anlæg"
+    ], 
+    "fakta":[
+        "Botilbud til voksne",
+        "Mestringsvejledning i eget hjem",
+        "Herberg/forsorgshjem",
+        "",
+        "Misbrugsbehandling stof",
+        "Misbrugsbehandling alkohol",
+        "",
+        "Børn og unge i døgntilbud",
+        "Børn og unge i forebyggende tilbud"
+    ],
+    "politikker":[
+        "Politik for borgere med særlige behov"
+    ]
+}
