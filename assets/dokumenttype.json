@@ -304,7 +304,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -319,7 +319,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -334,7 +334,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -349,7 +349,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -364,7 +364,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -379,7 +379,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -394,7 +394,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -409,7 +409,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -424,7 +424,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -439,7 +439,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             },
@@ -454,7 +454,7 @@
                     "Regnskab",	
                     "Årets resultat ekskl. overførsler",
                     "Overførsler {{lastYear}}",	
-                    "Årets resultat ekskl. overførsler {{lastYear}}",	
+                    "Årets resultat inkl. overførsler {{lastYear}}",	
                     "Overførsler til {{nextYear}}"
                 ]
             }

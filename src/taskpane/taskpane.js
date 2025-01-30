@@ -1416,6 +1416,20 @@ export async function skabelon() {
       emptyParagraph.styleBuiltIn = "Normal";
       await context.sync();
 
+
+      // Indsætter dokumenttitel
+      var dokumentegenskaber = context.document.properties.load("title");
+      await context.sync();
+      context.document.properties.set({
+        title:
+          dokumentdata[0].langtNavn +
+          " - " +
+          valgtUdvalg +
+          " – " +
+          lastYear,
+      });
+
+
       /* Looper over bevillingsområder */
       for (var i in udvalgsdata.bevillingsområde) {
         
