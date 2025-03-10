@@ -100,28 +100,19 @@ export async function loadBookmark() {
   return Word.run(async (context) => {
     var bookmark = context.document.getSelection().getRange().getBookmarks(true);
     await context.sync();
-    console.log(bookmark.m_value[0]);
-    return bookmark.m_value[0].name;
+    if (bookmark.m_value && bookmark.m_value.length > 0) {
+      console.log(bookmark.m_value[0]);
+      return bookmark.m_value[0].name;
+    } else {
+      console.log("Intet bogmærke fundet");
+      return null;
+    }
   });
-}
-
-function abbreviateString(input) {
-  let words = input.split(' ');
-  let abbreviatedWords = words.map(word => word.substring(0, 4));
-  let result = abbreviatedWords.join('_').replace(/-/g, "");
-  
-
-  if (result.length > 28) {
-    result = result.substring(0, 28);
-  }
-
-  return result;
 }
 
 function insertBookmark(table, name) {
   var range = table.getRange();
-  var bookmark = abbreviateString(name)
-  range.insertBookmark(bookmark);
+  range.insertBookmark(name);
 }
 
 
@@ -1576,11 +1567,11 @@ export async function skabelon() {
                     // var bookmark = dokumentdata[0].tabeller[k].navn
                     // console.log(bookmark.replace(/ /g, "_"));
                     // range.insertBookmark(bookmark.replace(/ /g, "_"));
-                    var range = indsatTabel.getRange();
-                    var bookmark = abbreviateString(dokumentdata[0].tabeller[k].navn)
-                    console.log(bookmark);
-                    range.insertBookmark(bookmark);
-                    // insertBookmark(indsatTabel, dokumentdata[0].tabeller[k].navn);
+                    // var range = indsatTabel.getRange();
+                    // var bookmark = abbreviateString(dokumentdata[0].tabeller[k].navn)
+                    // console.log(bookmark);
+                    // range.insertBookmark(bookmark);
+                    insertBookmark(indsatTabel, dokumentdata[0].tabeller[k].kortnavn);
 
                     var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
                     indsatFodnote.font.size = 9;

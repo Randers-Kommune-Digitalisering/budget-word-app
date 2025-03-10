@@ -298,7 +298,7 @@ dokumentDropdown.addEventListener("change", e => {
 udvalgDropdown.addEventListener("change", e => {
   valgtDokument = dropdownDokument.options[dropdownDokument.selectedIndex].text;
 
-  if (valgtDokument==="Budgetopfølgning" ) {
+  if (valgtDokument==="Budgetopfølgning" | valgtDokument==="Budgetopfølgning_ny") {
     dropdownDokumentDetalje.style.display="block";
 
     fetch(dokumentURL)  
@@ -310,7 +310,7 @@ udvalgDropdown.addEventListener("change", e => {
             let option;
             
             /* Budgetopfølgning */ 
-            if (dropdownDokument.selectedIndex==1) {
+            if (valgtDokument==="Budgetopfølgning" | valgtDokument==="Budgetopfølgning_ny") {
 
               removeOptions(dropdownDokumentDetalje);
 
