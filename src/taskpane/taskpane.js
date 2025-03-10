@@ -26,6 +26,7 @@ Office.onReady((info) => {
     document.getElementById("formatSelectedTableBB").onclick = () => tryCatch(formaterTabellerBBSelected);
     document.getElementById("formatSelectedTableBuiltIn").onclick = () => tryCatch(formatSelectedTableBuildIn);
     document.getElementById("formatIntermediateSumRow").onclick = () => tryCatch(formatIntermediateSumRow);
+    document.getElementById("loadBookmark").onclick = () => tryCatch(loadBookmark);
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("file").addEventListener("change", checkfile);
@@ -94,6 +95,35 @@ async function tryCatch(callback) {
     /*console.error(error.message);*/
   }
 }
+
+export async function loadBookmark() {
+  return Word.run(async (context) => {
+    var bookmark = context.document.getSelection().getRange().getBookmarks(true);
+    await context.sync();
+    console.log(bookmark.m_value[0]);
+    return bookmark.m_value[0].name;
+  });
+}
+
+function abbreviateString(input) {
+  let words = input.split(' ');
+  let abbreviatedWords = words.map(word => word.substring(0, 4));
+  let result = abbreviatedWords.join('_').replace(/-/g, "");
+  
+
+  if (result.length > 28) {
+    result = result.substring(0, 28);
+  }
+
+  return result;
+}
+
+function insertBookmark(table, name) {
+  var range = table.getRange();
+  var bookmark = abbreviateString(name)
+  range.insertBookmark(bookmark);
+}
+
 
 export async function loadSelection() {
   return Word.run(async (context) => {
@@ -1429,7 +1459,6 @@ export async function skabelon() {
           lastYear,
       });
 
-
       /* Looper over bevillingsområder */
       for (var i in udvalgsdata.bevillingsområde) {
         
@@ -1484,6 +1513,8 @@ export async function skabelon() {
               await context.sync();
               formatSelectedTable();
 
+              // insertBookmark(indsatTabel, dokumentdata[0].tabeller[j].navn);
+
               var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
               indsatFodnote.font.size = 9;
               indsatFodnote.font.italic = true;
@@ -1537,10 +1568,19 @@ export async function skabelon() {
                     var data = buildTableMatrix(rows,columns,includeProjects,true);
 
                     var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
-
                     indsatTabel.select();
                     await context.sync();
                     formatSelectedTable();
+
+                    // var range = indsatTabel.getRange();
+                    // var bookmark = dokumentdata[0].tabeller[k].navn
+                    // console.log(bookmark.replace(/ /g, "_"));
+                    // range.insertBookmark(bookmark.replace(/ /g, "_"));
+                    var range = indsatTabel.getRange();
+                    var bookmark = abbreviateString(dokumentdata[0].tabeller[k].navn)
+                    console.log(bookmark);
+                    range.insertBookmark(bookmark);
+                    // insertBookmark(indsatTabel, dokumentdata[0].tabeller[k].navn);
 
                     var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
                     indsatFodnote.font.size = 9;
