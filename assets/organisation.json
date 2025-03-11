@@ -489,7 +489,7 @@
                 ],
                 "bevillingsområde": [   
                     {
-                        "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                        "navn":"Tilbud til unge og voksne med særlige behov",
                         "tabeller":[
                             {
                                 "nr":0,
@@ -539,6 +539,9 @@
                                 ]                                
                             }
                         ]
+                    },
+                    {
+                        "navn":"Børnehandicap"
                     }
                 ],
                 "anlæg":[

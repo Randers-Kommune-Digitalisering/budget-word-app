@@ -43,7 +43,8 @@ var globalData = null;
 // Functions
 
 export function readFile(file) {
-    let sheets=["Input","Input - MTU","Input - BF - CT1","Input - SU - CT1","Input - EP - CT1"]
+    //let sheets=["Input","Input - MTU","Input - BF - CT1","Input - SU - CT1","Input - EP - CT1"]
+    let sheets=["Input"]  
     const reader = new FileReader();
     reader.onload = function(evt) {
       if(evt.target.readyState != 2) return;
