@@ -80,9 +80,11 @@ export function generateTable(columns, rows, withData, dateType, fileType, sheet
         let id = null
         if(rows[i].length === 2) id = rows[i][1]
         else id = rows[i].slice(1)
+        console.log("ID", id)
         if(id && withData){
           let first_column = rows[i][0]
           let data = getRowData(id, dateTypes.indexOf(dateType), globalData[sheet], fileTypes.indexOf(fileType))
+          console.log(data)
           table.push([first_column, ...data])
         } else {
             let tmp_row = [rows[i][0]]

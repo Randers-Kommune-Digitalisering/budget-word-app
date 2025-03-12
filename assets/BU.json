@@ -11,6 +11,9 @@
                         ["Beskæftigelsesindsats - jobcentertilbud","7300020ACF40.0023"],
                         ["Øvrige indsatser og ydelser","7300020ACF45.0023"]  
                     ],
+                    "projekter":[
+                        ["Projekter","CF40A4"]
+                    ],
                     "indkomstoverførsler":[
                         ["Arbejdsløshedsdagpenge","7300020BCF05.0023"],
                         ["Kontanthjælp og ledighedsydelse","7300020BCF10.0023"],

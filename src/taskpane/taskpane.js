@@ -34,8 +34,6 @@ Office.onReady((info) => {
   }
 });
 
-let withData = false;
-
 function openDialog(title, message) {
   var title = title ? title : "Fejl";
   var message = message ? message : "Der er sket en fejl. Prøv igen.";
@@ -55,8 +53,18 @@ function processMessage(arg) {
   dialog.close();
 }
 
-function buildTableMatrix(rows, columns, projects = false, total = true) {
-  var data = [columns]
+function buildTableMatrix(rows, columns, projects = null, total = true, rowsFullArray = null) {
+  console.log(projects)
+  var projects = [projects];
+  console.log(projects)
+  var data = [columns];
+
+  var inputRows = rowsFullArray == null ? rows : rowsFullArray;
+  var dataFromFile = generateTable(columns, inputRows, withData, valgtDokumentDetajle, fileType, 0)
+  console.table(dataFromFile)
+  var dataFromFileFinal = dataProjectsTotalsRounding(dataFromFile, projects, "", true, valgtDokumentDetajle, fileType);
+  console.table(dataFromFileFinal)
+
   for (var row in rows) {
     var temp = []
     temp.push(rows[row])
@@ -65,6 +73,7 @@ function buildTableMatrix(rows, columns, projects = false, total = true) {
     } 
     data.push(temp)
   }
+  /*
   if (projects) {
     var extraRows = ["I alt uden projekter", "Projekter"];
     for (var extraRow = 0; extraRow <= extraRows.length - 1; extraRow++) {
@@ -76,6 +85,7 @@ function buildTableMatrix(rows, columns, projects = false, total = true) {
       data.push(temp)
     }
   }
+  */
   if (total) {
     /* Tilføjer i alt */
     var temp = []
@@ -372,7 +382,7 @@ function roundNestedArray(arr) {
 function dataProjectsTotalsRounding(
   data,
   projekter,
-  deletekst = "",
+  deletekst = "I alt uden projekter",
   withData,
   valgtDokumentDetajle,
   fileType,
@@ -380,7 +390,7 @@ function dataProjectsTotalsRounding(
 ) {
   let dataOutput = [...data];
 
-  if (projekter != "") {
+  if (projekter != null) {
     // Total uden projekter
     let dataTotalProjekter = sumArrays(
       ...data.map((arr) => arr.slice(1)).map((subarray) => subarray.map((el) => parseFloat(el)))
@@ -475,6 +485,10 @@ function hasStyles(callback) {
   });
 }
 
+// Global variables
+var fileType, valgtDokumentDetajle;
+let withData = false;
+
 // Generer skabelonen
 export async function skabelon() {  
   return Word.run(async (context) => {
@@ -482,11 +496,11 @@ export async function skabelon() {
     globalThis.dokumentKommentarer = [];
 
     const valgtDokument = document.getElementById("dokumentDropdown").value;
-    const valgtDokumentDetajle = document.getElementById("dokumentDetaljeDropdown").value;
+    valgtDokumentDetajle = document.getElementById("dokumentDetaljeDropdown").value;
     const valgtUdvalg = document.getElementById("udvalgDropdown").value;
     const valgtBevilling = document.getElementById("bevillingsområdeDropdown").value;
 
-    const fileType = document.getElementById("fileTypeDropdown").value;
+    fileType = document.getElementById("fileTypeDropdown").value;
 
     const responseDokumenttype = await fetch("./assets/dokumenttype.json", { cache: "reload" });
     const dokumenttypeJSON = await responseDokumenttype.json();
@@ -708,11 +722,11 @@ export async function skabelon() {
                     var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[k].beskrivelse);
                     var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
 
-                    var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? true : false);
+                    var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? udvalgsdata.bevillingsområde[i][substruktur][0].projekter[0] : null);
                     
                     console.log(rowsFullArray)
                     // var data = generateTable(columns, rows, withData, valgtDokumentDetajle, fileType, 0)
-                    var data = buildTableMatrix(rows,columns,includeProjects,true);
+                    var data = buildTableMatrix(rows,columns,includeProjects,true,rowsFullArray);
 
                     var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
                     indsatTabel.select();
@@ -792,7 +806,7 @@ export async function skabelon() {
       
       var tabelBeskrivelse = dokumentdata[0].tabeller.bevillingsansøgninger.beskrivelse;
       
-      var data = buildTableMatrix(rows,columns,false,true,withData);
+      var data = buildTableMatrix(rows,columns,null,true,false);
 
       var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
       indsatTabel.select();
@@ -827,49 +841,53 @@ export async function skabelon() {
       }
 
       // Custom tabeller
-      for (var ct in udvalgsdata.customTabeller.budgetopfølgning) {
-        var placering = udvalgsdata.customTabeller.budgetopfølgning[ct].placering;
-        var placeringStyle = udvalgsdata.customTabeller.budgetopfølgning[ct].placeringStyle;
+      if (udvalgsdata.hasOwnProperty("customTabeller")) {
+        if (udvalgsdata.customTabeller.hasOwnProperty("budgetopfølgning")) {
+          for (var ct in udvalgsdata.customTabeller.budgetopfølgning) {
+            var placering = udvalgsdata.customTabeller.budgetopfølgning[ct].placering;
+            var placeringStyle = udvalgsdata.customTabeller.budgetopfølgning[ct].placeringStyle;
 
-        // Identificerer placeringen i dokumentet ud fra placering og placeringStyle
-        var paragraphs = context.document.body.paragraphs;
-        paragraphs = paragraphs.load("items");
-        await context.sync();
-        for (var paragraph in paragraphs.items) {  
-          if (paragraphs.items[paragraph]._Te == placering & paragraphs.items[paragraph]._Sty == placeringStyle) { 
-
-            // Henter data til tabellen
-            var rowsFullArray = udvalgsdata.customTabeller.budgetopfølgning[ct].rækker;
-            var rows = rowsFullArray.map(subArray => subArray[0])
-            var rowsCount = rows.length;
-            var columns = udvalgsdata.customTabeller.budgetopfølgning[ct].kolonner;
-            var tabelBeskrivelse = udvalgsdata.customTabeller.budgetopfølgning[ct].beskrivelse;
-            var tabelnr = udvalgsdata.customTabeller.budgetopfølgning[ct].tabelnr;
-
-            // Bygger tabelmatrice
-            var data = buildTableMatrix(rows,columns,false,false,withData);
-
-            // Vælger relevant afsnit og indsætter tabel
-            paragraphs.items[paragraph].select();
+            // Identificerer placeringen i dokumentet ud fra placering og placeringStyle
+            var paragraphs = context.document.body.paragraphs;
+            paragraphs = paragraphs.load("items");
             await context.sync();
-            var indsatTabel = paragraphs.items[paragraph].insertTable(data.length, data[0].length, "After", data);
+            for (var paragraph in paragraphs.items) {  
+              if (paragraphs.items[paragraph]._Te == placering & paragraphs.items[paragraph]._Sty == placeringStyle) { 
 
-            indsatTabel.select();
-            await context.sync();
-            formatSelectedTable();
+                // Henter data til tabellen
+                var rowsFullArray = udvalgsdata.customTabeller.budgetopfølgning[ct].rækker;
+                var rows = rowsFullArray.map(subArray => subArray[0])
+                var rowsCount = rows.length;
+                var columns = udvalgsdata.customTabeller.budgetopfølgning[ct].kolonner;
+                var tabelBeskrivelse = udvalgsdata.customTabeller.budgetopfølgning[ct].beskrivelse;
+                var tabelnr = udvalgsdata.customTabeller.budgetopfølgning[ct].tabelnr;
 
-            insertBookmark(indsatTabel, udvalgsdata.customTabeller.budgetopfølgning[ct].kortnavn, i);
+                // Bygger tabelmatrice
+                var data = buildTableMatrix(rows,columns,false,false,withData);
 
-            var indsatFodnote = context.document.body.insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note, Word.InsertLocation.end);
-            indsatFodnote.font.size = 9;
-            indsatFodnote.font.italic = true;
-            await context.sync(); 
+                // Vælger relevant afsnit og indsætter tabel
+                paragraphs.items[paragraph].select();
+                await context.sync();
+                var indsatTabel = paragraphs.items[paragraph].insertTable(data.length, data[0].length, "After", data);
 
-            var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
-            emptyParagraph.styleBuiltIn = "Normal";
-            await context.sync();
+                indsatTabel.select();
+                await context.sync();
+                formatSelectedTable();
 
-            tableAltBeskObj(udvalgsdata.customTabeller.budgetopfølgning[ct].navn, tabelBeskrivelse, tabelnr);
+                insertBookmark(indsatTabel, udvalgsdata.customTabeller.budgetopfølgning[ct].kortnavn, i);
+
+                var indsatFodnote = context.document.body.insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note, Word.InsertLocation.end);
+                indsatFodnote.font.size = 9;
+                indsatFodnote.font.italic = true;
+                await context.sync(); 
+
+                var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+                emptyParagraph.styleBuiltIn = "Normal";
+                await context.sync();
+
+                tableAltBeskObj(udvalgsdata.customTabeller.budgetopfølgning[ct].navn, tabelBeskrivelse, tabelnr);
+              }
+            }
           }
         }
       }
