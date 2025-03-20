@@ -27,7 +27,7 @@
             "anlæg":[
                 {
                     "skattefinansierede":[
-                        ["Skattefinansierede anlæg", "7300020SA.0023"]
+                        ["Skattefinansierede anlæg", "7300020S.0023"]
                     ]
                 }
             ]
@@ -62,6 +62,7 @@
                 "placeringStyle":"Heading5",
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "tabelnr":2,
+                "total":false,
                 "beskrivelse": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
                 "kolonner":[
                     "Service (mio. kr.)",	

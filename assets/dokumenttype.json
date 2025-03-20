@@ -19,7 +19,7 @@
         "struktur":{
             "drift":{
                 "overskrift":"Drift",
-                "standardtekst":"Nedenfor redegøres for regnskabsresultat {{lastYear}} på drift for bevillingsområdet {{omraade}}."
+                "standardtekst":"Nedenfor redegøres for ... på drift for bevillingsområdet {{omraade}}."
             },
             "drift_s":{
                 "servicerammen":{
@@ -271,7 +271,39 @@
                     "{{budgetperiode2}}",
                     "{{budgetperiode3}}",	
                     "Anlægsbevillinger"
-                ]
+                ],
+                "rækker":{
+                    "servicerammen":[
+                        ["Servicerammen","7300020A.0024"]
+                    ],
+                    "indkomstoverførsler":[
+                        ["Indkomstoverførsler","'7300020B.0022"]   
+                    ],
+                    "ældreboliger":[
+                        ["Ældreboliger - drift","7300020G.0022"]
+                    ],
+                    "brugerfinansieret":[
+                        ["Brugerfinansierede udgifter - drift","7300020F.0022"]
+                    ],
+                    "centralerefusion":[
+                        ["Centrale refusionsordninger mv.","7300020D.0022"]
+                    ],
+                    "aktivitetsbestemt":[
+                        ["Aktivitetsbestemt medfinansiering","7300020E.0022"]
+                    ],
+                    "skattefinansierede":[
+                        ["Skattefinansierede anlæg","7300020S.0024"]
+                    ],
+                    "ældreboligeranlæg":[
+                        ["Ældreboliger - anlæg","7300020T.0022"] 
+                    ],
+                    "brugerfinansieretanlæg":[
+                        ["Brugerfinansierede udgifter - anlæg","7300020U.0022"]
+                    ],
+                    "jordforsyning":[
+                        ["Jordforsyning","7300020V.0022"]  
+                    ]
+                }
             }
         }
     },

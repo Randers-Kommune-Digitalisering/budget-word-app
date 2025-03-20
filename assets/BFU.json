@@ -15,14 +15,14 @@
                         ["Særlige dagtilbud","7300020ABD30.0023"]
                     ],
                     "projekter":[
-                        ["Projekter","BD20A4","BD22A4"]
+                        ["Projekter","BD20A4"]    
                     ]
                 }  
             ],
             "anlæg":[
                 {
                     "skattefinansierede":[
-                        ["Skattefinansierede anlæg","7300020SB.0023"]
+                        ["Skattefinansierede anlæg","7300020S.0023"]
                     ]
                 }
             ]
@@ -39,15 +39,14 @@
                         ["Myndighedscentret (adm.)","7300020ABE30.0023"]
                     ],
                     "projekter":[
-                        ["Projekter","BE25A4","BE20A4"]
+                        ["Projekter","BE25A4"]
                     ],
                     "indkomstoverførsler":[
                         ["Forebyggende foranstaltninger og indsats","7300020BBE20.0023"]
                     ],
                     "centralerefusion":[
                         ["Plejefamilier","7300020DBE10.0023"],
-                        ["Opholdssteder, sikrede samt døgninst.","7300020DBE15.0023"],
-                        ["Forebyggende foranstaltninger og indsats","7300020DBE20.0023"]
+                        ["Opholdssteder, sikrede samt døgninst.","7300020DBE15.0023"]
                     ]
                 }
             ]

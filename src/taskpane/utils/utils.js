@@ -112,7 +112,6 @@ export async function formatIntermediateSumRow() {
         }
       }
     }
-    
   });
 }
 

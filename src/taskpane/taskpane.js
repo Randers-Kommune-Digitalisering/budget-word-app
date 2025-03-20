@@ -22,6 +22,7 @@ Office.onReady((info) => {
     document.getElementById("rydSidehoved").onclick = () => tryCatch(rydSidehoved);
     document.getElementById("rydAltTools").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydAltDev").onclick = () => tryCatch(rydAlt);
+    document.getElementById("rydValgtTabel").onclick = () => tryCatch(rydValgtTabel);
     document.getElementById("formaterTabellerBO").onclick = () => tryCatch(formaterTabeller);
     document.getElementById("formatSelectedTable").onclick = () => tryCatch(formatSelectedTable);
     document.getElementById("formatSelectedTableBB").onclick = () => tryCatch(formaterTabellerBBSelected);
@@ -33,6 +34,30 @@ Office.onReady((info) => {
     document.getElementById("file").addEventListener("change", checkfile);
   }
 });
+
+export async function rydValgtTabel() {
+  return Word.run(async (context) => {
+    // Loader valgt tabel
+    const selection = context.document.getSelection();
+    selection.load("parentTable");
+    await context.sync();
+    const table = selection.parentTable;  
+
+    var bookmark = table.getRange().getBookmarks(true);
+    await context.sync();
+    if (bookmark.m_value && bookmark.m_value.length > 0) {
+      console.log(bookmark.m_value[0]);
+    } else {
+      console.log("Intet bogmærke fundet");
+    }
+
+    // Fjerner tabel
+    table.delete();
+    await context.sync();
+
+
+  });
+}
 
 function openDialog(title, message) {
   var title = title ? title : "Fejl";
@@ -61,40 +86,44 @@ function buildTableMatrix(rows, columns, projects = null, total = true, rowsFull
 
   var inputRows = rowsFullArray == null ? rows : rowsFullArray;
   var dataFromFile = generateTable(columns, inputRows, withData, valgtDokumentDetajle, fileType, 0)
-  console.table(dataFromFile)
-  var dataFromFileFinal = dataProjectsTotalsRounding(dataFromFile, projects, "", true, valgtDokumentDetajle, fileType);
-  console.table(dataFromFileFinal)
-
-  for (var row in rows) {
-    var temp = []
-    temp.push(rows[row])
-    for (var column = 0; column < columns.length-1; column++) {
-      temp.push("")
-    } 
-    data.push(temp)
+  console.log("projects: ",projects[0])
+  if (projects[0] != null) {
+    var dataFromFile = dataProjectsTotalsRounding(dataFromFile, projects, "I alt ekskl. projekter", true, valgtDokumentDetajle, fileType, total);
+  } else {
+    var dataFromFile = dataProjectsTotalsRounding(dataFromFile, null, null, true, valgtDokumentDetajle, fileType, total);
   }
-  /*
-  if (projects) {
-    var extraRows = ["I alt uden projekter", "Projekter"];
-    for (var extraRow = 0; extraRow <= extraRows.length - 1; extraRow++) {
-      var temp = []
-      temp.push(extraRows[extraRow])
-      for (var column = 0; column < columns.length-1; column++) {
-        temp.push("")
-      }
-      data.push(temp)
-    }
-  }
-  */
-  if (total) {
-    /* Tilføjer i alt */
-    var temp = []
-    temp.push("I alt")
-    for (var column = 0; column < columns.length-1; column++) {
-      temp.push("")
-    }
-    data.push(temp)
-  }
+  
+  data = dataFromFile; 
+  // for (var row in rows) {
+  //   var temp = []
+  //   temp.push(rows[row])
+  //   for (var column = 0; column < columns.length-1; column++) {
+  //     temp.push("")
+  //   } 
+  //   data.push(temp)
+  // }
+  // /*
+  // if (projects) {
+  //   var extraRows = ["I alt uden projekter", "Projekter"];
+  //   for (var extraRow = 0; extraRow <= extraRows.length - 1; extraRow++) {
+  //     var temp = []
+  //     temp.push(extraRows[extraRow])
+  //     for (var column = 0; column < columns.length-1; column++) {
+  //       temp.push("")
+  //     }
+  //     data.push(temp)
+  //   }
+  // }
+  // */
+  // if (total) {
+  //   /* Tilføjer i alt */
+  //   var temp = []
+  //   temp.push("I alt")
+  //   for (var column = 0; column < columns.length-1; column++) {
+  //     temp.push("")
+  //   }
+  //   data.push(temp)
+  // }
   return data
 }
 
@@ -381,7 +410,7 @@ function roundNestedArray(arr) {
 
 function dataProjectsTotalsRounding(
   data,
-  projekter,
+  projekter = null,
   deletekst = "I alt uden projekter",
   withData,
   valgtDokumentDetajle,
@@ -861,9 +890,10 @@ export async function skabelon() {
                 var columns = udvalgsdata.customTabeller.budgetopfølgning[ct].kolonner;
                 var tabelBeskrivelse = udvalgsdata.customTabeller.budgetopfølgning[ct].beskrivelse;
                 var tabelnr = udvalgsdata.customTabeller.budgetopfølgning[ct].tabelnr;
+                var insertTotal=udvalgsdata.customTabeller.budgetopfølgning[ct].total;
 
                 // Bygger tabelmatrice
-                var data = buildTableMatrix(rows,columns,false,false,withData);
+                var data = buildTableMatrix(rows,columns,null,insertTotal,rowsFullArray);
 
                 // Vælger relevant afsnit og indsætter tabel
                 paragraphs.items[paragraph].select();

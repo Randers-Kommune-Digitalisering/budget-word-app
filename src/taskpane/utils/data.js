@@ -55,9 +55,9 @@ export function readFile(file) {
         let excel_file = XLSX.read(evt.target.result);
         globalData=[]
         for (let sheet in sheets) {
-          console.log("Sheet", sheet)
+          // console.log("Sheet", sheet)
           let data_sheet = excel_file.Sheets[sheets[sheet]];
-          console.log("data_sheet", data_sheet)
+          // console.log("data_sheet", data_sheet)
           if (data_sheet) {
               globalData.push(data_sheet);
               console.log("GlobalData", globalData)
@@ -80,11 +80,11 @@ export function generateTable(columns, rows, withData, dateType, fileType, sheet
         let id = null
         if(rows[i].length === 2) id = rows[i][1]
         else id = rows[i].slice(1)
-        console.log("ID", id)
+        // console.log("ID", id)
         if(id && withData){
           let first_column = rows[i][0]
           let data = getRowData(id, dateTypes.indexOf(dateType), globalData[sheet], fileTypes.indexOf(fileType))
-          console.log(data)
+          // console.log(data)
           table.push([first_column, ...data])
         } else {
             let tmp_row = [rows[i][0]]
