@@ -44,7 +44,7 @@ var globalData = null;
 
 export function readFile(file) {
     //let sheets=["Input","Input - MTU","Input - BF - CT1","Input - SU - CT1","Input - EP - CT1"]
-    let sheets=["Input"]  
+    let sheets=["Input","Input-bev","Input-anl"]  
     const reader = new FileReader();
     reader.onload = function(evt) {
       if(evt.target.readyState != 2) return;
@@ -74,17 +74,20 @@ export function readFile(file) {
 }
 
 export function generateTable(columns, rows, withData, dateType, fileType, sheet=0) {
+    console.log("Sheet", sheet) 
     let table = [columns]
     for (var i in rows){
+      console.log("Rows", rows[i])
+      console.log("Array.isArray(rows[i])", Array.isArray(rows[i]))
       if(Array.isArray(rows[i]) && rows[i].length > 1) {
         let id = null
         if(rows[i].length === 2) id = rows[i][1]
         else id = rows[i].slice(1)
-        // console.log("ID", id)
+        console.log("ID", id)
         if(id && withData){
           let first_column = rows[i][0]
           let data = getRowData(id, dateTypes.indexOf(dateType), globalData[sheet], fileTypes.indexOf(fileType))
-          // console.log(data)
+          console.log(data)
           table.push([first_column, ...data])
         } else {
             let tmp_row = [rows[i][0]]
@@ -131,7 +134,7 @@ function getRowData(id, date, sheet, fileType) {
         let row = (getRowById(false, sheet, id) ? getRowById(false, sheet, id)[0].slice(1) : undefined)
         rows.push(row)
     }
-
+    console.log("Rows", rows) 
     if(rows){
         let totalValues = []
         rows.forEach(row => {
@@ -168,6 +171,7 @@ function getRowData(id, date, sheet, fileType) {
                 //values = values.map(value => (Math.round(value * 10) / 10).toFixed(1))   Flyttes da det giver afrundingsfejl
                 totalValues.push(values)
             } else throw Error("Data error: row for id '" + id + "' not found")
+              
         });
         let res = null
         if(totalValues.length > 1){

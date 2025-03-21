@@ -273,36 +273,35 @@
                     "Anlægsbevillinger"
                 ],
                 "rækker":{
-                    "servicerammen":[
+                    "servicerammen":
                         ["Servicerammen","7300020A.0024"]
-                    ],
-                    "indkomstoverførsler":[
+                    ,
+                    "indkomstoverførsler":
                         ["Indkomstoverførsler","'7300020B.0022"]   
-                    ],
-                    "ældreboliger":[
+                    ,
+                    "ældreboliger":
                         ["Ældreboliger - drift","7300020G.0022"]
-                    ],
-                    "brugerfinansieret":[
+                    ,
+                    "brugerfinansieret":
                         ["Brugerfinansierede udgifter - drift","7300020F.0022"]
-                    ],
-                    "centralerefusion":[
+                    ,
+                    "centralerefusion":
                         ["Centrale refusionsordninger mv.","7300020D.0022"]
-                    ],
-                    "aktivitetsbestemt":[
+                    ,
+                    "aktivitetsbestemt":
                         ["Aktivitetsbestemt medfinansiering","7300020E.0022"]
-                    ],
-                    "skattefinansierede":[
+                    ,
+                    "skattefinansierede":
                         ["Skattefinansierede anlæg","7300020S.0024"]
-                    ],
-                    "ældreboligeranlæg":[
+                    ,
+                    "ældreboligeranlæg":
                         ["Ældreboliger - anlæg","7300020T.0022"] 
-                    ],
-                    "brugerfinansieretanlæg":[
+                    ,
+                    "brugerfinansieretanlæg":
                         ["Brugerfinansierede udgifter - anlæg","7300020U.0022"]
-                    ],
-                    "jordforsyning":[
+                    ,
+                    "jordforsyning":
                         ["Jordforsyning","7300020V.0022"]  
-                    ]
                 }
             }
         }

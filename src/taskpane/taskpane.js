@@ -78,15 +78,18 @@ function processMessage(arg) {
   dialog.close();
 }
 
-function buildTableMatrix(rows, columns, projects = null, total = true, rowsFullArray = null) {
-  console.log(projects)
+function buildTableMatrix(rows, columns, projects = null, total = true, rowsFullArray = null, datasheet=0) {
   var projects = [projects];
-  console.log(projects)
   var data = [columns];
 
   var inputRows = rowsFullArray == null ? rows : rowsFullArray;
-  var dataFromFile = generateTable(columns, inputRows, withData, valgtDokumentDetajle, fileType, 0)
-  console.log("projects: ",projects[0])
+
+  console.log(columns, inputRows, withData)
+  console.log("InputRows", inputRows) 
+
+  var dataFromFile = generateTable(columns, inputRows, withData, valgtDokumentDetajle, fileType, datasheet);
+  console.log(dataFromFile);
+
   if (projects[0] != null) {
     var dataFromFile = dataProjectsTotalsRounding(dataFromFile, projects, "I alt ekskl. projekter", true, valgtDokumentDetajle, fileType, total);
   } else {
@@ -94,36 +97,7 @@ function buildTableMatrix(rows, columns, projects = null, total = true, rowsFull
   }
   
   data = dataFromFile; 
-  // for (var row in rows) {
-  //   var temp = []
-  //   temp.push(rows[row])
-  //   for (var column = 0; column < columns.length-1; column++) {
-  //     temp.push("")
-  //   } 
-  //   data.push(temp)
-  // }
-  // /*
-  // if (projects) {
-  //   var extraRows = ["I alt uden projekter", "Projekter"];
-  //   for (var extraRow = 0; extraRow <= extraRows.length - 1; extraRow++) {
-  //     var temp = []
-  //     temp.push(extraRows[extraRow])
-  //     for (var column = 0; column < columns.length-1; column++) {
-  //       temp.push("")
-  //     }
-  //     data.push(temp)
-  //   }
-  // }
-  // */
-  // if (total) {
-  //   /* Tilføjer i alt */
-  //   var temp = []
-  //   temp.push("I alt")
-  //   for (var column = 0; column < columns.length-1; column++) {
-  //     temp.push("")
-  //   }
-  //   data.push(temp)
-  // }
+
   return data
 }
 
@@ -146,7 +120,7 @@ export async function loadBookmark() {
     } else {
       console.log("Intet bogmærke fundet");
       return null;
-    }
+    } 
   });
 }
 
@@ -753,8 +727,6 @@ export async function skabelon() {
 
                     var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? udvalgsdata.bevillingsområde[i][substruktur][0].projekter[0] : null);
                     
-                    console.log(rowsFullArray)
-                    // var data = generateTable(columns, rows, withData, valgtDokumentDetajle, fileType, 0)
                     var data = buildTableMatrix(rows,columns,includeProjects,true,rowsFullArray);
 
                     var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
@@ -818,7 +790,8 @@ export async function skabelon() {
                 if (udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty(k)) {
                   // Tilføjes til listen over rækker, hvis den ikke allerede findes   
                   if (!rows.includes(dokumentdata[0].struktur[j][k].overskrift)) { 
-                    rows.push(dokumentdata[0].struktur[j][k].overskrift);
+                    // rows.push(dokumentdata[0].tabeller.bevillingsansøgninger.rækker[k]);
+                    rows.push(dokumentdata[0].struktur[j][k].overskrift);           
                   }
                 }
               }
@@ -835,7 +808,20 @@ export async function skabelon() {
       
       var tabelBeskrivelse = dokumentdata[0].tabeller.bevillingsansøgninger.beskrivelse;
       
-      var data = buildTableMatrix(rows,columns,null,true,false);
+
+      // var data = buildTableMatrix(rows,columns,null,true,rows,1);
+
+      var data = [columns];
+  
+      for (var i in rows) {
+        var rowBuild = [rows[i]];
+        for (var j in columns-1){
+          rowBuild.push("");
+        }
+        data.push(rowBuild);
+      }
+      data.push(["I alt","","","","",""])
+      console.log(data)
 
       var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
       indsatTabel.select();
