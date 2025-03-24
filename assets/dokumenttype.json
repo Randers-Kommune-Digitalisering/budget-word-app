@@ -19,32 +19,32 @@
         "struktur":{
             "drift":{
                 "overskrift":"Drift",
-                "standardtekst":"Nedenfor redegøres for ... på drift for bevillingsområdet {{omraade}}."
+                "standardtekst":""
             },
             "drift_s":{
                 "servicerammen":{
                     "overskrift":"Servicerammen",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Service."
                 },
                 "indkomstoverførsler":{
                     "overskrift":"Indkomstoverførsler",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Indkomstoverførsler."
                 },
                 "ældreboliger":{
                     "overskrift":"Ældreboliger - drift",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Ældreboliger - drift."
                 },
                 "brugerfinansieret":{
                     "overskrift":"Brugerfinansierede udgifter - drift",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Brugerfinansierede udgifter - drift."
                 },
                 "centralerefusion":{
                     "overskrift":"Centrale refusionsordninger mv.",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Centrale refusionsordninger mv."
                 },
                 "aktivitetsbestemt":{
                     "overskrift":"Aktivitetsbestemt medfinansiering",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Aktivitiesbestemt medfinansiering."
                 }
             },
             "anlæg":{
@@ -54,19 +54,19 @@
             "anlæg_s":{
                 "skattefinansierede":{
                     "overskrift":"Skattefinansierede anlæg",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Skattefinansierede anlæg."
                 },
                 "ældreboligeranlæg":{
                     "overskrift":"Ældreboliger - anlæg",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Ældreboliger - anlæg."
                 },
                 "brugerfinansieretanlæg":{
                     "overskrift":"Brugerfinansierede udgifter - anlæg",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Brugerfinansierede udgifter - anlæg."
                 },
                 "jordforsyning":{
                     "overskrift":"Jordforsyning",
-                    "standardtekst":""
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Jordforsyning."
                 }
 
             }

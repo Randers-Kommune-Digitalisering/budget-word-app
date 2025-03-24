@@ -186,6 +186,12 @@ b {
     cursor: pointer;
 }
 
+.helpicon {
+    margin-right:10px;
+    color: rgba(153, 20, 38, 1);
+    cursor: pointer;
+}
+
 .skjult {
     display:none;
 }

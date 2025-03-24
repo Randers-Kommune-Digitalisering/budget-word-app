@@ -820,7 +820,7 @@ export async function skabelon() {
         }
         data.push(rowBuild);
       }
-      data.push(["I alt","","","","",""])
+      data.push(["I alt","","","","",""]) 
       console.log(data)
 
       var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
