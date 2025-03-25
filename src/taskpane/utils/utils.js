@@ -155,6 +155,7 @@ export async function formatSelectedTable() {
 
     // Styler tabel som standardtabel
     table.styleBuiltIn = "TableGrid";
+    table.headerRowCount = 1;
 
     // Styler tekst i tabel
     // Loop over alle rækker

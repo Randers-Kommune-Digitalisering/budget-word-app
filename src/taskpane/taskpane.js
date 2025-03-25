@@ -881,23 +881,37 @@ export async function skabelon() {
                 // Bygger tabelmatrice
                 var data = buildTableMatrix(rows,columns,null,insertTotal,rowsFullArray);
 
-                // Vælger relevant afsnit og indsætter tabel
+                // Indledende tekst
                 paragraphs.items[paragraph].select();
                 await context.sync();
-                var indsatTabel = paragraphs.items[paragraph].insertTable(data.length, data[0].length, "After", data);
+                var indsatTekst = paragraphs.items[paragraph].insertParagraph(tabelBeskrivelse,"After")
+                indsatTekst.styleBuiltIn = "Normal";
+
+                // Vælger relevant afsnit og indsætter tabel
+                var nextParagraph = Number(paragraph)+1 
+                nextParagraph = nextParagraph.toString()
+                paragraphs.items[nextParagraph].select();
+
+                await context.sync();
+                var indsatTabel = paragraphs.items[nextParagraph].insertTable(data.length, data[0].length, "Before", data);
 
                 indsatTabel.select();
                 await context.sync();
                 formatSelectedTable();
+                await context.sync();
 
                 insertBookmark(indsatTabel, udvalgsdata.customTabeller.budgetopfølgning[ct].kortnavn, i);
-
-                var indsatFodnote = context.document.body.insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note, Word.InsertLocation.end);
+                
+                paragraphs.items[nextParagraph].select();
+                await context.sync();
+                var indsatFodnote = paragraphs.items[nextParagraph].insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note,"Start");
                 indsatFodnote.font.size = 9;
                 indsatFodnote.font.italic = true;
                 await context.sync(); 
 
-                var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+                paragraphs.items[nextParagraph].select();
+                await context.sync();
+                var emptyParagraph = paragraphs.items[nextParagraph].insertParagraph("", "After");
                 emptyParagraph.styleBuiltIn = "Normal";
                 await context.sync();
 

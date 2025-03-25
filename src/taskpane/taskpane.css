@@ -210,8 +210,26 @@ b {
 }
 
 #skabeloner{display:block;}
-#tools, #tools_overskrift, #dev, #dev_overskrift, #about, #about_overskrift{display:none;}
+#tools, #tools_overskrift, #dev, #dev_overskrift, #news, #news_overskrift, #about, #about_overskrift{display:none;}
 
-.pointer {
-    
-}
+.version-history {
+    margin: 20px 0;
+    padding: 10px;
+    border-left: 2px solid rgba(28, 53, 122, 1);; /* Accent color */
+    background-color: #f9f9f9;
+  }
+  
+  .version-history p {
+    margin: 5px 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .version-history ul {
+    margin: 10px 0 0 20px;
+    padding: 0;
+    list-style-type: disc;
+  }
+  
+  .version-history li {
+    margin: 5px 0;
+  }
