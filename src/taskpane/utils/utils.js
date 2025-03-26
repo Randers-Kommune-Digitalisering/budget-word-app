@@ -149,9 +149,11 @@ export async function formatSelectedTable() {
   return Word.run(async (context) => {
     const selection = context.document.getSelection();
     selection.load("parentTable");
+    console.log(selection);
     await context.sync();
 
     const table = selection.parentTable;  
+    // context.trackedObjects.add(table);
 
     // Styler tabel som standardtabel
     table.styleBuiltIn = "TableGrid";

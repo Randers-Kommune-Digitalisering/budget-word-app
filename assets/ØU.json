@@ -60,9 +60,12 @@
                 "kortnavn":"socialarb",
                 "placering":"Social og Arbejdsmarked",
                 "placeringStyle":"Heading5",
+                "placeringOmkringAfsnit":"Efter",
+                "nytAfsnit":false,
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "tabelnr":2,
                 "total":false,
+                "dataArk":0,
                 "beskrivelse": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for delområde Social og arbejdsmarked under Økonomiudvalget",
                 "kolonner":[
                     "Service (mio. kr.)",	

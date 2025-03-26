@@ -5,13 +5,10 @@
 //import { ContextExclusionPlugin } from "webpack";
 import { formaterTabeller, formaterTabellerBB, formaterTabellerBBSelected, formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
-import { platform } from "process";
 
 const required_styles = ["Brev/notat KORT (O1)"];
 const allowed_files = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"];
 let dialog = null;
-
-let rowColor="";
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -23,7 +20,7 @@ Office.onReady((info) => {
     document.getElementById("rydAltTools").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydAltDev").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydValgtTabel").onclick = () => tryCatch(rydValgtTabel);
-    document.getElementById("formaterTabellerBO").onclick = () => tryCatch(formaterTabeller);
+    document.getElementById("formaterTabellerBO").onclick = () => tryCatch(formatAllTables);
     document.getElementById("formatSelectedTable").onclick = () => tryCatch(formatSelectedTable);
     document.getElementById("formatSelectedTableBB").onclick = () => tryCatch(formaterTabellerBBSelected);
     document.getElementById("formatSelectedTableBuiltIn").onclick = () => tryCatch(formatSelectedTableBuildIn);
@@ -34,6 +31,29 @@ Office.onReady((info) => {
     document.getElementById("file").addEventListener("change", checkfile);
   }
 });
+
+export async function formatAllTables() {
+  return Word.run(async (context) => {
+    // Load all tables in the document
+    const tables = context.document.body.tables;
+    tables.load("items");
+    await context.sync();
+
+    // Loop through each table and format it
+    for (let i = 0; i < tables.items.length; i++) {
+      const table = tables.items[i];
+      table.select(); // Select the table
+      // context.trackedObjects.add(table);
+
+      // Call the formatSelectedTable function
+      await formatSelectedTable();
+
+      // context.trackedObjects.remove(table);
+    }
+
+    console.log("All tables have been formatted.");
+  });
+}
 
 export async function rydValgtTabel() {
   return Word.run(async (context) => {
@@ -81,14 +101,8 @@ function processMessage(arg) {
 function buildTableMatrix(rows, columns, projects = null, total = true, rowsFullArray = null, datasheet=0) {
   var projects = [projects];
   var data = [columns];
-
-  var inputRows = rowsFullArray == null ? rows : rowsFullArray;
-
-  console.log(columns, inputRows, withData)
-  console.log("InputRows", inputRows) 
-
+  var inputRows = rowsFullArray == null ? rows : rowsFullArray; 
   var dataFromFile = generateTable(columns, inputRows, withData, valgtDokumentDetajle, fileType, datasheet);
-  console.log(dataFromFile);
 
   if (projects[0] != null) {
     var dataFromFile = dataProjectsTotalsRounding(dataFromFile, projects, "I alt ekskl. projekter", true, valgtDokumentDetajle, fileType, total);
@@ -96,8 +110,7 @@ function buildTableMatrix(rows, columns, projects = null, total = true, rowsFull
     var dataFromFile = dataProjectsTotalsRounding(dataFromFile, null, null, true, valgtDokumentDetajle, fileType, total);
   }
   
-  data = dataFromFile; 
-
+  data = dataFromFile;
   return data
 }
 
@@ -858,6 +871,7 @@ export async function skabelon() {
       // Custom tabeller
       if (udvalgsdata.hasOwnProperty("customTabeller")) {
         if (udvalgsdata.customTabeller.hasOwnProperty("budgetopfølgning")) {
+          var indsatteTabeller = {}
           for (var ct in udvalgsdata.customTabeller.budgetopfølgning) {
             var placering = udvalgsdata.customTabeller.budgetopfølgning[ct].placering;
             var placeringStyle = udvalgsdata.customTabeller.budgetopfølgning[ct].placeringStyle;
@@ -869,6 +883,20 @@ export async function skabelon() {
             for (var paragraph in paragraphs.items) {  
               if (paragraphs.items[paragraph]._Te == placering & paragraphs.items[paragraph]._Sty == placeringStyle) { 
 
+                // Placering
+                var placering = udvalgsdata.customTabeller.budgetopfølgning[ct].placeringOmkringAfsnit
+
+                // Identifikation af afsnit
+                if (placering == "Før") {
+                  var currentParagraph = Number(paragraph)-1;
+                  currentParagraph = currentParagraph.toString();
+                  var nextParagraph = paragraph;
+                } else if (placering == "Efter") {
+                  var currentParagraph = paragraph;
+                  var nextParagraph = Number(paragraph)+1 
+                  nextParagraph = nextParagraph.toString();
+                } 
+
                 // Henter data til tabellen
                 var rowsFullArray = udvalgsdata.customTabeller.budgetopfølgning[ct].rækker;
                 var rows = rowsFullArray.map(subArray => subArray[0])
@@ -876,50 +904,99 @@ export async function skabelon() {
                 var columns = udvalgsdata.customTabeller.budgetopfølgning[ct].kolonner;
                 var tabelBeskrivelse = udvalgsdata.customTabeller.budgetopfølgning[ct].beskrivelse;
                 var tabelnr = udvalgsdata.customTabeller.budgetopfølgning[ct].tabelnr;
-                var insertTotal=udvalgsdata.customTabeller.budgetopfølgning[ct].total;
+                var insertTotal = udvalgsdata.customTabeller.budgetopfølgning[ct].total;
+                var dataArk = udvalgsdata.customTabeller.budgetopfølgning[ct].dataArk;
 
                 // Bygger tabelmatrice
-                var data = buildTableMatrix(rows,columns,null,insertTotal,rowsFullArray);
-
-                // Indledende tekst
-                paragraphs.items[paragraph].select();
-                await context.sync();
-                var indsatTekst = paragraphs.items[paragraph].insertParagraph(tabelBeskrivelse,"After")
-                indsatTekst.styleBuiltIn = "Normal";
-
-                // Vælger relevant afsnit og indsætter tabel
-                var nextParagraph = Number(paragraph)+1 
-                nextParagraph = nextParagraph.toString()
-                paragraphs.items[nextParagraph].select();
-
-                await context.sync();
-                var indsatTabel = paragraphs.items[nextParagraph].insertTable(data.length, data[0].length, "Before", data);
-
-                indsatTabel.select();
-                await context.sync();
-                formatSelectedTable();
-                await context.sync();
-
-                insertBookmark(indsatTabel, udvalgsdata.customTabeller.budgetopfølgning[ct].kortnavn, i);
+                var data = buildTableMatrix(rows,columns,null,insertTotal,rowsFullArray,dataArk);
                 
+                // Indsætter indledende tekst og evt. afsnitsoverskrift
+                if (placering === "Efter") {
+                  paragraphs.items[currentParagraph].select();
+                  await context.sync();
+                  var indsatTekst = paragraphs.items[currentParagraph].insertParagraph(tabelBeskrivelse, "After");
+                  indsatTekst.styleBuiltIn = "Normal";
+                
+                  if (udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnit === true) {
+                    var indsatAfsnit = paragraphs.items[currentParagraph].insertParagraph(udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnitNavn,"After");
+                    indsatAfsnit.styleBuiltIn = udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnitStyle;
+                  }
+                } else if (placering === "Før") {
+                  if (udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnit === true) {
+                    var indsatAfsnit = paragraphs.items[currentParagraph].insertParagraph(udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnitNavn,"After");
+                    indsatAfsnit.styleBuiltIn = udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnitStyle;
+                  }
+                
+                  paragraphs.items[currentParagraph].select();
+                  await context.sync();
+                  var indsatTekst = paragraphs.items[currentParagraph].insertParagraph(tabelBeskrivelse, "After");
+                  indsatTekst.styleBuiltIn = "Normal";
+                }
+                await context.sync();
+
+                // Indsætter tabel
                 paragraphs.items[nextParagraph].select();
                 await context.sync();
-                var indsatFodnote = paragraphs.items[nextParagraph].insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note,"Start");
+                indsatteTabeller[ct] = paragraphs.items[nextParagraph].insertTable(data.length, data[0].length, "Before", data);
+                console.log("indsatteTabeller: ", ct, indsatteTabeller)
+
+                // // Formaterer tabel
+                // indsatteTabeller[ct].select();
+                // await context.sync();
+                // formatSelectedTable();
+                // await context.sync();
+
+                // // Indsætter bogmærke
+                insertBookmark(indsatteTabeller[ct], udvalgsdata.customTabeller.budgetopfølgning[ct].kortnavn, i);
+                
+                // Indsætter fodnote
+                await context.sync();
+                if (placering === "Efter") {
+                    paragraphs.items[nextParagraph].select(); 
+                    var indsatFodnote = paragraphs.items[nextParagraph].insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note,"End"); 
+                } else if (placering === "Før") {
+                    paragraphs.items[nextParagraph].select();
+                    await context.sync(); 
+                    var indsatAfsnit = paragraphs.items[nextParagraph].insertParagraph("", "Before");
+                    indsatAfsnit.styleBuiltIn = "Normal";
+                    indsatAfsnit.select();
+                    var indsatFodnote = indsatAfsnit.insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note,"Start");
+
+                }
                 indsatFodnote.font.size = 9;
-                indsatFodnote.font.italic = true;
+                indsatFodnote.font.italic = true; 
                 await context.sync(); 
 
-                paragraphs.items[nextParagraph].select();
-                await context.sync();
-                var emptyParagraph = paragraphs.items[nextParagraph].insertParagraph("", "After");
-                emptyParagraph.styleBuiltIn = "Normal";
-                await context.sync();
 
-                tableAltBeskObj(udvalgsdata.customTabeller.budgetopfølgning[ct].navn, tabelBeskrivelse, tabelnr);
+                // Indsætter tomt afsnit efter afsnittet CT blev indsat 
+                if (placering === "Efter") {
+                  paragraphs.items[nextParagraph].select();
+                  await context.sync();
+                  var emptyParagraph = paragraphs.items[nextParagraph].insertParagraph("", "After");
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
+
+                  paragraphs.items[currentParagraph].select();
+                  await context.sync();
+                  var emptyParagraph = paragraphs.items[currentParagraph].insertParagraph("", "After");
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
+                }
+                if (placering === "Før") {
+                  paragraphs.items[nextParagraph].select();
+                  await context.sync();
+                  var emptyParagraph = paragraphs.items[nextParagraph].insertParagraph("", "Before");
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
+                }
+                
+
+                // // Indsætter tabelbeskrivelse i dokumentkommentarer
+                tableAltBeskObj(udvalgsdata.customTabeller.budgetopfølgning[ct].navn, tabelBeskrivelse, tabelnr); 
               }
             }
           }
-        }
+        }   
       }
     }
     if (valgtDokument == "Budgetopfølgning") {

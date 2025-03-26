@@ -1,5 +1,6 @@
 import * as XLSX from 'xlsx';
 import { sumArrays } from './utils.js';
+import { nextTick } from 'process';
 
 // Constants
 const dataSheetName = "Input";
@@ -44,7 +45,7 @@ var globalData = null;
 
 export function readFile(file) {
     //let sheets=["Input","Input - MTU","Input - BF - CT1","Input - SU - CT1","Input - EP - CT1"]
-    let sheets=["Input","Input-bev","Input-anl"]  
+    let sheets=["Input","Input-bev","Input-anl","Ark1"]  
     const reader = new FileReader();
     reader.onload = function(evt) {
       if(evt.target.readyState != 2) return;
@@ -57,12 +58,14 @@ export function readFile(file) {
         for (let sheet in sheets) {
           // console.log("Sheet", sheet)
           let data_sheet = excel_file.Sheets[sheets[sheet]];
+          console.log(data_sheet)
           // console.log("data_sheet", data_sheet)
           if (data_sheet) {
               globalData.push(data_sheet);
               console.log("GlobalData", globalData)
           } else {
-            throw("Kunne ikke finde Input-arket. Prøv igen.");
+            continue;
+            // throw("Kunne ikke finde Input-arket. Prøv igen.");
           }
         }
       } catch (error) {
