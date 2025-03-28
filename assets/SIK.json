@@ -59,5 +59,42 @@
         "Skattefinansierede anlæg"
     ],
     "fakta":["Antal børn og unge i børne- og ungetandplejen:","Antal voksne i tandplejen:","Antal kontakter/besøg sundhedsplejen:","Antal genoptræningsplaner","Antal deltagere i forløbsprogrammer"],
-    "politikker":["Sundhedspolitik"]
+    "politikker":["Sundhedspolitik"],
+    "customTabeller":{
+        "budgetopfølgning":[
+            {  
+                "navn":"Serviceudgifter samlet",
+                "kortnavn":"servicesamlet",
+                "placering":"Resumé",
+                "placeringStyle":"Heading2",
+                "placeringOmkringAfsnit":"Efter",
+                "nytAfsnit":false,
+                "nytAfsnitNavn":"",
+                "nytAfsnitStyle":"",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "tabelnr":1,
+                "total":false,
+                "dataArk":0,
+                "beskrivelse": "Tabellen viser service udgifter samlet for Sundheds-, idræts- og kulturudvalget og dertil medfinansiering på sundhedsområdet.",
+                "kolonner":[
+                    "Drift i alt (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "rækker":[
+                    ["Kultur og fritid","7300020AFM.0023","FM15A4","FM20A4"],
+                    ["Sundhedsområdet","7300020AFN.0023","FN25A4"],                            
+                    ["I alt serviceudgifter","7300020AFM.0023","7300020AFN.0023","FM15A4","FM20A4","FN25A4"],
+                    ["Medfinansiering på sundhedsområdet","7300020EFN10.0023"], 
+                    ["I alt","7300020AFM.0023","7300020AFN.0023","FM15A4","FM20A4","FN25A4","7300020EFN10.0023"]  
+                ]
+            }
+        ] 
+    } 
 }

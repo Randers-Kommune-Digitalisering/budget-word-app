@@ -102,12 +102,13 @@ function buildTableMatrix(rows, columns, projects = null, total = true, rowsFull
   var projects = [projects];
   var data = [columns];
   var inputRows = rowsFullArray == null ? rows : rowsFullArray; 
+  console.log("withData", withData);
   var dataFromFile = generateTable(columns, inputRows, withData, valgtDokumentDetajle, fileType, datasheet);
 
   if (projects[0] != null) {
-    var dataFromFile = dataProjectsTotalsRounding(dataFromFile, projects, "I alt ekskl. projekter", true, valgtDokumentDetajle, fileType, total);
+    var dataFromFile = dataProjectsTotalsRounding(dataFromFile, projects, "I alt ekskl. projekter", withData, valgtDokumentDetajle, fileType, total);
   } else {
-    var dataFromFile = dataProjectsTotalsRounding(dataFromFile, null, null, true, valgtDokumentDetajle, fileType, total);
+    var dataFromFile = dataProjectsTotalsRounding(dataFromFile, null, null, withData, valgtDokumentDetajle, fileType, total);
   }
   
   data = dataFromFile;
@@ -264,6 +265,7 @@ export async function rydAlt() {
     // Ryd alt i body
     context.document.body.clear();
     await context.sync();
+    withData = false;
   });
 }
 
@@ -617,11 +619,13 @@ export async function skabelon() {
       await context.sync();
       context.document.properties.set({
         title:
-          dokumentdata[0].langtNavn +
-          " - " +
           valgtUdvalg +
           " – " +
-          lastYear,
+          dokumentdata[0].langtNavn.toLowerCase() +
+          " pr. " +
+          valgtDokumentDetajle +
+          " " +
+          currentYear,
       });
 
       // Resume og tomt afsnit til at skrive i
@@ -940,10 +944,10 @@ export async function skabelon() {
                 indsatteTabeller[ct] = paragraphs.items[nextParagraph].insertTable(data.length, data[0].length, "Before", data);
                 console.log("indsatteTabeller: ", ct, indsatteTabeller)
 
-                // // Formaterer tabel
-                // indsatteTabeller[ct].select();
-                // await context.sync();
-                // formatSelectedTable();
+                // Formaterer tabel
+                indsatteTabeller[ct].select();
+                await context.sync();
+                formatSelectedTable();
                 // await context.sync();
 
                 // // Indsætter bogmærke
@@ -953,7 +957,7 @@ export async function skabelon() {
                 await context.sync();
                 if (placering === "Efter") {
                     paragraphs.items[nextParagraph].select(); 
-                    var indsatFodnote = paragraphs.items[nextParagraph].insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note,"End"); 
+                    var indsatFodnote = paragraphs.items[nextParagraph].insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note,"End");
                 } else if (placering === "Før") {
                     paragraphs.items[nextParagraph].select();
                     await context.sync(); 

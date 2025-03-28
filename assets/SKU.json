@@ -52,8 +52,8 @@
     "customTabeller":{
         "budgetopfølgning":[
             {  
-                "navn":"ct1",
-                "kortnavn":"socialarb",
+                "navn":"Aftaleenheder",
+                "kortnavn":"aftaleenheder",
                 "placering":"Forberedende Grunduddannelse",
                 "placeringStyle":"Heading5",
                 "placeringOmkringAfsnit":"Efter",

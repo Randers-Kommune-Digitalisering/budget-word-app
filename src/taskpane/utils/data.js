@@ -77,16 +77,17 @@ export function readFile(file) {
 }
 
 export function generateTable(columns, rows, withData, dateType, fileType, sheet=0) {
-    console.log("Sheet", sheet) 
+    console.log("withData", withData)
+    // console.log("Sheet", sheet) 
     let table = [columns]
     for (var i in rows){
-      console.log("Rows", rows[i])
-      console.log("Array.isArray(rows[i])", Array.isArray(rows[i]))
+      // console.log("Rows", rows[i])
+      // console.log("Array.isArray(rows[i])", Array.isArray(rows[i]))
       if(Array.isArray(rows[i]) && rows[i].length > 1) {
         let id = null
         if(rows[i].length === 2) id = rows[i][1]
         else id = rows[i].slice(1)
-        console.log("ID", id)
+        // console.log("ID", id)
         if(id && withData){
           let first_column = rows[i][0]
           let data = getRowData(id, dateTypes.indexOf(dateType), globalData[sheet], fileTypes.indexOf(fileType))
