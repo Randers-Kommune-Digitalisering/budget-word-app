@@ -1,0 +1,41 @@
+{
+    "udvalg":"Socialudvalget - børnehandicap",
+    "forkortelse":"SUb",
+    "bevillingsområde": [   
+        {
+            "navn":"Børnehandicap",
+            "drift":[
+                {
+                    "servicerammen":[
+                        ["Børnehandicap","7300020ADH10.0023"]
+                    ],
+                    "indkomstoverførsler":[
+                        ["Børnehandicap","7300020BDH10.0023"]
+                    ],
+                    "centralerefusion":[
+                        ["Børnehandicap","300020DDH10.0023"]     
+                    ]
+                }  
+            ]
+        }
+    ],
+    "bevillingsansøgninger":[
+        "Servicerammen",
+        "Indkomstoverførsler",
+        "Centrale refusionsordninger mv."
+    ], 
+    "fakta":[
+        "Botilbud til voksne",
+        "Mestringsvejledning i eget hjem",
+        "Herberg/forsorgshjem",
+        "",
+        "Misbrugsbehandling stof",
+        "Misbrugsbehandling alkohol",
+        "",
+        "Børn og unge i døgntilbud",
+        "Børn og unge i forebyggende tilbud"
+    ],
+    "politikker":[
+        "Politik for borgere med særlige behov"
+    ]
+}
