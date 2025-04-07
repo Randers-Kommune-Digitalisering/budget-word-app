@@ -3,7 +3,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
-import { formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays } from "./utils/utils.js";
+import { formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays, styleTable } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
 
 const required_styles = ["Brev/notat KORT (O1)"];
@@ -939,15 +939,16 @@ export async function skabelon() {
 
                 // Indsætter tabel
                 paragraphs.items[nextParagraph].select();
+
+                // Spacing before has been set to some value somewhere - god knows where - setting to 0 as to not mess with the table
+                paragraphs.items[nextParagraph].spaceBefore = 0;
+                
                 await context.sync();
                 indsatteTabeller[ct] = paragraphs.items[nextParagraph].insertTable(data.length, data[0].length, "Before", data);
                 console.log("indsatteTabeller: ", ct, indsatteTabeller)
 
                 // Formaterer tabel
-                indsatteTabeller[ct].select();
-                await context.sync();
-                formatSelectedTable();
-                // await context.sync();
+                await styleTable(indsatteTabeller[ct]); // this should work async but it is called synchronously because indsatteTabeller is being messed with.
 
                 // // Indsætter bogmærke
                 insertBookmark(indsatteTabeller[ct], udvalgsdata.customTabeller.budgetopfølgning[ct].kortnavn, i);

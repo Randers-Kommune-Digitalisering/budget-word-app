@@ -407,3 +407,101 @@ export async function replaceWordsWithLinks() {
     console.log(error.message);
   });
 }
+
+// New function to format tables - added as to not change the original formaterSelectedTable function
+// It has been rewritten - did not really follow the other - tried to make it more readable
+export async function styleTable(table) {
+  // Settinng some default values for the table - STARTS HERE
+  // Style entire table 
+  table.styleBuiltIn = "TableGrid";
+  table.horizontalAlignment = "Centered";
+  table.verticalAlignment = "Center";
+  table.headerRowCount = 1;
+  table.font.name = "Calibri";
+  table.font.color = "#000000";
+  table.font.bold = false;
+  table.font.size = 9;
+  table.width = 468;
+  table.cellPadding = 0;
+  table.setCellPadding("Top", 2);
+  table.setCellPadding("Bottom", 2);
+  
+  // Remove all borders
+  var borderLocation = Word.BorderLocation.all;
+  var border = table.getBorder(borderLocation);
+  await table.context.sync();
+  border.set({ type: "none" });
+
+  // Add horizontal lines
+  var borderLocation = Word.BorderLocation.insideHorizontal;
+  var border = table.getBorder(borderLocation);
+  await table.context.sync();
+  border.set({ color: "#D9D9D9", width: 0.5, type: "Single" });
+  // Settinng some default values for the table - ENDS HERE
+
+  // get rows
+  const rows = table.rows;
+  rows.load("items");
+  await table.context.sync();
+
+  // Setting styles unique to the first column and getting which rows have special styling - STARTS HERE
+  // Find rows with special styling and add unique styling for first column
+  var rowsWithSpecialStyling = [];
+  var rowIndex = 0;
+
+  for (const row of rows.items) {
+    const firstCell = row.cells.getFirst();
+    firstCell.load("value, horizontalAlignment, cellPadding");
+    await table.context.sync();
+
+    // get rows with special styling
+    if (firstCell.value == 'I alt' || rowIndex === 0) {
+      firstCell.setCellPadding("Left", 5);  // set padding for first cell
+      rowsWithSpecialStyling.push(rowIndex);
+    } else {
+      firstCell.setCellPadding("Left", 10); // set padding for first cell
+    }
+
+    // make first column left aligned
+    firstCell.horizontalAlignment = "Left";
+    rowIndex++;
+  }
+  // Setting styles unique to the first column and getting which rows have special styling - ENDS HERE
+
+  // Apply styling to rows with special styling - STARTS HERE
+  for (var i = 0; i < rows.items.length; i++) {
+    if (rowsWithSpecialStyling.includes(i)) {
+      // for both header and I alt rows
+      var border = rows.items[i].getBorder(Word.BorderLocation.bottom);
+      border.set({ color: "#808080", width: 1, type: "Single" });
+      var border = rows.items[i].getBorder(Word.BorderLocation.top);
+      border.set({ color: "#808080", width: 1, type: "Single" });
+      rows.items[i].shadingColor = "#DDEBF7";
+      rows.items[i].font.bold = true;
+      rows.items[i].font.name = "Calibri";
+      }
+
+      // Unique to header - Set padding and column width for header
+      // here is also some style applying to entire table (the column width applies to all rows)
+      if (i == 0) {
+        const row = rows.items[i];
+        row.load("cells/items");
+        await rows.context.sync();
+        const cells = rows.items[i].cells;
+        const leftColumnFactor = cells.items.length > 3 ? 0.3 : 0.4;
+        for (var j = 0; j < cells.items.length; j++) {
+          cells.items[j].setCellPadding("Top", 10);
+          cells.items[j].setCellPadding("Bottom", 10);
+          if (j == 0) {
+            cells.items[j].columnWidth = table.width * leftColumnFactor;
+          } else {
+            cells.items[j].columnWidth = table.width  * ((1-leftColumnFactor)/(cells.items.length-1));
+          }
+        }
+        await cells.context.sync();
+      }
+    }
+  // Apply styling to rows with special styling - ENDS HERE
+
+  await rows.context.sync();
+}
