@@ -16,50 +16,68 @@
             "31. maj",
             "30. september"
         ],
-        "sektioner":[
-            "Resumé",
-            "Bevilling",
-            "Anlæg",
-            "Bevillingsansøgninger"
-        ],
-        "undersektioner":[
-            {
-                "bevilling":[
-                    "Servicerammen",
-                    "Indkomstoverførsler",
-                    "Ældreboliger",
-                    "Brugerfinansieret område",
-                    "Centrale refusionsordninger mv.",
-                    "Aktivitetsbestemt medfinansiering"
-                ]
-            },  
-            {
-                "anlæg":[
-                    "Skattefinansierede anlæg",
-                    "Ældreboliger - anlæg",
-                    "Brugerfinansierede udgifter - anlæg",
-                    "Jordforsyning"
-                ]
+        "struktur":{
+            "drift":{
+                "overskrift":"Drift",
+                "standardtekst":""
             },
-            {
-                "bevillingsansøgninger":[
-                    "Servicerammen",
-                    "Indkomstoverførsler",
-                    "Ældreboliger",
-                    "Brugerfinansieret område",
-                    "Centrale refusionsordninger mv.",
-                    "Aktivitetsbestemt medfinansiering",
-                    "Skattefinansierede anlæg",
-                    "Ældreboliger - anlæg",
-                    "Brugerfinansierede udgifter - anlæg",
-                    "Jordforsyning"
-                ]
+            "drift_s":{
+                "servicerammen":{
+                    "overskrift":"Servicerammen",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Service."
+                },
+                "indkomstoverførsler":{
+                    "overskrift":"Indkomstoverførsler",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Indkomstoverførsler."
+                },
+                "ældreboliger":{
+                    "overskrift":"Ældreboliger - drift",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Ældreboliger - drift."
+                },
+                "brugerfinansieret":{
+                    "overskrift":"Brugerfinansierede udgifter - drift",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Brugerfinansierede udgifter - drift."
+                },
+                "centralerefusion":{
+                    "overskrift":"Centrale refusionsordninger mv.",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Centrale refusionsordninger mv."
+                },
+                "aktivitetsbestemt":{
+                    "overskrift":"Aktivitetsbestemt medfinansiering",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Aktivitiesbestemt medfinansiering."
+                }
+            },
+            "anlæg":{
+                "overskrift":"Anlæg",
+                "standardtekst":""
+            },
+            "anlæg_s":{
+                "skattefinansierede":{
+                    "overskrift":"Skattefinansierede anlæg",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Skattefinansierede anlæg."
+                },
+                "ældreboligeranlæg":{
+                    "overskrift":"Ældreboliger - anlæg",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Ældreboliger - anlæg."
+                },
+                "brugerfinansieretanlæg":{
+                    "overskrift":"Brugerfinansierede udgifter - anlæg",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Brugerfinansierede udgifter - anlæg."
+                },
+                "jordforsyning":{
+                    "overskrift":"Jordforsyning",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Jordforsyning."
+                }
+
             }
-        ],
-        "tabelindhold": [
-            {
-                "type":0,
-                "overskrifter":[
+        },
+        "tabeller":{
+            "servicerammen":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde {{bevillingsomraade}}.",
+                "navn":"Service",
+                "kortnavn":"Service",
+                "kolonner":[
                     "Service (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
@@ -71,9 +89,29 @@
                     "Årets forventede resultat inkl. overførsler"
                 ]
             },
-            {
-                "type":1,
-                "overskrifter":[
+            "projekter":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for projekter, bevillingsområde {{bevillingsomraade}}.",
+                "navn":"Projekter",
+                "kortnavn":"Projekter",
+                "kolonner":[
+                    "Projekter (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ]
+            },
+            "indkomstoverførsler":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for indkomstoverførsler, bevillingsområde {{bevillingsomraade}}.",
+                "navn":"Indkomstoverførsler",
+                "kortnavn":"Indkomstoverførsler",
+                "kolonner":[
                     "Indkomstoverførsler (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
@@ -85,10 +123,13 @@
                     "Årets forventede resultat inkl. overførsler"
                 ]
             },
-            {
-                "type":2,
-                "overskrifter":[
-                    "Ældreboliger drift (mio. kr.)",	
+            "ældreboliger":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for ældreboliger - drift, bevillingsområde {{bevillingsomraade}}.",
+                "navn":"Ældreboliger - drift",
+                "kortnavn":"Ældreboliger_drift",
+                "kolonner":[
+                    "Ældreboliger - drift (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
@@ -99,10 +140,13 @@
                     "Årets forventede resultat inkl. overførsler"
                 ]
             },
-            {
-                "type":3,
-                "overskrifter":[
-                    "Brugerfinansieret område - drift (mio. kr.)",	
+            "brugerfinansieret":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for det brugerfinansierede udgifter - drift, bevillingsområde {{bevillingsomraade}}.",
+                "navn":"Brugerfinansierede udgifter - drift",
+                "kortnavn":"Brugerfin_udg_drift",
+                "kolonner":[
+                    "Brugerfinansierede udgifter - drift (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
@@ -113,9 +157,12 @@
                     "Årets forventede resultat inkl. overførsler"
                 ]
             },
-            {
-                "type":4,
-                "overskrifter":[
+            "centralerefusion":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for centrale refusionsordninger mv., bevillingsområde {{bevillingsomraade}}",
+                "navn":"Centrale refusionsordninger mv.",
+                "kortnavn":"Centrale_refusioner",
+                "kolonner":[
                     "Centrale refusionsordninger mv. (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
@@ -127,9 +174,12 @@
                     "Årets forventede resultat inkl. overførsler"
                 ]
             },
-            {
-                "type":5,
-                "overskrifter":[
+            "aktivitetsbestemt":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aktivitetsbestemt medfinansiering, bevillingsområde {{bevillingsomraade}}",
+                "navn":"Aktivitetsbestemt medfinansiering",
+                "kortnavn":"Aktbestemt_medfin",
+                "kolonner":[
                     "Aktivitetsbestemt medfinansiering (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
@@ -141,10 +191,13 @@
                     "Årets forventede resultat inkl. overførsler"
                 ]
             },
-            {
-                "type":6,
-                "overskrifter":[
-                    "Anlæg (mio. kr.)",	
+            "skattefinansierede":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for skattefinansierede anlæg, bevillingsområde {{bevillingsomraade}}",
+                "navn":"Skattefinansierede anlæg",
+                "kortnavn":"Skattefinansierede_anlæg",
+                "kolonner":[
+                    "Skattefinansierede anlæg (mio. kr.)",	
                     "Oprindeligt budget",	
                     "Korrigeret budget ekskl. overførsler",	
                     "Bevillings-ansøgninger",	
@@ -155,25 +208,103 @@
                     "Årets forventede resultat inkl. overførsler"
                 ]
             },
-            {
-                "type":7,
-                "overskrifter":[
-                    "Bevillingsansøgninger (mio. kr.)",
-                    "2024",
-                    "2025",
-                    "2026",
-                    "2027",
-                    "Anlægsbevillinger"
+            "ældreboligeranlæg":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for ældreboliger - anlæg, bevillingsområde {{bevillingsomraade}}",
+                "navn":"Ældreboliger - anlæg",
+                "kortnavn":"Ældreboliger_anlæg",
+                "kolonner":[
+                    "Ældreboliger - anlæg (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
                 ]
             },
-            {
-                "standardfodnoter":[
-                    "Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
-                    "Note: Minus angiver indtægter, plus angiver udgifter."
+            "brugerfinansieretanlæg":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for brugerfinansierede udgifter - anlæg, bevillingsområde {{bevillingsomraade}}",
+                "navn":"Brugerfinansierede udgifter - anlæg",
+                "kortnavn":"Brugerfin_udg_anlæg",
+                "kolonner":[
+                    "Brugerfinansierede udgifter - anlæg (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
                 ]
+            },
+            "jordforsyning":{
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for jordforsyning, bevillingsområde {{bevillingsomraade}}",
+                "navn":"Jordforsyning",
+                "kortnavn":"Jordforsyning",
+                "kolonner":[
+                    "Jordforsyning (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans.",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ]
+            },
+            "bevillingsansøgninger":{
+                "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsårene.",
+                "navn":"Bevillingsansøgninger",
+                "kortnavn":"Bevillingsansøgninger",
+                "kolonner":[
+                    "Bevillingsansøgninger (mio. kr.)",	
+                    "{{currentYear}}",
+                    "{{budgetperiode1}}",
+                    "{{budgetperiode2}}",
+                    "{{budgetperiode3}}",	
+                    "Anlægsbevillinger"
+                ],
+                "rækker":{
+                    "servicerammen":
+                        ["Servicerammen","7300020A.0024"]
+                    ,
+                    "indkomstoverførsler":
+                        ["Indkomstoverførsler","'7300020B.0022"]   
+                    ,
+                    "ældreboliger":
+                        ["Ældreboliger - drift","7300020G.0022"]
+                    ,
+                    "brugerfinansieret":
+                        ["Brugerfinansierede udgifter - drift","7300020F.0022"]
+                    ,
+                    "centralerefusion":
+                        ["Centrale refusionsordninger mv.","7300020D.0022"]
+                    ,
+                    "aktivitetsbestemt":
+                        ["Aktivitetsbestemt medfinansiering","7300020E.0022"]
+                    ,
+                    "skattefinansierede":
+                        ["Skattefinansierede anlæg","7300020S.0024"]
+                    ,
+                    "ældreboligeranlæg":
+                        ["Ældreboliger - anlæg","7300020T.0022"] 
+                    ,
+                    "brugerfinansieretanlæg":
+                        ["Brugerfinansierede udgifter - anlæg","7300020U.0022"]
+                    ,
+                    "jordforsyning":
+                        ["Jordforsyning","7300020V.0022"]  
+                }
             }
-        ],
-        "kolonnebredde1":[20,10,10,10,10,10,10,10,10]
+        }
     },
     {
         "type":"Budgetbemærkninger del 1",
@@ -236,7 +367,7 @@
         "struktur":{
             "drift":{
                 "overskrift":"Drift",
-                "standardtekst":"Nedenfor redegøres for regnskabsresultat {{lastYear}} for bevillingsområdet {{omraade}}."
+                "standardtekst":"Nedenfor redegøres for regnskabsresultat {{lastYear}} på drift for bevillingsområdet {{omraade}}."
             },
             "drift_s":{
                 "servicerammen":{
@@ -297,6 +428,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde {{bevillingsomraade}}.",
                 "navn":"Service",
+                "kortnavn":"Service",
                 "kolonner":[
                     "Service (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -312,6 +444,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for projekter, bevillingsområde {{bevillingsomraade}}.",
                 "navn":"Projekter",
+                "kortnavn":"Projekter",
                 "kolonner":[
                     "Projekter (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -327,6 +460,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for indkomstoverførsler, bevillingsområde {{bevillingsomraade}}.",
                 "navn":"Indkomstoverførsler",
+                "kortnavn":"Indkomstoverførsler",
                 "kolonner":[
                     "Indkomstoverførsler (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -342,6 +476,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for ældreboliger - drift, bevillingsområde {{bevillingsomraade}}.",
                 "navn":"Ældreboliger - drift",
+                "kortnavn":"Ældreboliger_drift",
                 "kolonner":[
                     "Ældreboliger - drift (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -357,6 +492,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for det brugerfinansierede udgifter - drift, bevillingsområde {{bevillingsomraade}}.",
                 "navn":"Brugerfinansierede udgifter - drift",
+                "kortnavn":"Brugerfin_udg_drift",
                 "kolonner":[
                     "Brugerfinansierede udgifter - drift (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -372,6 +508,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for centrale refusionsordninger mv., bevillingsområde {{bevillingsomraade}}",
                 "navn":"Centrale refusionsordninger mv.",
+                "kortnavn":"Centrale_refusioner",
                 "kolonner":[
                     "Centrale refusionsordninger mv. (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -387,6 +524,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aktivitetsbestemt medfinansiering, bevillingsområde {{bevillingsomraade}}",
                 "navn":"Aktivitetsbestemt medfinansiering",
+                "kortnavn":"Aktbestemt_medfin",
                 "kolonner":[
                     "Aktivitetsbestemt medfinansiering (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -402,6 +540,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for skattefinansierede anlæg, bevillingsområde {{bevillingsomraade}}",
                 "navn":"Skattefinansierede anlæg",
+                "kortnavn":"Skattefinansierede_anlæg",
                 "kolonner":[
                     "Skattefinansierede anlæg (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -417,6 +556,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for ældreboliger - anlæg, bevillingsområde {{bevillingsomraade}}",
                 "navn":"Ældreboliger - anlæg",
+                "kortnavn":"Ældreboliger_anlæg",
                 "kolonner":[
                     "Ældreboliger - anlæg (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -432,6 +572,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for brugerfinansierede udgifter - anlæg, bevillingsområde {{bevillingsomraade}}",
                 "navn":"Brugerfinansierede udgifter - anlæg",
+                "kortnavn":"Brugerfin_udg_anlæg",
                 "kolonner":[
                     "Brugerfinansierede udgifter - anlæg (mio. kr.)",	
                     "Oprindeligt budget",	
@@ -447,6 +588,7 @@
                 "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
                 "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for jordforsyning, bevillingsområde {{bevillingsomraade}}",
                 "navn":"Jordforsyning",
+                "kortnavn":"Jordforsyning",
                 "kolonner":[
                     "Jordforsyning (mio. kr.)",	
                     "Oprindeligt budget",	

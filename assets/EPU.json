@@ -16,10 +16,10 @@
             "anlæg":[
                 {
                     "skattefinansierede":[
-                        ["Skattefinansierede anlæg","7300020SJ.0023"]
+                        ["Skattefinansierede anlæg","7300020S.0023"]
                     ],
                     "jordforsyning":[
-                        ["Jordforsyning","7300020VJ.0023"]  
+                        ["Jordforsyning","7300020V.0023"]  
                     ]
                 }
             ]
@@ -33,5 +33,73 @@
     "fakta":[
     ],
     "politikker":[
-    ]
+    ],
+    "customTabeller":{
+        "budgetopfølgning":[
+            {  
+                "navn":"ct1",
+                "kortnavn":"skatanlæg",
+                "placering":"Bevillingsansøgninger",
+                "placeringStyle":"Heading2",
+                "placeringOmkringAfsnit":"Før",
+                "nytAfsnit":false,
+                "nytAfsnitNavn":"",
+                "nytAfsnitStyle":"",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "tabelnr":3,
+                "total":false,
+                "dataArk":0,
+                "beskrivelse": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for skattefinansierede anlæg under Erhvervs- og planudvalget",
+                "kolonner":[
+                    "Skattefinansierede anlæg (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "rækker":[
+                    ["Flodbyen","7300020950"],
+                    ["Sekretariat og Bæredygtighed","7300020954"],
+                    ["Plan, By og Natur","7300020958"],
+                    ["I alt","7300020950","7300020954","7300020958"]
+                ]
+            },
+            {  
+                "navn":"ct2",
+                "kortnavn":"jordfors",
+                "placering":"Bevillingsansøgninger",
+                "placeringStyle":"Heading2",
+                "placeringOmkringAfsnit":"Før",
+                "nytAfsnit":false,
+                "nytAfsnitNavn":"",
+                "nytAfsnitStyle":"",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "tabelnr":4,
+                "total":false,
+                "dataArk":0,
+                "beskrivelse": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for jordforsyning under Erhvervs- og planudvalget",
+                "kolonner":[
+                    "Jordforsyning (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "rækker":[
+                    ["Grundsalg","7300020VJV10.0023"],
+                    ["Jordkøb","7300020VJV15.0023"],
+                    ["Byggemodning","7300020VJV20.0023"],
+                    ["I alt","7300020VJV10.0023","7300020VJV15.0023","7300020VJV20.0023"]
+                ]
+            }
+        ]
+    }    
 }

@@ -1,6 +1,6 @@
 {
-    "udvalg":"Socialudvalget",
-    "forkortelse":"SU",
+    "udvalg":"Socialudvalget - unge og voksne",
+    "forkortelse":"SUuv",
     "bevillingsområde": [   
         {
             "navn":"Tilbud til unge og voksne med særlige behov",
@@ -32,22 +32,6 @@
                         ["Ældreboliger - anlæg","7300020TD.0023"] 
                     ]
                 }
-            ]
-        },
-        {
-            "navn":"Børnehandicap",
-            "drift":[
-                {
-                    "servicerammen":[
-                        ["Børnehandicap","7300020ADH10.0023"]
-                    ],
-                    "indkomstoverførsler":[
-                        ["Børnehandicap","7300020BDH10.0023"]
-                    ],
-                    "centralerefusion":[
-                        ["Børnehandicap","300020DDH10.0023"]     
-                    ]
-                }  
             ]
         }
     ],

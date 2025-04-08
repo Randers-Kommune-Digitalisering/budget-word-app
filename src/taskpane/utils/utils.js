@@ -112,7 +112,6 @@ export async function formatIntermediateSumRow() {
         }
       }
     }
-    
   });
 }
 
@@ -150,12 +149,15 @@ export async function formatSelectedTable() {
   return Word.run(async (context) => {
     const selection = context.document.getSelection();
     selection.load("parentTable");
+    console.log(selection);
     await context.sync();
 
     const table = selection.parentTable;  
+    // context.trackedObjects.add(table);
 
     // Styler tabel som standardtabel
     table.styleBuiltIn = "TableGrid";
+    table.headerRowCount = 1;
 
     // Styler tekst i tabel
     // Loop over alle rækker
@@ -380,276 +382,6 @@ export async function formaterTabeller() {
 }
 
 
-// Formater tabeller til budgetbemærninger
-export async function formaterTabellerBBSelected() {
-  return Word.run(async (context) => {
-    const selection = context.document.getSelection();
-    selection.load("parentTable");
-    await context.sync();
-
-    const table = selection.parentTable;  
-
-    table.headerRowCount = 1;
-    table.font.bold = false;
-    table.font.size = 9;
-
-    // Fjerner alle rammer
-    var borderLocation = Word.BorderLocation.all;
-    var border = table.getBorder(borderLocation);
-    border.set({ type: "none" });
-
-    // Tilføjer horisontale streger
-    var borderLocation = Word.BorderLocation.insideHorizontal;
-    var border = table.getBorder(borderLocation);
-    border.set({ color: "#D9D9D9", width: 1, type: "Single" });
-
-    // Loop over alle rækker
-    var rækker = table.rows;
-    rækker.load("items");
-    await context.sync();
-    for (var i = 0; i < rækker.items.length; i++) {
-      rækker.items[i].verticalAlignment = "Center";
-
-      // Styler førster og sidste række
-      if ((i == 0) | (i == rækker.items.length - 1)) {
-        var borderLocation = Word.BorderLocation.top;
-        var border = rækker.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-        var borderLocation = Word.BorderLocation.bottom;
-        var border = rækker.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-        rækker.items[i].shadingColor = "#DDEBF7";
-        rækker.items[i].font.bold = true;
-        rækker.items[i].font.name = "Calibri";
-      }
-
-      // Loop over celler
-      var celler = rækker.items[i].cells;
-      celler.load("items");
-      await context.sync();
-      for (var k = 0; k < celler.items.length; k++) {
-        // Sætter padding
-        celler.items[k].setCellPadding("Top", 3);
-        celler.items[k].setCellPadding("Bottom", 3);
-        // kolonnebredde
-        if (k == 0) {
-          celler.items[k].columnWidth = 248;
-        }
-        if (k >= 1) {
-          celler.items[k].columnWidth = 61;
-        }
-
-        // Højrestiller kolonneoverskrifter til højre hvis kun tal -
-        // OBS: Redundant - gælder åbenbart ikke ikke BB-tabeller!
-        if ((i == 0) & (k > 0)) {
-          const årstal = /^\d{4}$/;
-          if (årstal.test(celler.items[k].value) == true) {
-            celler.items[k].horizontalAlignment = "Centered";
-          } else {
-            celler.items[k].horizontalAlignment = "Centered";
-          }
-        }
-        // Højrestiller kolonne > 1 og række > 1
-        if ((i > 0) & (k > 0)) {
-          celler.items[k].horizontalAlignment = "Right";
-        }
-        if ((k == 0) & (i > 0) & (i < rækker.items.length - 1)) {
-          celler.items[k].setCellPadding("Left", 10);
-        }
-        // Styler i alt-rækker
-        if (celler.items[k].value.slice(0, 5) == "I alt") {
-          // console.log(celler.items[k].value.slice(0, 5));
-          rækker.items[i].shadingColor = "#DDEBF7";
-          rækker.items[i].font.bold = true;
-          celler.items[k].setCellPadding("Top", 3);
-          celler.items[k].setCellPadding("Bottom", 3);
-          var borderLocation = Word.BorderLocation.top;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-          var borderLocation = Word.BorderLocation.bottom;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-        }
-        // Styler "servicerammen"
-        if (
-          (celler.items[k].value.slice(0, 13) == "Servicerammen") |
-          (celler.items[k].value.slice(0, 22) == "Uden for servicerammen") |
-          (celler.items[k].value.slice(0, 12) == "Udgangspunkt")
-        ) {
-          // console.log(celler.items[k].value.slice(0,5))
-          rækker.items[i].shadingColor = "#BDD7EE";
-          rækker.items[i].font.bold = true;
-          celler.items[k].setCellPadding("Top", 3);
-          celler.items[k].setCellPadding("Bottom", 3);
-          celler.items[k].setCellPadding("Left", 5);
-          var borderLocation = Word.BorderLocation.top;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-          var borderLocation = Word.BorderLocation.bottom;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-        }
-        // Styler afsnit i tabellen
-        if (
-          celler.items[k].value.slice(0, 13) == "Budgetaftale " ||
-          celler.items[k].value.slice(0, 9) == "Demografi" ||
-          celler.items[k].value.slice(0, 26) == "Budgetaftaler tidligere år" ||
-          celler.items[k].value.slice(0, 35) == "Tillægsbevillinger og omplaceringer" ||
-          celler.items[k].value.slice(0, 23) == "PL og øvrige ændringer" ||
-          celler.items[k].value.slice(0, 27) == "Ændringer fra tidligere år"
-        ) {
-          rækker.items[i].font.bold = true;
-        }
-        if (celler.items[k].value.slice(0, 21) == "Ændringer fra budget ") {
-          rækker.items[i].font.italic = true;
-        }
-        await context.sync();
-      }
-    }
-  });
-}
-
-
-
-// Formater tabeller til budgetbemærninger
-export async function formaterTabellerBB(tabel) {
-  return Word.run(async (context) => {
-    // console.log(tabel);
-
-    const tables = context.document.body.tables;
-    tables.load("items");
-
-    await context.sync();
-
-    // tilføjer custom tag til hver tabel
-    for (let i = 0; i < tables.items.length; i++) {
-      tables.items[i].tag = `tabel-${i}`;
-    }
-
-    // Afgrænser til relevant tabel
-    const table = tables.items.find((table) => table.tag === tabel);
-    await context.sync();
-
-    table.headerRowCount = 1;
-    table.font.bold = false;
-    table.font.size = 8;
-
-    // Fjerner alle rammer
-    var borderLocation = Word.BorderLocation.all;
-    var border = table.getBorder(borderLocation);
-    border.set({ type: "none" });
-
-    // Tilføjer horisontale streger
-    var borderLocation = Word.BorderLocation.insideHorizontal;
-    var border = table.getBorder(borderLocation);
-    border.set({ color: "#D9D9D9", width: 1, type: "Single" });
-
-    // Loop over alle rækker
-    var rækker = table.rows;
-    rækker.load("items");
-    await context.sync();
-    for (var i = 0; i < rækker.items.length; i++) {
-      rækker.items[i].verticalAlignment = "Center";
-
-      // Styler førster og sidste række
-      if ((i == 0) | (i == rækker.items.length - 1)) {
-        var borderLocation = Word.BorderLocation.top;
-        var border = rækker.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-        var borderLocation = Word.BorderLocation.bottom;
-        var border = rækker.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-        rækker.items[i].shadingColor = "#DDEBF7";
-        rækker.items[i].font.bold = true;
-        rækker.items[i].font.name = "Calibri";
-      }
-
-      // Loop over celler
-      var celler = rækker.items[i].cells;
-      celler.load("items");
-      await context.sync();
-      for (var k = 0; k < celler.items.length; k++) {
-        // Sætter padding
-        celler.items[k].setCellPadding("Top", 3);
-        celler.items[k].setCellPadding("Bottom", 3);
-        // kolonnebredde
-        if (k == 0) {
-          celler.items[k].columnWidth = 248;
-        }
-        if (k >= 1) {
-          celler.items[k].columnWidth = 61;
-        }
-
-        // Højrestiller kolonneoverskrifter til højre hvis kun tal -
-        // OBS: Redundant - gælder åbenbart ikke ikke BB-tabeller!
-        if ((i == 0) & (k > 0)) {
-          const årstal = /^\d{4}$/;
-          if (årstal.test(celler.items[k].value) == true) {
-            celler.items[k].horizontalAlignment = "Centered";
-          } else {
-            celler.items[k].horizontalAlignment = "Centered";
-          }
-        }
-        // Højrestiller kolonne > 1 og række > 1
-        if ((i > 0) & (k > 0)) {
-          celler.items[k].horizontalAlignment = "Right";
-        }
-        if ((k == 0) & (i > 0) & (i < rækker.items.length - 1)) {
-          celler.items[k].setCellPadding("Left", 10);
-        }
-        // Styler i alt-rækker
-        if (celler.items[k].value.slice(0, 5) == "I alt") {
-          // console.log(celler.items[k].value.slice(0, 5));
-          rækker.items[i].shadingColor = "#DDEBF7";
-          rækker.items[i].font.bold = true;
-          celler.items[k].setCellPadding("Top", 3);
-          celler.items[k].setCellPadding("Bottom", 3);
-          var borderLocation = Word.BorderLocation.top;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-          var borderLocation = Word.BorderLocation.bottom;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-        }
-        // Styler "servicerammen"
-        if (
-          (celler.items[k].value.slice(0, 13) == "Servicerammen") |
-          (celler.items[k].value.slice(0, 22) == "Uden for servicerammen") |
-          (celler.items[k].value.slice(0, 12) == "Udgangspunkt")
-        ) {
-          // console.log(celler.items[k].value.slice(0,5))
-          rækker.items[i].shadingColor = "#BDD7EE";
-          rækker.items[i].font.bold = true;
-          celler.items[k].setCellPadding("Top", 3);
-          celler.items[k].setCellPadding("Bottom", 3);
-          celler.items[k].setCellPadding("Left", 5);
-          var borderLocation = Word.BorderLocation.top;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-          var borderLocation = Word.BorderLocation.bottom;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-        }
-        // Styler afsnit i tabellen
-        if (
-          celler.items[k].value.slice(0, 13) == "Budgetaftale " ||
-          celler.items[k].value.slice(0, 9) == "Demografi" ||
-          celler.items[k].value.slice(0, 26) == "Budgetaftaler tidligere år" ||
-          celler.items[k].value.slice(0, 35) == "Tillægsbevillinger og omplaceringer" ||
-          celler.items[k].value.slice(0, 23) == "PL og øvrige ændringer" ||
-          celler.items[k].value.slice(0, 27) == "Ændringer fra tidligere år"
-        ) {
-          rækker.items[i].font.bold = true;
-        }
-        if (celler.items[k].value.slice(0, 21) == "Ændringer fra budget ") {
-          rækker.items[i].font.italic = true;
-        }
-        await context.sync();
-      }
-    }
-  });
-}
-
 export async function replaceWordsWithLinks() {
   return Word.run(async (context) => {
     const body = context.document.body;
@@ -674,4 +406,102 @@ export async function replaceWordsWithLinks() {
   }).catch(function (error) {
     console.log(error.message);
   });
+}
+
+// New function to format tables - added as to not change the original formaterSelectedTable function
+// It has been rewritten - did not really follow the other - tried to make it more readable
+export async function styleTable(table) {
+  // Settinng some default values for the table - STARTS HERE
+  // Style entire table 
+  table.styleBuiltIn = "TableGrid";
+  table.horizontalAlignment = "Centered";
+  table.verticalAlignment = "Center";
+  table.headerRowCount = 1;
+  table.font.name = "Calibri";
+  table.font.color = "#000000";
+  table.font.bold = false;
+  table.font.size = 9;
+  table.width = 468;
+  table.cellPadding = 0;
+  table.setCellPadding("Top", 2);
+  table.setCellPadding("Bottom", 2);
+  
+  // Remove all borders
+  var borderLocation = Word.BorderLocation.all;
+  var border = table.getBorder(borderLocation);
+  await table.context.sync();
+  border.set({ type: "none" });
+
+  // Add horizontal lines
+  var borderLocation = Word.BorderLocation.insideHorizontal;
+  var border = table.getBorder(borderLocation);
+  await table.context.sync();
+  border.set({ color: "#D9D9D9", width: 0.5, type: "Single" });
+  // Settinng some default values for the table - ENDS HERE
+
+  // get rows
+  const rows = table.rows;
+  rows.load("items");
+  await table.context.sync();
+
+  // Setting styles unique to the first column and getting which rows have special styling - STARTS HERE
+  // Find rows with special styling and add unique styling for first column
+  var rowsWithSpecialStyling = [];
+  var rowIndex = 0;
+
+  for (const row of rows.items) {
+    const firstCell = row.cells.getFirst();
+    firstCell.load("value, horizontalAlignment, cellPadding");
+    await table.context.sync();
+
+    // get rows with special styling
+    if (firstCell.value == 'I alt' || rowIndex === 0) {
+      firstCell.setCellPadding("Left", 5);  // set padding for first cell
+      rowsWithSpecialStyling.push(rowIndex);
+    } else {
+      firstCell.setCellPadding("Left", 10); // set padding for first cell
+    }
+
+    // make first column left aligned
+    firstCell.horizontalAlignment = "Left";
+    rowIndex++;
+  }
+  // Setting styles unique to the first column and getting which rows have special styling - ENDS HERE
+
+  // Apply styling to rows with special styling - STARTS HERE
+  for (var i = 0; i < rows.items.length; i++) {
+    if (rowsWithSpecialStyling.includes(i)) {
+      // for both header and I alt rows
+      var border = rows.items[i].getBorder(Word.BorderLocation.bottom);
+      border.set({ color: "#808080", width: 1, type: "Single" });
+      var border = rows.items[i].getBorder(Word.BorderLocation.top);
+      border.set({ color: "#808080", width: 1, type: "Single" });
+      rows.items[i].shadingColor = "#DDEBF7";
+      rows.items[i].font.bold = true;
+      rows.items[i].font.name = "Calibri";
+      }
+
+      // Unique to header - Set padding and column width for header
+      // here is also some style applying to entire table (the column width applies to all rows)
+      if (i == 0) {
+        const row = rows.items[i];
+        row.load("cells/items");
+        await rows.context.sync();
+        const cells = rows.items[i].cells;
+        const leftColumnFactor = cells.items.length > 3 ? 0.3 : 0.4;
+        for (var j = 0; j < cells.items.length; j++) {
+          cells.items[j].setCellPadding("Top", 10);
+          cells.items[j].setCellPadding("Bottom", 10);
+          if (j == 0) {
+            cells.items[j].columnWidth = table.width * leftColumnFactor;
+          } else {
+            cells.items[j].columnWidth = table.width  * ((1-leftColumnFactor)/(cells.items.length-1));
+          }
+        }
+        await cells.context.sync();
+      }
+    }
+  // Apply styling to rows with special styling - ENDS HERE
+
+  await rows.context.sync();
 }

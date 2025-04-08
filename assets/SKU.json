@@ -48,5 +48,64 @@
         "Skattefinansierede anlæg"
     ], 
     "fakta":["Antal folkeskoler:", "Antal specialklasser:","Antal almenklasser:","Antal specialklasser:","Elever i folkeskolen","Antal børn i SFO","Elever i specialklasser:","Elever i specialskoler:"],
-    "politikker":["Uddannelsespolitik","Sammenhængende børne- og ungepolitik"]
+    "politikker":["Uddannelsespolitik","Sammenhængende børne- og ungepolitik"],
+    "customTabeller":{
+        "budgetopfølgning":[
+            {  
+                "navn":"Aftaleenheder",
+                "kortnavn":"aftaleenheder",
+                "placering":"Forberedende Grunduddannelse",
+                "placeringStyle":"Heading5",
+                "placeringOmkringAfsnit":"Efter",
+                "nytAfsnit":true,
+                "nytAfsnitNavn":"Aftaleenheder",
+                "nytAfsnitStyle":"Heading4",
+                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                "tabelnr":2,
+                "total":false,
+                "dataArk":3,
+                "beskrivelse": "Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for aftaleenheder under Skole under Skole- og Uddannelsesudvalget",
+                "kolonner":[
+                    "Service (mio. kr.)",	
+                    "Oprindeligt budget",	
+                    "Korrigeret budget ekskl. overførsler",	
+                    "Bevillings-ansøgninger",	
+                    "Korrigeret budget ekskl. overførsler inkl. bevillingsans",	
+                    "Forventet forbrug",	
+                    "Årets forventede resultat ekskl. overførsler",	
+                    "Overførsler",
+                    "Årets forventede resultat inkl. overførsler"
+                ],
+                "rækker":[
+                    ["Asferg Skole","73000202101"],
+                    ["Assentoftskolen","73000202102"],
+                    ["Bjerregrav Skole","73000202103"],
+                    ["Blicherskolen","73000202104"],
+                    ["Fårup Skole og Børneby","73000202105"],
+                    ["Grønhøjskolen","73000202106"],
+                    ["Havndal Skole og Børneby","73000202107"],
+                    ["Hobrovejens Skole","73000202108"],
+                    ["Hornbæk Skole","73000202109"],
+                    ["Korshøjskolen","73000202110"],
+                    ["Kristrup Skole","73000202111"],
+                    ["Langå Skole","73000202112"],
+                    ["Munkholmskolen","73000202113"],
+                    ["Nørrevangsskolen","73000202114"],
+                    ["Rismølleskolen","73000202115"],
+                    ["Søndermarkskolen","73000202116"],
+                    ["Tirsdalens Skole","73000202117"],
+                    ["Vestervangsskolen","73000202118"],
+                    ["Østervangsskolen","73000202119"],
+                    ["Randers Specialskole","73000202124"],
+                    ["Oust Mølleskolen","73000202125"],
+                    ["Randers Ungdomsskole","73000202126"],
+                    ["Uddannelses- og erhvervsvejledning","73000202127"],
+                    ["I alt aftaleenheder","73000202101","73000202102","73000202103","73000202104","73000202105","73000202106","73000202107","73000202108","73000202109","73000202110","73000202111","73000202112","73000202113","73000202114","73000202115","73000202116","73000202117","73000202118","73000202119","73000202124","73000202125","73000202126","73000202127"],
+                    ["Uden for aftale","73000202.0025"],
+                    ["Projekter","73000204.0025"],
+                    ["I alt","73000202101","73000202102","73000202103","73000202104","73000202105","73000202106","73000202107","73000202108","73000202109","73000202110","73000202111","73000202112","73000202113","73000202114","73000202115","73000202116","73000202117","73000202118","73000202119","73000202124","73000202125","73000202126","73000202127","73000202.0025","73000204.0025"]
+                ]
+            }
+        ]
+    }
 }

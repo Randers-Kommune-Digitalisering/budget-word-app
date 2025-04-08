@@ -3,14 +3,12 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
-import { formaterTabeller, formaterTabellerBB, formaterTabellerBBSelected, formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays } from "./utils/utils.js";
+import { formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays, styleTable } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
 
 const required_styles = ["Brev/notat KORT (O1)"];
 const allowed_files = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"];
 let dialog = null;
-
-let rowColor="";
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -21,18 +19,64 @@ Office.onReady((info) => {
     document.getElementById("rydSidehoved").onclick = () => tryCatch(rydSidehoved);
     document.getElementById("rydAltTools").onclick = () => tryCatch(rydAlt);
     document.getElementById("rydAltDev").onclick = () => tryCatch(rydAlt);
-    document.getElementById("formaterTabellerBO").onclick = () => tryCatch(formaterTabeller);
+    document.getElementById("rydValgtTabel").onclick = () => tryCatch(rydValgtTabel);
+    document.getElementById("formaterTabellerBO").onclick = () => tryCatch(formatAllTables);
     document.getElementById("formatSelectedTable").onclick = () => tryCatch(formatSelectedTable);
-    document.getElementById("formatSelectedTableBB").onclick = () => tryCatch(formaterTabellerBBSelected);
     document.getElementById("formatSelectedTableBuiltIn").onclick = () => tryCatch(formatSelectedTableBuildIn);
     document.getElementById("formatIntermediateSumRow").onclick = () => tryCatch(formatIntermediateSumRow);
+    document.getElementById("loadBookmark").onclick = () => tryCatch(loadBookmark);
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("file").addEventListener("change", checkfile);
   }
-});
+}); 
 
-let withData = false;
+export async function formatAllTables() {
+  return Word.run(async (context) => {
+    // Load all tables in the document
+    const tables = context.document.body.tables;
+    tables.load("items");
+    await context.sync();
+
+    // Loop through each table and format it
+    for (let i = 0; i < tables.items.length; i++) {
+      const table = tables.items[i];
+      table.select(); // Select the table
+      // context.trackedObjects.add(table);
+
+      // Call the formatSelectedTable function
+      await formatSelectedTable();
+
+      // context.trackedObjects.remove(table);
+    }
+
+    console.log("All tables have been formatted.");
+  });
+}
+
+export async function rydValgtTabel() {
+  return Word.run(async (context) => {
+    // Loader valgt tabel
+    const selection = context.document.getSelection();
+    selection.load("parentTable");
+    await context.sync();
+    const table = selection.parentTable;  
+
+    var bookmark = table.getRange().getBookmarks(true);
+    await context.sync();
+    if (bookmark.m_value && bookmark.m_value.length > 0) {
+      console.log(bookmark.m_value[0]);
+    } else {
+      console.log("Intet bogmærke fundet");
+    }
+
+    // Fjerner tabel
+    table.delete();
+    await context.sync();
+
+
+  });
+}
 
 function openDialog(title, message) {
   var title = title ? title : "Fejl";
@@ -53,36 +97,20 @@ function processMessage(arg) {
   dialog.close();
 }
 
-function buildTableMatrix(rows, columns, projects = false, total = true) {
-  var data = [columns]
-  for (var row in rows) {
-    var temp = []
-    temp.push(rows[row])
-    for (var column = 0; column < columns.length-1; column++) {
-      temp.push("")
-    } 
-    data.push(temp)
+function buildTableMatrix(rows, columns, projects = null, total = true, rowsFullArray = null, datasheet=0) {
+  var projects = [projects];
+  var data = [columns];
+  var inputRows = rowsFullArray == null ? rows : rowsFullArray; 
+  console.log("withData", withData);
+  var dataFromFile = generateTable(columns, inputRows, withData, valgtDokumentDetajle, fileType, datasheet);
+
+  if (projects[0] != null) {
+    var dataFromFile = dataProjectsTotalsRounding(dataFromFile, projects, "I alt ekskl. projekter", withData, valgtDokumentDetajle, fileType, total);
+  } else {
+    var dataFromFile = dataProjectsTotalsRounding(dataFromFile, null, null, withData, valgtDokumentDetajle, fileType, total);
   }
-  if (projects) {
-    var extraRows = ["I alt uden projekter", "Projekter"];
-    for (var extraRow = 0; extraRow <= extraRows.length - 1; extraRow++) {
-      var temp = []
-      temp.push(extraRows[extraRow])
-      for (var column = 0; column < columns.length-1; column++) {
-        temp.push("")
-      }
-      data.push(temp)
-    }
-  }
-  if (total) {
-    /* Tilføjer i alt */
-    var temp = []
-    temp.push("I alt")
-    for (var column = 0; column < columns.length-1; column++) {
-      temp.push("")
-    }
-    data.push(temp)
-  }
+  
+  data = dataFromFile;
   return data
 }
 
@@ -94,6 +122,32 @@ async function tryCatch(callback) {
     /*console.error(error.message);*/
   }
 }
+
+export async function loadBookmark() {
+  return Word.run(async (context) => {
+    var bookmark = context.document.getSelection().getRange().getBookmarks(true);
+    await context.sync();
+    if (bookmark.m_value && bookmark.m_value.length > 0) {
+      console.log(bookmark.m_value[0]);
+      return bookmark.m_value[0].name;
+    } else {
+      console.log("Intet bogmærke fundet");
+      return null;
+    } 
+  });
+}
+
+function insertBookmark(table, name, prefix) {
+  var range = table.getRange();
+  if (prefix == "") {
+    var bookmark = "_"+name;
+  } else {
+    var bookmark = "_"+prefix+"_"+name;
+  }
+  console.log(bookmark);
+  range.insertBookmark(bookmark);
+}
+
 
 export async function loadSelection() {
   return Word.run(async (context) => {
@@ -210,6 +264,7 @@ export async function rydAlt() {
     // Ryd alt i body
     context.document.body.clear();
     await context.sync();
+    withData = false;
   });
 }
 
@@ -343,8 +398,8 @@ function roundNestedArray(arr) {
 
 function dataProjectsTotalsRounding(
   data,
-  projekter,
-  deletekst = "",
+  projekter = null,
+  deletekst = "I alt uden projekter",
   withData,
   valgtDokumentDetajle,
   fileType,
@@ -352,7 +407,7 @@ function dataProjectsTotalsRounding(
 ) {
   let dataOutput = [...data];
 
-  if (projekter != "") {
+  if (projekter != null) {
     // Total uden projekter
     let dataTotalProjekter = sumArrays(
       ...data.map((arr) => arr.slice(1)).map((subarray) => subarray.map((el) => parseFloat(el)))
@@ -447,6 +502,10 @@ function hasStyles(callback) {
   });
 }
 
+// Global variables
+var fileType, valgtDokumentDetajle;
+let withData = false;
+
 // Generer skabelonen
 export async function skabelon() {  
   return Word.run(async (context) => {
@@ -454,11 +513,11 @@ export async function skabelon() {
     globalThis.dokumentKommentarer = [];
 
     const valgtDokument = document.getElementById("dokumentDropdown").value;
-    const valgtDokumentDetajle = document.getElementById("dokumentDetaljeDropdown").value;
+    valgtDokumentDetajle = document.getElementById("dokumentDetaljeDropdown").value;
     const valgtUdvalg = document.getElementById("udvalgDropdown").value;
     const valgtBevilling = document.getElementById("bevillingsområdeDropdown").value;
 
-    const fileType = document.getElementById("fileTypeDropdown").value;
+    fileType = document.getElementById("fileTypeDropdown").value;
 
     const responseDokumenttype = await fetch("./assets/dokumenttype.json", { cache: "reload" });
     const dokumenttypeJSON = await responseDokumenttype.json();
@@ -502,6 +561,9 @@ export async function skabelon() {
     const budgetperiode = budgetperiodeÅr1 + "-" + budgetperiodeÅr4;
 
     if (valgtDokument == "Budgetopfølgning") {
+      organisationdata[0].forkortelse
+      var udvalgsdata = await fetchAssets("./assets/"+organisationdata[0].forkortelse+".json");
+
       // Indsætter notattitel
       const notatTitel = context.document.body.insertParagraph(
         "Budgetopfølgning pr. " + valgtDokumentDetajle + " " + currentYear,
@@ -510,17 +572,12 @@ export async function skabelon() {
       notatTitel.style = "Brev/notat KORT (O1)";
 
       // Indsætter notatdetaljer
-      await indsætContentControl("Notatdetaljer");
-
       context.document.body.paragraphs.getLast().select("End");
       var selection = context.document.getSelection();
       selection.insertParagraph("", "After");
 
-      const cc = context.document.contentControls;
-      cc.load("items");
-      await context.sync();
       for (var i in notatDetaljer) {
-        var tekst = cc.items[0].insertParagraph(notatDetaljer[i], "End");
+        var tekst = context.document.body.insertParagraph(notatDetaljer[i], "End");
         tekst.set({
           lineUnitAfter: 0,
           lineUnitBefore: 0,
@@ -537,9 +594,11 @@ export async function skabelon() {
         });
       }
 
-      // Sletter tom første paragraph
-      var temp = cc.items[0].paragraphs.getFirst();
-      temp.delete();
+      // Sletter tom anden paragraph
+      var paragraphs = context.document.body.paragraphs;
+      paragraphs.load("items");
+      await context.sync();
+      paragraphs.items[1].delete();
 
       // Indsæter titel
       var titel = context.document.body.insertParagraph(
@@ -568,277 +627,383 @@ export async function skabelon() {
           currentYear,
       });
 
+      // Resume og tomt afsnit til at skrive i
+      var underoverskrift = context.document.body.insertParagraph("Resumé", Word.InsertLocation.end);
+      underoverskrift.styleBuiltIn = "Heading2";
       await context.sync();
 
-      // Indsætter sektioner og undersektioner
-      for (var key in sektioner) {
-        if (sektioner.hasOwnProperty(key)) {
-          context.document.body.paragraphs.getLast().select("End");
+      var underoverskrift = context.document.body.insertParagraph("", Word.InsertLocation.end);
+      underoverskrift.styleBuiltIn = "Normal";
+      await context.sync();
 
-          const sektion = sektioner[key];
+      /* Looper over bevillingsområder */
+      for (var i in udvalgsdata.bevillingsområde) {
+        
+        /* Indsætter overskrift på bevillingsområde */
+        var underoverskrift = context.document.body.insertParagraph("Bevilling "+udvalgsdata.bevillingsområde[i].navn, Word.InsertLocation.end);
+        underoverskrift.styleBuiltIn = "Heading2";
+        await context.sync();
 
-          await context.sync();
-          if (inkluderSektioner[0].includes(parseInt(key))) {
-            if (sektion == "Bevilling") {
-              for (var bevillingsområde in bevillingsområder) {
-                await indsætSektion(sektion + " " + bevillingsområder[bevillingsområde]);
-                await context.sync();
+        var emptyParagraph= context.document.body.insertParagraph("Alle beløb i tabellerne er angivet i mio. kr.", Word.InsertLocation.end);
+        emptyParagraph.styleBuiltIn = "Normal";
+        await context.sync();
 
-                const inkluderedeUndersektioner = [];
-                const inkluderedeUndersektionerKey = inkluderUndersektionerFlat[0].bevilling[bevillingsområde];
-                for (var i in inkluderedeUndersektionerKey) {
-                  inkluderedeUndersektioner.push(undersektioner[0].bevilling[inkluderedeUndersektionerKey[i]]);
+        /* Looper over struktur i dokumentdata */
+        for (var j in dokumentdata[0].struktur) {
+
+          /* Toplevel eller ej */
+          var toplevel = (j.indexOf("_s") > -1 ? false : true)  
+
+          /* Indsætter overskrift hvis toplevel */
+          if (toplevel & udvalgsdata.bevillingsområde[i].hasOwnProperty(j)) { 
+            var underoverskrift = context.document.body.insertParagraph(dokumentdata[0].struktur[j].overskrift, Word.InsertLocation.end);
+            underoverskrift.styleBuiltIn = "Heading3";
+            await context.sync();
+
+            var standardtekst = (dokumentdata[0].struktur[j].hasOwnProperty("standardtekst") ? dokumentdata[0].struktur[j].standardtekst : "");
+            var parse = require("json-templates");
+            var parseStandardtekst = parse(standardtekst);
+
+            var indsatStandardtekst= context.document.body.insertParagraph(parseStandardtekst({lastYear: lastYear, omraade: udvalgsdata.bevillingsområde[i].navn}), Word.InsertLocation.end);
+            indsatStandardtekst.styleBuiltIn = "Normal";
+            await context.sync();
+
+            /* Indsætter evt. tabel */
+            if (dokumentdata[0].tabeller.hasOwnProperty(j) & udvalgsdata.bevillingsområde[i].hasOwnProperty(j)) {
+              
+              var parse = require("json-templates");
+              var parseKolonner = parse(dokumentdata[0].tabeller[j].kolonner);
+
+              var rowsFullArray = udvalgsdata.bevillingsområde[i][j];
+              var rows = rowsFullArray.map(subArray => subArray[0])
+              var rowsCount = rows.length;
+              var columns = parseKolonner({lastYear: lastYear2, nextYear: currentYear});
+              
+              var parse = require("json-templates");
+              var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[j].beskrivelse);
+              var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
+
+              var data = buildTableMatrix(rows,columns,false,true,withData);
+
+              var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
+              indsatTabel.select();
+              await context.sync();
+              formatSelectedTable();
+
+              insertBookmark(indsatTabel, dokumentdata[0].tabeller[k].kortnavn, i);
+
+              var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
+              indsatFodnote.font.size = 9;
+              indsatFodnote.font.italic = true;
+              await context.sync();
+
+              var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+              emptyParagraph.styleBuiltIn = "Normal";
+              await context.sync();
+
+              tableAltBeskObj(udvalgsdata.bevillingsområde[i].navn + " - " + dokumentdata[0].tabeller[k].navn, tabelBeskrivelse);
+            }
+          }
+          /* Ellers: Loop over substruktur  */
+          if (toplevel == false) {
+            
+            var substruktur = j.substring(0, j.indexOf("_"));
+
+            /* Looper over substrukturen hvis hovedstrukturen findes (f.eks. kun anlæg_s hvis anlæg) */
+            if (udvalgsdata.bevillingsområde[i].hasOwnProperty(substruktur)) {
+
+              /* Looper over alle substruktur-udfald i dokumenttype. Hvis den findes i udvalgsdata indsættes overskrift som defineret i dokumentdata */
+              for (var k in dokumentdata[0].struktur[j]) {
+
+                if (udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty(k)) {
+                  /* Overskrift */
+                  var underoverskrift = context.document.body.insertParagraph(dokumentdata[0].struktur[j][k].overskrift, Word.InsertLocation.end);
+                  underoverskrift.styleBuiltIn = "Heading4";
+                  await context.sync(); 
+
+                  var standardtekst = (dokumentdata[0].struktur[j][k].hasOwnProperty("standardtekst") ? dokumentdata[0].struktur[j][k].standardtekst : "");
+
+                  var emptyParagraph= context.document.body.insertParagraph(standardtekst, Word.InsertLocation.end);
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
+
+                  /* Tabel */
+                  if (dokumentdata[0].tabeller.hasOwnProperty(k)) {
+                    var parse = require("json-templates");
+                    var parseKolonner = parse(dokumentdata[0].tabeller[k].kolonner);
+
+                    var rowsFullArray = udvalgsdata.bevillingsområde[i][substruktur][0][k];
+                    var rows = rowsFullArray.map(subArray => subArray[0])
+                    var rowsCount = rows.length;
+                    var columns = parseKolonner({lastYear: lastYear2, nextYear: currentYear});
+                    
+                    var parse = require("json-templates");
+                    var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[k].beskrivelse);
+                    var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
+
+                    var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? udvalgsdata.bevillingsområde[i][substruktur][0].projekter[0] : null);
+                    
+                    var data = buildTableMatrix(rows,columns,includeProjects,true,rowsFullArray);
+
+                    var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
+                    indsatTabel.select();
+                    await context.sync();
+                    formatSelectedTable();
+
+                    insertBookmark(indsatTabel, dokumentdata[0].tabeller[k].kortnavn, i);
+
+                    var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
+                    indsatFodnote.font.size = 9;
+                    indsatFodnote.font.italic = true;
+                    await context.sync();
+
+                    var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+                    emptyParagraph.styleBuiltIn = "Normal";
+                    await context.sync();
+
+                    tableAltBeskObj(udvalgsdata.bevillingsområde[i].navn + " - " + dokumentdata[0].tabeller[k].navn, tabelBeskrivelse);
+                  } 
+
+                  /* Underoverskrifter (hvis mere end en) */
+                  if (rowsCount > 1) {
+                    for (var rw = 0; rw <= rowsCount - 1; rw++) {
+                      var underoverskrift = context.document.body.insertParagraph(rows[rw], Word.InsertLocation.end);
+                      underoverskrift.styleBuiltIn = "Heading5";
+                      
+                      await context.sync();
+
+                      var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+                      emptyParagraph.styleBuiltIn = "Normal";
+                      await context.sync();
+                    }
+                  }
                 }
-
-                await indsætUndersektioner(
-                  sektion,
-                  inkluderedeUndersektioner,
-                  bevillingsområder[bevillingsområde],
-                  "Heading3"
-                );
-                await context.sync();
               }
-            } else {
-              await indsætSektion(sektion);
+            }
+          }
+        }        
+      } 
+      // Bevillingsansøgninger
+      var underoverskrift = context.document.body.insertParagraph("Bevillingsansøgninger", Word.InsertLocation.end);
+      underoverskrift.styleBuiltIn = "Heading2";
+      await context.sync();
+
+      // Afsøger hvilke rækker der skal være i tabellen ud fra hvad der faktisk anvendes i udvalget på tværs af bevillingsområder
+      var rows = []
+      // lopper over struktur i dokumentdata
+      for (var j in dokumentdata[0].struktur) {
+        var toplevel = (j.indexOf("_s") > -1 ? false : true)  
+        var substruktur = j.substring(0, j.indexOf("_"));
+        // Kun substruktuerer er relevante (drift_s og anlæg_s)
+        if (toplevel == false) {
+          // Loop over substruktur
+          for (var k in dokumentdata[0].struktur[j]) {
+            // Loop over bevillingsområder
+            for (var i in udvalgsdata.bevillingsområde) {
+              // Hvis substruktur findes i bevillingsområde
+              if (udvalgsdata.bevillingsområde[i].hasOwnProperty(substruktur)) {
+                // Hvis relevant indhold fra substruktureb findes for bevillingsområdet
+                if (udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty(k)) {
+                  // Tilføjes til listen over rækker, hvis den ikke allerede findes   
+                  if (!rows.includes(dokumentdata[0].struktur[j][k].overskrift)) { 
+                    // rows.push(dokumentdata[0].tabeller.bevillingsansøgninger.rækker[k]);
+                    rows.push(dokumentdata[0].struktur[j][k].overskrift);           
+                  }
+                }
+              }
             }
           }
         }
       }
+      // Indsætter tabel for bevillingsansøgninger
+      var parse = require("json-templates");
+      var parseKolonner = parse(dokumentdata[0].tabeller.bevillingsansøgninger.kolonner);
 
-      // Indsætter indhold i rammestrukturen
-      var contentControls = context.document.contentControls;
-      contentControls.load("id");
+      var rowsCount = rows.length;
+      var columns = parseKolonner({currentYear: currentYear, budgetperiode1: budgetperiodeÅr1, budgetperiode2: budgetperiodeÅr2, budgetperiode3: budgetperiodeÅr3});
+      
+      var tabelBeskrivelse = dokumentdata[0].tabeller.bevillingsansøgninger.beskrivelse;
+      
+
+      // var data = buildTableMatrix(rows,columns,null,true,rows,1);
+
+      var data = [columns];
+  
+      for (var i in rows) {
+        var rowBuild = [rows[i]];
+        for (var j in columns-1){
+          rowBuild.push("");
+        }
+        data.push(rowBuild);
+      }
+      data.push(["I alt","","","","",""]) 
+      console.log(data)
+
+      var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
+      indsatTabel.select();
+      await context.sync();
+      formatSelectedTable();
+
+      insertBookmark(indsatTabel, dokumentdata[0].tabeller.bevillingsansøgninger.kortnavn, "");
+
+      var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller.bevillingsansøgninger.note, Word.InsertLocation.end);
+      indsatFodnote.font.size = 9;
+      indsatFodnote.font.italic = true;
       await context.sync();
 
-      // Service
-      // Bevillingsområder
-      for (var bevillingsområde in bevillingsområder) {
-        // Tabeller for hvert bevillingsområde
-        const tabeller = afgrænsningsdata[0].bevillingsområde[bevillingsområde].tabeller;
-        for (var tabel in tabeller) {
-          const ccNavn = "Bevilling " + bevillingsområder[bevillingsområde] + " " + tabeller[tabel].navn;
-          const targetCC = genContentControls.indexOf(ccNavn);
+      var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+      emptyParagraph.styleBuiltIn = "Normal";
+      await context.sync();
 
-          // Indledende tekst
-          const tekst = contentControls.items[targetCC].insertParagraph(tabeller[tabel].beskrivelse, "Start");
+      tableAltBeskObj("Bevillingsansøgninger", tabelBeskrivelse);
 
-          // Datatabel
-          var rækker = tabeller[tabel].rækker;
-          var rækkerAntal = tabeller[tabel].rækker.length + 1;
-          var kolonner = tabelindhold[tabeller[tabel].typeKolonner].overskrifter;
-          var kolonnerAntal = kolonner.length;
-          var projekter = tabeller[tabel].projekter;
-          var fodnote = tabeller[tabel].note;
-          var dataArk = tabeller[tabel].dataArk;
-
-          if (dataArk == undefined) {
-            dataArk = 0;
-          }
-
-          let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType, dataArk);
-
-          let row_names = undefined;
-          if (withData) row_names = rækker.map((row) => row[0]);
-          else row_names = rækker;
-
-          // Indsætter totaler og foretager afrunding
-          let dataFinalMatrix = dataProjectsTotalsRounding(
-            data,
-            projekter,
-            "I alt ekskl. projekter",
-            withData,
-            valgtDokumentDetajle,
-            fileType
-          );
-          console.table(dataFinalMatrix);
-
-          rækkerAntal = dataFinalMatrix.length;
-          kolonnerAntal = dataFinalMatrix[0].length;
-
-          var indsatTabel = contentControls.items[targetCC].insertTable(
-            rækkerAntal,
-            kolonnerAntal,
-            "End",
-            dataFinalMatrix
-          );
-
-          tabelAddOns(indsatTabel, contentControls.items[targetCC], projekter, fodnote, data);
-
-          // Tabelbeskrivelse i dokumentegenskaber (til VBA-script)
-          tableAltBeskObj(bevillingsområder[bevillingsområde] + tabeller[tabel].navn, tabeller[tabel].beskrivelse);
+      /* Underoverskrifter (hvis mere end en) */
+      if (rowsCount > 1) {
+        for (var rw = 0; rw <= rowsCount - 1; rw++) {
+          var underoverskrift = context.document.body.insertParagraph(rows[rw], Word.InsertLocation.end);
+          underoverskrift.styleBuiltIn = "Heading3";
+          
           await context.sync();
 
-          //// Indsætter undersektioner
-          await indsætSektionerICC(ccNavn, row_names, "Heading4"); // Change rækker to row_names
+          var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
+          emptyParagraph.styleBuiltIn = "Normal";
           await context.sync();
         }
       }
-
-      // Anlæg
-      if (inkluderSektioner[0].includes(2)) {
-        var ccNavn = "Anlæg";
-        var targetCC = genContentControls.indexOf(ccNavn);
-
-        var anlæg = afgrænsningsdata[0].anlæg[0];
-
-        const tekst = contentControls.items[targetCC].insertParagraph(anlæg.beskrivelse, "Start");
-
-        // Hvis "anlæg" null under et givent udvalg i organisation.json, anvendes blot oplysningen fra dokumenttype.json.
-        // Er "anlæg" ikke null anvendes denne som grundlag for rækkerne
-        var rækker = [];
-        if (anlæg != undefined) {
-          var rækkerTilBrug = anlæg.rækker;
-        } else {
-          var rækkerTilBrug = inkluderUndersektionerFlat[0].anlæg[0];
-        }
-        for (var række in rækkerTilBrug) {
-          rækker.push(rækkerTilBrug[række]);
-        }
-        var rækkerAntal = rækker.length + 1;
-        var kolonner = tabelindhold[anlæg.typeKolonner].overskrifter;
-        var kolonnerAntal = kolonner.length;
-        var fodnote = anlæg.note;
-        var dataArk = anlæg.dataArk;
-
-        if (dataArk == undefined) {
-          dataArk = 0;
-        }
-
-        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType, dataArk);
-
-        // Indsætter totaler og foretager afrunding
-        let dataFinalMatrix = dataProjectsTotalsRounding(
-          data,
-          (projekter = ""),
-          "",
-          withData,
-          valgtDokumentDetajle,
-          fileType
-        );
-
-        rækkerAntal = dataFinalMatrix.length;
-        kolonnerAntal = dataFinalMatrix[0].length;
-        var indsatTabel = contentControls.items[targetCC].insertTable(
-          rækkerAntal,
-          kolonnerAntal,
-          "End",
-          dataFinalMatrix
-        );
-
-        await tabelAddOns(indsatTabel, contentControls.items[targetCC], 0, fodnote, data);
-        await context.sync();
-
-        tableAltBeskObj(valgtUdvalg + " anlæg", anlæg.beskrivelse);
-        await context.sync();
-
-        let rækkeNavne = rækker.map((row) => row[0]);
-
-        //// Indsætter undersektioner
-        await indsætSektionerICC(ccNavn, rækkeNavne, "Heading3");
-        await context.sync();
-      }
-
-      // Bevillingsansøgninger
-      var ccNavn = "Bevillingsansøgninger";
-      var targetCC = genContentControls.indexOf(ccNavn);
-
-      var bevillingsansøgninger = afgrænsningsdata[0].bevillingsansøgninger[0];
-
-      var rækker = [];
-      var rækkerTilBrug = bevillingsansøgninger.rækker;
-      for (var række in rækkerTilBrug) {
-        rækker.push(rækkerTilBrug[række]);
-      }
-      var rækkerAntal = rækker.length + 1;
-      var kolonner = tabelindhold[bevillingsansøgninger.typeKolonner].overskrifter;
-      var kolonnerAntal = kolonner.length;
-      var fodnote = bevillingsansøgninger.note;
-      var dataArk = bevillingsansøgninger.dataArk;
-
-      if (dataArk == undefined) {
-        dataArk = 0;
-      }
-
-      let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType, dataArk);
-
-      // Indsætter totaler og foretager afrunding
-      let dataFinalMatrix = dataProjectsTotalsRounding(data, "", "", false, valgtDokumentDetajle, fileType);
-
-      rækkerAntal = dataFinalMatrix.length;
-      kolonnerAntal = dataFinalMatrix[0].length;
-      var indsatTabel = contentControls.items[targetCC].insertTable(rækkerAntal, kolonnerAntal, "End", dataFinalMatrix);
-
-      await tabelAddOns(indsatTabel, contentControls.items[targetCC], 0, fodnote, data);
-
-      tableAltBeskObj(valgtUdvalg + " bevillingsansøgninger", bevillingsansøgninger.beskrivelse);
-      await context.sync();
-
-      // Indsætter undersektioner
-      await indsætSektionerICC(ccNavn, rækker, "Heading3");
-      await context.sync();
-
-      // Sletter tom paragraph før tabel
-      var temp = contentControls.items[targetCC].paragraphs.getFirst();
-      temp.delete();
 
       // Custom tabeller
-      var customTabeller = afgrænsningsdata[0].customTabeller;
+      if (udvalgsdata.hasOwnProperty("customTabeller")) {
+        if (udvalgsdata.customTabeller.hasOwnProperty("budgetopfølgning")) {
+          var indsatteTabeller = {}
+          for (var ct in udvalgsdata.customTabeller.budgetopfølgning) {
+            var placering = udvalgsdata.customTabeller.budgetopfølgning[ct].placering;
+            var placeringStyle = udvalgsdata.customTabeller.budgetopfølgning[ct].placeringStyle;
 
-      for (var i in customTabeller) {
-        var afsnit = context.document.body.paragraphs.load(["text"]);
-        await context.sync();
+            // Identificerer placeringen i dokumentet ud fra placering og placeringStyle
+            var paragraphs = context.document.body.paragraphs;
+            paragraphs = paragraphs.load("items");
+            await context.sync();
+            for (var paragraph in paragraphs.items) {  
+              if (paragraphs.items[paragraph]._Te == placering & paragraphs.items[paragraph]._Sty == placeringStyle) { 
 
-        var rækker = customTabeller[i].rækker;
-        var kolonner = customTabeller[i].kolonner;
-        var tabelnr = customTabeller[i].tabelnr;
-        var rækkerAntal = rækker.length + 1;
-        var kolonnerAntal = kolonner.length;
-        var fodnote = customTabeller[i].note;
-        var placeringOmkringAfsnit = customTabeller[i].placeringOmkringAfsnit;
-        var dataArk = customTabeller[i].dataArk;
+                // Placering
+                var placering = udvalgsdata.customTabeller.budgetopfølgning[ct].placeringOmkringAfsnit
 
-        if (dataArk == undefined) {
-          dataArk = 0;
-        }
+                // Identifikation af afsnit
+                if (placering == "Før") {
+                  var currentParagraph = Number(paragraph)-1;
+                  currentParagraph = currentParagraph.toString();
+                  var nextParagraph = paragraph;
+                } else if (placering == "Efter") {
+                  var currentParagraph = paragraph;
+                  var nextParagraph = Number(paragraph)+1 
+                  nextParagraph = nextParagraph.toString();
+                } 
 
-        var ccNavn = customTabeller[i].placering;
-        var targetP = parseInt(await indlæsAfsnit(ccNavn));
+                // Henter data til tabellen
+                var rowsFullArray = udvalgsdata.customTabeller.budgetopfølgning[ct].rækker;
+                var rows = rowsFullArray.map(subArray => subArray[0])
+                var rowsCount = rows.length;
+                var columns = udvalgsdata.customTabeller.budgetopfølgning[ct].kolonner;
+                var tabelBeskrivelse = udvalgsdata.customTabeller.budgetopfølgning[ct].beskrivelse;
+                var tabelnr = udvalgsdata.customTabeller.budgetopfølgning[ct].tabelnr;
+                var insertTotal = udvalgsdata.customTabeller.budgetopfølgning[ct].total;
+                var dataArk = udvalgsdata.customTabeller.budgetopfølgning[ct].dataArk;
 
-        var nytAfsnit = afsnit.items[targetP].insertParagraph("", placeringOmkringAfsnit);
-        nytAfsnit.styleBuiltIn = "Normal";
-        await context.sync();
+                // Bygger tabelmatrice
+                var data = buildTableMatrix(rows,columns,null,insertTotal,rowsFullArray,dataArk);
+                
+                // Indsætter indledende tekst og evt. afsnitsoverskrift
+                if (placering === "Efter") {
+                  paragraphs.items[currentParagraph].select();
+                  await context.sync();
+                  var indsatTekst = paragraphs.items[currentParagraph].insertParagraph(tabelBeskrivelse, "After");
+                  indsatTekst.styleBuiltIn = "Normal";
+                
+                  if (udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnit === true) {
+                    var indsatAfsnit = paragraphs.items[currentParagraph].insertParagraph(udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnitNavn,"After");
+                    indsatAfsnit.styleBuiltIn = udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnitStyle;
+                  }
+                } else if (placering === "Før") {
+                  if (udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnit === true) {
+                    var indsatAfsnit = paragraphs.items[currentParagraph].insertParagraph(udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnitNavn,"After");
+                    indsatAfsnit.styleBuiltIn = udvalgsdata.customTabeller.budgetopfølgning[ct].nytAfsnitStyle;
+                  }
+                
+                  paragraphs.items[currentParagraph].select();
+                  await context.sync();
+                  var indsatTekst = paragraphs.items[currentParagraph].insertParagraph(tabelBeskrivelse, "After");
+                  indsatTekst.styleBuiltIn = "Normal";
+                }
+                await context.sync();
 
-        let data = generateTable(kolonner, rækker, withData, valgtDokumentDetajle, fileType, dataArk);
+                // Indsætter tabel
+                paragraphs.items[nextParagraph].select();
 
-        // Indsætter totaler og foretager afrunding
-        let dataFinalMatrix = dataProjectsTotalsRounding(data, "", "", false, valgtDokumentDetajle, fileType, false);
+                // Spacing before has been set to some value somewhere - god knows where - setting to 0 as to not mess with the table
+                paragraphs.items[nextParagraph].spaceBefore = 0;
+                
+                await context.sync();
+                indsatteTabeller[ct] = paragraphs.items[nextParagraph].insertTable(data.length, data[0].length, "Before", data);
+                console.log("indsatteTabeller: ", ct, indsatteTabeller)
 
-        rækkerAntal = dataFinalMatrix.length;
-        kolonnerAntal = dataFinalMatrix[0].length;
-        var indsatTabel = nytAfsnit.insertTable(rækkerAntal, kolonnerAntal, "Before", dataFinalMatrix);
+                // Formaterer tabel
+                await styleTable(indsatteTabeller[ct]); // this should work async but it is called synchronously because indsatteTabeller is being messed with.
 
-        // Fodnoten indsættes selvstændigt for CS-tabeller, da den ellers vil indsættes formert
-        var indsatFodnote = nytAfsnit.insertParagraph(fodnote, "Before");
-        indsatFodnote.font.size = 8;
-        indsatFodnote.font.italic = true;
+                // // Indsætter bogmærke
+                insertBookmark(indsatteTabeller[ct], udvalgsdata.customTabeller.budgetopfølgning[ct].kortnavn, i);
+                
+                // Indsætter fodnote
+                await context.sync();
+                if (placering === "Efter") {
+                    paragraphs.items[nextParagraph].select(); 
+                    var indsatFodnote = paragraphs.items[nextParagraph].insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note,"End");
+                } else if (placering === "Før") {
+                    paragraphs.items[nextParagraph].select();
+                    await context.sync(); 
+                    var indsatAfsnit = paragraphs.items[nextParagraph].insertParagraph("", "Before");
+                    indsatAfsnit.styleBuiltIn = "Normal";
+                    indsatAfsnit.select();
+                    var indsatFodnote = indsatAfsnit.insertText(udvalgsdata.customTabeller.budgetopfølgning[ct].note,"Start");
 
-        await context.sync();
+                }
+                indsatFodnote.font.size = 9;
+                indsatFodnote.font.italic = true; 
+                await context.sync(); 
 
-        var tabeller = context.document.body.tables.load();
-        await context.sync();
 
-        tabeller.items[tabelnr].select("start");
-        var placering = context.document.getSelection();
-        await context.sync();
+                // Indsætter tomt afsnit efter afsnittet CT blev indsat 
+                if (placering === "Efter") {
+                  paragraphs.items[nextParagraph].select();
+                  await context.sync();
+                  var emptyParagraph = paragraphs.items[nextParagraph].insertParagraph("", "After");
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
 
-        // await tabelAddOns(tabel,placering,0,0, data=total_data)
-        await context.sync();
+                  paragraphs.items[currentParagraph].select();
+                  await context.sync();
+                  var emptyParagraph = paragraphs.items[currentParagraph].insertParagraph("", "After");
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
+                }
+                if (placering === "Før") {
+                  paragraphs.items[nextParagraph].select();
+                  await context.sync();
+                  var emptyParagraph = paragraphs.items[nextParagraph].insertParagraph("", "Before");
+                  emptyParagraph.styleBuiltIn = "Normal";
+                  await context.sync();
+                }
+                
 
-        tableAltBeskObj(valgtUdvalg + " CT" + i, customTabeller[i].indledendeTekst, customTabeller[i].tabelnr);
-        await context.sync();
+                // // Indsætter tabelbeskrivelse i dokumentkommentarer
+                tableAltBeskObj(udvalgsdata.customTabeller.budgetopfølgning[ct].navn, tabelBeskrivelse, tabelnr); 
+              }
+            }
+          }
+        }   
       }
-      formaterTabeller();
     }
+    // Budgetbemærkninger del 1
     if (valgtDokument == "Budgetbemærkninger del 1") {
       //  Fetcher organisationsdata igen
       var organisation = await fetchAssets("./assets/organisation.json");
@@ -926,7 +1091,7 @@ export async function skabelon() {
       rækker.load("items");
       await context.sync();
       for (var i = 0; i < rækker.items.length; i++) {
-        rækker.items[i].verticalAlignment = "Top";
+        rækker.items[i].verticalAlignment = "Top"; 
 
         if (i == 0) {
           rækker.items[i].font.bold = true;
@@ -1429,7 +1594,6 @@ export async function skabelon() {
           lastYear,
       });
 
-
       /* Looper over bevillingsområder */
       for (var i in udvalgsdata.bevillingsområde) {
         
@@ -1477,12 +1641,14 @@ export async function skabelon() {
               var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[j].beskrivelse);
               var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
 
-              var data = buildTableMatrix(rows,columns,false,true);
+              var data = buildTableMatrix(rows,columns,false,true,withData);
 
               var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
               indsatTabel.select();
               await context.sync();
               formatSelectedTable();
+
+              insertBookmark(indsatTabel, dokumentdata[0].tabeller[k].kortnavn, i);
 
               var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
               indsatFodnote.font.size = 9;
@@ -1534,13 +1700,14 @@ export async function skabelon() {
                     var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
 
                     var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? true : false);
-                    var data = buildTableMatrix(rows,columns,includeProjects,true);
+                    var data = buildTableMatrix(rows,columns,includeProjects,true,withData);
 
                     var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
-
                     indsatTabel.select();
                     await context.sync();
                     formatSelectedTable();
+
+                    insertBookmark(indsatTabel, dokumentdata[0].tabeller[k].kortnavn, i);
 
                     var indsatFodnote = context.document.body.insertText(dokumentdata[0].tabeller[k].note, Word.InsertLocation.end);
                     indsatFodnote.font.size = 9;

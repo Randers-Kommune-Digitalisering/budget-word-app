@@ -466,8 +466,8 @@
         ]
     },
     {
-        "udvalg":"Socialudvalget",
-        "forkortelse":"SU",
+        "udvalg":"Socialudvalget - børnehandicap",
+        "forkortelse":"SUb",
         "dokumenter":[ 
             {
                 "navn":"Budgetopfølgning",
@@ -489,7 +489,7 @@
                 ],
                 "bevillingsområde": [   
                     {
-                        "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                        "navn":"Tilbud til unge og voksne med særlige behov",
                         "tabeller":[
                             {
                                 "nr":0,
@@ -539,6 +539,189 @@
                                 ]                                
                             }
                         ]
+                    },
+                    {
+                        "navn":"Børnehandicap"
+                    }
+                ],
+                "anlæg":[
+                    {
+                        "nr":0,
+                        "navn":"Anlæg",
+                        "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for anlæg.",
+                        "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                        "projekter":0,
+                        "typeKolonner":6,
+                        "rækker":[
+                            ["Skattefinansierede anlæg","7300020SD.0023"],
+                            ["Ældreboliger - anlæg","7300020TD.0023"]                                                       
+                        ]
+                    }
+                ],
+                "bevillingsansøgninger":[
+                    {
+                        "nr":0,
+                        "navn":"Bevillingsansøgninger",
+                        "beskrivelse":"Tabellen viser bevillingsansøgninger i budgetåret og overslagsåret.",
+                        "note":"Note: Minus angiver indtægter, plus angiver udgifter.",
+                        "projekter":0,
+                        "typeKolonner":7,
+                        "rækker":[
+                            "Servicerammen",
+                            "Indkomstoverførsler",
+                            "Ældreboliger",
+                            "Centrale refusionsordninger mv.",
+                            "Skattefinansierede anlæg",
+                            "Ældreboliger - anlæg"
+                        ]
+                    }
+                ]          
+            },
+            {
+                "navn":"Budgetbemærkninger del 1",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Fakta og politikker",
+                                "faktaOverskrift":"Fakta",
+                                "fakta":["Botilbud til voksne","Mestringsvejledning i eget hjem","Herberg/forsorgshjem","","Misbrugsbehandling stof","Misbrugsbehandling alkohol","","Børn og unge i døgntilbud","Børn og unge i forebyggende tilbud"],
+                                "politikker":["Politik for borgere med særlige behov"]
+                            },{
+                                "nr":1,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+                                "note":"",
+                                "k1r1":"Tilbud til børn, unge og voksne med særlige behov (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap",
+                                    "Autisme, senhjerneskade og læring"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap"
+                                ]   
+                            },{
+                                "nr":2,
+                                "navn":"Anlægsbudget",
+                                "beskrivelse":"Tabellen viser budgettet på anlæg fra {{fra}}-{{til}} opdelt på anlægsprojekter.",
+                                "note":"Note: Tabellen indeholder kun de anlægsprojekter, som har budget i {{fra}}-{{til}}. Der kan således være igangværende anlægsprojekter, som ikke er nævnt her.",
+                                "k1r1":"Anlægsprojekter (mio. kr.)",
+                                "rækker":[
+                                    "[Indsæt rækker efter behov]"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "navn":"Budgetbemærkninger del 2",
+                "bevillingsområde":[   
+                    {
+                        "navn":"Tilbud til børn, unge og voksne med særlige behov",
+                        "tabeller":[{
+                                "nr":0,
+                                "navn":"Driftsbudget",
+                                "beskrivelse":"Tabellen viser bevillingsområdets budget på drift for {{fra}} fordelt på udgifter og indtægter.",
+                                "note":"",
+                                "k1r1":"Tilbud til børn, unge og voksne med særlige behov (mio. kr.)",
+                                "rækkerServicerammen":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap",
+                                    "Autisme, senhjerneskade og læring"
+                                ],                                
+                                "rækkerUdenForServicerammen":[
+                                    "Psykiatri og Socialt Udsatte",
+                                    "Handicap"
+                                ]   
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]      
+    },
+    {
+        "udvalg":"Socialudvalget - unge og voksne",
+        "forkortelse":"SUuv",
+        "dokumenter":[ 
+            {
+                "navn":"Budgetopfølgning",
+                "sektioner":[
+                    [0,1,2,3]
+                ],
+                "undersektioner":[
+                    {
+                        "bevilling":[
+                            [0,1,2,4]
+                        ],
+                        "anlæg":[
+                            [0,1]
+                        ],
+                        "bevillingsansøgninger":[
+                            [0,1,2,4,6,7]
+                        ]
+                    }
+                ],
+                "bevillingsområde": [   
+                    {
+                        "navn":"Tilbud til unge og voksne med særlige behov",
+                        "tabeller":[
+                            {
+                                "nr":0,
+                                "navn":"Servicerammen",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":[["Projekter","DI30A4","DI35A4","DI40A4"]],
+                                "typeKolonner":0,
+                                "rækker":[
+                                    ["Psykiatri og Socialt Udsatte","7300020ADI30.0023"],
+                                    ["Handicap","7300020ADI35.0023"],
+                                    ["Autisme, senhjerneskade og læring","7300020ADI40.0023"]                                                                      
+                                ]                                
+                            },
+                            {
+                                "nr":1,
+                                "navn":"Indkomstoverførsler",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for indkomstoverførsler, bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    ["Handicap","7300020BDI35.0023"]
+                                ]                                
+                            },
+                            {
+                                "nr":2,
+                                "navn":"Ældreboliger",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for ældreboliger, bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    ["Handicap","7300020GDI35.0023"]
+                                ]                                
+                            },
+                            {
+                                "nr":3,
+                                "navn":"Centrale refusionsordninger mv.",
+                                "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for centrale refusionsordninger mv., bevillingsområde Tilbud til børn, unge og voksne med særlige behov.",
+                                "note":"Note: Minus angiver et mindreforbrug/overskud i Årets forventede resultat og overførsler. Plus angiver et merforbrug/underskud.",
+                                "projekter":0,
+                                "typeKolonner":0,
+                                "rækker":[
+                                    ["Psykiatri og Socialt Udsatte","7300020DDI30.0023"],
+                                    ["Handicap","7300020DDI35.0023"]                                                                      
+                                ]                                
+                            }
+                        ]
+                    },
+                    {
+                        "navn":"Børnehandicap"
                     }
                 ],
                 "anlæg":[
