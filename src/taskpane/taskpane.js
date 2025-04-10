@@ -29,7 +29,7 @@ Office.onReady((info) => {
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("file").addEventListener("change", checkfile);
   }
-}); 
+});
 
 export async function formatAllTables() {
   return Word.run(async (context) => {
