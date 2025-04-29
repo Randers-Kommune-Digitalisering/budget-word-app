@@ -3,12 +3,22 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 //import { ContextExclusionPlugin } from "webpack";
+
 import { formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays, styleTable } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
+
+const configurl = 'https://raw.githubusercontent.com/Randers-Kommune-Digitalisering/budget-word-app-config/refs/heads/main/';
 
 const required_styles = ["Brev/notat KORT (O1)"];
 const allowed_files = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"];
 let dialog = null;
+
+const loginUrl = process.env.CONFIG_LIBRARY_URL;
+const credentials = {
+  username: process.env.CONFIG_LIBRARY_USER,
+  password: process.env.CONFIG_LIBRARY_PASS,
+};
+
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -28,6 +38,9 @@ Office.onReady((info) => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("file").addEventListener("change", checkfile);
+
+    console.log(process.env.CONFIG_LIBRARY_URL); 
+    // fetchConfigFile("ØU")
   }
 });
 
@@ -78,6 +91,37 @@ export async function rydValgtTabel() {
   });
 }
 
+function fetchConfigFile(file) {
+  fetch(loginUrl+"/api/file/budget-word-app/"+file+".json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  })
+    .then(response => response.json())
+    .then(data => {
+      const token = data.token; // Assuming the token is in the response
+      console.log("Token:", token);
+  
+      // Use the token for subsequent requests
+      return fetch(loginUrl+"/api/file/budget-word-app/"+file+".json", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+  } 
+ 
 function openDialog(title, message) {
   var title = title ? title : "Fejl";
   var message = message ? message : "Der er sket en fejl. Prøv igen.";
@@ -519,7 +563,7 @@ export async function skabelon() {
 
     fileType = document.getElementById("fileTypeDropdown").value;
 
-    const responseDokumenttype = await fetch("./assets/dokumenttype.json", { cache: "reload" });
+    const responseDokumenttype = await fetch(configurl+"dokumenttype.json", { cache: "reload" });
     const dokumenttypeJSON = await responseDokumenttype.json();
 
     const dokumentdata = dokumenttypeJSON.filter((obj) => obj.type == valgtDokument);
@@ -529,7 +573,7 @@ export async function skabelon() {
     const notatDetaljer = dokumentdata[0].notatdetaljer;
     const langtNavn = dokumentdata[0].langtNavn;
 
-    var organisationJSON = await fetchAssets("./assets/organisation.json");
+    var organisationJSON = await fetchAssets(configurl+"organisation.json");
     var organisationdata = organisationJSON.filter((obj) => obj.udvalg == valgtUdvalg);
 
     /* Udlæser bevillingsområder fra første dokumenttype - ændrer sig ikke på tværs af typer*/
@@ -562,7 +606,7 @@ export async function skabelon() {
 
     if (valgtDokument == "Budgetopfølgning") {
       organisationdata[0].forkortelse
-      var udvalgsdata = await fetchAssets("./assets/"+organisationdata[0].forkortelse+".json");
+      var udvalgsdata = await fetchAssets(configurl+organisationdata[0].forkortelse+".json");
 
       // Indsætter notattitel
       const notatTitel = context.document.body.insertParagraph(
@@ -1006,7 +1050,7 @@ export async function skabelon() {
     // Budgetbemærkninger del 1
     if (valgtDokument == "Budgetbemærkninger del 1") {
       //  Fetcher organisationsdata igen
-      var organisation = await fetchAssets("./assets/organisation.json");
+      var organisation = await fetchAssets(configurl+"organisation.json");
       console.log("organisation: ", organisation);
       var inputdata = organisation.filter((obj) => obj.udvalg == valgtUdvalg);
       inputdata = inputdata[0].dokumenter.filter((obj) => obj.navn == valgtDokument);
@@ -1260,7 +1304,7 @@ export async function skabelon() {
     }
     if (valgtDokument == "Budgetbemærkninger del 2") {
       //  Fetcher organisationsdata igen
-      var organisation = await fetchAssets("./assets/organisation.json");
+      var organisation = await fetchAssets(configurl+"organisation.json");
       console.log("organisation: ", organisation);
       var inputdata = organisation.filter((obj) => obj.udvalg == valgtUdvalg);
       inputdata = inputdata[0].dokumenter.filter((obj) => obj.navn == valgtDokument);
@@ -1570,7 +1614,7 @@ export async function skabelon() {
     if (valgtDokument == "Regnskabsbemærkninger") {
       /* Loader JSON-fil for relevant udvalg */
       organisationdata[0].forkortelse
-      var udvalgsdata = await fetchAssets("./assets/"+organisationdata[0].forkortelse+".json");
+      var udvalgsdata = await fetchAssets(configurl+organisationdata[0].forkortelse+".json");
 
       /* indsætter titel */
       var notatTitel = context.document.body.insertParagraph(valgtUdvalg, Word.InsertLocation.start);

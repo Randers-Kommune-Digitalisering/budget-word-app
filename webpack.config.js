@@ -12,7 +12,8 @@ async function getHttpsOptions() {
   return { ca: httpsOptions.ca, key: httpsOptions.key, cert: httpsOptions.cert };
 }
 
-
+const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
 
 module.exports = async (env, options) => {
   const dev = options.mode === "development";
@@ -68,6 +69,9 @@ module.exports = async (env, options) => {
         template: "./src/taskpane/taskpane.html",
         chunks: ["polyfill", "taskpane"],
       }),
+      new Dotenv({
+        path: './.env', // Path to your .env file 
+      }),
       new CopyWebpackPlugin({
         patterns: [
           {
@@ -101,6 +105,8 @@ module.exports = async (env, options) => {
     devServer: {
       headers: {
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS", // Allow specific methods
+        "Access-Control-Allow-Headers": "Content-Type, Authorization", // Allow specific headers
       },
       server: {
         type: "https",

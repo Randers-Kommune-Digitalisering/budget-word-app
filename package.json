@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "core-js": "^3.9.1",
+    "http-proxy-middleware": "^3.0.5",
     "http-server": "^14.1.1",
     "json-loader": "^0.5.7",
     "json-templates": "^5.1.0",
@@ -45,6 +46,7 @@
     "acorn": "^8.5.0",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^9.0.1",
+    "dotenv-webpack": "^8.1.0",
     "eslint-plugin-office-addins": "^2.1.5",
     "file-loader": "^6.2.0",
     "html-loader": "^4.1.0",

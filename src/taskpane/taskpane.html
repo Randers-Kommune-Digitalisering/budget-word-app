@@ -209,6 +209,13 @@
       </div>
       <div id="news">
         <div class="version-history">
+          <p><b>29/04/25 v. 0.1.2:</b></p>
+          <p>Ændringer:</p>
+          <ul>
+            <li>Separat config-repo: <a href='https://github.com/Randers-Kommune-Digitalisering/budget-word-app-config'>Config-repo på GitHub</a></li>
+          </ul>
+        </div>
+        <div class="version-history">
           <p><b>25/03/25 v. 0.1.1:</b></p>
           <p>Ny version med en række ændringer:</p>
           <ul>
@@ -235,7 +242,7 @@
       <p>
         <a title="" href="https://github.com/Randers-Kommune-Digitalisering/budget-word-app" target="_blank"><i class="fa-brands fa-github icon"></i></a>
         <a href="https://budget-word-app.prototypes.randers.dk/" target="_blank"><i class="fa-solid fa-globe icon"></i></a></br>
-        <i>budget-word-app v. 0.1.1</i>
+        <i>budget-word-app v. 0.1.2</i>
       </p>
     </footer>
   </main>
@@ -259,8 +266,8 @@ defaultOptionUdvalg.text = 'Vælg udvalg';
 dropdownUdvalg.add(defaultOptionUdvalg);
 dropdownUdvalg.selectedIndex = 0;
 
-const dokumentURL = './assets/dokumenttype.json';
-const organisationURL = './assets/organisation.json';
+const dokumentURL = 'https://raw.githubusercontent.com/Randers-Kommune-Digitalisering/budget-word-app-config/refs/heads/main/dokumenttype.json';
+const organisationURL = 'https://raw.githubusercontent.com/Randers-Kommune-Digitalisering/budget-word-app-config/refs/heads/main/organisation.json';
   
 /* Populerer dokumentdropdown */
 fetch(dokumentURL)  

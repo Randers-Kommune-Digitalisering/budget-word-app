@@ -11,6 +11,9 @@
                         ["Handicap","7300020ADI35.0023"],
                         ["Autisme, senhjerneskade og læring","7300020ADI40.0023"]  
                     ],
+                    "projekter":[
+                        ["Projekter","DI30A4","DI35A4","DI40A4"]       
+                    ],
                     "indkomstoverførsler":[
                         ["Handicap","7300020BDI35.0023"]
                     ],
