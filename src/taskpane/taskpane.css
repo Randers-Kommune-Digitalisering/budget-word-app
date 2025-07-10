@@ -1,4 +1,4 @@
- html,
+html,
  body {
     background-color: white; 
     width: 100%;
@@ -209,6 +209,14 @@ b {
     font-weight:bold; 
 }
 
+.overskrift3 {
+    margin: 5px 0px 0px 0px;;
+    font-size:normal;
+    font-weight:bold; 
+}
+
+
+
 #skabeloner{display:block;}
 #tools, #tools_overskrift, #dev, #dev_overskrift, #news, #news_overskrift, #about, #about_overskrift{display:none;}
 
@@ -233,3 +241,40 @@ b {
   .version-history li {
     margin: 5px 0;
   }
+
+#about p {
+    margin-top: 2px;
+}
+
+#about ul {
+    margin: 20px 20px 20px 20px;
+    padding: 0;
+    list-style-type: disc;
+}
+
+#about li {
+    margin: 5px 0;
+}
+
+.breaking-bar {
+    width: 100vw; /* Ensures it never exceeds viewport width */
+    left: 0;
+    right: 0;
+    position: relative;
+    overflow: hidden;
+    margin:0px 0px 0px 0px;
+    padding:0px;
+    border-bottom: solid 0px rgba(28, 53, 122, 1);
+}
+
+.breaking-text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: breaking-marquee 12s linear infinite;
+}
+
+@keyframes breaking-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
