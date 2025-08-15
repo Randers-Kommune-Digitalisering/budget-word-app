@@ -60,13 +60,13 @@
         <select id="udvalgDropdown" class="dropdown skjult" title="udvalgDropdown" name="udvalg"></select>
         <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown" name="dokumentDetalje"></select>
         <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown" name="bevillingsområde"></select>
-        
+
         <div id="toolsdiv" class="skjult">
           <div id="loaddatadiv" class="skjult">
             <p class="overskrift2">Indlæs data</p>
             <p>Indlæst data fra AO-rapport</p>           
-            <input id="file" name="file" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-            <select id="fileTypeDropdown" class="dropdown skjult"></select>
+            <input id="file" name="fil" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <select id="fileTypeDropdown" class="dropdown skjult" name="filType"></select>
           </div>
 
           <div>
@@ -506,12 +506,11 @@ function removeOptions(selectElement) {
     const obj = {};
 
     elements.forEach(el => {
-      console.log(el.name, el.value);
       obj[el.name] = el.value;
     });
 
     // Viser JSON i <pre> feltet
-    console.log(obj, JSON.stringify(obj, null, 2));
+    console.log(JSON.stringify(obj, null, 2));
   });
 </script>
 
