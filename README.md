@@ -2,6 +2,21 @@
 ## Før
 
 ```mermaid
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#3c3c3c',
+      'primaryTextColor': '#fff',
+      'primaryBorderColor': '#3c3c3c',
+      'lineColor': '#F8B229',
+      'secondaryColor': '#616161',
+      'tertiaryColor': '#616161',
+      'tertiaryTextColor': '#fff'
+    }
+  }
+}%%
+
 flowchart LR
     %% Inputs
     json1[📄 dokumenttype.json] 
@@ -35,6 +50,22 @@ flowchart LR
 ``` 
 ## Nu
 ```mermaid
+
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#3c3c3c',
+      'primaryTextColor': '#fff',
+      'primaryBorderColor': '#3c3c3c',
+      'lineColor': '#F8B229',
+      'secondaryColor': '#616161',
+      'tertiaryColor': '#616161',
+      'tertiaryTextColor': '#fff'
+    }
+  }
+}%%
+
 flowchart LR
     %% Inputs
     json1[📄 dokumenttype.json] 
@@ -69,6 +100,21 @@ flowchart LR
 ``` 
 ## To be
 ```mermaid
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#3c3c3c',
+      'primaryTextColor': '#fff',
+      'primaryBorderColor': '#3c3c3c',
+      'lineColor': '#F8B229',
+      'secondaryColor': '#616161',
+      'tertiaryColor': '#616161',
+      'tertiaryTextColor': '#fff'
+    }
+  }
+}%%
+
 flowchart LR
     %% Inputs
     json1[📄 dokumenttype.json] 
