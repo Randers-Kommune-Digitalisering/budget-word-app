@@ -56,17 +56,17 @@
         <p><i>Enten direkte fra fællesdrevet eller <a class="linkitekst" href="ms-word:ofe|u|https://budget-word-app.prototypes.randers.dk/assets/Startskabelon.docm" target="_self">her</a> (åbner i et nyt vindue - aktiver redigering inden du går videre).</i></p>
         <p class="overskrift2">Vælg dokumenttype </p>
 
-        <select id="dokumentDropdown" class="dropdown" title="dokumentDropdown"></select>
-        <select id="udvalgDropdown" class="dropdown skjult" title="udvalgDropdown"></select>
-        <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown"></select>
-        <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown"></select>
-        
+        <select id="dokumentDropdown" class="dropdown" title="dokumentDropdown" name="dokument"></select>
+        <select id="udvalgDropdown" class="dropdown skjult" title="udvalgDropdown" name="udvalg"></select>
+        <select id="dokumentDetaljeDropdown" class="dropdown skjult" title="dokumentDetaljeDropdown" name="dokumentDetalje"></select>
+        <select id="bevillingsområdeDropdown" class="dropdown skjult" title="bevillingsområdeDropdown" name="bevillingsområde"></select>
+
         <div id="toolsdiv" class="skjult">
           <div id="loaddatadiv" class="skjult">
             <p class="overskrift2">Indlæs data</p>
             <p>Indlæst data fra AO-rapport</p>           
-            <input id="file" name="file" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-            <select id="fileTypeDropdown" class="dropdown skjult"></select>
+            <input id="file" name="fil" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <select id="fileTypeDropdown" class="dropdown skjult" name="filType"></select>
           </div>
 
           <div>
@@ -499,4 +499,19 @@ function removeOptions(selectElement) {
 }
 
 </script>
+
+<script>
+  document.getElementById("skabelon").addEventListener("click", function() {
+   const elements = document.querySelectorAll("#skabeloner input, #skabeloner select");
+    const obj = {};
+
+    elements.forEach(el => {
+      obj[el.name] = el.value;
+    });
+
+    // Viser JSON i <pre> feltet
+    console.log(JSON.stringify(obj, null, 2));
+  });
+</script>
+
 </html>
