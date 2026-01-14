@@ -1685,7 +1685,8 @@ export async function skabelon() {
               var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[j].beskrivelse);
               var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
 
-              var data = buildTableMatrix(rows,columns,false,true,withData);
+              var data = buildTableMatrix(rows,columns,false);
+              console.log("data: ", data);
 
               var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
               indsatTabel.select();
@@ -1735,7 +1736,9 @@ export async function skabelon() {
                     var parseKolonner = parse(dokumentdata[0].tabeller[k].kolonner);
 
                     var rowsFullArray = udvalgsdata.bevillingsområde[i][substruktur][0][k];
+                    console.log("rowsFullArray: ", rowsFullArray); 
                     var rows = rowsFullArray.map(subArray => subArray[0])
+                    console.log("rows: ", rows);
                     var rowsCount = rows.length;
                     var columns = parseKolonner({lastYear: lastYear2, nextYear: currentYear});
                     
@@ -1743,8 +1746,9 @@ export async function skabelon() {
                     var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[k].beskrivelse);
                     var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
 
-                    var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? true : false);
-                    var data = buildTableMatrix(rows,columns,includeProjects,true,withData);
+                    var includeProjects = ((k === "servicerammen" & udvalgsdata.bevillingsområde[i][substruktur][0].hasOwnProperty("projekter")) ? udvalgsdata.bevillingsområde[i][substruktur][0].projekter[0] : null);
+                    var data = buildTableMatrix(rows,columns,includeProjects,true);
+                    
 
                     var indsatTabel = context.document.body.insertTable(data.length, data[0].length, "End", data);
                     indsatTabel.select();
