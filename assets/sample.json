@@ -1,0 +1,40 @@
+[{
+    "type":"afsnit", 
+    "indhold":"Overskrift",
+    "style":"Brev/notat KORT (O1)"
+},
+{
+    "type":"afsnit", 
+    "indhold":"Overskrift 2",
+    "style":"Brev (O2)"
+},
+{  
+    "type":"tekst",
+    "indhold":"Dette er et eksempel på et afsnit med speciel skrifttype.",
+    "style":"Normal",
+    "skrifttype":{
+        "størrelse":9,
+        "kursiv":true
+    }
+},
+{
+    "type":"afsnit",
+    "indhold":"Heading4",
+    "styleBuiltIn":"Heading4"
+},
+{
+    "type":"afsnit",
+    "indhold":"",
+    "styleBuiltIn":"Normal"
+},
+{
+    "type":"tabel",
+    "indhold":[
+        ["Overskrift 1","Overskrift 2","Overskrift 3"],
+        ["Data 1","Data 2","Data 3"],
+        ["Data 4","Data 5","Data 6"],
+        ["Data 7","Data 8","Data 9"]
+    ],
+    "styleAsSelectedTable": false
+}
+]

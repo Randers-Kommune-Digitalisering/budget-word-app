@@ -6,6 +6,8 @@
 
 import { formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays, styleTable } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
+import { generateDocumentFromJSON } from "./utils/generatefromjson.js";
+import { generateBB } from "./utils/jsonBB.js";
 
 const configurl = 'https://raw.githubusercontent.com/Randers-Kommune-Digitalisering/budget-word-app-config/refs/heads/main/';
 
@@ -38,11 +40,27 @@ Office.onReady((info) => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("file").addEventListener("change", checkfile);
+    document.getElementById("generateFromUserJSON").onclick = () => tryCatch(loadUserJSON);
+    document.getElementById("generateDummyJSON").onclick = () => tryCatch(callGenerateBB);
 
     console.log(process.env.CONFIG_LIBRARY_URL); 
     // fetchConfigFile("ØU")
   }
 });
+
+async function callGenerateBB() {
+  const data = await generateBB(configurl, "Budgetbemærkninger del 1", "SAU2629", "Beskæftigelse, integration og ydelser");
+
+  /* Generer skabelon */
+  /* generateDocumentFromJSON(JSON.stringify(data)); */
+}
+
+function loadUserJSON() {
+  const userJSON = document.getElementById("jsonTextarea").value;
+  console.log(userJSON);
+
+  generateDocumentFromJSON(userJSON);
+}
 
 export async function formatAllTables() {
   return Word.run(async (context) => {
@@ -613,7 +631,7 @@ export async function skabelon() {
         "Budgetopfølgning pr. " + valgtDokumentDetajle + " " + currentYear,
         Word.InsertLocation.start
       );
-      notatTitel.style = "Brev/notat KORT (O1)";
+      notatTitel.style = "Brev/notat KORT (O1)"; 
 
       // Indsætter notatdetaljer
       context.document.body.paragraphs.getLast().select("End");

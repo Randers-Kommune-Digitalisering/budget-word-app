@@ -183,8 +183,15 @@
         </div>
       </div>
       <div id="dev">
+        <textarea id="jsonTextarea" rows="10" cols="39" style="margin-top:10px;font-family: 'Courier New', Courier, monospace;font-size: 12px;">Indsæt JSON her</textarea>
+        <div role="button" id="generateFromUserJSON" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label">Generer skabelon fra JSON</span>
+        </div>
+        <div role="button" id="generateDummyJSON" class="ms-welcome__action ms-Button ms-Button--hero">
+          <span class="ms-Button-label">Generer dummy-JSON</span>
+        </div>
         <div role="button" id="loadBookmark" class="ms-welcome__action ms-Button ms-Button--hero">
-          <span class="ms-Button-label">Load bookmark</span>
+          <span class="ms-Button-label">Load bookmark</span> 
         </div>
         <div role="button" id="loadContentControls" class="ms-welcome__action ms-Button ms-Button--hero">
           <span class="ms-Button-label">Console log content controls</span>
@@ -512,6 +519,11 @@ function removeOptions(selectElement) {
     // Viser JSON i <pre> feltet
     console.log(JSON.stringify(obj, null, 2));
   });
+
+document.getElementById("jsonTextarea").addEventListener("click", function() {
+  this.value = "";
+});
+
 </script>
 
 </html>
