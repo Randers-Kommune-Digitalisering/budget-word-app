@@ -49,7 +49,7 @@ Office.onReady((info) => {
 });
 
 async function callGenerateBB() {
-  const data = await generateBB(configurl, "Budgetbemærkninger del 1", "SAU2629", "Beskæftigelse, integration og ydelser");
+  const data = await generateBB(configurl, "Budgetbemærkninger del 1 - ny", "SAU2629", "Beskæftigelse, integration og ydelser");
 
   /* Generer skabelon */
   /* generateDocumentFromJSON(JSON.stringify(data)); */
@@ -112,7 +112,7 @@ export async function rydValgtTabel() {
 function fetchConfigFile(file) {
   fetch(loginUrl+"/api/file/budget-word-app/"+file+".json", {
     method: "POST",
-    headers: {
+    headers: { 
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),

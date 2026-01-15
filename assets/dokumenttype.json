@@ -307,6 +307,40 @@
         }
     },
     {
+        "type":"Budgetbemærkninger del 1 - ny",
+        "langtNavn":"Del 1",
+        "sektioner":[{
+            "overskrift":"1. Beskrivelse af området",
+            "styling":"Overskrift 2"
+        },{
+            "overskrift":"2. Hovedtal",
+            "styling":"Overskrift 2",
+            "tabel":[{
+                "indhold":[
+                    ["Overskrift 1","Overskrift 2","Overskrift 3"],
+                    ["Data 1","Data 2","Data 3"],
+                    ["Data 4","Data 5","Data 6"],
+                    ["Data 7","Data 8","Data 9"]
+                ],
+                "styleAsSelectedTable": true
+            }],
+            "sektioner":[{
+                "overskrift":"2.1 Drift",
+                "styling":"Overskrift 3",
+                "sektioner":[{
+                    "overskrift":"2.1.1 Servicerammen",
+                    "styling":"Overskrift 4"
+                },{
+                    "overskrift":"2.1.2 Uden for servicerammen",
+                    "styling":"Overskrift 4"
+                }]
+            }]
+        },{
+            "overskrift":"3. Aktuel økonomisk situation på drift og anlæg",
+            "styling":"Overskrift 2"
+        }]
+    },
+    {
         "type":"Budgetbemærkninger del 1",
         "langtNavn":"Del 1",
         "sektioner":[
