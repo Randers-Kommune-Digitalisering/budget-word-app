@@ -741,7 +741,7 @@ export async function skabelon() {
               var rowsCount = rows.length;
               var columns = parseKolonner({lastYear: lastYear2, nextYear: currentYear});
               
-              var parse = require("json-templates");
+              var parse = require("json-templates"); 
               var parseTabelBeskrivelse = parse(dokumentdata[0].tabeller[j].beskrivelse);
               var tabelBeskrivelse = parseTabelBeskrivelse({bevillingsomraade: udvalgsdata.bevillingsområde[i].navn});
 
@@ -792,7 +792,7 @@ export async function skabelon() {
                   /* Tabel */
                   if (dokumentdata[0].tabeller.hasOwnProperty(k)) {
                     var parse = require("json-templates");
-                    var parseKolonner = parse(dokumentdata[0].tabeller[k].kolonner);
+                    var parseKolonner = parse(dokumentdata[0].tabeller[k].kolonner); 
 
                     var rowsFullArray = udvalgsdata.bevillingsområde[i][substruktur][0][k];
                     var rows = rowsFullArray.map(subArray => subArray[0])

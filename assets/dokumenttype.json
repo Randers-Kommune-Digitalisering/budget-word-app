@@ -316,12 +316,7 @@
             "overskrift":"2. Hovedtal",
             "styling":"Overskrift 2",
             "tabel":[{
-                "indhold":[
-                    ["Overskrift 1","Overskrift 2","Overskrift 3"],
-                    ["Data 1","Data 2","Data 3"],
-                    ["Data 4","Data 5","Data 6"],
-                    ["Data 7","Data 8","Data 9"]
-                ],
+                "type":"bb01",
                 "styleAsSelectedTable": true
             }],
             "sektioner":[{
@@ -338,6 +333,15 @@
         },{
             "overskrift":"3. Aktuel økonomisk situation på drift og anlæg",
             "styling":"Overskrift 2"
+        }],
+        "tabeller":[{
+            "type":"bb01",
+            "navn":"Driftsbudget",
+            "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
+            "note":"",
+            "kolonner":[
+                "{{bevillingsomraadeParse}} (mio. kr.)","{{aar1}}","{{aar2}}","{{aar3}}","{{aar4}}"
+            ]
         }]
     },
     {
