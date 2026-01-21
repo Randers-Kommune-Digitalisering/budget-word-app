@@ -1,8 +1,18 @@
-import { formatSelectedTable } from "./utils";
+import { formatSelectedTable, rydAlt, rydSidehoved } from "./utils";
+
+export async function fetchAssets(adr) {
+  return Word.run(async (context) => {
+    var response = await fetch(adr, { cache: "reload" });
+    return response.json();
+  });
+}
 
 export async function generateDocumentFromJSON(jsonData) {
     return Word.run(async (context) => { 
         let data;
+
+        var tableStyles = await fetchAssets("https://localhost:3000/assets/"+"StylesTables.json");
+
         try {
             data = typeof jsonData === "string" ? JSON.parse(jsonData) : jsonData;
         } catch (e) {
@@ -13,8 +23,35 @@ export async function generateDocumentFromJSON(jsonData) {
             console.error("Input JSON must be an array of elements");
             return;
         }
+
         const body = context.document.body;
         for (let i = 0; i < data.length; i++) {
+            /* Dokumentformattering */
+            if (data[i].type === "opvarming") {
+                if (data[i].hasOwnProperty("rydSidehoved") && data[i].rydSidehoved === true) {
+                    await rydSidehoved();
+                }
+                if (data[i].hasOwnProperty("rydAlt") && data[i].rydAlt === true) {
+                    await rydAlt();
+                }
+            }
+
+            /* Sidehoved */
+            if (data[i].type === "sidehoved") {
+                const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary).insertParagraph(data[i].indhold, data[i].placering);
+                
+                if (data[i].hasOwnProperty("skrifttype")){
+                    if (data[i].skrifttype.hasOwnProperty("størrelse")) {
+                        header.font.size = data[i].skrifttype.størrelse;
+                    } 
+                    if (data[i].skrifttype.hasOwnProperty("kursiv")) {
+                        header.font.italic = data[i].skrifttype.kursiv;
+                    } 
+                    if (data[i].skrifttype.hasOwnProperty("justering")) {
+                        header.alignment = data[i].skrifttype.justering;
+                    }
+                }
+            }
             /* Afsnit */
             if (data[i].type === "afsnit") {
                 var indhold 

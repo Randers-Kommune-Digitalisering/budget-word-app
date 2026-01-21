@@ -309,6 +309,22 @@
     {
         "type":"Budgetbemærkninger del 1 - ny",
         "langtNavn":"Del 1",
+        "sidehoved":[{
+            "placering":"Start",
+            "indhold":"{{udvalg}} - {{bevillingsomraade}}",
+            "skrifttype":{
+                "størrelse":16,
+                "justering":"Centered"
+            }
+        },{
+            "placering":"End",
+            "indhold":"Del 1",
+            "skrifttype":{
+                "størrelse":16,
+                "justering":"Centered"
+            }
+        }
+        ],
         "sektioner":[{
             "overskrift":"1. Beskrivelse af området",
             "styling":"Overskrift 2"

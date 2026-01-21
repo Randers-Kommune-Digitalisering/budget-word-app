@@ -1,4 +1,5 @@
-import { tabelgenerator } from "./tabelgenerator.js";
+import { rydAlt, rydSidehoved } from "./utils.js";
+import { tabelgenerator } from "./generateTable.js";
 
 export async function fetchAssets(adr) {
   return Word.run(async (context) => {
@@ -11,6 +12,7 @@ function tomlinje() {
     return {type:"afsnit", indhold:null, styleBuiltIn:"Normal"};
 }
 
+
 export async function generateBB(configurl, dokument, udvalg, bevillingsomraade) {
     let data=[];   
 
@@ -21,7 +23,25 @@ export async function generateBB(configurl, dokument, udvalg, bevillingsomraade)
       dokumentdata = dokumentdata.filter((obj) => obj.type == dokument);
       dokumentdata = dokumentdata[0];
 
-      /* Rekursiv funktion til at behandle sektioner, undersektioner og tabeller */
+      /* Rydder standardskabelones sidehoved */
+      data.push({type: "opvarming", rydSidehoved: true, rydAlt: true});
+
+      /* Indsætter nyt sidehoved */
+      for (let i = 0; i < dokumentdata.sidehoved.length; i++) {
+        var parse = require("json-templates");
+        var parseIndhold = parse(dokumentdata.sidehoved[i].indhold);
+        data.push({
+          type: "sidehoved", 
+          indhold: parseIndhold({udvalg: udvalgsdata.udvalg, bevillingsomraade: bevillingsomraade}), 
+          placering: dokumentdata.sidehoved[i].placering, 
+          skrifttype:{
+            størrelse: dokumentdata.sidehoved[i].skrifttype.størrelse, 
+            justering: dokumentdata.sidehoved[i].skrifttype.justering
+          }
+        });
+      }
+
+      /* Indsætter sektioner og underliggende indhold */
       async function processSektioner(sektioner) {
         for (let i = 0; i < sektioner.length; i++) {
           data.push({type: "afsnit", indhold: sektioner[i].overskrift, style: sektioner[i].styling});

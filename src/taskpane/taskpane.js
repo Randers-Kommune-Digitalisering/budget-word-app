@@ -1,13 +1,7 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable office-addins/no-context-sync-in-loop */
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable no-undef */
-//import { ContextExclusionPlugin } from "webpack";
-
-import { formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays, styleTable } from "./utils/utils.js";
+import { formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTable, sumArrays, styleTable, rydAlt, rydSidehoved } from "./utils/utils.js";
 import { generateTable, readFile } from "./utils/data.js";
-import { generateDocumentFromJSON } from "./utils/generatefromjson.js";
-import { generateBB } from "./utils/jsonBB.js";
+import { generateDocumentFromJSON } from "./utils/generateDocumentFromJSON.js";
+import { generateBB } from "./utils/generateBB.js";
 
 const configurl = 'https://raw.githubusercontent.com/Randers-Kommune-Digitalisering/budget-word-app-config/refs/heads/main/';
 
@@ -42,9 +36,6 @@ Office.onReady((info) => {
     document.getElementById("file").addEventListener("change", checkfile);
     document.getElementById("generateFromUserJSON").onclick = () => tryCatch(loadUserJSON);
     document.getElementById("generateDummyJSON").onclick = () => tryCatch(callGenerateBB);
-
-    console.log(process.env.CONFIG_LIBRARY_URL); 
-    // fetchConfigFile("ØU")
   }
 });
 
@@ -297,7 +288,7 @@ export async function indlæsAfsnit(placering) {
   });
 }
 
-export async function rydSidehoved() {
+/* export async function rydSidehoved() {
   return Word.run(async (context) => {
     // Ryd tekst i header
     var header = context.document.sections.getFirst().getHeader("primary");
@@ -328,7 +319,7 @@ export async function rydAlt() {
     await context.sync();
     withData = false;
   });
-}
+} */
 
 export async function indsætContentControl(name) {
   return Word.run(async (context) => {

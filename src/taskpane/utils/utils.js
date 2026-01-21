@@ -1,3 +1,44 @@
+/* Ryd formatering */
+export async function rydSidehoved() {
+  return Word.run(async (context) => {
+    // Ryd tekst i header
+    var header = context.document.sections.getFirst().getHeader("primary");
+
+    var afsnit = header.paragraphs; 
+    context.load(afsnit, "text");
+    await context.sync();
+    for (var i = 0; i < afsnit.items.length; i++) {
+      afsnit.items[i].delete();
+    }
+
+    // Ryd tekst i header
+    var footer = context.document.sections.getFirst().getFooter("primary");
+
+    var afsnit = footer.paragraphs;
+    context.load(afsnit, "text");
+    await context.sync();
+    for (var i = 0; i < afsnit.items.length; i++) {
+      afsnit.items[i].delete();
+    } 
+  });
+}
+
+export async function rydAlt() {
+  return Word.run(async (context) => {
+    // Ryd alt i body
+    context.document.body.clear();
+    await context.sync();
+    console.log(typeof withData);
+    if (typeof withData !== 'undefined') {
+      withData = false;
+    }
+  });
+} 
+
+
+
+
+
 /* eslint-disable office-addins/no-context-sync-in-loop */
 export function sumArrays(...arrays) {
   const n = arrays.reduce((max, xs) => Math.max(max, xs.length), 0);
