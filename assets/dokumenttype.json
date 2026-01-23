@@ -327,7 +327,12 @@
         ],
         "sektioner":[{
             "overskrift":"1. Beskrivelse af området",
-            "styling":"Overskrift 2"
+            "styling":"Overskrift 2",
+            "tabel":[{
+                "type":"testtabel",
+                "style": "customStyle1"
+            }]
+            
         },{
             "overskrift":"2. Hovedtal",
             "styling":"Overskrift 2",
@@ -357,6 +362,13 @@
             "note":"",
             "kolonner":[
                 "{{bevillingsomraadeParse}} (mio. kr.)","{{aar1}}","{{aar2}}","{{aar3}}","{{aar4}}"
+            ]
+        },
+        {
+            "type":"testtabel",
+            "navn":"Testtabel",
+            "kolonner":[
+                "Header 1","Header 2","Header 3"
             ]
         }]
     },

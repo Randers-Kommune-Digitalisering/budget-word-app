@@ -55,11 +55,14 @@ export async function tabelgenerator(type, dokument, dokumentdata, udvalg, bevil
 
     }
     if (type === "testtabel") {
-        tabeldata.push(["Header 1","Header 2","Header 3"]);
+        var tabel = dokumentdata.tabeller.filter((obj) => obj.type == type);
+        tabel = tabel[0];
+
+        tabeldata.push(tabel.kolonner);
         tabeldata.push(["Data 1","Data 2","Data 3"]);
         tabeldata.push(["Data 4","Data 5","Data 6"]);
         tabeldata.push(["Data 7","Data 8","Data 9"]);
-        return tabeldata;
+        
     }   
 
     console.log("Tabeldata genereret:", tabeldata);
