@@ -1,4 +1,11 @@
 /* Ryd formatering */
+export async function fetchAssets(adr) {
+  return Word.run(async (context) => {
+    var response = await fetch(adr, { cache: "reload" });
+    return response.json();
+  });
+}
+
 export async function rydSidehoved() {
   return Word.run(async (context) => {
     // Ryd tekst i header

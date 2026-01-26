@@ -1,12 +1,6 @@
-import { rydAlt, rydSidehoved } from "./utils.js";
+import { rydAlt, rydSidehoved, fetchAssets } from "./utils.js";
 import { tabelgenerator } from "./generateTable.js";
 
-export async function fetchAssets(adr) {
-  return Word.run(async (context) => {
-    var response = await fetch(adr, { cache: "reload" });
-    return response.json();
-  });
-}
 
 function tomlinje() {
     return {type:"afsnit", indhold:null, styleBuiltIn:"Normal"};
@@ -48,7 +42,7 @@ export async function generateBB(configurl, dokument, udvalg, bevillingsomraade)
           if (sektioner[i].hasOwnProperty("tabel") && Array.isArray(sektioner[i].tabel)) {
             for (let j = 0; j < sektioner[i].tabel.length; j++) {
               var tabeldata = await tabelgenerator(sektioner[i].tabel[j].type, dokument, dokumentdata, udvalgsdata, bevillingsomraade)
-              data.push({type: "tabel", indhold: tabeldata, styleAsSelectedTable: sektioner[i].tabel[j].styleAsSelectedTable});
+              data.push({type: "tabel", indhold: tabeldata, styleAsSelectedTable: sektioner[i].tabel[j].styleAsSelectedTable, style: sektioner[i].tabel[j].style});
             }
           }
           data.push(tomlinje());

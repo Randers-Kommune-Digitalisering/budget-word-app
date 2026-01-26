@@ -63,6 +63,7 @@ export async function tabelgenerator(type, dokument, dokumentdata, udvalg, bevil
         tabeldata.push(["Data 4","Data 5","Data 6"]);
         tabeldata.push(["Data 7","Data 8","Data 9"]);
         
+
     }   
 
     console.log("Tabeldata genereret:", tabeldata);

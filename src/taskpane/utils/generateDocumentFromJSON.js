@@ -1,4 +1,5 @@
 import { formatSelectedTable, rydAlt, rydSidehoved } from "./utils";
+import { styleTable } from "./styleTable.js";
 
 export async function fetchAssets(adr) {
   return Word.run(async (context) => {
@@ -11,7 +12,7 @@ export async function generateDocumentFromJSON(jsonData) {
     return Word.run(async (context) => { 
         let data;
 
-        var tableStyles = await fetchAssets("https://localhost:3000/assets/"+"StylesTables.json");
+        var tableStyles = await fetchAssets("https://localhost:3000/assets/"+"tableStyles.json");
 
         try {
             data = typeof jsonData === "string" ? JSON.parse(jsonData) : jsonData;
@@ -89,6 +90,10 @@ export async function generateDocumentFromJSON(jsonData) {
                     tabel.select();
                     await context.sync();
                     formatSelectedTable();
+                }
+                if (data[i].hasOwnProperty("style")) {
+                    console.log("Kommer her");
+                    await styleTable(context, tabel, data[i].style);
                 }
             }
         }

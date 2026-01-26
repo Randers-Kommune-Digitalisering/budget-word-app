@@ -1,13 +1,13 @@
-export async function styleTable(table, style) {
-    const table = selection.parentTable;  
+import { rydAlt, rydSidehoved, fetchAssets } from "./utils.js";
+
+export async function styleTable(context, table, style) {
+    //const table = selection.parentTable;  
     // context.trackedObjects.add(table);
 
     // Styler tabel som standardtabel
     table.styleBuiltIn = "TableGrid";
     table.headerRowCount = 1;
 
-    // Styler tekst i tabel
-    // Loop over alle rækker
     const rækker = table.rows;
     rækker.load("items");
     await context.sync();
@@ -21,9 +21,16 @@ export async function styleTable(table, style) {
       }
     } 
 
+    var customStyle = await fetchAssets("https://localhost:3000/assets/"+"tableStyles.json");
+    customStyle = customStyle.filter((obj) => obj.name == style);
+    customStyle = customStyle[0];
+
+    console.log(customStyle);
+
     table.headerRowCount = 1;
-    table.font.bold = false;
-    table.font.size = 9;
+    table.font.bold = customStyle.font.bold;
+    table.font.size = customStyle.font.size;
+    table.font.italics = customStyle.font.italics;
 
     // Fjerner alle rammer
     var borderLocation = Word.BorderLocation.all;
@@ -31,6 +38,7 @@ export async function styleTable(table, style) {
     await context.sync();
     border.set({ type: "none" });
 
+    /*
     // Tilføjer horisontale streger
     var borderLocation = Word.BorderLocation.insideHorizontal;
     var border = table.getBorder(borderLocation);
@@ -133,5 +141,6 @@ export async function styleTable(table, style) {
       }
       await context.sync();
     }
+    */
     await context.sync();
 }
