@@ -1,27 +1,35 @@
 [{
     "name": "customStyle1",
     
-     "font":{
+    "font":{
         "size": 14,
         "bold": true,
         "italics": false   
     },
-       
-    "header": {
+    "rows": {
+        "headerRows": 1,
+        "headerRowStyle": {
+            "bold": true
+        },
+        "customRows":[{
+            "textIdentifier": "I alt"
+        }],
+        "footerRows": 1,
+        "footerRowStyle": {
+            "bold": true
+        },
+        "rowLabels": {
+            "bold": true,
+            "indent": true    
+        }
     },
-    "celler": {
+    "cells": {
     
     },
-
     "border": {
 
-    },
-    "rows": {
-        "customRows":[{
-            "tekstIdentifier": "I alt"
-        }]
-
     }
+
 
 
 }

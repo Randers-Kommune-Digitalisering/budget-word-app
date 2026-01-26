@@ -8,10 +8,13 @@ function tomlinje() {
 
 
 export async function generateBB(configurl, dokument, udvalg, bevillingsomraade) {
+
+
     let data=[];   
 
     const udvalgsdata = await fetchAssets(configurl+udvalg+".json");
     var dokumentdata = await fetchAssets("https://localhost:3000/assets/"+"dokumenttype.json"); 
+    var customStyle = await fetchAssets("https://localhost:3000/assets/"+"tableStyles.json");
 
     if (dokument == "Budgetbemærkninger del 1 - ny") {
       dokumentdata = dokumentdata.filter((obj) => obj.type == dokument);
@@ -42,7 +45,11 @@ export async function generateBB(configurl, dokument, udvalg, bevillingsomraade)
           if (sektioner[i].hasOwnProperty("tabel") && Array.isArray(sektioner[i].tabel)) {
             for (let j = 0; j < sektioner[i].tabel.length; j++) {
               var tabeldata = await tabelgenerator(sektioner[i].tabel[j].type, dokument, dokumentdata, udvalgsdata, bevillingsomraade)
-              data.push({type: "tabel", indhold: tabeldata, styleAsSelectedTable: sektioner[i].tabel[j].styleAsSelectedTable, style: sektioner[i].tabel[j].style});
+              data.push({
+                type: "tabel", 
+                indhold: tabeldata, 
+                styleAsSelectedTable: sektioner[i].tabel[j].styleAsSelectedTable, 
+                style: customStyle.filter(obj => obj.name == sektioner[i].tabel[j].style)[0]});
             }
           }
           data.push(tomlinje());

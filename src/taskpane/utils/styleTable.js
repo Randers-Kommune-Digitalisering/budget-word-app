@@ -21,22 +21,20 @@ export async function styleTable(context, table, style) {
       }
     } 
 
-    var customStyle = await fetchAssets("https://localhost:3000/assets/"+"tableStyles.json");
-    customStyle = customStyle.filter((obj) => obj.name == style);
-    customStyle = customStyle[0];
-
-    console.log(customStyle);
-
-    table.headerRowCount = 1;
-    table.font.bold = customStyle.font.bold;
-    table.font.size = customStyle.font.size;
-    table.font.italics = customStyle.font.italics;
-
     // Fjerner alle rammer
     var borderLocation = Word.BorderLocation.all;
     var border = table.getBorder(borderLocation);
     await context.sync();
     border.set({ type: "none" });
+
+    // Indstiller på hele tabeller
+    table.headerRowCount = 1;
+    table.font.bold = style.font.bold;
+    table.font.size = style.font.size;
+    table.font.italics = style.font.italics;
+
+    // Loop over alle rækker og celler
+
 
     /*
     // Tilføjer horisontale streger
