@@ -26,6 +26,7 @@ export async function styleTable(context, table, style) {
     var border = table.getBorder(borderLocation);
     await context.sync();
     border.set({ type: "none" });
+    await context.sync();
 
     // Indstiller på hele tabeller
     table.headerRowCount = 1;
@@ -33,16 +34,29 @@ export async function styleTable(context, table, style) {
     table.font.size = style.font.size;
     table.font.italics = style.font.italics;
 
-    // Loop over alle rækker og celler
-
+    // Border styles
+    for (let b = 0; b < style.border.length; b++) {
+      console.log(style.border[b].location);
+      var locationKey = style.border[b].location;
+      var borderLocation = Word.BorderLocation[locationKey];
+      var border = table.getBorder(borderLocation);
+      for (const [key, value] of Object.entries(style.border[b].style)) {
+        console.log(`${key}: ${value}`);
+        var borderProperties = {};  
+        borderProperties[key] = value;
+        border.set(borderProperties);
+      }
+    }
+    await context.sync();
 
     /*
-    // Tilføjer horisontale streger
     var borderLocation = Word.BorderLocation.insideHorizontal;
     var border = table.getBorder(borderLocation);
-    await context.sync();
-    border.set({ color: "#D9D9D9", width: 0.5, type: "Single" });
-
+    
+    
+    
+    
+    // Loop over alle rækker og celler
     // Loop over alle rækker
 
     for (var i = 0; i < rækker.items.length; i++) {

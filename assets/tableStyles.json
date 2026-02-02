@@ -1,36 +1,63 @@
 [{
     "name": "customStyle1",
-    
     "font":{
         "size": 14,
         "bold": true,
         "italics": false   
     },
+    "border":[
+        { 
+            "location": "insideHorizontal",
+            "style": {
+                "color": "#D9D9D9", 
+                "width": 0.5, 
+                "type": "Single"
+            }
+        }
+    ],
     "rows": {
+        "rowStyle": {
+            
+        },
         "headerRows": 1,
         "headerRowStyle": {
+            "shadingColor": "#DDEBF7",
+            "font": {
+                "bold": true,
+                "name": "Calibri"
+            },
+            "border":[
+                { 
+                    "location": "top",
+                    "style": {
+                        "color": "#808080", 
+                        "width": 1, 
+                        "type": "Single"
+                    }
+                },
+                { 
+                    "location": "bottom",
+                    "style": {
+                        "color": "#808080", 
+                        "width": 1, 
+                        "type": "Single"
+                    }
+                }
+            ]
+        },
+        "footerRows": 1,
+        "footerRowStyle": {
             "bold": true
         },
         "customRows":[{
             "textIdentifier": "I alt"
         }],
-        "footerRows": 1,
-        "footerRowStyle": {
-            "bold": true
-        },
         "rowLabels": {
             "bold": true,
             "indent": true    
         }
     },
     "cells": {
-    
-    },
-    "border": {
-
+        
     }
-
-
-
-}
-]
+}]
