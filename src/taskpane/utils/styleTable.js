@@ -11,6 +11,7 @@ export async function styleTable(context, table, style) {
     const rækker = table.rows;
     rækker.load("items");
     await context.sync();
+    console.log(rækker.items);
 
     for (var i = 0; i < rækker.items.length; i++) {
       var celler = rækker.items[i].cells;
@@ -34,7 +35,7 @@ export async function styleTable(context, table, style) {
     table.font.size = style.font.size;
     table.font.italics = style.font.italics;
 
-    // Border styles
+    // Rammer
     for (let b = 0; b < style.border.length; b++) {
       console.log(style.border[b].location);
       var locationKey = style.border[b].location;
@@ -45,24 +46,22 @@ export async function styleTable(context, table, style) {
         var borderProperties = {};  
         borderProperties[key] = value;
         border.set(borderProperties);
+      } 
+    }
+    await context.sync();
+    
+    // Loop over alle rækker
+    // Generel række-styling
+    for (var i = 0; i < rækker.items.length; i++) {
+      for (var key in style.rows.rowStyle) {
+        rækker.items[i][key] = style.rows.rowStyle[key];
+        await context.sync();
+        console.log(rækker.items[i], style.rows.rowStyle[key]);
       }
     }
     await context.sync();
 
     /*
-    var borderLocation = Word.BorderLocation.insideHorizontal;
-    var border = table.getBorder(borderLocation);
-    
-    
-    
-    
-    // Loop over alle rækker og celler
-    // Loop over alle rækker
-
-    for (var i = 0; i < rækker.items.length; i++) {
-      rækker.items[i].verticalAlignment = "Center";
-      rækker.items[i].preferredHeight = 0;
-
       // Styler første og sidste række
       if ((i == 0) | (i == rækker.items.length - 1) & (document.getElementById("checkbox1").checked)) {
         var borderLocation = Word.BorderLocation.bottom;

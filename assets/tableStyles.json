@@ -17,7 +17,8 @@
     ],
     "rows": {
         "rowStyle": {
-            
+            "verticalAlignment": "Center",
+            "preferredHeight": 0
         },
         "headerRows": 1,
         "headerRowStyle": {

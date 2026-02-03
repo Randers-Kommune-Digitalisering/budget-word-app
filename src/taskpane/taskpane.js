@@ -1712,7 +1712,7 @@ export async function skabelon() {
               var emptyParagraph= context.document.body.insertParagraph("", Word.InsertLocation.end);
               emptyParagraph.styleBuiltIn = "Normal";
               await context.sync();
-
+ 
               tableAltBeskObj(udvalgsdata.bevillingsområde[i].navn + " - " + dokumentdata[0].tabeller[k].navn, tabelBeskrivelse);
             }
           }
