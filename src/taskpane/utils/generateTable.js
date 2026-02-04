@@ -61,7 +61,9 @@ export async function tabelgenerator(type, dokument, dokumentdata, udvalg, bevil
         tabeldata.push(tabel.kolonner);
         tabeldata.push(["Data 1","Data 2","Data 3"]);
         tabeldata.push(["Data 4","Data 5","Data 6"]);
+        tabeldata.push(["Subtotal","Subtotal 2","Subtotal 3"]);
         tabeldata.push(["Data 7","Data 8","Data 9"]);
+        tabeldata.push(["I alt 7","I alt 8","I alt 9"]);
         
 
     }   

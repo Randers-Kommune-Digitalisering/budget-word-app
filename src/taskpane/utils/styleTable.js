@@ -1,5 +1,53 @@
 import { rydAlt, rydSidehoved, fetchAssets } from "./utils.js";
 
+function styleCells(cellStyle, cells){
+  for (var i = 0; i < cells.items.length; i++) {
+    if (i == 0) { 
+      for (const [key, value] of Object.entries(cellStyle.left.padding)) {
+        cells.items[i].setCellPadding(key, value);
+      }
+      cells.items[i].horizontalAlignment = cellStyle.left.alignment;
+    } else {
+      for (const [key, value] of Object.entries(cellStyle.rest.padding)) {
+        cells.items[i].setCellPadding(key, value);
+      }
+      cells.items[i].horizontalAlignment = cellStyle.rest.alignment;
+    }
+  }
+} 
+
+async function styleRow (row, style) {
+  for (var key in style) {
+    if (key === "font") {
+      for (var fontKey in style.font) {
+        row.font[fontKey] = style.font[fontKey];
+      }
+    } 
+    else if (key === "border") {
+      for (let b = 0; b < style.border.length; b++) {
+        var locationKey = style.border[b].location;
+        var borderLocation = Word.BorderLocation[locationKey];
+        var border = row.getBorder(borderLocation);
+        for (const [key, value] of Object.entries(style.border[b].style)) {
+          var borderProperties = {};
+          borderProperties[key] = value;              
+          border.set(borderProperties);
+        }
+      }
+    }
+    else if (key === "cells") {
+      var cells = row.cells;
+      cells.load("items");
+      await row.context.sync();
+
+      styleCells(style.cells, cells);
+    } 
+    else {
+      row[key] = style[key];
+    }
+  }
+}
+
 export async function styleTable(context, table, style) {
     //const table = selection.parentTable;  
     // context.trackedObjects.add(table);
@@ -35,65 +83,84 @@ export async function styleTable(context, table, style) {
     table.font.size = style.font.size;
     table.font.italics = style.font.italics;
 
+    // Tabelbredde
+    const sidebredde = style.sidebredde;
+    const tabelbredde = sidebredde;
+    table.width = sidebredde;
+    await context.sync();
+
     // Rammer
     for (let b = 0; b < style.border.length; b++) {
-      console.log(style.border[b].location);
       var locationKey = style.border[b].location;
       var borderLocation = Word.BorderLocation[locationKey];
       var border = table.getBorder(borderLocation);
       for (const [key, value] of Object.entries(style.border[b].style)) {
-        console.log(`${key}: ${value}`);
         var borderProperties = {};  
         borderProperties[key] = value;
         border.set(borderProperties);
       } 
     }
     await context.sync();
-    
+
     // Loop over alle rækker
     // Generel række-styling
     for (var i = 0; i < rækker.items.length; i++) {
+      // Alle rækker
       for (var key in style.rows.rowStyle) {
         rækker.items[i][key] = style.rows.rowStyle[key];
         await context.sync();
-        console.log(rækker.items[i], style.rows.rowStyle[key]);
-      }
-    }
-    await context.sync();
-
-    /*
-      // Styler første og sidste række
-      if ((i == 0) | (i == rækker.items.length - 1) & (document.getElementById("checkbox1").checked)) {
-        var borderLocation = Word.BorderLocation.bottom;
-        var border = rækker.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-        var borderLocation = Word.BorderLocation.top;
-        var border = rækker.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-        rækker.items[i].shadingColor = "#DDEBF7";
-        rækker.items[i].font.bold = true;
-        rækker.items[i].font.name = "Calibri";
       }
 
-      if ( (i == rækker.items.length - 1) & (document.getElementById("checkbox1").checked==false)) {
-        var borderLocation = Word.BorderLocation.bottom;
-        var border = rækker.items[i].getBorder(borderLocation);
-        border.set({ color: "#808080", width: 1, type: "Single" });
-      }
-
-      // Loop over celler
+      
+      // Indlæs celler
       var celler = rækker.items[i].cells;
       celler.load("items");
       await context.sync();
 
-      const sidebredde = 468;
-      const tabelBredde = sidebredde;
-      var venstreKolonne = 0.4 
-      if (celler.items.length > 3) {
-        venstreKolonne = 0.3;
+      // Indstiller kolonnebredde af første kolonne
+      var venstreKolonne = style.breddeVenstreKolonne1;
+      if (celler.items.length > style.breddejusteringTreshold) {
+        venstreKolonne = style.breddeVenstreKolonne2;
       }
       
-      table.width = sidebredde;
+      // Indstiller padding
+      styleCells(style.cells, celler); 
+
+      for (var k = 0; k < celler.items.length; k++) {     
+        // Instiller kolonnebredde
+        if (k == 0) {
+          celler.items[k].columnWidth = tabelbredde * venstreKolonne;
+        }
+        if (k >= 1) {
+          celler.items[k].columnWidth = tabelbredde * ((1-venstreKolonne)/(celler.items.length-1));
+        }
+      }
+
+      // Headerrækker
+      if (i < style.rows.headerRows) {
+        styleRow(rækker.items[i], style.rows.headerRowStyle);
+      }
+      
+      // Foderrækker
+      if (i >= rækker.items.length - style.rows.footerRows) {
+        styleRow(rækker.items[i], style.rows.footerRowStyle);
+      }
+
+      // Custom rækker
+      if (style.rows.hasOwnProperty("customRows")) {
+        for (let c = 0; c < style.rows.customRows.length; c++) {
+          var identifier = style.rows.customRows[c].textIdentifier;
+          console.log("Checking row for identifier:", identifier, celler.items[0].value);
+          if (celler.items[0].value.includes(identifier)) {
+            styleRow(rækker.items[i], style.rows.customRows[c].customRowStyle);
+          }
+        }
+      }
+
+    }
+
+/*
+     
 
       for (var k = 0; k < celler.items.length; k++) {     
         // Instiller kolonnebredde

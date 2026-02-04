@@ -1,9 +1,31 @@
 [{
     "name": "customStyle1",
+    "sidebredde": 468,
+    "breddeVenstreKolonne1": 0.4,
+    "breddeVenstreKolonne2": 0.30,
+    "breddejusteringTreshold": 3,
     "font":{
-        "size": 14,
-        "bold": true,
+        "size": 9,
+        "bold": false,
         "italics": false   
+    },
+    "cells": {
+        "left": {
+            "padding": {
+                "Left": 10,
+                "Right": 5,
+                "Top": 2,
+                "Bottom": 2
+            },
+            "alignment": "Left"
+        },
+        "rest": {
+            "padding": {
+                "Top": 2,
+                "Bottom": 2
+            },
+            "alignment": "Right"
+        }
     },
     "border":[
         { 
@@ -44,21 +66,122 @@
                         "type": "Single"
                     }
                 }
-            ]
+            ],
+            "cells": {
+                "left": {
+                    "padding": {
+                        "Left": 5,
+                        "Right": 5,
+                        "Top": 10,
+                        "Bottom": 10
+                    },
+                    "alignment": "Left"
+                },
+                "rest": {
+                    "padding": {
+                        "Left": 5,
+                        "Right": 5,
+                        "Top": 10,
+                        "Bottom": 10
+                    },
+                    "alignment": "Centered"
+                }
+            }
         },
         "footerRows": 1,
         "footerRowStyle": {
-            "bold": true
+           "shadingColor": "#DDEBF7",
+            "font": {
+                "bold": true,
+                "name": "Calibri"
+            },
+            "border":[
+                { 
+                    "location": "top",
+                    "style": {
+                        "color": "#808080", 
+                        "width": 1, 
+                        "type": "Single"
+                    }
+                },
+                { 
+                    "location": "bottom",
+                    "style": {
+                        "color": "#808080", 
+                        "width": 1, 
+                        "type": "Single"
+                    }
+                }
+            ],
+            "cells": {
+                "left": {
+                    "padding": {
+                        "Left": 5,
+                        "Right": 5,
+                        "Top": 2,
+                        "Bottom": 2
+                    },
+                    "alignment": "Left"
+                },
+                "rest": {
+                    "padding": {
+                        "Left": 5,
+                        "Right": 5,
+                        "Top": 2,
+                        "Bottom": 2
+                    },
+                    "alignment": "Right"
+                }
+            }
         },
         "customRows":[{
-            "textIdentifier": "I alt"
-        }],
-        "rowLabels": {
-            "bold": true,
-            "indent": true    
-        }
-    },
-    "cells": {
-        
+            "textIdentifier": "Subtotal",
+            "customRowStyle": {
+                "shadingColor": "#DDEBF7",
+                "font": {
+                    "bold": true,
+                    "italic": true,
+                    "name": "Calibri"
+                },
+                "border":[
+                    { 
+                        "location": "top",
+                        "style": {
+                            "color": "#808080", 
+                            "width": 0.5, 
+                            "type": "Dashed"
+                        }
+                    },
+                    { 
+                        "location": "bottom",
+                        "style": {
+                            "color": "#808080", 
+                            "width": 0.5, 
+                            "type": "Dashed"
+                        }
+                    }
+                ],
+               "cells": {
+                    "left": {
+                        "padding": {
+                            "Left": 5,
+                            "Right": 5,
+                            "Top": 2,
+                            "Bottom": 2
+                        },
+                        "alignment": "Left"
+                    },
+                    "rest": {
+                        "padding": {
+                            "Left": 5,
+                            "Right": 5,
+                            "Top": 2,
+                            "Bottom": 2
+                        },
+                        "alignment": "Right"
+                    }
+                }
+            }
+        }]
     }
 }]
