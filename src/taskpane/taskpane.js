@@ -3,7 +3,7 @@ import { generateTable, readFile } from "./utils/data.js";
 import { generateDocumentFromJSON } from "./utils/generateDocumentFromJSON.js";
 import { generateBB } from "./utils/generateBB.js";
 
-const configurl = 'https://raw.githubusercontent.com/Randers-Kommune-Digitalisering/budget-word-app-config/refs/heads/main/';
+const configurl = 'https://raw.githubusercontent.com/Randers-Kommune-Digitalisering/budget-word-app-config/refs/heads/develop/';
 
 const required_styles = ["Brev/notat KORT (O1)"];
 const allowed_files = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"];
@@ -17,7 +17,7 @@ const credentials = {
 
 
 Office.onReady((info) => {
-  if (info.host === Office.HostType.Word) {
+  if (info.host === Office.HostType.Word) { 
     document.getElementById("skabelon").onclick = () => tryCatch(() => hasStyles(() => tryCatch(skabelon)));
     document.getElementById("loadContentControls").onclick = () => tryCatch(loadElements);
     document.getElementById("loadSelection").onclick = () => tryCatch(loadSelection);
@@ -32,7 +32,7 @@ Office.onReady((info) => {
     document.getElementById("formatIntermediateSumRow").onclick = () => tryCatch(formatIntermediateSumRow);
     document.getElementById("loadBookmark").onclick = () => tryCatch(loadBookmark);
     document.getElementById("sideload-msg").style.display = "none";
-    document.getElementById("app-body").style.display = "flex";
+    document.getElementById("app-body").style.display = "flex"; 
     document.getElementById("file").addEventListener("change", checkfile);
     document.getElementById("generateFromUserJSON").onclick = () => tryCatch(loadUserJSON);
     document.getElementById("generateDummyJSON").onclick = () => tryCatch(callGenerateBB);

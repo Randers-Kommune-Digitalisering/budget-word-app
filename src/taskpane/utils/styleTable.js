@@ -150,7 +150,6 @@ export async function styleTable(context, table, style) {
       if (style.rows.hasOwnProperty("customRows")) {
         for (let c = 0; c < style.rows.customRows.length; c++) {
           var identifier = style.rows.customRows[c].textIdentifier;
-          console.log("Checking row for identifier:", identifier, celler.items[0].value);
           if (celler.items[0].value.includes(identifier)) {
             styleRow(rækker.items[i], style.rows.customRows[c].customRowStyle);
           }
