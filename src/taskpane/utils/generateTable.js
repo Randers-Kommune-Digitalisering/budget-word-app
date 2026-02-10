@@ -16,7 +16,7 @@ export async function tabelgenerator(type, dokument, dokumentdata, udvalg, bevil
 
         var parse = require("json-templates");
         var parseKolonner = parse(tabel.kolonner);
-
+ 
         tabeldata.push(parseKolonner({
             bevillingsomraadeParse: bevillingsomraade, aar1: budgetperiodeÅr1, aar2: budgetperiodeÅr2, aar3: budgetperiodeÅr3, aar4: budgetperiodeÅr4
         }));

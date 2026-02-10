@@ -86,13 +86,23 @@ export async function generateDocumentFromJSON(jsonData) {
             /* Tabeller */
             if (data[i].type === "tabel") {
                 const tabel = body.insertTable(data[i].indhold.length, data[i].indhold[0].length, Word.InsertLocation.end, data[i].indhold);
+
+                // Indsætter titel og beskrivelse fra JSON
+                tabel.title = data[i].titel;
+                tabel.description = data[i].beskrivelse; 
+
+                // Sætter første række som header (virker ikke rigtig)
+                tabel.rows.getFirst().header = true;
+                await context.sync();
+
+                // Styler som valgt tabel
                 if (data[i].hasOwnProperty("styleAsSelectedTable") && (data[i].styleAsSelectedTable === true)) {
                     tabel.select();
                     await context.sync();
                     formatSelectedTable();
                 }
+                // Styler med custom style
                 if (data[i].hasOwnProperty("style")) {
-                    console.log("Kommer her");
                     await styleTable(context, tabel, data[i].style);
                 }
             }
