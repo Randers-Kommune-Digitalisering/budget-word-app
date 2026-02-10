@@ -12,8 +12,6 @@ export async function generateDocumentFromJSON(jsonData) {
     return Word.run(async (context) => { 
         let data;
 
-        var tableStyles = await fetchAssets("https://localhost:3000/assets/"+"tableStyles.json");
-
         try {
             data = typeof jsonData === "string" ? JSON.parse(jsonData) : jsonData;
         } catch (e) {

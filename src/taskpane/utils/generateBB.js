@@ -67,6 +67,10 @@ export async function generateBB(configurl, dokument, udvalg, bevillingsomraade)
                 styleAsSelectedTable: sektioner[i].tabel[j].styleAsSelectedTable, 
                 style: customStyle.filter(obj => obj.name == sektioner[i].tabel[j].style)[0]
               })
+
+              if (tabel.hasOwnProperty("note") && tabel.note !== "") {
+                data.push({type: "tekst", indhold: tabel.note, skrifttype:{størrelse: tabel.noteStyle.størrelse, kursiv: tabel.noteStyle.kursiv}});
+              } 
             }
           }
           data.push(tomlinje());

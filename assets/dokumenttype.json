@@ -357,7 +357,6 @@
         }],
         "tabeller":[{
             "type":"bb01",
-            "note":"",
             "titel":"Driftsbudget",
             "beskrivelse":"Tabellen viser budgettet på drift fra {{fra}}-{{til}} på bevillingsområdet opdelt på servicerammen og uden for servicerammen.",
             "kolonner":[
@@ -366,11 +365,16 @@
         },
         {
             "type":"testtabel",
+            "titel":"Testtabel",
+            "beskrivelse":"Dette er en testtabel.",
+            "note":"Note: Dette er en testnote.",
+            "noteStyle":{
+                "størrelse": 8,
+                "kursiv": true
+            },
             "kolonner":[
                 "Header 1","Header 2","Header 3"
-            ],
-            "titel":"Testtabel",
-            "beskrivelse":"Dette er en testtabel."
+            ]
         }]
     },
     {
