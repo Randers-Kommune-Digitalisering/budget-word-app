@@ -67,6 +67,24 @@ export async function tabelgenerator(type, dokument, dokumentdata, udvalg, bevil
         
 
     }   
+    if (type === "boservicerammen") {
+        var tabel = dokumentdata.tabeller.filter((obj) => obj.type == type);
+        tabel = tabel[0];
+
+        tabeldata.push(tabel.kolonner);
+        var udvalg = udvalg.bevillingsområde.filter((obj) => obj.navn == bevillingsomraade);
+        udvalg = udvalg[0];
+        var rowsFullArray = udvalg.drift[0].servicerammen;
+        var rows = rowsFullArray.map(subArray => subArray[0])
+        for (let i = 0; i < rows.length; i++) {
+            var rowData = [rows[i]];
+            for (let j = 1; j < tabel.kolonner.length; j++) {
+                rowData.push("");
+            }       
+            tabeldata.push(rowData);
+        }
+        tabeldata.push(["I alt", "","","","", "", "", ""]);
+    }
 
     console.log("Tabeldata genereret:", tabeldata);
     return tabeldata;

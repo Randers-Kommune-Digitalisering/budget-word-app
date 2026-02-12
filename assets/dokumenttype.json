@@ -341,17 +341,21 @@
                 "identifier":"drift",
                 "overskrift":"Drift",
                 "styling":"Overskrift 3",
-                            "tabel":[{
-                "type":"testtabel",
-                "style":"customStyle1"
-            }],
+                "tabel":[{
+                    "type":"testtabel",
+                    "style":"customStyle1"
+                }],
                 "standardtekst":"",
                 "sektioner":[{     
                     
                     "identifier":"servicerammen",
                     "overskrift":"Servicerammen",
                     "styling":"Overskrift 4",
-                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Service."
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Service.",
+                    "tabel":[{
+                        "type":"boservicerammen",
+                        "style":"customStyle1"
+                    }]
                 },
                 {
                     "identifier":"indkomstoverførsler",
@@ -415,7 +419,26 @@
                 }]
             }]
         }],
-        "tabeller":[
+        "tabeller":[{
+            "type":"boservicerammen",
+            "note":"Note: Minus angiver et mindreforbrug/overskud i Årets resultat og overførsler. Plus angiver et merforbrug/underskud.",
+            "beskrivelse":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for service, bevillingsområde {{bevillingsomraade}}.",
+            "Titel":"Service",
+            "kolonner":[
+                "Service (mio. kr.)",	
+                "Oprindeligt budget",	
+                "Korrigeret budget ekskl. overførsler",	
+                "Regnskab",	
+                "Årets resultat ekskl. overførsler",
+                "Overførsler {{lastYear}}",	
+                "Årets resultat inkl. overførsler {{lastYear}}",	
+                "Overførsler til {{nextYear}}"
+            ],
+            "noteStyle":{
+                "størrelse": 8,
+                "kursiv": true
+            }
+        },
         {
             "type":"testtabel",
             "titel":"Testtabel",
