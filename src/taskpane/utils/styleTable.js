@@ -111,7 +111,6 @@ export async function styleTable(context, table, style) {
         await context.sync();
       }
 
-      
       // Indlæs celler
       var celler = rækker.items[i].cells;
       celler.load("items");
@@ -157,67 +156,5 @@ export async function styleTable(context, table, style) {
       }
 
     }
-
-/*
-     
-
-      for (var k = 0; k < celler.items.length; k++) {     
-        // Instiller kolonnebredde
-        if (k == 0) {
-          celler.items[k].columnWidth = tabelBredde * venstreKolonne;
-        }
-        if (k >= 1) {
-          celler.items[k].columnWidth = tabelBredde * ((1-venstreKolonne)/(celler.items.length-1));
-        }
-
-        // Sætter padding
-        if (i == 0) {
-          celler.items[k].setCellPadding("Top", 10);
-          celler.items[k].setCellPadding("Bottom", 10);
-        } else  {
-          celler.items[k].setCellPadding("Top", 2);
-          celler.items[k].setCellPadding("Bottom", 2);
-        }
-         
-        // Tekstfarve
-        celler.items[k].body.font.set({color: "#000000"});
-
-        // Højrestiller kolonneoverskrifter til højre hvis kun tal -
-        // OBS: Redundant - gælder åbenbart ikke ikke BB-tabeller!
-        if ((i == 0) & (k > 0)) {
-          const årstal = /^\d{4}$/;
-          if (årstal.test(celler.items[k].value) == true) {
-            celler.items[k].horizontalAlignment = "Centered";
-          } else {
-            celler.items[k].horizontalAlignment = "Centered";
-          }
-        }
-        // Højrestiller kolonne > 1 og række > 1
-        if ((i > 0) & (k > 0)) {
-          celler.items[k].horizontalAlignment = "Right";
-        }
-        if (document.getElementById("checkbox2").checked) {
-          if ((k == 0) & (i > 0) & (i < rækker.items.length - 1)) {
-            celler.items[k].setCellPadding("Left", 10);
-          }
-        }
-        // Styler i alt-rækker
-        if (celler.items[k].value.slice(0, 5) == "I alt") {
-          // console.log(celler.items[k].value.slice(0, 5));
-          rækker.items[i].shadingColor = "#DDEBF7";
-          rækker.items[i].font.bold = true;
-          celler.items[k].setCellPadding("Left", 5);
-          var borderLocation = Word.BorderLocation.top; 
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-          var borderLocation = Word.BorderLocation.bottom;
-          var border = rækker.items[i].getBorder(borderLocation);
-          border.set({ color: "#808080", width: 1, type: "Single" });
-        }
-        
-      }
-      await context.sync();
-    }
-    */
     await context.sync();
 }

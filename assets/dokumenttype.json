@@ -307,6 +307,130 @@
         }
     },
     {
+        "type":"Budgetopfølgning - ny",
+        "langtNavn":"Budgetopfølgning og forventet regnskab",
+        "notatdetaljer":[
+            "Sagsnavn:",
+            "Sagsnummer:",
+            "Skrevet af:",
+            "E-mail:",
+            "Forvaltning:",
+            "Dato:",
+            "Sendes til:"	
+        ],
+        "undertype":[
+            "31. marts",
+            "31. maj",
+            "30. september"
+        ],
+        "headersektioner":[{
+            "overskrift":"Budgetopfølgning pr. {{dato}}",
+            "styling":"Brev (O1)"
+        },
+        {  
+            "overskrift":"{{udvalg}} – budgetopfølgning og forventet regnskab pr. – {{dato}}",
+            "styling":"Overskrift 1",
+            "standardtekst":""
+        }],
+        "sektioner":[
+        {
+            "overskrift":"{{bevillingsomraade}}",
+            "styling":"Overskrift 2",
+            "standardtekst":"Alle beløb i tabellerne er angivet i mio. kr.",
+            "sektioner":[{
+                "identifier":"drift",
+                "overskrift":"Drift",
+                "styling":"Overskrift 3",
+                            "tabel":[{
+                "type":"testtabel",
+                "style":"customStyle1"
+            }],
+                "standardtekst":"",
+                "sektioner":[{     
+                    
+                    "identifier":"servicerammen",
+                    "overskrift":"Servicerammen",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Service."
+                },
+                {
+                    "identifier":"indkomstoverførsler",
+                    "overskrift":"Indkomstoverførsler",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Indkomstoverførsler."
+                },
+                {
+                    "identifier":"ældreboliger",
+                    "overskrift":"Ældreboliger - drift",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Ældreboliger - drift."
+                },
+                {
+                    "identifier":"brugerfinansieret",
+                    "overskrift":"Brugerfinansierede udgifter - drift",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Brugerfinansierede udgifter - drift."
+                },
+                {
+                    "identifier":"centralerefusion",
+                    "overskrift":"Centrale refusionsordninger mv.",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Centrale refusionsordninger mv."
+                },
+                {
+                    "identifier":"aktivitetsbestemt",
+                    "overskrift":"Aktivitetsbestemt medfinansiering",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Aktivitetsbestemt medfinansiering."
+                }]
+            },
+            {
+                "identifier":"anlæg",
+                "overskrift":"Anlæg",
+                "styling":"Overskrift 3",
+                "standardtekst":"",
+                "sektioner":[{
+                    "identifier":"skattefinansierede",
+                    "overskrift":"Skattefinansierede anlæg",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Skattefinansierede anlæg."
+                },
+                {
+                    "identifier":"ældreboligeranlæg",
+                    "overskrift":"Ældreboliger - anlæg",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Ældreboliger - anlæg."
+                },
+                {
+                    "identifier":"brugerfinansieretanlæg",
+                    "overskrift":"Brugerfinansierede udgifter - anlæg",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Brugerfinansierede udgifter - anlæg."
+                },
+                {
+                    "identifier":"jordforsyning",
+                    "overskrift":"Jordforsyning",
+                    "styling":"Overskrift 4",
+                    "standardtekst":"Tabellen viser budget, bevillingsansøgninger, forventet forbrug og årets resultat for Jordforsyning."
+                }]
+            }]
+        }],
+        "tabeller":[
+        {
+            "type":"testtabel",
+            "titel":"Testtabel",
+            "beskrivelse":"Dette er en testtabel.",
+            "note":"Note: Dette er en testnote.",
+            "noteStyle":{
+                "størrelse": 8,
+                "kursiv": true
+            },
+            "kolonner":[
+                "Header 1","Header 2","Header 3"
+            ]
+        }]
+    },
+    {
         "type":"Budgetbemærkninger del 1 - ny",
         "langtNavn":"Del 1",
         "sidehoved":[{
@@ -328,9 +452,10 @@
         "sektioner":[{
             "overskrift":"1. Beskrivelse af området",
             "styling":"Overskrift 2",
+            "standardtekst":"Dette er en standardtekst.",
             "tabel":[{
                 "type":"testtabel",
-                "style": "customStyle1"
+                "style":"customStyle1"
             }]
             
         },{

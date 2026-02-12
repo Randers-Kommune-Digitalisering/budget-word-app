@@ -2,6 +2,7 @@ import { formatSelectedTableBuildIn, formatIntermediateSumRow, formatSelectedTab
 import { generateTable, readFile } from "./utils/data.js";
 import { generateDocumentFromJSON } from "./utils/generateDocumentFromJSON.js";
 import { generateBB } from "./utils/generateBB.js";
+import { generateBO } from "./utils/generateBO.js";
 
 const configurl = 'https://raw.githubusercontent.com/Randers-Kommune-Digitalisering/budget-word-app-config/refs/heads/develop/';
 
@@ -35,12 +36,14 @@ Office.onReady((info) => {
     document.getElementById("app-body").style.display = "flex"; 
     document.getElementById("file").addEventListener("change", checkfile);
     document.getElementById("generateFromUserJSON").onclick = () => tryCatch(loadUserJSON);
-    document.getElementById("generateDummyJSON").onclick = () => tryCatch(callGenerateBB);
+    document.getElementById("generateDummyJSON").onclick = () => tryCatch(callGenerate);
   }
 });
+ 
+async function callGenerate() {
+  const data = await generateBO("Budgetopfølgning - ny", "SAU2629", "31. marts 2026");
 
-async function callGenerateBB() {
-  const data = await generateBB(configurl, "Budgetbemærkninger del 1 - ny", "SAU2629", "Beskæftigelse, integration og ydelser");
+  /* const data = await generateBB("Budgetbemærkninger del 1 - ny", "SAU2629", "Job, vejledning, integration og ydelser"); */
 
   /* Generer skabelon */
   /* generateDocumentFromJSON(JSON.stringify(data)); */

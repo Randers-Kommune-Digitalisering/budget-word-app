@@ -33,6 +33,7 @@ export async function generateDocumentFromJSON(jsonData) {
                 if (data[i].hasOwnProperty("rydAlt") && data[i].rydAlt === true) {
                     await rydAlt();
                 }
+                await context.sync();
             }
 
             /* Sidehoved */
@@ -50,6 +51,7 @@ export async function generateDocumentFromJSON(jsonData) {
                         header.alignment = data[i].skrifttype.justering;
                     }
                 }
+                await context.sync();
             }
             /* Afsnit */
             if (data[i].type === "afsnit") {
@@ -62,10 +64,13 @@ export async function generateDocumentFromJSON(jsonData) {
                 if (data[i].hasOwnProperty("styleBuiltIn")) {
                     afsnit.styleBuiltIn = data[i].styleBuiltIn;               
                 }
+                await context.sync();
             }
             /* Tekst */
             if (data[i].type === "tekst") {
-                const tekst = body.insertText(data[i].indhold, Word.InsertLocation.end);
+                var indhold 
+                data[i].indhold === null ? indhold = "" : indhold = data[i].indhold;
+                const tekst = body.insertText(indhold, Word.InsertLocation.end);
                 if (data[i].hasOwnProperty("style")) {
                     tekst.style = data[i].style;              
                 } 
@@ -80,6 +85,7 @@ export async function generateDocumentFromJSON(jsonData) {
                         tekst.font.size = data[i].skrifttype.størrelse;
                     }     
                 }
+                await context.sync();
             }
             /* Tabeller */
             if (data[i].type === "tabel") {
@@ -103,8 +109,8 @@ export async function generateDocumentFromJSON(jsonData) {
                 if (data[i].hasOwnProperty("style")) {
                     await styleTable(context, tabel, data[i].style);
                 }
+                await context.sync();
             }
         }
-        await context.sync();
     }); 
 }
